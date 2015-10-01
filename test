@@ -1,0 +1,43 @@
+var companies = ["Abacus", "AirHelp", "AirPair", "Algolia", "Ambition", "AptDeco", "Beacon", "Bellabeat", "Boostable", "Cambly", "Camperoo", "CareMessage", "CodeCombat", "CodeNow", "Eventjoy", "Framed Data", "Gbatteries"];
+var category = ["transportation", "education", "communication", "sharing economy"];
+
+
+function seedMinions() {
+  var minions = [
+    {
+      name: 'Uber',
+      category: 'transportation',
+      cost: 10,
+      hitPoints: 7,
+      attackPoints: 10,
+      description: 'Uber cool!',
+      rarity: 3,
+      portrait: '/images/uber.jpg',
+    },
+    {
+      name: 'Slack',
+      category: 'communication',
+      cost: 6,
+      hitPoints: 4,
+      attackPoints: 7,
+      description: 'Slack!',
+      rarity: 1,
+      portrait: '/images/slack.jpg',
+    }];
+
+    for (var i = 0; i < 15; i++){
+        var obj = {};
+        obj.name = companies[Math.floor(Math.random() * companies.length)];
+        obj.category = category[Math.floor(Math.random() * category.length)];
+        obj.cost = Math.floor(Math.random() * 10);
+        obj.hitPoints = Math.floor(Math.random() * 10);
+        obj.attackPoints = Math.floor(Math.random() * 10);
+        obj.description = "Y Combinator Company";
+        obj.rarity = Math.floor(Math.random() * 4);
+        obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
+        minions.push(obj);
+    }
+  return minions;    
+}
+
+console.log(seedMinions());

@@ -1,9 +1,10 @@
 'use strict';
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
-var extend = require('mongoose-schema-extend')
+var extend = require('mongoose-schema-extend');
+var Schema = mongoose.Schema;
 
-var schema = new mongoose.Schema({
+var cardSchema = new mongoose.Schema({
   name: {
 		type: String,
 		required: true
@@ -30,10 +31,14 @@ var schema = new mongoose.Schema({
   },
   logic: {
 		type: String
+  },
+	cost: {
+		type: Number,
+		min: 0
   }
-}, { collection : 'cards', discriminatorKey : 'type' });
+}, { collection : 'cards', discriminatorKey : '_type' });
 
-var minionSchema = schema.extend({
+var minionSchema = cardSchema.extend({
   hitPoints: {
 		type: Number,
 		required: true,
@@ -46,13 +51,13 @@ var minionSchema = schema.extend({
   },
 });
 
-var spellSchema = schema.extend({});
+var spellSchema = cardSchema.extend({});
 
-schema.virtual('rarity.name').get(function () {
+cardSchema.virtual('rarity.name').get(function () {
   var names = ['common', 'uncommon', 'rare', 'legendary'];
   return names[this.rarity];
 });
 
-mongoose.model('Card', schema);
+mongoose.model('Card', cardSchema);
 mongoose.model('Minion', minionSchema);
 mongoose.model('Spell', spellSchema);

@@ -29,6 +29,9 @@ var Game = Promise.promisifyAll(mongoose.model('Game'));
 var chance = require('chance')(123);
 
 var tempData = {};
+var companies = ["Abacus", "AirHelp", "AirPair", "Algolia", "Ambition", "AptDeco", "Beacon", "Bellabeat", "Boostable", "Cambly", "Camperoo", "CareMessage", "CodeCombat", "CodeNow", "Eventjoy", "Framed Data", "Gbatteries"];
+var spellNames = ["Astral Communion", "Bite", "Claw", "Dark Wispers", "Force of Nature", "Healing Touch", "Innervate", "Living Roots", "Mark of the Wild", "Poison Seeds", "Recycle"];
+var category = ["transportation", "education", "communication", "sharing economy"];
 
 function randPhoto () {
     var g = chance.pick(['men', 'women']);
@@ -72,45 +75,40 @@ var seedUsers = function () {
 };
 
 function seedMinions() {
-  var minions = [
-    {
-      name: 'Uber',
-      category: 'transportation',
-      cost: 10,
-      hitPoints: 7,
-      attackPoints: 10,
-      description: 'Uber cool!',
-      rarity: 3,
-      portrait: '/images/uber.jpg',
-    },
-    {
-      name: 'Slack',
-      category: 'communication',
-      cost: 6,
-      hitPoints: 4,
-      attackPoints: 7,
-      description: 'Slack!',
-      rarity: 1,
-      portrait: '/images/slack.jpg',
+  var minions = [];
+
+    for (var i = 0; i < 15; i++){
+        var obj = {};
+        obj.name = companies[Math.floor(Math.random() * companies.length)];
+        obj.category = category[Math.floor(Math.random() * category.length)];
+        obj.type = "minion";
+        obj.description = "Y Combinator Company";
+        obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
+        obj.rarity = Math.floor(Math.random() * 4);
+        obj.cost = Math.floor(Math.random() * 10);
+        obj.hitPoints = Math.floor(Math.random() * 10);
+        obj.attackPoints = Math.floor(Math.random() * 10);
+        minions.push(obj);
     }
-  ];
+    console.log(minions);
 
   return Minion.createAsync(minions);
 }
 
 function seedSpells() {
-  var spells = [
-    {
-      name: 'Uber',
-      category: 'transportation',
-      cost: 10,
-      hitPoints: 7,
-      attackPoints: 10,
-      description: 'Uber cool!',
-      rarity: 3,
-      portrait: '/images/uber.jpg',
-    }
-  ];
+  var spells = [];
+  for (var i = 0; i < 15; i++){
+    var obj = {};
+    obj.name = spellNames[Math.floor(Math.random() * spellNames.length)];
+    obj.category = category[Math.floor(Math.random() * category.length)];
+    obj.type = "spell";
+    obj.cost = Math.floor(Math.random() * 10);
+    obj.description = "Y Combinator Spell";
+    obj.rarity = Math.floor(Math.random() * 4);
+    obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
+    spells.push(obj);
+  }
+  console.log(spells);
 
   return Spell.createAsync(spells);
 }
