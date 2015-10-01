@@ -34,12 +34,12 @@ var schema = new mongoose.Schema({
 }, { collection : 'cards', discriminatorKey : 'type' });
 
 var minionSchema = schema.extend({
-  hp: {
+  hitPoints: {
 		type: Number,
 		required: true,
 		min: 0
   },
-  ap: {
+  attackPoints: {
 		type: Number,
 		required: true,
 		min: 0
@@ -49,7 +49,7 @@ var minionSchema = schema.extend({
 var spellSchema = schema.extend({});
 
 schema.virtual('rarity.name').get(function () {
-  let names = ['common', 'uncommon', 'rare', 'legendary'];
+  var names = ['common', 'uncommon', 'rare', 'legendary'];
   return names[this.rarity];
 });
 
