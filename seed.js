@@ -22,7 +22,9 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
-var Game = Game.promisifyAll(mongoose.model('User'));
+var Minion = Game.promisifyAll(mongoose.model('Minion'));
+var Spell = Game.promisifyAll(mongoose.model('Spell'));
+var Game = Game.promisifyAll(mongoose.model('Game'));
 var chance = require('chance')(123);
 
 var tempData = {};
@@ -68,11 +70,49 @@ var seedUsers = function () {
     return User.createAsync(users);
 };
 
-var seedCards = function() {
+function seedMinions() {
+  var minions = [
+    {
+      name: 'Uber',
+      category: 'transportation',
+      cost: 10,
+      hitPoints: 7,
+      attackPoints: 10,
+      description: 'Uber cool!',
+      rarity: 3,
+      portrait: '/images/uber.jpg',
+    },
+    {
+      name: 'Slack',
+      category: 'communication',
+      cost: 6,
+      hitPoints: 4,
+      attackPoints: 7,
+      description: 'Slack!',
+      rarity: 1,
+      portrait: '/images/slack.jpg',
+    }
+  ];
 
-};
+  return Minion.createAsync(minions);
+}
 
+function seedSpells() {
+  var spells = [
+    {
+      name: 'Uber',
+      category: 'transportation',
+      cost: 10,
+      hitPoints: 7,
+      attackPoints: 10,
+      description: 'Uber cool!',
+      rarity: 3,
+      portrait: '/images/uber.jpg',
+    }
+  ];
 
+  return Spell.createAsync(spells);
+}
 
 connectToDb.then(function () {
     User.findAsync({}).then(function (users) {
@@ -83,7 +123,12 @@ connectToDb.then(function () {
             process.kill(0);
         }
     }).then(function (users) {
-        tempData.users = users;
+      tempData.users = users;
+      return seedMinions();
+    }).then(function(minions) {
+      tempData.minions = minions;
+
+    }).then(function() {
         console.log(chalk.green('Seed successful!'));
         process.kill(0);
     }).catch(function (err) {
