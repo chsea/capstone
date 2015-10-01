@@ -31,16 +31,20 @@ var cardSchema = new mongoose.Schema({
   },
   logic: {
 		type: String
+  },
+	cost: {
+		type: Number,
+		min: 0
   }
 }, { collection : 'cards', discriminatorKey : '_type' });
 
 var minionSchema = cardSchema.extend({
-  hp: {
+  hitPoints: {
 		type: Number,
 		required: true,
 		min: 0
   },
-  ap: {
+  attackPoints: {
 		type: Number,
 		required: true,
 		min: 0
