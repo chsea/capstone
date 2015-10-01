@@ -22,12 +22,14 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
-var Minion = Game.promisifyAll(mongoose.model('Minion'));
-var Spell = Game.promisifyAll(mongoose.model('Spell'));
-var Game = Game.promisifyAll(mongoose.model('Game'));
+var Minion = Promise.promisifyAll(mongoose.model('Minion'));
+var Spell = Promise.promisifyAll(mongoose.model('Spell'));
+var Game = Promise.promisifyAll(mongoose.model('Game'));
 var chance = require('chance')(123);
 
 var tempData = {};
+var companies = ["Abacus", "AirHelp", "AirPair", "Algolia", "Ambition", "AptDeco", "Beacon", "Bellabeat", "Boostable", "Cambly", "Camperoo", "CareMessage", "CodeCombat", "CodeNow", "Eventjoy", "Framed Data", "Gbatteries"];
+var category = ["transportation", "education", "communication", "sharing economy"];
 
 function randPhoto () {
     var g = chance.pick(['men', 'women']);
@@ -80,7 +82,7 @@ function seedMinions() {
       attackPoints: 10,
       description: 'Uber cool!',
       rarity: 3,
-      portrait: '/images/uber.jpg',
+      portrait: 'http://thecatapi.com/api/images/get?format=src&type=gif',
     },
     {
       name: 'Slack',
@@ -90,9 +92,22 @@ function seedMinions() {
       attackPoints: 7,
       description: 'Slack!',
       rarity: 1,
-      portrait: '/images/slack.jpg',
+      portrait: 'http://thecatapi.com/api/images/get?format=src&type=gif',
+    }];
+
+    for (var i = 0; i < 15; i++){
+        var obj = {};
+        obj.name = companies[Math.floor(Math.random() * companies.length)];
+        obj.category = category[Math.floor(Math.random() * category.length)];
+        obj.cost = Math.floor(Math.random() * 10);
+        obj.hitPoints = Math.floor(Math.random() * 10);
+        obj.attackPoints = Math.floor(Math.random() * 10);
+        obj.description = "Y Combinator Company";
+        obj.rarity = Math.floor(Math.random() * 4);
+        obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
+        minions.push(obj);
     }
-  ];
+    console.log(minions);
 
   return Minion.createAsync(minions);
 }
