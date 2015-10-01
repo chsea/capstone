@@ -4,14 +4,20 @@ var io = null;
 
 module.exports = function (server) {
 
-    if (io) return io;
+  if (io) return io;
 
-    io = socketio(server);
+  io = socketio(server);
 
-    io.on('connection', function () {
-        // Now have access to socket, wowzers!
-    });
-    
-    return io;
+  let users = [];
+  io.on('connection', socket => {
+    console.log('user connected');
+
+    socket.on('createGame', user => {
+      users.push(user);
+      console.log(user);
+    })
+  });
+
+  return io;
 
 };

@@ -24,6 +24,7 @@ var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Minion = Promise.promisifyAll(mongoose.model('Minion'));
 var Spell = Promise.promisifyAll(mongoose.model('Spell'));
+var Card = Promise.promisifyAll(mongoose.model('Card'));
 var Game = Promise.promisifyAll(mongoose.model('Game'));
 var chance = require('chance')(123);
 
@@ -112,22 +113,38 @@ function seedSpells() {
   return Spell.createAsync(spells);
 }
 
+function seedGames() {
+  var games = [
+    {
+      name: 'Startup',
+      cards: tempData.cards.map(function(card) { return card._id; }),
+      users: tempData.users.map(function(user) { return user._id; }),
+      creators: [tempData.users[0]._id]
+    }
+  ];
+
+  return Game.createAsync(games);
+}
+
 connectToDb.then(function () {
-    User.findAsync({}).then(function (users) {
-        if (users.length === 0) {
-            return seedUsers();
-        } else {
-            console.log(chalk.magenta('Seems to already be user data, exiting!'));
-            process.kill(0);
-        }
+  User.remove()
+    .then(function(){
+      return Card.remove();
+    }).then(function(){
+      return Card.remove();
+    }).then(function(){
+      return Game.remove();
+    }).then(function() {
+      return seedUsers();
     }).then(function (users) {
       tempData.users = users;
       return seedMinions();
     }).then(function(minions) {
-      tempData.minions = minions;
+      tempData.cards = minions;
       return seedSpells();
     }).then(function(spells) {
-        tempData.spells = spells;
+      tempData.cards.concat(spells);
+      return seedGames();
     }).then(function() {
         console.log(chalk.green('Seed successful!'));
         process.kill(0);
