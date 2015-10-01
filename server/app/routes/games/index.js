@@ -1,7 +1,7 @@
 'use strict';
 var router = require('express').Router();
 var _ = require('lodash');
-var Game = mongoose.model('Game');
+var Game = require('mongoose').model('Game');
 
 router.param('id', (req, res, next, id) => {
   Game.findById(id).then(game => {

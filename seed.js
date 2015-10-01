@@ -22,6 +22,7 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
+var Game = Game.promisifyAll(mongoose.model('User'));
 var chance = require('chance')(123);
 
 var tempData = {};
@@ -66,7 +67,7 @@ var seedUsers = function () {
 
     return User.createAsync(users);
 };
- 
+
 var seedCards = function() {
 
 };
