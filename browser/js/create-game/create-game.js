@@ -1,12 +1,12 @@
 app.config($stateProvider => {
   $stateProvider.state('createGame', {
     url: '/create-game',
-    templateUrl: 'js/home/create-game.html',
+    templateUrl: 'js/create-game/create-game.html',
     controller: 'CreateGameController',
-    // resolve: {
-    //   users:
-    // }
+    resolve: {
+      user: AuthService => AuthService.getLoggedInUser()
+    }
   });
-}).controller('CreateGameController', ($state) => {
-
+}).controller('CreateGameController', ($scope, $state, Socket, user) => {
+  Socket.emit('createGame', user);
 });
