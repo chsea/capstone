@@ -12,7 +12,7 @@ router.param('id', (req, res, next, id) => {
 });
 
 router.get('/', (req, res) => {
-  Game.find().then(games => res.send(games));
+  Game.find(req.query).then(games => res.send(games));
 });
 
 router.post('/', (req, res) => {
