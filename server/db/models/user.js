@@ -16,6 +16,7 @@ var schema = new mongoose.Schema({
     },
     isAdmin: {
         type: Boolean,
+        default: false
     },
     password: {
         type: String
@@ -26,7 +27,7 @@ var schema = new mongoose.Schema({
     google: {
         id: String
     },
-    photoUrl: {
+    photo: {
         type: String,
         default: '/images/default-img.png'
     },
