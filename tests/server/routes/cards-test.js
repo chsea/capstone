@@ -61,7 +61,7 @@ describe('Card Route', function () {
     
     describe('gets all cards', function() {
   		it('should get a 200 response and return an array of cards', function (done) {
-  			userAgent.get('/api/card/')
+  			userAgent.get('/api/cards/')
   				.expect(200).end(function(err, response) {
             if(err) return done(err);
             expect(response.body).to.be.an('array');
