@@ -90,7 +90,6 @@ function seedMinions() {
         obj.attackPoints = Math.floor(Math.random() * 10);
         minions.push(obj);
     }
-    console.log(minions);
 
   return Minion.createAsync(minions);
 }
@@ -108,7 +107,6 @@ function seedSpells() {
     obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
     spells.push(obj);
   }
-  console.log(spells);
 
   return Spell.createAsync(spells);
 }
