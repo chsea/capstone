@@ -61,9 +61,8 @@ module.exports = function (server) {
 
     socket.on('startedGame', () => {
       let game = games[socket.game];
-      let players = {p1Name: game.player1.player.username, p2Name: game.player2.player.username};
+      let players = socket.player1 ? {player: game.player1.player.username, opponent: game.player2.player.username} : {player: game.player2.player.username, opponent: game.player1.player.username};
       let deck = socket.player1 ? game.player1.deck : game.player2.deck;
-      console.log(deck.cards);
       socket.emit('players', players, {card1: deck.cards[0].name, card2: deck.cards[1].name});
     });
   });

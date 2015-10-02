@@ -9,8 +9,8 @@ app.config($stateProvider => {
   Socket.on('players', (players, cards) => {
     console.log(cards);
     $scope.$apply(() => {
-      $scope.p1 = players.p1Name;
-      $scope.p2 = players.p2Name;
+      $scope.p1 = players.player;
+      $scope.p2 = players.opponent;
       $scope.c1 = cards.card1;
       $scope.c2 = cards.card2;
     });
