@@ -78,7 +78,6 @@ app.config(function(DSProvider, $urlRouterProvider, $locationProvider) {
     }
   }
 
-
   DSProvider.defaults.deserialize = function(Resource, data) {
     var instance = data.data;
     fixRelations(Resource, instance);
