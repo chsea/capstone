@@ -36,6 +36,11 @@ var schema = new mongoose.Schema({
       name: String,
       cards: [{type: ObjectId, ref: "Cards"}]
     }],
+    experience:{
+      type:Number,
+      max: 100,
+      default:0
+    },
     level: {
         type: Number,
         max: 50,
@@ -47,8 +52,22 @@ var schema = new mongoose.Schema({
 
 
 
+
+
+
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
+
+schema.method('experienceToLevel', function(){
+  if(this.experience >= 100) {
+    this.level +=1
+    this.experience = this.experience % 100;
+  }
+})
+
+
+
+
 var generateSalt = function () {
     return crypto.randomBytes(16).toString('base64');
 };
@@ -66,7 +85,10 @@ schema.pre('save', function (next) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
-
+    if(this.experience >100) {
+      this.level +=1
+      this.experience = 0;
+    }
     next();
 
 });
