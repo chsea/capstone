@@ -58,7 +58,7 @@ describe('Card Route', function () {
         done();
       });
     });
-    
+
     describe('gets all cards', function() {
   		it('should get a 200 response and return an array of cards', function (done) {
   			userAgent.get('/api/cards/')

@@ -13,6 +13,11 @@ module.exports = function (server) {
   // let pendingGames = [];
 
   let waitingPlayers = [];
+  let games = [];
+  function Game (p1, p2) {
+    this.player1 = p1;
+    this.player2 = p2;
+  }
   io.on('connection', socket => {
     console.log('user connected');
 
@@ -35,19 +40,31 @@ module.exports = function (server) {
 
     socket.on('join', (player, deck) => {
       if (_.find(waitingPlayers, {player: {_id: player._id}})) return;
-
       // let matchingPlayers = waitingPlayers.filter(matchingPlayer => matchingPlayer.player._id === player._id);
       let matchingPlayers = waitingPlayers;
       if (matchingPlayers.length) {
         let player1 = waitingPlayers.splice(matchingPlayers[0].index, 1)[0];
-        player1.socket.emit('startGame');
-        console.log('hi');
-        socket.emit('startGame');
+        let player2 = {player: player, deck: deck, socket: socket};
+        games.push(new Game(player1, player2));
+        player1.socket.game = games.length - 1;
+        player1.socket.player1 = true;
+        socket.game = games.length - 1;
+        player1.socket.join(`game${games.length}`);
+        socket.join(`game${games.length}`);
+        io.to(`game${games.length}`).emit('startGame', games.length);
       }
       else {
         waitingPlayers.push({player: player, deck: deck, socket: socket, index: waitingPlayers.length});
         socket.emit('waitForPlayer');
       }
+    });
+
+    socket.on('startedGame', () => {
+      let game = games[socket.game];
+      let players = {p1Name: game.player1.player.username, p2Name: game.player2.player.username};
+      let deck = socket.player1 ? game.player1.deck : game.player2.deck;
+      console.log(deck.cards);
+      socket.emit('players', players, {card1: deck.cards[0].name, card2: deck.cards[1].name});
     });
   });
 
