@@ -4,16 +4,24 @@ app.config(function ($stateProvider) {
     $stateProvider.state('addDeck', {
         url: '/deck',
         controller: 'DeckController',
-        templateUrl: 'js/create-deck/deck.html'
+        templateUrl: 'js/create-deck/deck.html',
+        resolve: {
+                cardlist: function(CardFactory) {
+                    return Card.findAll({})
+                        .then(function(cards){
+                            return cards;
+                        });
+                    }
+            }
+
     });
 });
 
 app.controller('DeckController', function ($scope) {
     // $scope.user.deck;
     $scope.deck = [];
-    $scope.createDeck = function(card) {
+    $scope.addCardToDeck = function(card) {
       // add cards to users deck
 		};
-
 
 });
