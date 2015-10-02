@@ -4,12 +4,12 @@ app.config(function ($stateProvider) {
     $stateProvider.state('addDeck', {
         url: '/deck',
         controller: 'DeckController',
-        templateUrl: 'js/createDeck/deck.html'
+        templateUrl: 'js/create-deck/deck.html'
     });
 });
 
 app.controller('DeckController', function ($scope) {
-
+    // $scope.user.deck;
     $scope.deck = [];
     $scope.createDeck = function(card) {
       // add cards to users deck
