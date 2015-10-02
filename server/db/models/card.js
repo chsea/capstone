@@ -51,6 +51,9 @@ var minionSchema = cardSchema.extend({
   },
 });
 
+
+
+
 var spellSchema = cardSchema.extend({});
 
 cardSchema.virtual('rarity.name').get(function () {
