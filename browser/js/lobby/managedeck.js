@@ -17,8 +17,8 @@ app.config( function($stateProvider){
 
 app.controller('manageDeckController', function($scope, users,$http, user){
   console.log(user);
-  $scope.users = users;
+  $scope.users = user.decks;
   $scope.userCards = user.cards
-  $scope.currentDeck = user.decks[0]
+  $scope.currentDeck = user.decks
 
 })

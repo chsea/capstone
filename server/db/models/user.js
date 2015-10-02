@@ -38,7 +38,7 @@ var schema = new mongoose.Schema({
   }],
   decks: {
     type: ObjectId,
-    ref: 'Decks'
+    ref: 'Deck'
   },
   experience: {
     type: Number,

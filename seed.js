@@ -25,6 +25,8 @@ var User = Promise.promisifyAll(mongoose.model('User'));
 var Minion = Promise.promisifyAll(mongoose.model('Minion'));
 var Spell = Promise.promisifyAll(mongoose.model('Spell'));
 var Card = Promise.promisifyAll(mongoose.model('Card'));
+var Card = Promise.promisifyAll(mongoose.model('Deck'));
+
 var Game = Promise.promisifyAll(mongoose.model('Game'));
 var chance = require('chance')(123);
 
@@ -57,7 +59,7 @@ var seedUsers = function () {
             password: 'potus',
             photo: randPhoto(),
             cards:["560ec41bd33276cd417f23a1","560ec41bd33276cd417f239e"],
-            decks: [{name: 'bestdeck', cards:["560ec41bd33276cd417f23a1"]}]
+            decks: []
         },
         {
             username: "moodie",
@@ -85,6 +87,15 @@ var seedUsers = function () {
     return User.createAsync(users);
 };
 
+function seedDeck(){
+  var decks = []
+  for (var i = 0; i < 10; i++) {
+    deck.push([Math.floor(Math.random() * tempData.cards.length)]._id);
+  }
+}
+
+
+
 function seedMinions() {
   var minions = [];
 
@@ -104,6 +115,10 @@ function seedMinions() {
 
   return Minion.createAsync(minions);
 }
+
+
+
+
 
 function seedSpells() {
   var spells = [];
