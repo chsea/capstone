@@ -8,7 +8,7 @@
 <div ng-repeat="game in games" style="border: 1px solid black">
   <div>{{ game.player1.username }}</div>
   <div>{{ game.player2.username }}</div>
-  <button ng-click="joinGame(this.$index)">Join Game {{ $index }}</button>
+  <button ng-click="joinGame(this.$index)">Join Game</button>
 </div>
 <button ng-click="joinGame()">Create Game</button>
 </section>
