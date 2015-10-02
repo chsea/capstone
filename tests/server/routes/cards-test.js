@@ -1,7 +1,8 @@
 // Instantiate all models
 var mongoose = require('mongoose');
 require('../../../server/db/models');
-var User = mongoose.model('User');
+var Card = mongoose.model('Card');
+var User = mongoose.model("User");
 
 var expect = require('chai').expect;
 
@@ -11,7 +12,7 @@ var clearDB = require('mocha-mongoose')(dbURI);
 var supertest = require('supertest');
 var app = require('../../../server/app');
 
-describe('Users Route', function () {
+describe('Card Route', function () {
 
 	beforeEach('Establish DB connection', function (done) {
 		if (mongoose.connection.db) return done();
@@ -22,14 +23,15 @@ describe('Users Route', function () {
 		clearDB(done);
 	});
 
-	describe('/users', function () {
+	describe('/card', function () {
 
 		var userAgent;
-    var currentUser;
+    var currentCard;
+    var cardInfo;
     var userInfo;
     var loggedInAgent;
 
-    beforeEach('Create User', function(done) {
+		beforeEach('Create User', function(done) {
       userInfo = {username: 'potus44', email: 'barack@aol.com', password:'Michelle', isAdmin: true};
       User.create(userInfo)
       .then(function(user) {
@@ -48,35 +50,44 @@ describe('Users Route', function () {
 			loggedInAgent.post('/login').send(userInfo).end(done);
     });
 
-    describe('users get route', function() {
-    it('should get a 200 response and return an array of users', function (done) {
-        userAgent.get('/api/users/')
-        .expect(200).end(function(err, response) {
-            if(err) return done(err);
-            expect(response.body).to.be.an('array');
-            expect(response.body[0]._id).to.equal(currentUser._id.toString());
-            done();
-          });
+    beforeEach('Create card', function(done) {
+      cardInfo = {name: 'butterfly', category: 'communication', type: 'minion', description: "butterfly destroys it enemys with beautifuly written code", hitPoints: 5, attackPoints: 7};
+      Card.create(cardInfo)
+      .then(function(card) {
+        currentCard = card;
+        done();
       });
     });
+    
+    describe('gets all cards', function() {
+  		it('should get a 200 response and return an array of cards', function (done) {
+  			userAgent.get('/api/card/')
+  				.expect(200).end(function(err, response) {
+            if(err) return done(err);
+            expect(response.body).to.be.an('array');
+            expect(response.body[0]._id).to.equal(currentCard._id.toString());
+            done();
+          });
+  		});
+    });
 
-    describe('users post route', function() {
-      it('should return a user', function(done) {
-        userAgent.post('/api/users').send({username: 'BeckyLee', email: 'beckylee@isTheCoolest.com', password: 'ganondorf'})
+    describe('posts card route', function() {
+      it('should return a card', function(done) {
+        userAgent.post('/api/card').send({name: 'BeckyLee', category: 'transportation', type: 'spell', description: "BeckyLee is the best!"})
         .end(function(err, response) {
             if(err) return done(err);
-            expect(response.body.email).to.be.equal('beckylee@isTheCoolest.com');
+            expect(response.body.category).to.be.equal('transportation');
             done();
           });
       });
     });
 
     describe('users put route', function() {
-      it('should update a user', function(done) {
-        loggedInAgent.put('/api/users/' + currentUser._id).send({username: 'potus44'})
+      it('should update a card', function(done) {
+        loggedInAgent.put('/api/card/' + currentCard._id).send({name: 'mocha'})
         .end(function(err, response) {
             if(err) return done(err);
-            expect(response.body.username).to.be.equal('potus44');
+            expect(response.body.name).to.be.equal('mocha');
             done();
           });
       });
