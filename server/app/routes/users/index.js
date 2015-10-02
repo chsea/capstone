@@ -1,7 +1,7 @@
 'use strict';
+var mongoose = require('mongoose');
 var router = require('express').Router();
 module.exports = router;
-var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
 
@@ -41,7 +41,7 @@ router.post('/', function(req, res, next) {
         .then(function(user) {
             req.login(user, function(error) {
                 if(error) throw new Error();
-                res.json(user);
+                res.status(200).json(user);
             });
         })
         .then(null, next);
@@ -57,7 +57,6 @@ router.put('/:userId', function(req, res, next) {
     Object.keys(req.body).forEach(function(key) {
         if(req.foundUser[key] === false || key === 'isAdmin') req.foundUser[key] = req.body[key];
     });
-	console.log(req.foundUser);
     return req.foundUser.save()
         .then(function(element) {
             return res.json(element);
