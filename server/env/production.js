@@ -20,8 +20,8 @@ module.exports = {
         "callbackURL": process.env.FACEBOOK_CALLBACK_URL
     },
     "GOOGLE": {
-        "clientID": process.env.GOOGLE_CLIENT_ID,
-        "clientSecret": process.env.GOOGLE_CLIENT_SECRET,
-        "callbackURL": process.env.CALLBACK_URL
-    }
+        "clientID": "639827950694-bnuqcu2fdticck9na71q8a2ic8msv4sm.apps.googleusercontent.com",
+        "clientSecret": "yHE2WpHvC0q0Bj6Bi3zXwk-A",
+        "callbackURL": "http://127.0.0.1:1337/auth/google/callback"
+  }
 };
