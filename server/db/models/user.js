@@ -50,6 +50,7 @@ var schema = new mongoose.Schema({
     max: 50,
     default: 0
   }
+
 });
 
 
