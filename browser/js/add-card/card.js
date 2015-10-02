@@ -3,8 +3,8 @@ app.config(function ($stateProvider) {
     // Register our *about* state.
     $stateProvider.state('addCard', {
         url: '/card',
+        templateUrl: 'js/add-card/card.html',
         controller: 'CardController',
-        templateUrl: 'js/add-card/card.html'
     });
 });
 

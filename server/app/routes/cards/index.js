@@ -4,8 +4,6 @@ var _ = require('lodash');
 var mongoose = require('mongoose');
 var Card = mongoose.model('Card');
 
-
-
 router.param('id', (req, res, next, id) => {
   Card.findById(id).then(card => {
       req.card = card;
@@ -14,19 +12,19 @@ router.param('id', (req, res, next, id) => {
     .then(null, next);
 });
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   Card.find(req.query)
   .then(cards => res.send(cards))
-  .then(null,next);
+  .then(null, next);
 });
 
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
   Card.create(req.body).then(card => {
     res.send(card);
   });
 });
 
-router.get('/:id', (req, res) => res.send(req.card));
+router.get('/:id', (req, res, next) => res.send(req.card));
 
 router.put('/:id', (req, res, next) => {
   _.merge(req.card, req.body);
