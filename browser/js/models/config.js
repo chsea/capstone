@@ -78,11 +78,16 @@ app.config(function(DSProvider, $urlRouterProvider, $locationProvider) {
     }
   }
 
-
   DSProvider.defaults.deserialize = function(Resource, data) {
     var instance = data.data;
     fixRelations(Resource, instance);
     return instance;
   };
   // End Mongoose Relation fix
+});
+
+app.run(function(CardFactory, GameFactory, UserFactory) {
+    CardFactory.findAll();
+    GameFactory.findAll();
+    UserFactory.findAll();
 });

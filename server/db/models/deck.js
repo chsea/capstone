@@ -9,6 +9,6 @@ var schema = new mongoose.Schema({
 
 })
 
-schema.plug(deepPopulate, {})
+schema.plugin(deepPopulate, {})
 
 mongoose.model('Decks', schema)
