@@ -1,0 +1,32 @@
+<section id="managedeck">
+  <div class="container">
+    <div class="row text-center" >
+
+      <div class="col-lg-6 " style="display: inline-block; float:none;">
+        <button ui-sref="lobby"> Back</button>
+        <span>
+          {{users}}
+        </span>
+      </div>
+
+    </div>
+    <div class="row">
+      <div ng-repeat="deck in user.decks ">
+        {{deck.name}}
+        <div ng-repeat="cards in deck.cards">
+            {{cards}}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-2">
+        {{userCards}}
+      </div>
+    </div>
+
+
+
+    <span>
+    </span>
+  </div>
+</section>

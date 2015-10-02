@@ -2,4 +2,6 @@ app.factory('CardFactory', function(DS) {
   return DS.defineResource({
     name: 'cards',
   });
-}).run(function(CardFactory) {});
+}).run(function(CardFactory) {
+  CardFactory.findAll()
+});

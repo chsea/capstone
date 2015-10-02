@@ -56,7 +56,8 @@ var seedUsers = function () {
             email: 'obama@gmail.com',
             password: 'potus',
             photo: randPhoto(),
-            decks: []
+            cards:["560ec41bd33276cd417f23a1","560ec41bd33276cd417f239e"],
+            decks: [{name: 'bestdeck', cards:["560ec41bd33276cd417f23a1"]}]
         },
         {
             username: "moodie",

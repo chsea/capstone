@@ -24,7 +24,7 @@ app.controller('LobbyController', function($scope,user ) {
     sref: 'PlayNow'
   }, {
     name: 'Manage Deck',
-    sref: 'Deck'
+    sref: 'managedeck'
   }, {
     name: 'Join Game',
     sref: 'joinGame'
