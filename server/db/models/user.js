@@ -31,7 +31,10 @@ var schema = new mongoose.Schema({
         type: String,
         default: '/images/default-img.png'
     },
-    cards: [{type: ObjectId, ref: "Cards"}],
+    cards: [{
+        type: ObjectId,
+        ref: "Cards"
+    }],
     decks: [{
       name: String,
       cards: [{type: ObjectId, ref: "Cards"}]
