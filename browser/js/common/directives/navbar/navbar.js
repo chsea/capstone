@@ -13,6 +13,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                 { label: 'Card', state: 'addCard'},
                 { label: 'Deck', state: 'addDeck'},
                 { label: 'User Settings', state: 'settings'},
+                { label: 'Lobby', state: 'lobby'}
                 // { label: 'room', state: 'room'}
             ];
 

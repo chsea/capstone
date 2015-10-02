@@ -18,7 +18,7 @@ app.config(function ($stateProvider) {
 
 app.controller('DeckController', function ($scope, cardlist) {
     $scope.cardlist = cardlist;
-    
+
     $scope.addCards = function() {
 
     };
