@@ -1,4 +1,5 @@
 'use strict';
+var mongoose = require('mongoose');
 var router = require('express').Router();
 var _ = require('lodash');
 var Card = mongoose.model('Card');

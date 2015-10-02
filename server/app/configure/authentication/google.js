@@ -16,20 +16,20 @@ module.exports = function (app) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-
         UserModel.findOne({ 'google.id': profile.id }).exec()
             .then(function (user) {
-
                 if (user) {
                     return user;
                 } else {
                     return UserModel.create({
+                        username: profile._json.given_name + profile._json.family_name,
+                        email: profile.emails[0].value,
+                        photo: profile._json.picture,
                         google: {
                             id: profile.id
                         }
                     });
                 }
-
             }).then(function (userToLogin) {
                 done(null, userToLogin);
             }, function (err) {
