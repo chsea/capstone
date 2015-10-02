@@ -4,8 +4,8 @@ app.config( function($stateProvider){
       templateUrl:'/js/lobby/managedeck.html',
       controller: 'manageDeckController',
       resolve: {
-        users: function(User){
-          return User.findAll()
+        users: function(UserFactory){
+          return UserFactory.findAll()
         },
         user: function(AuthService){
           return AuthService.getLoggedInUser()
@@ -18,6 +18,7 @@ app.config( function($stateProvider){
 app.controller('manageDeckController', function($scope, users,$http, user){
   console.log(user);
   $scope.user = user;
+  $scope.userCards = user.cards
   $scope.currentDeck = user.decks[0]
 
 })

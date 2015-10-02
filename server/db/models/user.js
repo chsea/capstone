@@ -40,6 +40,7 @@ var schema = new mongoose.Schema({
       cards: [{type: ObjectId, ref: "Cards"}]
 
     }],
+
     experience:{
       type:Number,
       max: 100,
