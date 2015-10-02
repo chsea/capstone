@@ -20,7 +20,8 @@ var schema = new mongoose.Schema({
         default: false
     },
     password: {
-        type: String
+        type: String,
+        required: true
     },
     salt: {
         type: String
