@@ -5,24 +5,18 @@
       <div class="col-lg-6 " style="display: inline-block; float:none;">
         <button ui-sref="lobby"> Back</button>
         <span>
-          {{users}}
+          {{user.decks[0]}}
         </span>
       </div>
 
     </div>
     <div class="row">
-      <div ng-repeat="deck in user.decks ">
-        {{deck.name}}
-        <div ng-repeat="cards in deck.cards">
-            {{cards}}
-        </div>
+      <div class="col-lg-6" ng-repeat= "deck in user.decks">
+        {{deck}}
+
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-2">
-        {{userCards}}
-      </div>
-    </div>
+
 
 
 

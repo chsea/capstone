@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var router = require('express').Router();
 module.exports = router;
 var User = mongoose.model('User');
+var deepPopulate = require('mongoose-deep-populate')(mongoose)
 
 
 var missingItemHandler = function(error, cb) {
@@ -12,7 +13,7 @@ var missingItemHandler = function(error, cb) {
 };
 
 router.param('userId', function(req, res, next, id) {
-    User.findById(id)
+    User.findById(id).deepPopulate('decks.cards').exec()
         .then(function(element) {
             req.foundUser = element;
             next();
@@ -23,7 +24,7 @@ router.param('userId', function(req, res, next, id) {
 });
 
 router.get('/', function(req, res, next) {
-    User.find(req.query)
+    User.find(req.query).populate('decks').exec()
         //included req.query in the case of possibly filtering users - possibly not needed.
         .then(function(results) {
             res.json(results);
@@ -48,7 +49,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.put('/:userId', function(req, res, next) {
-	
+
     var isAdmin = req.user.isAdmin;
 
     if(req.user !== req.foundUser && !isAdmin) return res.sendStatus(403);

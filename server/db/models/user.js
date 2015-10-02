@@ -36,10 +36,10 @@ var schema = new mongoose.Schema({
     type: ObjectId,
     ref: "Cards"
   }],
-  decks: {
+  decks: [{
     type: ObjectId,
     ref: 'Deck'
-  },
+  }],
   experience: {
     type: Number,
     max: 100,

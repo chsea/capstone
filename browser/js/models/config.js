@@ -86,8 +86,9 @@ app.config(function(DSProvider, $urlRouterProvider, $locationProvider) {
   // End Mongoose Relation fix
 });
 
-app.run(function(CardFactory, GameFactory, UserFactory) {
+app.run(function(CardFactory, GameFactory, UserFactory, DeckFactory) {
     CardFactory.findAll();
     GameFactory.findAll();
     UserFactory.findAll();
+    DeckFactory.findAll();
 });

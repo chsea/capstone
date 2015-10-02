@@ -4,13 +4,14 @@ var _ = require('lodash');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var deepPopulate = require('mongoose-deep-populate')(mongoose)
 
 module.exports = function (app) {
 
     // When passport.authenticate('local') is used, this function will receive
     // the email and password to run the actual authentication logic.
     var strategyFn = function (email, password, done) {
-        User.findOne({ email: email })
+        User.findOne({ email: email }).deepPopulate('decks.cards').exec()
             .then(function (user) {
                 // user.correctPassword is a method from the User schema.
                 if (!user || !user.correctPassword(password)) {
