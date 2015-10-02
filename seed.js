@@ -48,29 +48,39 @@ var seedUsers = function () {
             username: "Cookie_Monster",
             email: 'testing@fsa.com',
             password: 'password',
-            photo: randPhoto()
+            photo: randPhoto(),
+            decks: []
         },
         {
             username: "L.i.z.z.y",
             email: 'obama@gmail.com',
             password: 'potus',
-            photo: randPhoto()
+            photo: randPhoto(),
+            decks: []
         },
         {
             username: "moodie",
             email: "omri@fsa.com",
             password: "password",
             isAdmin: true,
-            photo: randPhoto()
+            photo: randPhoto(),
+            decks: []
         },
         {
             username: "xoxo_Karrie",
             email: "karrie@gmail.com",
             password: "password",
-            photo: randPhoto()
+            photo: randPhoto(),
+            decks: []
         }
     ];
-
+    users.map(function(user) {
+      var deck = [];
+      for (var i = 0; i < 10; i++) {
+        deck.push(tempData.cards[Math.floor(Math.random() * tempData.cards.length)]._id);
+      }
+      user.decks.push({name: 'myDeck', cards: deck});
+    });
     return User.createAsync(users);
 };
 
@@ -133,21 +143,21 @@ connectToDb.then(function () {
     }).then(function(){
       return Game.remove();
     }).then(function() {
-      return seedUsers();
-    }).then(function (users) {
-      tempData.users = users;
       return seedMinions();
     }).then(function(minions) {
       tempData.cards = minions;
       return seedSpells();
     }).then(function(spells) {
       tempData.cards.concat(spells);
+      return seedUsers();
+    }).then(function (users) {
+      tempData.users = users;
       return seedGames();
-    }).then(function() {
-        console.log(chalk.green('Seed successful!'));
-        process.kill(0);
+    }).then(function () {
+      console.log(chalk.green('Seed successful!'));
+      process.kill(0);
     }).catch(function (err) {
-        console.error(err);
-        process.kill(1);
+      console.error(err);
+      process.kill(1);
     });
 });

@@ -11,6 +11,8 @@ module.exports = function (server) {
   let pendingUsers = [];
   let avalibleGames = [];
   let pendingGames = [];
+
+  let waitingPlayers = [];
   io.on('connection', socket => {
     console.log('user connected');
 
@@ -29,6 +31,22 @@ module.exports = function (server) {
       _.remove(avalibleUsers, avalibleUser => avalibleUser._id == user._id);
       pendingUsers.push(user);
       io.emit('gameJoined', avalibleUsers, avalibleGames);
+    });
+
+    socket.on('join', (player, deck) => {
+      if (_.find(waitingPlayers, {player: {_id: player._id}})) return;
+
+      let matchingPlayers = waitingPlayers.map((player, i) => {
+        return {player: player, index: i};
+      }).filter(matchingPlayer => matchingPlayer.player._id === player._id);
+      if (matchingPlayers.length) {
+        waitingPlayers.splice(matchingPlayers[0].index, 1);
+        Socket.emit('startGame');
+      }
+      else {
+        waitingPlayers.push({player: player, deck: deck});
+        socket.emit('waitForPlayer');
+      }
     });
   });
 
