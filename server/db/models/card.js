@@ -4,7 +4,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 var extend = require('mongoose-schema-extend');
 var Schema = mongoose.Schema;
 
-var cardSchema = new mongoose.Schema({
+var cardSchema = new Schema({
   name: {
 		type: String,
 		required: true
