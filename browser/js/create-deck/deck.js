@@ -7,7 +7,7 @@ app.config(function ($stateProvider) {
         controller: 'DeckController',
         resolve: {
             cardlist: function(CardFactory) {
-                return cards.findAll({})
+                return CardFactory.findAll({})
                     .then(function(cards){
                         console.log(cards);
                         return cards;
@@ -18,8 +18,8 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('DeckController', function ($scope) {
-    console.log("card list: ", cardlist);
-    $scope.cardlist = cardlist;
+    // console.log("card list: ", cardlist);
+    // $scope.cardlist = cardlist;
     // $scope.user.deck;
   //   $scope.deck = [];
   //   $scope.addCardToDeck = function(card) {
