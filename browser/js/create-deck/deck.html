@@ -9,4 +9,17 @@
     </div>
 </div> -->
 <h2>Add cards to your deck</h2>
-<div ng-repeat="card in cardlist"><div>{{card}}</div></div>
+<span class="col-xs-3" ng-repeat="card in cardlist">
+	<div><h4>{{card.name}}</h4></div>
+	<div>category: {{card.category}}</div>
+	<div>type: {{card.type}}</div>
+	<div>description: {{card.description}}</div>
+	<div>portrait: {{card.portrait}}</div>
+	<div>Rarity: {{card.rarity}}</div>
+	<div>Logic: {{card.logic}}</div>
+	<div>Cost: {{card.cost}}</div>
+	<div>AP: {{card.attackPoints}}</div>
+	<div>Hit Points: {{card.hitPoints}}</div>
+	<button>Add Card</button>
+	<hr>
+</span>

@@ -9,7 +9,6 @@ app.config(function ($stateProvider) {
             cardlist: function(CardFactory) {
                 return CardFactory.findAll({})
                     .then(function(cards){
-                        console.log(cards);
                         return cards;
                     });
                 }
@@ -17,13 +16,11 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('DeckController', function ($scope) {
-    // console.log("card list: ", cardlist);
-    // $scope.cardlist = cardlist;
-    // $scope.user.deck;
-  //   $scope.deck = [];
-  //   $scope.addCardToDeck = function(card) {
-  //     // add cards to users deck
-		// };
+app.controller('DeckController', function ($scope, cardlist) {
+    $scope.cardlist = cardlist;
+    
+    $scope.addCards = function() {
+
+    };
 
 });
