@@ -6,7 +6,7 @@
 </section>
 <section ng-hide="notLoggedIn || waiting">
   <select ng-model="selectedDeck">
-    <option ng-repeat="deck in user.decks" value="deck.name">{{ deck.name }}</option>
+    <option ng-repeat="deck in user.decks">{{ deck.name }}</option>
   </select>
   <button ng-click="start()">Start!</button>
 </section>

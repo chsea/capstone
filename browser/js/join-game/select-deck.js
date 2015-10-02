@@ -7,7 +7,10 @@ app.config($stateProvider => {
 }).controller('JoinGameSelectDeckController', ($scope, $state, $http, Socket, user) => {
   if (!user) $scope.notLoggedIn = true;
   $scope.user = user;
-  $scope.start = () => Socket.emit('join', user, $scope.selectedDeck);
+  $scope.start = () => {
+    let deck = _.find(user.decks, {name: $scope.selectedDeck});
+    Socket.emit('join', user, deck);
+  };
   Socket.on('waitForPlayer', () => {
     $scope.$apply(() => $scope.waiting = true);
   });
