@@ -1,0 +1,10 @@
+<section ng-show="notLoggedIn">
+  <h1>Please log in!</h1>
+</section>
+<section ng-hide="notLoggedIn">
+<div>Player 1:
+<button ng-click="lockIn()">Lock In</button>
+</div>
+<button ng-click="leaveGame()">Leave Game</button>
+<button ng-click="startGame()">Start Game</button>
+</section>
