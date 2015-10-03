@@ -13,10 +13,6 @@ var cardSchema = new Schema({
 		type: String,
 		required: true
   },
-  type: {
-		type: String,
-		required: true
-  },
   description: {
 		type: String,
 		required: true,
@@ -36,7 +32,7 @@ var cardSchema = new Schema({
 		type: Number,
 		min: 0
   }
-}, { collection : 'cards', discriminatorKey : '_type' });
+}, { collection : 'cards', discriminatorKey : 'type' });
 
 var minionSchema = cardSchema.extend({
   hitPoints: {

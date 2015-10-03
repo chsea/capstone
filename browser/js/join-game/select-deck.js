@@ -14,5 +14,5 @@ app.config($stateProvider => {
   Socket.on('waitForPlayer', () => {
     $scope.$apply(() => $scope.waiting = true);
   });
-  Socket.on('startGame', id => $state.go('game', {id: id}));
+  Socket.on('gameReady', id => $state.go('game', {id: id}));
 });

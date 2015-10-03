@@ -89,9 +89,8 @@ function seedMinions() {
 
     for (var i = 0; i < 15; i++){
         var obj = {};
-        obj.name = companies[Math.floor(Math.random() * companies.length)];
+        obj.name = companies[Math.floor(Math.random() * companies.length)] + i;
         obj.category = category[Math.floor(Math.random() * category.length)];
-        obj.type = "minion";
         obj.description = "Y Combinator Company";
         obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
         obj.rarity = Math.floor(Math.random() * 4);
@@ -108,9 +107,8 @@ function seedSpells() {
   var spells = [];
   for (var i = 0; i < 15; i++){
     var obj = {};
-    obj.name = spellNames[Math.floor(Math.random() * spellNames.length)];
+    obj.name = spellNames[Math.floor(Math.random() * spellNames.length)] + i;
     obj.category = category[Math.floor(Math.random() * category.length)];
-    obj.type = "spell";
     obj.cost = Math.floor(Math.random() * 10);
     obj.description = "Y Combinator Spell";
     obj.rarity = Math.floor(Math.random() * 4);
