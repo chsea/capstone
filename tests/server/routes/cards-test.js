@@ -23,7 +23,7 @@ describe('Card Route', function () {
 		clearDB(done);
 	});
 
-	describe('/card', function () {
+	describe('/cards', function () {
 
 		var userAgent;
     var currentCard;
@@ -61,6 +61,7 @@ describe('Card Route', function () {
 
     describe('gets all cards', function() {
   		it('should get a 200 response and return an array of cards', function (done) {
+
   			userAgent.get('/api/cards/')
   				.expect(200).end(function(err, response) {
             if(err) return done(err);

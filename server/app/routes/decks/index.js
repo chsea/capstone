@@ -1,41 +1,41 @@
-'use strict';
+'use strict'
 var router = require('express').Router();
 var _ = require('lodash');
 var mongoose = require('mongoose');
-var Card = mongoose.model('Card');
+var Deck = mongoose.model('Deck');
 
 router.param('id', (req, res, next, id) => {
-  Card.findById(id).then(card => {
-      req.card = card;
+  Deck.findById(id).then(deck => {
+      req.deck = deck;
       next();
     })
     .then(null, next);
 });
 
 router.get('/', (req, res, next) => {
-  Card.find(req.query)
-  .then(cards => res.send(cards))
+  Deck.find(req.query).populate('cards').exec()
+  .then(decks => res.send(decks))
   .then(null, next);
 });
 
 router.post('/', (req, res, next) => {
-  Card.create(req.body).then(card => {
-    res.send(card);
+  Deck.create(req.body).then(deck => {
+    res.send(deck);
   });
 });
 
-router.get('/:id', (req, res, next) => res.send(req.card));
+router.get('/:id', (req, res, next) => res.send(req.deck));
 
 router.put('/:id', (req, res, next) => {
-  _.merge(req.card, req.body);
-  req.card.save().then(card => {
-    res.send(card);
+  _.merge(req.deck, req.body);
+  req.deck.save().then(deck => {
+    res.send(deck);
   }).then(null, next);
 });
 
 router.delete('/:id', (req, res, next) => {
-  req.card.remove().then(card => {
-    res.send(card);
+  req.deck.remove().then(deck => {
+    res.send(deck);
   }).then(null, next);
 });
 
