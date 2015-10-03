@@ -1,14 +1,19 @@
 app.config($stateProvider => {
-  $stateProvider.state('joinGame.selectDeck', {
-    url: '/select-deck',
-    templateUrl: 'js/join-game/select-deck.html',
-    controller: 'JoinGameSelectDeckController',
+  $stateProvider.state('play.selectDeck', {
+    url: '/:name/select-deck',
+    templateUrl: 'js/play/select-deck.html',
+    controller: 'PlaySelectDeckController',
+    resolve: {
+      game: (Game, $stateParams) => Game.findAll({name: $stateParams.name}),
+      decks: (Deck, game, user) => Deck.findAll({_id: user.decks, game: game[0]._id})
+    }
   });
-}).controller('JoinGameSelectDeckController', ($scope, $state, $http, Socket, user) => {
+}).controller('PlaySelectDeckController', ($scope, $state, $http, Socket, user, decks) => {
   if (!user) $scope.notLoggedIn = true;
   $scope.user = user;
+  $scope.decks = decks;
   $scope.start = () => {
-    let deck = _.find(user.decks, {name: $scope.selectedDeck});
+    let deck = _.find(decks, {name: $scope.selectedDeck});
     Socket.emit('join', user, deck);
   };
   Socket.on('waitForPlayer', () => {

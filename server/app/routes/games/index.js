@@ -5,10 +5,10 @@ var Game = require('mongoose').model('Game');
 
 router.param('id', (req, res, next, id) => {
   Game.findById(id).then(game => {
-      req.game = game;
-      next();
-    })
-    .then(null, next);
+    req.game = game;
+    next();
+  })
+  .then(null, next);
 });
 
 router.get('/', (req, res) => {

@@ -12,8 +12,8 @@ app.config(function($stateProvider) {
           return user
         })
       },
-      decks: function(DeckFactory) {
-        return DeckFactory.findAll({})
+      decks: function(Deck) {
+        return Deck.findAll({})
           .then(function(decks) {
             return decks;
           });

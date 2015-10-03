@@ -1,5 +1,5 @@
-app.factory('GameFactory', function(DS) {
+app.factory('Game', DS => {
   return DS.defineResource({
     name: 'games',
   });
-}).run(function(GameFactory) {});
+}).run(Game => {});
