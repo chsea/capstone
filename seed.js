@@ -143,8 +143,8 @@ function seedGames() {
     cards: tempData.cards.map(function(card) {
       return card._id;
     }),
-    users: tempData.users.map(function(user) {
-      return user._id;
+    decks: tempData.decks.map(function(deck) {
+      return deck._id;
     }),
     creators: [tempData.users[0]._id]
   }];
@@ -174,7 +174,12 @@ connectToDb.then(function() {
     }).then(function(users) {
       tempData.users = users;
       return seedGames();
-    }).then(function() {
+    }).then(function(games) {
+      tempData.games = games;
+      return User.updateAsync({}, {games: tempData.games}, {multi: true});
+    }).then(function(users) {
+      return Deck.updateAsync({}, {game: tempData.games[0]}, {multi: true});
+    }).then(function(decks) {
       console.log(chalk.green('Seed successful!'));
       process.kill(0);
     }).catch(function(err) {
