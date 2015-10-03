@@ -1,5 +1,5 @@
-app.factory('Deck', function(DS) {
+app.factory('DeckFactory', function(DS) {
   return DS.defineResource({
     name: 'decks',
   });
-}).run(function(Deck) {});
+}).run(function(DeckFactory) {});

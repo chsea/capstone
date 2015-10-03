@@ -5,7 +5,7 @@ app.config($stateProvider => {
     controller: 'PlayController',
     resolve: {
       user: AuthService => AuthService.getLoggedInUser(),
-      games: (Game, user) => Game.findAll({_id: user.games})
+      games: (GameFactory, user) => GameFactory.findAll({_id: user.games})
     }
   });
 }).controller('PlayController', ($scope, $state, games) => {

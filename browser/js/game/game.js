@@ -5,16 +5,15 @@ app.config($stateProvider => {
     controller: 'GameController',
   });
 }).controller('GameController', ($scope, $state, Socket) => {
-  Socket.emit('startGame');
-  Socket.on('gameStarted', players => {
+  Socket.emit('playerReady');
+  Socket.on('gameReady', players => {
     $scope.$apply(() => {
       $scope.player = players.player;
       $scope.opponent = players.opponent;
     });
-    Socket.emit('ready');
+    Socket.emit('start');
   });
   Socket.on('initialCards', cards => {
-    console.log(cards);
     $scope.$apply(() => $scope.cards = cards);
   });
 });
