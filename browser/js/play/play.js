@@ -4,12 +4,12 @@ app.config($stateProvider => {
     templateUrl: 'js/play/play.html',
     controller: 'PlayController',
     resolve: {
-      user: AuthService => AuthService.getLoggedInUser(),
-      games: (GameFactory, user) => GameFactory.findAll({_id: user.games})
+      user: AuthService => AuthService.getLoggedInUser()
     }
   });
-}).controller('PlayController', ($scope, $state, games) => {
-  $scope.games = games;
+}).controller('PlayController', ($scope, $state, user) => {
+  if (!user) $scope.notLoggedIn = true;
+  $scope.games = user.games;
   $scope.select = () => {
     $scope.gameSelected = true;
     $state.go('play.selectDeck', {name: $scope.selectedGame});

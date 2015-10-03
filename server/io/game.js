@@ -22,30 +22,38 @@ module.exports = (io, socket, createdGames) => {
   socket.on('playerReady', () => {
     if (!socket.game) return;
     let game = createdGames[i()];
-    console.log('game', game);
     let decks = [CardModel.find({_id: {$in: game.p1.deck}}).exec(), CardModel.find({_id: {$in: game.p2.deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
       let decks = resolvedDecks.map(deck => {
         return deck.map(card => card.type === 'Minion' ? new Minion(card.name, card.hitPoints, card.attackPoints) : new Spell(card.name));
       });
-      _.shuffle(decks[0]);
-      _.shuffle(decks[1]);
-      let p1 = new Player(game.p1.player, decks[0]);
-      let p2 = new Player(game.p2.player, decks[1]);
+      decks[0] = _.shuffle(decks[0]);
+      decks[1] = _.shuffle(decks[1]);
+      let p1 = new Player(game.p1.name, decks[0], game.p1.socket);
+      let p2 = new Player(game.p2.name, decks[1], game.p2.socket);
       games[i()] = new Game(p1, p2);
-      console.log('g', games);
-      console.log('p', player());
-      socket.emit('gameReady', {player: player().name, opponent: opponent().name});
+      socket.emit('gameStart', {player: player().name, opponent: opponent().name});
     });
   });
 
-  socket.on('start', () => {
+  socket.on('initialDraw', () => {
     if (!socket.game) return;
     if (games[i()].state !== 'initialCards') return;
 
     let cards = [player().draw(), player().draw(), player().draw()];
     socket.emit('initialCards', cards);
   });
+
+  socket.on('leave', () => {
+    socket.emit('lose');
+    opponent().socket.emit('win');
+    opponent().socket.game = undefined;
+    opponent().socket.p1 = undefined;
+    games[i()] = undefined;
+    createdGames[i()] = undefined;
+    socket.game = undefined;
+    socket.p1 = undefined;
+  })
 
   return socket;
 };

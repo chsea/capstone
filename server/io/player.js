@@ -1,5 +1,6 @@
-function Player(name, deck) {
+function Player(name, deck, socket) {
   this.name = name;
+  this.socket = socket;
   this.hp = 100;
   this.deck = deck;
   this.discard = [];
