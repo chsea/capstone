@@ -16,7 +16,9 @@ module.exports = function (app) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-        UserModel.findOne({ 'google.id': profile.id }).exec()
+        UserModel.findOne({ 'google.id': profile.id })
+          .deepPopulate('games decks.game decks.cards')
+          .exec()
             .then(function (user) {
                 if (user) {
                     return user;
