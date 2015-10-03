@@ -19,6 +19,7 @@ class Minion extends Card {
     this.ap = ap;
   }
 }
+
 function Player(name, deck) {
   this.name = name;
   this.hp = 100;
@@ -31,7 +32,8 @@ Player.prototype.draw = function() {
   let card = this.deck.pop();
   this.hand.push(card);
   return card;
-}
+};
+
 function Game (p1, p2) {
   this.player1 = p1;
   this.player2 = p2;
@@ -42,6 +44,7 @@ var player = socket => socket.p1 ? game.player1 : game.player2;
 var opponent = socket => socket.p1 ? game.player2 : game.player1;
 
 module.exports = (io, socket, games) => {
+  //
   socket.on('startGame', () => {
     let createdGame = games[socket.game];
     let p1, p2;
