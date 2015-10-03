@@ -6,14 +6,27 @@ app.config($stateProvider => {
   });
 }).controller('GameController', ($scope, $state, Socket) => {
   Socket.emit('playerReady');
-  Socket.on('gameReady', players => {
+  Socket.on('gameStart', players => {
     $scope.$apply(() => {
       $scope.player = players.player;
       $scope.opponent = players.opponent;
     });
-    Socket.emit('start');
+    Socket.emit('initialDraw');
   });
   Socket.on('initialCards', cards => {
     $scope.$apply(() => $scope.cards = cards);
   });
+
+  $scope.leave = () => {
+    Socket.emit('leave');
+  }
+
+  Socket.on('win', () => {
+    $scope.$apply(() => $scope.message = "You win!");
+    setTimeout(() => $state.go('lobby'), 3000);
+  })
+  Socket.on('lose', () => {
+    $scope.$apply(() => $scope.message = "You lose!");
+    setTimeout(() => $state.go('lobby'), 3000);
+  })
 });

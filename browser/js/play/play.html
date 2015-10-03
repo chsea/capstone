@@ -3,7 +3,7 @@
 </section>
 <section ng-hide="gameSelected">
   <select ng-model="selectedGame">
-    <option ng-repeat="game in games">{{ game.name }}</option>
+    <option ng-repeat="game in games" value="{{ game.name }}">{{ game.name }}</option>
   </select>
   <button ng-click="select()">Play {{ selectedGame }}!</button>
 </section>

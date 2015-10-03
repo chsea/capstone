@@ -3,21 +3,18 @@ app.config($stateProvider => {
     url: '/:name/select-deck',
     templateUrl: 'js/play/select-deck.html',
     controller: 'PlaySelectDeckController',
-    resolve: {
-      game: (GameFactory, $stateParams) => GameFactory.findAll({name: $stateParams.name}),
-      decks: (DeckFactory, game, user) => DeckFactory.findAll({_id: user.decks, game: game[0]._id})
-    }
   });
-}).controller('PlaySelectDeckController', ($scope, $state, $http, Socket, user, decks) => {
+}).controller('PlaySelectDeckController', ($scope, $state, $stateParams, $http, Socket, user) => {
   if (!user) $scope.notLoggedIn = true;
-  $scope.user = user;
-  $scope.decks = decks;
+  $scope.decks = user.decks.filter(deck => deck.game.name == $stateParams.name);
   $scope.start = () => {
-    let deck = _.find(decks, {_id: $scope.selectedDeck});
+    let deck = _.find($scope.decks, {_id: $scope.selectedDeck});
     Socket.emit('join', user.username, deck.cards);
   };
   Socket.on('waitForPlayer', () => {
     $scope.$apply(() => $scope.waiting = true);
   });
-  Socket.on('gameReady', id => $state.go('game', {id: id}));
+  Socket.on('gameReady', i => {
+    $state.go('game', {id: i})
+  });
 });

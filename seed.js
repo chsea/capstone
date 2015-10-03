@@ -75,9 +75,25 @@ var seedUsers = function() {
     photo: randPhoto(),
     cards: [],
     decks: []
+  },
+  {
+    username: "sea",
+    email: "sea@hi.com",
+    password: "bye",
+    photo: randPhoto(),
+    cards: [],
+    decks: []
+  },
+  {
+    username: "sky",
+    email: "sky@hi.com",
+    password: "bye",
+    photo: randPhoto(),
+    cards: [],
+    decks: []
   }];
   users.forEach(function(user) {
-    var deck =
+    user.decks.push(tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id);
     user.decks.push(tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id);
   });
   return User.createAsync(users);
@@ -88,7 +104,7 @@ function seedDeck() {
   var names = ['alex\'s', 'chelsea\'s', 'kate\'s'];
   var adjectives = ['amazing', 'super', 'cool', 'best', 'next-level'];
   var words = ['deck', 'assortment of cards', 'what? ', 'selection'];
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 20; i++) {
     var obj = {};
     obj.name = (names[Math.floor(Math.random() * names.length)] + " "+
     adjectives[Math.floor(Math.random() * adjectives.length)] + " " +  words[Math.floor(Math.random() * words.length)]);
@@ -105,9 +121,9 @@ function seedDeck() {
 function seedMinions() {
   var minions = [];
 
-  for (var i = 0; i < 15; i++) {
+  for (var i = 0; i < 100; i++) {
     var obj = {};
-    obj.name = companies[Math.floor(Math.random() * companies.length)];
+    obj.name = companies[Math.floor(Math.random() * companies.length)] + i;
     obj.category = category[Math.floor(Math.random() * category.length)];
     obj.description = "Y Combinator Company";
     obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
@@ -123,7 +139,7 @@ function seedMinions() {
 
 function seedSpells() {
   var spells = [];
-  for (var i = 0; i < 15; i++) {
+  for (var i = 0; i < 100; i++) {
     var obj = {};
     obj.name = spellNames[Math.floor(Math.random() * spellNames.length)] + i;
     obj.category = category[Math.floor(Math.random() * category.length)];
