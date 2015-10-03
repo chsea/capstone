@@ -1,5 +1,8 @@
 <section>
 <p>Game!</p>
-<p>Player: {{ p1 }}</p>
-<p>Opponent: {{ p2 }}</p>
+<p>Player: {{ player }}</p>
+<p>Opponent: {{ opponent }}</p>
+<p>Cards:</p>
+  <p ng-repeat='card in cards'>{{ card.name }}
+  <br />{{ card.ap }}/{{ card.hp }}</p>
 </section>

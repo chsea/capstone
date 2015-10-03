@@ -21,7 +21,7 @@ app.controller('LobbyController', function($scope,user ) {
   $scope.user = user;
   $scope.options = [{
     name: 'Play Now',
-    sref: 'PlayNow'
+    sref: 'play'
   }, {
     name: 'Manage Deck',
     sref: 'managedeck'

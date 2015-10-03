@@ -26,7 +26,7 @@ var Minion = Promise.promisifyAll(mongoose.model('Minion'));
 var Spell = Promise.promisifyAll(mongoose.model('Spell'));
 var Card = Promise.promisifyAll(mongoose.model('Card'));
 var Deck = Promise.promisifyAll(mongoose.model('Deck'));
-var _ = require('lodash')
+var _ = require('lodash');
 
 var Game = Promise.promisifyAll(mongoose.model('Game'));
 var chance = require('chance')(123);
@@ -58,53 +58,49 @@ var seedUsers = function() {
     email: 'obama@gmail.com',
     password: 'potus',
     photo: randPhoto(),
-    cards: ["560ec41bd33276cd417f23a1", "560ec41bd33276cd417f239e"],
-    decks:[]
+    cards: [],
+    decks: []
   }, {
     username: "moodie",
     email: "omri@fsa.com",
     password: "password",
     isAdmin: true,
     photo: randPhoto(),
-    cards: ["560ec41bd33276cd417f23a1", "560ec41bd33276cd417f239e"],
-    decks:[]
+    cards: [],
+    decks: []
   }, {
     username: "xoxo_Karrie",
     email: "karrie@gmail.com",
     password: "password",
     photo: randPhoto(),
     cards: [],
-    decks:[]
+    decks: []
   }];
   users.forEach(function(user) {
-    user.decks.push(tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id)
+    var deck =
+    user.decks.push(tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id);
   });
   return User.createAsync(users);
 };
 
 function seedDeck() {
-  var decks = []
-  var names = ['alex\'s', 'chelsea\'s', 'kate\'s']
-  var adjectives = ['amazing', 'super', 'cool', 'best', 'next-level']
-  var words = ['deck', 'assortment of cards', 'what? ', 'selection']
+  var decks = [];
+  var names = ['alex\'s', 'chelsea\'s', 'kate\'s'];
+  var adjectives = ['amazing', 'super', 'cool', 'best', 'next-level'];
+  var words = ['deck', 'assortment of cards', 'what? ', 'selection'];
   for (var i = 0; i < 10; i++) {
-    var obj = {}
+    var obj = {};
     obj.name = (names[Math.floor(Math.random() * names.length)] + " "+
-    adjectives[Math.floor(Math.random() * adjectives.length)] + " " +  words[Math.floor(Math.random() * words.length)])
+    adjectives[Math.floor(Math.random() * adjectives.length)] + " " +  words[Math.floor(Math.random() * words.length)]);
     decks.push([Math.floor(Math.random() * tempData.cards.length)]._id);
     obj.cards = [];
     for (var j =  0; j < 30; j++) {
-      obj.cards.push(tempData.cards[Math.floor(Math.random() * tempData.cards.length)])
+      obj.cards.push(tempData.cards[Math.floor(Math.random() * tempData.cards.length)]);
     }
-    decks.push(obj)
+    decks.push(obj);
   }
   return Deck.createAsync(decks);
-
 }
-
-
-
-
 
 function seedMinions() {
   var minions = [];
@@ -113,7 +109,6 @@ function seedMinions() {
     var obj = {};
     obj.name = companies[Math.floor(Math.random() * companies.length)];
     obj.category = category[Math.floor(Math.random() * category.length)];
-    obj.type = "minion";
     obj.description = "Y Combinator Company";
     obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
     obj.rarity = Math.floor(Math.random() * 4);
@@ -126,17 +121,12 @@ function seedMinions() {
   return Minion.createAsync(minions);
 }
 
-
-
-
-
 function seedSpells() {
   var spells = [];
   for (var i = 0; i < 15; i++) {
     var obj = {};
-    obj.name = spellNames[Math.floor(Math.random() * spellNames.length)];
+    obj.name = spellNames[Math.floor(Math.random() * spellNames.length)] + i;
     obj.category = category[Math.floor(Math.random() * category.length)];
-    obj.type = "spell";
     obj.cost = Math.floor(Math.random() * 10);
     obj.description = "Y Combinator Spell";
     obj.rarity = Math.floor(Math.random() * 4);
@@ -153,8 +143,8 @@ function seedGames() {
     cards: tempData.cards.map(function(card) {
       return card._id;
     }),
-    users: tempData.users.map(function(user) {
-      return user._id;
+    decks: tempData.decks.map(function(deck) {
+      return deck._id;
     }),
     creators: [tempData.users[0]._id]
   }];
@@ -176,17 +166,20 @@ connectToDb.then(function() {
       tempData.cards = minions;
       return seedSpells();
     }).then(function(spells) {
-      tempData.cards.concat(spells)
-    }).then(function() {
-      return seedDeck()
+      tempData.cards.concat(spells);
+      return seedDeck();
     }).then(function(decks) {
-      tempData.decks = decks
-    }).then(function() {
+      tempData.decks = decks;
       return seedUsers();
     }).then(function(users) {
       tempData.users = users;
       return seedGames();
-    }).then(function() {
+    }).then(function(games) {
+      tempData.games = games;
+      return User.updateAsync({}, {games: tempData.games}, {multi: true});
+    }).then(function(users) {
+      return Deck.updateAsync({}, {game: tempData.games[0]}, {multi: true});
+    }).then(function(decks) {
       console.log(chalk.green('Seed successful!'));
       process.kill(0);
     }).catch(function(err) {

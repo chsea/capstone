@@ -7,13 +7,10 @@ var Schema = mongoose.Schema;
 var cardSchema = new Schema({
   name: {
 		type: String,
-		required: true
+		required: true,
+    unique: true
   },
 	category: {
-		type: String,
-		required: true
-  },
-  type: {
 		type: String,
 		required: true
   },
@@ -36,7 +33,7 @@ var cardSchema = new Schema({
 		type: Number,
 		min: 0
   }
-}, { collection : 'cards', discriminatorKey : '_type' });
+}, { collection : 'cards', discriminatorKey : 'type' });
 
 var minionSchema = cardSchema.extend({
   hitPoints: {
@@ -50,9 +47,6 @@ var minionSchema = cardSchema.extend({
 		min: 0
   },
 });
-
-
-
 
 var spellSchema = cardSchema.extend({});
 

@@ -2,7 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
-var deepPopulate = require('mongoose-deep-populate')(mongoose)
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 
 var schema = new mongoose.Schema({
@@ -32,9 +32,13 @@ var schema = new mongoose.Schema({
     type: String,
     default: '/images/default-img.png'
   },
+  games: [{
+    type: ObjectId,
+    ref: 'Game'
+  }],
   cards: [{
     type: ObjectId,
-    ref: "Cards"
+    ref: "Card"
   }],
   decks: [{
     type: ObjectId,
@@ -55,25 +59,15 @@ var schema = new mongoose.Schema({
 
 
 schema.plugin(deepPopulate, {});
-
-
-
-
-
+schema.method('experienceToLevel', function() {
+  if (this.experience >= 100) {
+    this.level += 1;
+    this.experience = this.experience % 100;
+  }
+});
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
-
-schema.method('experienceToLevel', function() {
-  if (this.experience >= 100) {
-    this.level += 1
-    this.experience = this.experience % 100;
-  }
-})
-
-
-
-
 var generateSalt = function() {
   return crypto.randomBytes(16).toString('base64');
 };
@@ -92,7 +86,7 @@ schema.pre('save', function(next) {
     this.password = this.constructor.encryptPassword(this.password, this.salt);
   }
   if (this.experience > 100) {
-    this.level += 1
+    this.level += 1;
     this.experience = 0;
   }
   next();
