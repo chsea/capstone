@@ -25,7 +25,7 @@ module.exports = (io, socket, createdGames) => {
     let decks = [CardModel.find({_id: {$in: game.p1.deck}}).exec(), CardModel.find({_id: {$in: game.p2.deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
       let decks = resolvedDecks.map(deck => {
-        return deck.map(card => card.type === 'Minion' ? new Minion(card.name, card.hitPoints, card.attackPoints) : new Spell(card.name));
+        return deck.map(card => card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, card.hitPoints, card.attackPoints) : new Spell(card.name, card.cost, card.description));
       });
       let p1 = new Player(game.p1.name, decks[0], game.p1.socket);
       let p2 = new Player(game.p2.name, decks[1], game.p2.socket);

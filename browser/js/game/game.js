@@ -17,7 +17,7 @@ app.config($stateProvider => {
   Socket.on('initialCards', cards => {
     cards.forEach(card => {
       $compile(`<card name='${card.name}' ap='${card.ap}' hp='${card.hp}'></card>`)($scope).appendTo('#gameboard');
-    })
+    });
     $('card').show('slow');
     // $scope.$apply(() => $scope.cards = cards);
   });
