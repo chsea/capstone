@@ -23,7 +23,7 @@ module.exports = (io, socket, createdGames) => {
     Promise.all(decks).then(resolvedDecks => {
       let decks = resolvedDecks.map(deck => {
         return deck.map(card => {
-          return card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, card.hitPoints, card.attackPoints) : new Spell(card.name, card.cost, card.description)
+          return card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, card.hitPoints, card.attackPoints) : new Spell(card.name, card.cost, card.description);
         });
       });
       let p1 = new Player(game.p1.name, decks[0], game.p1.socket);
@@ -36,21 +36,49 @@ module.exports = (io, socket, createdGames) => {
   });
 
   socket.on('initialDraw', () => {
-    if (!socket.game) return;
-    if (games[i()].state !== 'initialCards') return;
+    if (!socket.game || games[i()].state !== 'initialCards') return;
 
-    games[i()].currentPlayer = Math.random() > 0.5 ? games[i()].p1 : games[i()].p2;
+    games[i()].currentPlayer = Math.random() > 0.5 ? games[i()].p1 : games[i()].p1;
 
     player().decidingCards = [player().deck.pop(), player().deck.pop(), player().deck.pop()];
+    player().deciding = true;
     socket.emit('initialCards', player().decidingCards);
+    setTimeout(() => {
+      if (player().deciding) {
+        setInitialHand();
+        socket.emit('startTurn1', player().hand);
+      }
+      if (opponent().waiting) {
+        opponent().waiting = false;
+        opponent().socket.emit('startTurn1', opponent().hand);
+      }
+      games[i()].state = 'playing';
+    }, 10000);
   });
 
+  function setInitialHand() {
+    player().hand = player().decidingCards;
+    player().deciding = false;
+    player().decidingCards = [];
+  }
+
   socket.on('rejectCards', cards => {
+    if (!socket.game || games[i()].state !== 'initialCards') return;
+
     cards.forEach(i => player().deck.push(player().decidingCards.splice(i, 1)));
     player().shuffle();
-    player().hand = player().decidingCards;
+    setInitialHand();
     while (player().hand.length < 3) player().draw();
-    socket.emit('startTurn1', player().hand);
+
+    if (opponent().deciding) {
+      player().waiting = true;
+      socket.emit('wait');
+    } else {
+      opponent().waiting = false;
+      opponent().socket.emit('startTurn1', opponent().hand);
+      socket.emit('startTurn1', player().hand);
+      games[i()].state = 'playing';
+    }
   });
 
   socket.on('leave', () => {
@@ -74,6 +102,6 @@ module.exports = (io, socket, createdGames) => {
     opponent().socket.p1 = undefined;
     games[i()] = undefined;
     createdGames[i()] = undefined;
-  })
+  });
   return socket;
 };

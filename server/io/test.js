@@ -28,7 +28,7 @@ module.exports = (io, socket) => {
     Promise.all(decks).then(resolvedDecks => {
       let decks = resolvedDecks.map(deck => {
         return deck.map(card => {
-          return card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, card.hitPoints, card.attackPoints) : new Spell(card.name, card.cost, card.description)
+          return card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, card.hitPoints, card.attackPoints) : new Spell(card.name, card.cost, card.description);
         });
       });
       let player1 = new Player(p1.name, decks[0], p1.socket);
@@ -42,8 +42,7 @@ module.exports = (io, socket) => {
   });
 
   socket.on('initialDraw', () => {
-    if (!socket.game) return;
-    if (games[i()].state !== 'initialCards') return;
+    if (!socket.game || games[i()].state !== 'initialCards') return;
 
     games[i()].currentPlayer = Math.random() > 0.5 ? games[i()].p1 : games[i()].p1;
 
@@ -57,8 +56,9 @@ module.exports = (io, socket) => {
       }
       if (opponent().waiting) {
         opponent().waiting = false;
-        opponent().socket.emit('startTurn1', opponent().hand)
+        opponent().socket.emit('startTurn1', opponent().hand);
       }
+      games[i()].state = 'playing';
     }, 5000);
   });
 
@@ -69,6 +69,8 @@ module.exports = (io, socket) => {
   }
 
   socket.on('rejectCards', cards => {
+    if (!socket.game || games[i()].state !== 'initialCards') return;
+
     cards.forEach(i => player().deck.push(player().decidingCards.splice(i, 1)));
     player().shuffle();
     setInitialHand();
@@ -79,8 +81,9 @@ module.exports = (io, socket) => {
       socket.emit('wait');
     } else {
       opponent().waiting = false;
-      opponent().socket.emit('startTurn1', opponent().hand)
+      opponent().socket.emit('startTurn1', opponent().hand);
       socket.emit('startTurn1', player().hand);
+      games[i()].state = 'playing';
     }
   });
 
@@ -99,6 +102,6 @@ module.exports = (io, socket) => {
 
   socket.on('disconnect', () => {
     games = [];
-  })
+  });
   return socket;
 };

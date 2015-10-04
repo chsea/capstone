@@ -36,27 +36,28 @@ app.config($stateProvider => {
     }
 
     Socket.emit('rejectCards', rejectedCards);
-  }
+  };
 
   Socket.on('wait', () => {
     $('#initial').remove();
     $compile(`<div id="initial"><h1>Please wait for your opponent to decide.</h1></div>`)($scope).appendTo('#gameboard');
-  })
+  });
   Socket.on('startTurn1', hand => {
     $scope.hand = hand;
     $('#initial').remove();
     $compile(`<card ng-repeat="card in hand" card="card"></card>`)($scope).appendTo('#gameboard');
-  })
+  });
+
   $scope.leave = () => {
     Socket.emit('leave');
-  }
+  };
 
   Socket.on('win', () => {
     $scope.$apply(() => $scope.message = "You win!");
     setTimeout(() => $state.go('lobby'), 3000);
-  })
+  });
   Socket.on('lose', () => {
     $scope.$apply(() => $scope.message = "You lose!");
     setTimeout(() => $state.go('lobby'), 3000);
-  })
+  });
 });
