@@ -107,7 +107,7 @@ function seedDeck() {
 
   for (var i = 0; i < 20; i++) {
     var deck = {};
-    deck.name = names[Math.floor(Math.random() * names.length)] + adjectives[Math.floor(Math.random() * adjectives.length)] + adjectives[Math.floor(Math.random() * adjectives.length)] + nouns[Math.floor(Math.random() * nouns.length)];
+    deck.name = names[Math.floor(Math.random() * names.length)] + ' ' + adjectives[Math.floor(Math.random() * adjectives.length)] + ' ' + nouns[Math.floor(Math.random() * nouns.length)];
     deck.cards = [];
     for (var j = 0; j < 30; j++) {
       var card = tempData.cards[Math.floor(Math.random() * tempData.cards.length)];

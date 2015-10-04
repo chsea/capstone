@@ -27,10 +27,10 @@ module.exports = (io, socket, createdGames) => {
       let decks = resolvedDecks.map(deck => {
         return deck.map(card => card.type === 'Minion' ? new Minion(card.name, card.hitPoints, card.attackPoints) : new Spell(card.name));
       });
-      decks[0] = _.shuffle(decks[0]);
-      decks[1] = _.shuffle(decks[1]);
       let p1 = new Player(game.p1.name, decks[0], game.p1.socket);
       let p2 = new Player(game.p2.name, decks[1], game.p2.socket);
+      p1.shuffle();
+      p2.shuffle();
       games[i()] = new Game(p1, p2);
       socket.emit('gameStart', {player: player().name, opponent: opponent().name});
     });
@@ -40,11 +40,15 @@ module.exports = (io, socket, createdGames) => {
     if (!socket.game) return;
     if (games[i()].state !== 'initialCards') return;
 
+    games[i()].currentPlayer = Math.random() > 0.5 ? games[i()].p1 : games[i()].p1;
+
     let cards = [player().draw(), player().draw(), player().draw()];
     socket.emit('initialCards', cards);
   });
 
   socket.on('leave', () => {
+    if (!socket.game) return;
+
     socket.emit('lose');
     opponent().socket.emit('win');
     opponent().socket.game = undefined;
