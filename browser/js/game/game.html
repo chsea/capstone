@@ -1,10 +1,12 @@
 <section>
 <p>Game!</p>
-<p>Player: {{ player }}</p>
-<p>Opponent: {{ opponent }}</p>
-<p>Cards:</p>
+<div id="gameboard">
+  <p>Opponent: {{ opponent }}</p>
+  <p>Player: {{ player }}</p>
+  <p>Cards:</p>
   <p ng-repeat='card in cards'>{{ card.name }}
   <br />{{ card.ap }}/{{ card.hp }}</p>
+</div>
 <button ng-click='leave()'>Leave game</button>
 </section>
 <div>{{ message }}</div>

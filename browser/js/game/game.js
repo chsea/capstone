@@ -4,7 +4,8 @@ app.config($stateProvider => {
     templateUrl: 'js/game/game.html',
     controller: 'GameController',
   });
-}).controller('GameController', ($scope, $state, Socket) => {
+}).controller('GameController', ($scope, $state, $compile, Socket) => {
+  $scope.hand = [];
   Socket.emit('playerReady');
   Socket.on('gameStart', players => {
     $scope.$apply(() => {
@@ -14,7 +15,11 @@ app.config($stateProvider => {
     Socket.emit('initialDraw');
   });
   Socket.on('initialCards', cards => {
-    $scope.$apply(() => $scope.cards = cards);
+    cards.forEach(card => {
+      $compile(`<card name='${card.name}' ap='${card.ap}' hp='${card.hp}'></card>`)($scope).appendTo('#gameboard');
+    })
+    $('card').show('slow');
+    // $scope.$apply(() => $scope.cards = cards);
   });
 
   $scope.leave = () => {
