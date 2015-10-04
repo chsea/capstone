@@ -18,7 +18,6 @@ app.config(function($stateProvider) {
 
 
 app.controller('LobbyController', function($scope,user ) {
-  console.log(user);
   $scope.user = user;
   $scope.options = [{
     name: 'Play Now',
