@@ -1,0 +1,11 @@
+<div class="text-center top">
+  <h2>Choose a deck to manage</h2>
+  <select ng-model="selectedDeck">
+    <option ng-repeat= "deck in decks" value="{{deck._id}}">{{deck.name}}
+    </option>
+  </select>
+  <button ng-click="selectDeck()">Edit</button>
+  <div>
+    <div ng-repeat="card in cards">{{card.name}}</div>
+  </div>
+</div>
