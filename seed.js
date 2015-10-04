@@ -103,17 +103,17 @@ function seedDeck() {
   var decks = [];
   var names = ['alex\'s', 'chelsea\'s', 'kate\'s'];
   var adjectives = ['amazing', 'super', 'cool', 'best', 'next-level'];
-  var words = ['deck', 'assortment of cards', 'what? ', 'selection'];
+  var nouns = ['deck', 'assortment of cards', 'what? ', 'selection'];
+
   for (var i = 0; i < 20; i++) {
-    var obj = {};
-    obj.name = (names[Math.floor(Math.random() * names.length)] + " "+
-    adjectives[Math.floor(Math.random() * adjectives.length)] + " " +  words[Math.floor(Math.random() * words.length)]);
-    decks.push([Math.floor(Math.random() * tempData.cards.length)]._id);
-    obj.cards = [];
-    for (var j =  0; j < 30; j++) {
-      obj.cards.push(tempData.cards[Math.floor(Math.random() * tempData.cards.length)]);
+    var deck = {};
+    deck.name = names[Math.floor(Math.random() * names.length)] + adjectives[Math.floor(Math.random() * adjectives.length)] + adjectives[Math.floor(Math.random() * adjectives.length)] + nouns[Math.floor(Math.random() * nouns.length)];
+    deck.cards = [];
+    for (var j = 0; j < 30; j++) {
+      var card = tempData.cards[Math.floor(Math.random() * tempData.cards.length)];
+      deck.cards.push(card);
     }
-    decks.push(obj);
+    decks.push(deck);
   }
   return Deck.createAsync(decks);
 }
@@ -149,7 +149,6 @@ function seedSpells() {
     obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
     spells.push(obj);
   }
-
   return Spell.createAsync(spells);
 }
 
@@ -169,14 +168,15 @@ function seedGames() {
 }
 
 connectToDb.then(function() {
-  User.remove()
+  var remove = [
+    User.remove(),
+    Deck.remove(),
+    Card.remove(),
+    Game.remove()
+  ];
+
+  Promise.all(remove)
     .then(function() {
-      return Deck.remove();
-    }).then(function() {
-      return Card.remove();
-    }).then(function() {
-      return Game.remove();
-    }).then(function() {
       return seedMinions();
     }).then(function(minions) {
       tempData.cards = minions;
