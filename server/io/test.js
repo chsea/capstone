@@ -23,7 +23,7 @@ module.exports = (io, socket) => {
   socket.on('playerReady', (name, deck) => {
     console.log(`player joined as ${p1 ? 'p2' : 'p1'}`);
     socket.game = 1;
-    if (!p1) return p1 = {name: name, deck: deck, socket: socket};
+    if (!games.length && !p1) return p1 = {name: name, deck: deck, socket: socket};
 
     let decks = [CardModel.find({_id: {$in: p1.deck}}).exec(), CardModel.find({_id: {$in: deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
@@ -54,11 +54,12 @@ module.exports = (io, socket) => {
   });
 
   socket.on('rejectCards', cards => {
-    console.log('rc', cards);
     cards.forEach(i => player().deck.push(player().decidingCards.splice(i, 1)));
     player().shuffle();
     player().hand = player().decidingCards;
     while (player().hand.length < 3) player().draw();
+    console.log('hand', player().hand);
+    console.log('deck', player().deck);
     socket.emit('startTurn1', player().hand);
   });
 
@@ -73,7 +74,7 @@ module.exports = (io, socket) => {
     createdGames[i()] = undefined;
     socket.game = undefined;
     socket.p1 = undefined;
-  })
+  });
 
   socket.on('disconnect', () => {
     games = [];

@@ -23,7 +23,7 @@ app.config($stateProvider => {
   });
   Socket.on('initialCards', cards => {
     $scope.decidingCards = cards;
-    $compile(`<div ng-repeat="card in decidingCards" ng-click="reject(this.$index)"><card card="card"></card></div><button ng-click="reject()">Reject</button>`)($scope).appendTo('#gameboard');
+    $compile(`<div id="initial"><div ng-repeat="card in decidingCards" ng-click="reject(this.$index)"><card card="card"></card></div><button ng-click="reject()" id="reject">Reject</button></div>`)($scope).appendTo('#gameboard');
   });
   $scope.reject = idx => {
     console.log(idx);
@@ -39,7 +39,7 @@ app.config($stateProvider => {
 
   Socket.on('startTurn1', hand => {
     $scope.hand = hand;
-    $('card').hide('slow').remove();
+    $('#initial').removed();
     $compile(`<card ng-repeat="card in hand" card="card"></card>`)($scope).appendTo('#gameboard');
   })
   $scope.leave = () => {
