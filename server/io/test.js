@@ -1,16 +1,11 @@
 var CardModel = require('mongoose').model('Card');
 var _ = require('lodash');
 var Promise = require('bluebird');
-var Card = require('./card');
+var Card = require('./classes/card');
 var Minion = Card.Minion;
 var Spell = Card.spell;
-var Player = require('./player');
-
-function Game (p1, p2) {
-  this.p1 = p1;
-  this.p2 = p2;
-  this.state = 'initialCards';
-}
+var Player = require('./classes/player');
+var Game = require('./classes/game');
 
 var games = [];
 var p1;
@@ -49,7 +44,6 @@ module.exports = (io, socket) => {
     games[i()].currentPlayer = Math.random() > 0.5 ? games[i()].p1 : games[i()].p1;
 
     player().decidingCards = [player().deck.pop(), player().deck.pop(), player().deck.pop()];
-    console.log('dc', player().decidingCards);
     socket.emit('initialCards', player().decidingCards);
   });
 
@@ -58,8 +52,6 @@ module.exports = (io, socket) => {
     player().shuffle();
     player().hand = player().decidingCards;
     while (player().hand.length < 3) player().draw();
-    console.log('hand', player().hand);
-    console.log('deck', player().deck);
     socket.emit('startTurn1', player().hand);
   });
 

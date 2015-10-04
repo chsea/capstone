@@ -1,16 +1,11 @@
 var CardModel = require('mongoose').model('Card');
 var _ = require('lodash');
 var Promise = require('bluebird');
-var Card = require('./card');
+var Card = require('./classes/card');
 var Minion = Card.Minion;
 var Spell = Card.spell;
-var Player = require('./player');
-
-function Game (p1, p2) {
-  this.p1 = p1;
-  this.p2 = p2;
-  this.state = 'initialCards';
-}
+var Player = require('./classes/player');
+var Game = require('./classes/game');
 
 var games = [];
 
@@ -73,7 +68,7 @@ module.exports = (io, socket, createdGames) => {
 
   socket.on('disconnect', () => {
     if (!socket.game) return;
-    
+
     opponent().socket.emit('win');
     opponent().socket.game = undefined;
     opponent().socket.p1 = undefined;
