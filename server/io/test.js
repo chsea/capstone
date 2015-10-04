@@ -1,16 +1,11 @@
 var CardModel = require('mongoose').model('Card');
 var _ = require('lodash');
 var Promise = require('bluebird');
-var Card = require('./card');
+var Card = require('./classes/card');
 var Minion = Card.Minion;
 var Spell = Card.spell;
-var Player = require('./player');
-
-function Game (p1, p2) {
-  this.p1 = p1;
-  this.p2 = p2;
-  this.state = 'initialCards';
-}
+var Player = require('./classes/player');
+var Game = require('./classes/game');
 
 var games = [];
 var p1;
@@ -23,13 +18,17 @@ module.exports = (io, socket) => {
   socket.on('playerReady', (name, deck) => {
     console.log(`player joined as ${p1 ? 'p2' : 'p1'}`);
     socket.game = 1;
-    if (!games.length && !p1) return p1 = {name: name, deck: deck, socket: socket};
+    if (!games.length && !p1) {
+      p1 = {name: name, deck: deck, socket: socket};
+      socket.p1 = true;
+      return;
+    }
 
     let decks = [CardModel.find({_id: {$in: p1.deck}}).exec(), CardModel.find({_id: {$in: deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
       let decks = resolvedDecks.map(deck => {
         return deck.map(card => {
-          return card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, card.hitPoints, card.attackPoints) : new Spell(card.name, card.cost, card.description)
+          return card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, card.hitPoints, card.attackPoints) : new Spell(card.name, card.cost, card.description);
         });
       });
       let player1 = new Player(p1.name, decks[0], p1.socket);
@@ -43,24 +42,49 @@ module.exports = (io, socket) => {
   });
 
   socket.on('initialDraw', () => {
-    if (!socket.game) return;
-    if (games[i()].state !== 'initialCards') return;
+    if (!socket.game || games[i()].state !== 'initialCards') return;
 
     games[i()].currentPlayer = Math.random() > 0.5 ? games[i()].p1 : games[i()].p1;
 
     player().decidingCards = [player().deck.pop(), player().deck.pop(), player().deck.pop()];
-    console.log('dc', player().decidingCards);
+    player().deciding = true;
     socket.emit('initialCards', player().decidingCards);
+    setTimeout(() => {
+      if (player().deciding) {
+        setInitialHand();
+        socket.emit('startTurn1', player().hand);
+      }
+      if (opponent().waiting) {
+        opponent().waiting = false;
+        opponent().socket.emit('startTurn1', opponent().hand);
+      }
+      games[i()].state = 'playing';
+    }, 5000);
   });
 
+  function setInitialHand() {
+    player().hand = player().decidingCards;
+    player().deciding = false;
+    player().decidingCards = [];
+  }
+
   socket.on('rejectCards', cards => {
+    if (!socket.game || games[i()].state !== 'initialCards') return;
+
     cards.forEach(i => player().deck.push(player().decidingCards.splice(i, 1)));
     player().shuffle();
-    player().hand = player().decidingCards;
+    setInitialHand();
     while (player().hand.length < 3) player().draw();
-    console.log('hand', player().hand);
-    console.log('deck', player().deck);
-    socket.emit('startTurn1', player().hand);
+
+    if (opponent().deciding) {
+      player().waiting = true;
+      socket.emit('wait');
+    } else {
+      opponent().waiting = false;
+      opponent().socket.emit('startTurn1', opponent().hand);
+      socket.emit('startTurn1', player().hand);
+      games[i()].state = 'playing';
+    }
   });
 
   socket.on('leave', () => {
@@ -78,6 +102,6 @@ module.exports = (io, socket) => {
 
   socket.on('disconnect', () => {
     games = [];
-  })
+  });
   return socket;
 };
