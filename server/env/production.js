@@ -14,10 +14,10 @@ module.exports = {
         "consumerSecret": process.env.TWITTER_CONSUMER_SECRET,
         "callbackUrl": process.env.TWITTER_CALLBACK
     },
-    "FACEBOOK": {
-        "clientID": process.env.FACEBOOK_APP_ID,
-        "clientSecret": process.env.FACEBOOK_CLIENT_SECRET,
-        "callbackURL": process.env.FACEBOOK_CALLBACK_URL
+  "FACEBOOK": {
+    "clientID": "569676436533097",
+    "clientSecret": "7bffea01bd532e6b5f35081b137f718f",
+    "callbackURL": "http://127.0.0.1:1337/auth/facebook/callback"
     },
     "GOOGLE": {
         "clientID": "639827950694-bnuqcu2fdticck9na71q8a2ic8msv4sm.apps.googleusercontent.com",
