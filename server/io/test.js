@@ -18,7 +18,11 @@ module.exports = (io, socket) => {
   socket.on('playerReady', (name, deck) => {
     console.log(`player joined as ${p1 ? 'p2' : 'p1'}`);
     socket.game = 1;
-    if (!games.length && !p1) return p1 = {name: name, deck: deck, socket: socket};
+    if (!games.length && !p1) {
+      p1 = {name: name, deck: deck, socket: socket};
+      socket.p1 = true;
+      return;
+    }
 
     let decks = [CardModel.find({_id: {$in: p1.deck}}).exec(), CardModel.find({_id: {$in: deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
@@ -44,15 +48,39 @@ module.exports = (io, socket) => {
     games[i()].currentPlayer = Math.random() > 0.5 ? games[i()].p1 : games[i()].p1;
 
     player().decidingCards = [player().deck.pop(), player().deck.pop(), player().deck.pop()];
+    player().deciding = true;
+    console.log(player().name, player());
     socket.emit('initialCards', player().decidingCards);
+    // setTimeout(() => {
+    //   if (player().deciding) setInitialHand();
+    //   if (opponent().waiting) {
+    //     opponent().waiting = false;
+    //     opponent().socket.emit('startTurn1', opponent().hand)
+    //   }
+    //   socket.emit('startTurn1', player().hand);
+    // }, 5000);
   });
+
+  function setInitialHand() {
+    player().hand = player().decidingCards;
+    player().deciding = false;
+    player().decidingCards = [];
+  }
 
   socket.on('rejectCards', cards => {
     cards.forEach(i => player().deck.push(player().decidingCards.splice(i, 1)));
     player().shuffle();
-    player().hand = player().decidingCards;
+    setInitialHand();
     while (player().hand.length < 3) player().draw();
-    socket.emit('startTurn1', player().hand);
+
+    if (opponent().deciding) {
+      player().waiting = true;
+      socket.emit('wait');
+    } else {
+      opponent().waiting = false;
+      opponent().socket.emit('startTurn1', opponent().hand)
+      socket.emit('startTurn1', player().hand);
+    }
   });
 
   socket.on('leave', () => {

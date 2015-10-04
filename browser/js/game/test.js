@@ -38,6 +38,10 @@ app.config($stateProvider => {
     Socket.emit('rejectCards', rejectedCards);
   }
 
+  Socket.on('wait', () => {
+    $('#initial').remove();
+    $compile(`<div id="initial"><h1>Please wait for your opponent to decide.</h1></div>`)($scope).appendTo('#gameboard');
+  })
   Socket.on('startTurn1', hand => {
     $scope.hand = hand;
     $('#initial').remove();
