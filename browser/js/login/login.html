@@ -4,7 +4,7 @@
       <h3>Please Log In, or <a href="#">Sign Up</a></h3>
       <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" id="signup-form">
-          <a href="#" class="btn btn-lg btn-primary btn-block">Facebook</a>
+            <oauth-button class="btn btn-lg btn-primary btn-block" provider-name="Facebook" onClick="window.location='/auth/facebook';">Facebook</oauth-button>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 buffer oauth">
             <oauth-button class="btn btn-lg btn-info btn-block" provider-name="Google" onClick="window.location='/auth/google';">Google</oauth-button>

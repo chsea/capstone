@@ -29,6 +29,9 @@ var schema = new mongoose.Schema({
   google: {
     id: String
   },
+  facebook: {
+    id: String
+  },
   photo: {
     type: String,
     default: '/images/default-img.png'

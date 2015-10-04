@@ -15,14 +15,19 @@ module.exports = function (app) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
+        console.log("facebook profile info", profile);
+        console.log(profile.facebook);
+        var fullname = profile._json.name.split(" ");
+        var first = fullname.shift();
 
         UserModel.findOne({ 'facebook.id': profile.id }).exec()
             .then(function (user) {
-
                 if (user) {
                     return user;
                 } else {
                     return UserModel.create({
+                        username: first + profile.id,
+                        email: "rando@" + profile.id + "@gmail.com",
                         facebook: {
                             id: profile.id
                         }
@@ -34,7 +39,7 @@ module.exports = function (app) {
             }, function (err) {
                 console.error('Error creating user from Facebook authentication', err);
                 done(err);
-            })
+            });
 
     };
 

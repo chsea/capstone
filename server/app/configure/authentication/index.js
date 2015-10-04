@@ -10,9 +10,9 @@ var deepPopulate = require('mongoose-deep-populate')(mongoose)
 
 var ENABLED_AUTH_STRATEGIES = [
   'local',
-  'google'
+  'google',
+  'facebook',
   //'twitter',
-  //'facebook',
 ];
 
 module.exports = function(app) {
