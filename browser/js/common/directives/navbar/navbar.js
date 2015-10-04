@@ -5,18 +5,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
         scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
-
-            scope.items = [
-                { label: 'Home', state: 'home' },
-                { label: 'Card', state: 'addCard'},
-                { label: 'Deck', state: 'addDeck'},
-                { label: 'User Settings', state: 'settings'},
-                { label: 'Lobby', state: 'lobby'}
-                // { label: 'room', state: 'room'}
-            ];
-
             scope.user = null;
-
             scope.isLoggedIn = function () {
                 return AuthService.isAuthenticated();
             };
@@ -46,5 +35,4 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
         }
 
     };
-
 });

@@ -4,31 +4,15 @@ app.config(function($stateProvider) {
     templateUrl: '/js/manage-deck/managedeck.html',
     controller: 'manageDeckController',
     resolve: {
-      users: function(UserFactory) {
-        return UserFactory.findAll();
-      },
-      user: function(AuthService, UserFactory) {
-        return AuthService.getLoggedInUser().then(function(user) {
-          return user;
-        });
-      },
-      decks: function(DeckFactory) {
-        return DeckFactory.findAll({})
-          .then(function(decks) {
-            return decks;
-          });
-      }
+      user: AuthService => AuthService.getLoggedInUser()
     }
   });
-
 });
 
-app.controller('manageDeckController', function(decks, $scope, users, $http, user) {
-  console.log(user);
-  $scope.decks = decks;
-  $scope.user = user;
-  $scope.data = {
-    deck_id: 0
+app.controller('manageDeckController', function($scope, user) {
+  $scope.decks = user.decks;
+  $scope.selectDeck = () => {
+    $scope.cards = _.find(user.decks, {_id: $scope.selectedDeck}).cards;
   };
     // $scope.userCards = user.cards
     // $scope.currentDeck = user.decks
