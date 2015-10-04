@@ -2,12 +2,11 @@ app.directive('card', () => {
   return {
     restrict: 'E',
     scope: {
-      cost: '@',
-      name: '@',
-      description: '@',
-      ap: '@',
-      hp: '@'
+      card: '='
     },
-    templateUrl: '/js/game/directives/card.html'
+    templateUrl: '/js/game/directives/card.html',
+    link: () => {
+      $('card').show('slow');
+    }
   }
 });
