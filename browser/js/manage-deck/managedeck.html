@@ -1,3 +1,5 @@
+<script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
+<link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
 <div class="text-center top">
   <h2>Choose a deck to manage</h2>
   <select ng-model="selectedDeck">
@@ -6,6 +8,15 @@
   </select>
   <button ng-click="selectDeck()">Edit</button>
   <div>
-    <div ng-repeat="card in cards">{{card.name}}</div>
+    <div ng-repeat="card in cards">{{card.name}}
+    	<input type="checkbox" class="btn btn-small">
+		</div>
   </div>
+</div>
+<div ng-show="showCards">
+	Cards in deck: {{total}}/30 <br>
+	Series: {{series}} <br>
+	Total: {{calccost()}} <br>
+	<canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels">
+	</canvas>
 </div>
