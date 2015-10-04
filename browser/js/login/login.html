@@ -1,19 +1,41 @@
-<form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
+<div class="container">
+  <div class="row">
+    <div class="main col-md-6">
+      <h3>Please Log In, or <a href="#">Sign Up</a></h3>
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6" id="signup-form">
+          <a href="#" class="btn btn-lg btn-primary btn-block">Facebook</a>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 buffer oauth">
+            <oauth-button class="btn btn-lg btn-info btn-block" provider-name="Google" onClick="window.location='/auth/google';">Google</oauth-button>
+        </div>
+      </div>
+      <div class="login-or">
+        <hr class="hr-or">
+        <span class="span-or">or</span>
+      </div>
 
-    <alert type="danger" ng-show="error">
-        {{ error }}
-    </alert>
-
-    <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
+      <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)" role="form">
+        <div class="form-group">
+          <label for="inputUsernameEmail">Username or email</label>
+          <input type="text" class="form-control" id="email" ng-model="login.email">
+        </div>
+        <div class="form-group">
+          <a class="pull-right" href="#">Forgot password?</a>
+          <label for="inputPassword">Password</label>
+          <input type="password" class="form-control" ng-model="login.password" id="login-password">
+        </div>
+        <div class="checkbox pull-right">
+          <label>
+            <input type="checkbox">
+            Remember me </label>
+        </div>
+        <button type="submit" class="btn btn btn-primary">
+          Log In
+        </button>
+      </form>
+    
     </div>
-    <div class="form-group">
-        <label for="login-password">Password</label>
-        <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
-<div class="buffer oauth" id="signup-form">
-    <oauth-button class="btn btn-link col-xs-6 col-sm-6 col-md-6" provider-name="Google" onClick="window.location='/auth/google';">Sign up with Google</oauth-button>
+    
+  </div>
 </div>
