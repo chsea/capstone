@@ -14,7 +14,7 @@ module.exports = (io, socket, games) => {
       let p1 = matchingPlayers[0];
       _.remove(waitingPlayers, player => player.name === p1.name);
       let p2 = {name: player, deck: deck, socket: socket};
-      let i = games.indexOf('undefined');
+      let i = games.indexOf(undefined);
       if (i < 0) i = games.length;
       games[i++] = {p1: p1, p2: p2};
       p1.socket.game = i;

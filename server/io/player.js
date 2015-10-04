@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 function Player(name, deck, socket) {
   this.name = name;
   this.socket = socket;
@@ -7,6 +9,10 @@ function Player(name, deck, socket) {
   this.hand = [];
   this.summonedMinions = [];
 }
+Player.prototype.shuffle = function() {
+  this.deck = _.shuffle(this.deck);
+  return this.deck;
+};
 Player.prototype.draw = function() {
   let card = this.deck.pop();
   this.hand.push(card);
