@@ -14,6 +14,7 @@ app.config($stateProvider => {
 
   let deck = user.decks[0].cards.map(card => card._id);
   Socket.emit('playerReady', user.username, deck);
+
   Socket.on('gameStart', players => {
     $scope.$apply(() => {
       $scope.player = players.player;
@@ -23,23 +24,23 @@ app.config($stateProvider => {
   });
   Socket.on('initialCards', cards => {
     $scope.decidingCards = cards;
-    $compile(`<div id="initial"><div ng-repeat="card in decidingCards" ng-click="reject(this.$index)"><card card="card"></card></div><button ng-click="reject()" id="reject">Reject</button></div>`)($scope).appendTo('#gameboard');
+    $compile(`<div id="initial"><div ng-repeat="card in decidingCards" ng-click="reject(this.$index)"><card card="card" ng-class="{'selected' : card.selected}"></card></div><button ng-click="reject()" id="reject">Reject</button></div>`)($scope).appendTo('#gameboard');
   });
   $scope.reject = idx => {
-    console.log(idx);
     if (idx + 1) {
-      rejectedCards.push(idx);
-      console.log(rejectedCards);
+      $scope.decidingCards[idx].selected = !$scope.decidingCards.selected;
+      let i = rejectedCards.indexOf(idx);
+      if (i > -1) rejectedCards.splice(i, 1);
+      else rejectedCards.push(idx);
       return;
     }
-    console.log(rejectedCards);
 
     Socket.emit('rejectCards', rejectedCards);
   }
 
   Socket.on('startTurn1', hand => {
     $scope.hand = hand;
-    $('#initial').removed();
+    $('#initial').remove();
     $compile(`<card ng-repeat="card in hand" card="card"></card>`)($scope).appendTo('#gameboard');
   })
   $scope.leave = () => {
