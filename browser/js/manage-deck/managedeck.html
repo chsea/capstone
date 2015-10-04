@@ -1,27 +1,8 @@
-<section id="managedeck">
-  <div class="container">
-    <div class="row text-center" >
-
-      <div class="col-lg-6 " style="display: inline-block; float:none;">
-        <button class="btn btn-small" ui-sref="lobby"> Back</button>
-        <span>
-          {{user.decks[0]}}
-        </span>
-      </div>
-
-    </div>
-    <div class="row">
-      <div class="col-lg-6" ng-repeat= "deck in user.decks">
-        Name: {{deck.name}}
-        {{deck}}
-
-      </div>
-    </div>
-
-
-
-
-    <span>
-    </span>
-  </div>
-</section>
+<button class="btn btn-small pull-right" ui-sref="lobby">Lobby</button>
+<div class="text-center top">
+  <h2>Choose a deck to manage</h2>
+  <select>
+    <option ng-repeat= "deck in user.decks">{{deck.name}}
+    </option>
+  </select>
+</div>
