@@ -49,16 +49,17 @@ module.exports = (io, socket) => {
 
     player().decidingCards = [player().deck.pop(), player().deck.pop(), player().deck.pop()];
     player().deciding = true;
-    console.log(player().name, player());
     socket.emit('initialCards', player().decidingCards);
-    // setTimeout(() => {
-    //   if (player().deciding) setInitialHand();
-    //   if (opponent().waiting) {
-    //     opponent().waiting = false;
-    //     opponent().socket.emit('startTurn1', opponent().hand)
-    //   }
-    //   socket.emit('startTurn1', player().hand);
-    // }, 5000);
+    setTimeout(() => {
+      if (player().deciding) {
+        setInitialHand();
+        socket.emit('startTurn1', player().hand);
+      }
+      if (opponent().waiting) {
+        opponent().waiting = false;
+        opponent().socket.emit('startTurn1', opponent().hand)
+      }
+    }, 5000);
   });
 
   function setInitialHand() {
