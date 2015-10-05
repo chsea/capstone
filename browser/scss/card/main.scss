@@ -10,6 +10,7 @@
   padding: 50px;
 }
 card {
+  box-shadow: 0 0 1em #999;
   font: 15px Monaco;
   border-radius: 15px;
   margin: 10px;
@@ -44,5 +45,5 @@ card {
   }
 }
 .selected {
-  border-color: red;
+  border: 2px solid #BEEB9F;
 }
