@@ -4,33 +4,35 @@ app.config(function($stateProvider) {
     templateUrl: '/js/manage-deck/managedeck.html',
     controller: 'manageDeckController',
     resolve: {
-      users: function(UserFactory) {
-        return UserFactory.findAll();
-      },
-      user: function(AuthService, UserFactory) {
-        return AuthService.getLoggedInUser().then(function(user) {
-          return user;
-        });
-      },
-      decks: function(DeckFactory) {
-        return DeckFactory.findAll({})
-          .then(function(decks) {
-            return decks;
-          });
-      }
+      user: AuthService => AuthService.getLoggedInUser()
     }
   });
-
 });
 
-app.controller('manageDeckController', function(decks, $scope, users, $http, user) {
-  console.log(user);
-  $scope.decks = decks;
-  $scope.user = user;
-  $scope.data = {
-    deck_id: 0
+app.controller('manageDeckController', function($scope, user) {
+  $scope.total = 0;
+  $scope.cost = 0;
+  // caluclaing cost of total mana
+  $scope.labels = ['0', '1', '2', '3', '4', '5', '6','7+'];
+  $scope.series;
+  $scope.showCards = false;
+  $scope.cards = [];
+  $scope.decks = user.decks;
+  $scope.selectDeck = () => {
+    $scope.deck = _.find(user.decks, {_id: $scope.selectedDeck});
+    $scope.cards = $scope.deck.cards;
+    $scope.total = $scope.cards.length;
+    $scope.series = $scope.deck.name;
+    $scope.showCards = true;
   };
-    // $scope.userCards = user.cards
-    // $scope.currentDeck = user.decks
+  
+  $scope.calccost = function() {
+    $scope.data = [];
+    $scope.cards.forEach(function(card) {
+      $scope.data.push(card.cost);
+    });
+    return $scope.data;
+  };
 
+ 
 });

@@ -34,6 +34,9 @@ module.exports = function (server) {
     // });
     require('./join')(io, socket, games);
     require('./game')(io, socket, games);
+
+    // Testing:
+    // require('./test')(io, socket);
   });
 
   return io;

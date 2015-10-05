@@ -10,15 +10,12 @@ app.config(function($stateProvider) {
       }
     },
     data: {
-            authenticate: true
-        }
+        authenticate: true
+    }
   });
-
 });
 
-
-app.controller('LobbyController', function($scope,user ) {
-  console.log(user);
+app.controller('LobbyController', function($scope, user) {
   $scope.user = user;
   $scope.options = [{
     name: 'Play Now',
