@@ -1,14 +1,18 @@
 // general
-
+//typing pseudo code for now
 function balancedTeam(){
   // if you have three differnet types of units
+
   //raise their attacks by 20% increase by 20% for each differnet unit
+
+
 }
 
 //start up abilities
-function shelter (){
+function shelter (unit){
   //airbnb
   // selected unit takes 50% less damage
+  //unit.
 
 }
 function getAround (){
@@ -52,15 +56,15 @@ function browse(){
 function poachEmployee(){}
 
 function techBoom() {
-    // raise all valuations by 50%
+    // raise all valuations by 30%
 }
 
 function nasdaqCrash (){
-  // lower all valuations by 50%
+  // lower all valuations by 30%
 
 }
 function downRound(){
-  //lower enemies valuations by 20%
+  //lower enemies valuations by 15%
 
 
 }
@@ -82,6 +86,42 @@ function consultant () {
   //hire a consultant
 }
 
+function  onRamp (){
+  //raises all units one tier
+
+}
+
+function unicorn(){
+  // valuaton becomes so high becomes invulernable for two turns
+
+}
+
+function ridTechnicalDebt (){
+  //draw cards for every other turn that has passed
+
+}
+function copyIdea () {
+  // copy your opponents idea for three turns, allowing
+  // you to cast their special
+
+}
+function goneViral(){
+  //startup goes viral, increasing hype(and valuation), but exhuasting
+  // employees
+
+}
+
+function angelRound(){
+  // give your startup(and units) an chance
+  // allows one unit to cheat death
+
+}
+
+function rapidIteration(){
+  // give one unit agile
+
+}
+
 
 
 // minion- special abilities
@@ -93,6 +133,7 @@ function passive(){
 }
 // initiave same as charge in hearthstone
 function initiative(){
+  // unit can attack on the same turn its summoned
 
 }
 // Agile same as windury
@@ -117,7 +158,23 @@ function inspiration(){
 
 }
 
+function awsNinja(){
 
+}
+
+function productManager (){
+
+}
+
+
+function genericCeo (){
+
+}
+function juniorBack(){
+
+}
+
+function fullstackGrad(){}
 
 
 
