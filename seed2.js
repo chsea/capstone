@@ -1,5 +1,4 @@
 /*
-
 This seed file is only a placeholder. It should be expanded and altered
 to fit the development of your application.
 
@@ -14,7 +13,6 @@ This seed file has a safety check to see if you already have users
 in the database. If you are developing multiple applications with the
 fsg scaffolding, keep in mind that fsg always uses the same database
 name in the environment files.
-
 */
 
 var mongoose = require('mongoose');
@@ -35,8 +33,12 @@ var tempData = {};
 var companies = ["Abacus", "AirHelp", "AirPair", "Algolia", "Ambition", "AptDeco", "Beacon", "Bellabeat", "Boostable", "Cambly", "Camperoo", "CareMessage", "CodeCombat", "CodeNow", "Eventjoy", "Framed Data", "Gbatteries"];
 var spellNames = ["Astral Communion", "Bite", "Claw", "Dark Wispers", "Force of Nature", "Healing Touch", "Innervate", "Living Roots", "Mark of the Wild", "Poison Seeds", "Recycle"];
 var category = ["transportation", "education", "communication", "sharing economy"];
-var spells = require('./cards.js').spells
-var minions = require('./cards.js').minions
+var spells = require('./cards.js').spells;
+var minions = require('./cards.js').minions;
+// var allCards = spells.concat(minions)
+// var allCardIds =[]
+
+
 
 
 function randPhoto() {
@@ -96,9 +98,16 @@ var seedUsers = function() {
     decks: []
   }];
   users.forEach(function(user) {
-    user.decks.push(tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id);
-    user.decks.push(tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id);
+    var deck1 = tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id;
+    var deck2 = tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id;
+    user.decks.push(deck1, deck2);
   });
+  users.forEach(function(user){
+    tempData.cards.forEach(function(card){
+      user.cards.push(card._id)
+    })
+  })
+
   return User.createAsync(users);
 };
 
@@ -106,7 +115,7 @@ function seedDeck() {
   var decks = [];
   var names = ['alex\'s', 'chelsea\'s', 'kate\'s'];
   var adjectives = ['amazing', 'super', 'cool', 'best', 'next-level'];
-  var nouns = ['deck', 'assortment of cards', 'what? ', 'selection'];
+  var nouns = ['deck', 'assortment of cards', 'selection'];
 
   for (var i = 0; i < 20; i++) {
     var deck = {};
@@ -137,7 +146,6 @@ function seedMinions() {
   //   obj.attackPoints = Math.floor(Math.random() * 10);
   //   minions.push(obj);
   // }
-  console.log(minions)
 
   return Minion.createAsync(minions);
 }
@@ -188,7 +196,7 @@ connectToDb.then(function() {
       tempData.cards = minions;
       return seedSpells();
     }).then(function(spells) {
-      tempData.cards.concat(spells);
+      tempData.cards = tempData.cards.concat(spells);
       return seedDeck();
     }).then(function(decks) {
       tempData.decks = decks;
