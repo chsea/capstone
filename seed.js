@@ -93,17 +93,19 @@ var seedUsers = function() {
     decks: []
   }];
   users.forEach(function(user) {
-    user.decks.push(tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id);
-    user.decks.push(tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id);
+    var deck1 = tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id;
+    var deck2 = tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id;
+    user.decks.push(deck1, deck2);
   });
   return User.createAsync(users);
 };
+
 
 function seedDeck() {
   var decks = [];
   var names = ['alex\'s', 'chelsea\'s', 'kate\'s'];
   var adjectives = ['amazing', 'super', 'cool', 'best', 'next-level'];
-  var nouns = ['deck', 'assortment of cards', 'what? ', 'selection'];
+  var nouns = ['deck', 'assortment of cards', 'selection'];
 
   for (var i = 0; i < 20; i++) {
     var deck = {};
@@ -116,6 +118,14 @@ function seedDeck() {
     decks.push(deck);
   }
   return Deck.createAsync(decks);
+}
+
+function seedCards() {
+  var cards = [];
+  for (var i = 0; i < 30; i++){
+    cards.push(tempData.cards);
+  }
+  return Cards.createAsync(cards);
 }
 
 function seedMinions() {

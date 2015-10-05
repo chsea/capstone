@@ -32,8 +32,7 @@ app.controller('manageDeckController', function($scope, user) {
             highlightStroke: "rgba(220,220,220,1)",
             data: $scope.calccost()
         }];
-    //};
-  
+
   context = document.getElementById('clients').getContext('2d');
   clientsChart = new Chart(context).Bar($scope.barData);
 
@@ -51,5 +50,10 @@ app.controller('manageDeckController', function($scope, user) {
     });
     return $scope.deckCost;
   };
+
+  $scope.removeCard = function(card) {
+
+  };
+
 
 });
