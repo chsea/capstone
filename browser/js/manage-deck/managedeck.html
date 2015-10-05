@@ -2,8 +2,8 @@
 <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
 <div class="text-center top">
   <h2>Choose a deck to manage</h2>
-  <select ng-model="selectedDeck">
-    <option ng-repeat= "deck in decks" value="{{deck._id}}">{{deck.name}}
+  <select style="color:black;" ng-model="selectedDeck">
+    <option style="color:black;" ng-repeat= "deck in decks" value="{{deck._id}}">{{deck.name}}
     </option>
   </select>
   <button ng-click="selectDeck()">Edit</button>
