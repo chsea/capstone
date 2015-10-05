@@ -1,11 +1,49 @@
-card {
-  display: none;
+@mixin vertical-align($position: relative) {
+  position: $position;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+#gameboard {
   background-color: white;
-  border: 1px solid #999;
+  padding: 50px;
+}
+card {
+  box-shadow: 0 0 1em #999;
+  font: 15px Monaco;
+  border-radius: 15px;
+  margin: 10px;
+  display: none;
+  background-color: #00A388;
+  color: white;
   width: 200px;
   height: 300px;
-
+  text-align: center;
+  .cost, .ap-hp {
+    p {
+      @include vertical-align();
+    }
+    position: relative;
+    clear: both;
+    width: 35%;
+    height: 12%;
+    margin: 0 auto;
+    background-color: #BEEB9F;
+    padding:5px;
+    color: #00A388;
+  }
+  .text {
+    .content {
+      @include vertical-align();
+    }
+    height: 76%;
+    .name {
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+  }
 }
 .selected {
-  border-color: red;
+  border: 2px solid #BEEB9F;
 }
