@@ -58,3 +58,4 @@ cardSchema.virtual('rarity.name').get(function () {
 mongoose.model('Card', cardSchema);
 mongoose.model('Minion', minionSchema);
 mongoose.model('Spell', spellSchema);
+mongoose.model('minion', minionSchema);
