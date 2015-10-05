@@ -1,22 +1,24 @@
-<script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
-<link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
 <div class="text-center top">
-  <h2>Choose a deck to manage</h2>
+  <h2>Choose a deck</h2>
   <select style="color:black;" ng-model="selectedDeck">
     <option style="color:black;" ng-repeat= "deck in decks" value="{{deck._id}}">{{deck.name}}
     </option>
   </select>
-  <button ng-click="selectDeck()">Edit</button>
-  <div>
-    <div ng-repeat="card in cards">{{card.name}}
-    	<input type="checkbox" class="btn btn-small">
-		</div>
-  </div>
+  <button class="btn btn-sm btn-default" ng-click="selectDeck()">Select</button>
+</div>
+
+<div class="text-center top container" style="background-color:grey;">
+  <h3>ALL CARDS</h3>
+
+</div>
+
+
+<div class="container pull-right col-xs-2">
+  <h5>{{deckName | uppercase}}</h5>
+  <div style="text-align: left" ng-repeat="card in cards">{{card.name}}</div>
 </div>
 <div ng-show="showCards">
-	Cards in deck: {{total}}/30 <br>
-	Series: {{series}} <br>
-	Total: {{calccost()}} <br>
-	<canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels">
-	</canvas>
+  CARDS: {{total}}/30 <br>
+  DECK: {{deckName | uppercase}} <br>
 </div>
+<canvas id="clients" width="400" height="400"></canvas>
