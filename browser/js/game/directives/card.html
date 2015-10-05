@@ -1,5 +1,6 @@
-<div>Card!</div>
-<div class="cost">{{ card.cost }}</div>
-<div class="name">{{ card.name }}</div>
-<div class="description">{{ card.description}}</div>
-<div class="ap-hp">{{ card.ap }}/{{ card.hp }}</div>
+<div class="cost"><p>{{ card.cost }}</p></div>
+<div class="text">
+  <div class="content"><div class="name">-{{ card.name }}-</div>
+  <div class="description">{{ card.description }}</div></div>
+</div>
+<div class="ap-hp"><p>{{ card.ap }} | {{ card.hp }}</p></div>
