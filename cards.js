@@ -217,7 +217,7 @@ var minions = [{
     portait: 'a',
     category: 's'
   }, {
-    name: 'Andresen Horowitz',
+    name: 'Andreessen Horowitz',
     logic: 'andresen',
     description: 'The legendary VC, restore 5% valuation each turn',
     rarity: 3,
