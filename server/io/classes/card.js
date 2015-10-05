@@ -7,16 +7,12 @@ class Card {
 }
 class Spell extends Card {
   constructor(name, cost, description) {
-    super(name);
-    super(cost);
-    super(description);
+    super(name, cost, description);
   }
 }
 class Minion extends Card {
   constructor(name, cost, description, hp, ap) {
-    super(name);
-    super(cost);
-    super(description);
+    super(name, cost, description);
     this.hp = hp;
     this.ap = ap;
   }
