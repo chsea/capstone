@@ -1,0 +1,26 @@
+#gameboard {
+  background-color: white;
+  width: 1200px;
+  height: 600px;
+  padding: 0;
+  margin: 0 auto;
+  #player, #opponent {
+    height: 100px;
+  }
+  #table {
+    content: "";
+    height: 400px;
+  };
+  .hand {
+    margin-top: -95px;
+    transform: scale(0.5, 0.5);
+    -ms-transform: scale(0.5, 0.5); /* IE 9 */
+    -webkit-transform: scale(0.5, 0.5); /* Safari and Chrome */
+    -o-transform: scale(0.5, 0.5); /* Opera */
+    -moz-transform: scale(0.5, 0.5); /* Firefox */
+  }
+  .opponent-hand {
+    margin-top: -165px;
+  }
+  overflow: hidden;
+}

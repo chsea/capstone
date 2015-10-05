@@ -11,9 +11,17 @@ app.config($stateProvider => {
   $scope.hand = [];
   $scope.decidingCards = [];
   let rejectedCards = [];
+  $scope.opponentCards = [{},{},{}];
+  $scope.testCards = [
+    {name: "Hello", description: "happiness is ephermal", cost: 2, ap: 1, hp: 1},
+    {name: "Goodbye", description: "happiness is eternal", cost: 1, ap: 1, hp: 1},
+    {name: "Bonjour", description: "was machst du", cost: 1, ap: 4, hp: 1}
+  ];
+  $scope.player = "sea";
+  $scope.opponent = "sky";
 
   let deck = user.decks[0].cards.map(card => card._id);
-  Socket.emit('playerReady', user.username, deck);
+  // Socket.emit('playerReady', user.username, deck);
 
   Socket.on('gameStart', players => {
     $scope.$apply(() => {

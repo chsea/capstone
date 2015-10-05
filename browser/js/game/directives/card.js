@@ -7,7 +7,7 @@ app.directive('card', () => {
     templateUrl: '/js/game/directives/card.html',
     link: () => {
       $('card').show('slow');
-      $('card').draggable();
+      // $('card').draggable();
     }
-  }
+  };
 });
