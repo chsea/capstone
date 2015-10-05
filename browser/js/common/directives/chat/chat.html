@@ -1,0 +1,16 @@
+<section id="chat">
+  <div>
+      <ol style="list-style-type: none;" class="chat-stuff">
+        <li class="message-stuff" ng-repeat="currentMessage in messages | limitTo : 3 track by $index ">
+          {{currentMessage}}
+        </li>
+      </ol>
+      <form name="chatForm" ng-submit="chatForm.$valid && submit()" >
+        <input id ="chat" ng-model="message"  />
+        <button type="submit"> send</button>
+      </form>
+
+
+  </div>
+
+</section>
