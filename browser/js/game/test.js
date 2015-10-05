@@ -8,10 +8,13 @@ app.config($stateProvider => {
     }
   });
 }).controller('TestController', ($scope, $state, $compile, Socket, user) => {
+  $scope.mana = 5;
   $scope.hand = [];
   $scope.decidingCards = [];
   let rejectedCards = [];
   $scope.opponentCards = [{},{},{}];
+  $scope.summonedMinions = [];
+
   $scope.testCards = [
     {name: "Hello", description: "happiness is ephermal", cost: 2, ap: 1, hp: 1},
     {name: "Goodbye", description: "happiness is eternal", cost: 1, ap: 1, hp: 1},
@@ -55,6 +58,12 @@ app.config($stateProvider => {
     $('#initial').remove();
     $compile(`<card ng-repeat="card in hand" card="card"></card>`)($scope).appendTo('#gameboard');
   });
+
+  $scope.summon = (data, event) => {
+    $scope.summonedMinions.push(data);
+      _.remove($scope.testCards, card => card.name === data.name);
+    console.log($scope.testCards);
+  };
 
   $scope.leave = () => {
     Socket.emit('leave');

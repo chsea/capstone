@@ -4,14 +4,17 @@
   <div id="opponent">
     <div class="player">Opponent: {{ opponent }}</div>
     <div class="opponent-hand hand">
-      <blank-card class="opponent-card" ng-repeat="card in opponentCards" card='card'></blank-card>
+      <blank-card class="opponent-card hand-card" ng-repeat="card in opponentCards" card='card'></blank-card>
     </div>
   </div>
-  <div id="table"></div>
+  <div id="table" ng-drop="true">
+    <minion ng-repeat="minion in summonedMinions" minion="minion"></minion>
+  </div>
   <div id="player">
-    <div class="player">Player: {{ player }}</div>
+    <div class="player">{{ player }}</div>
+    <div class="mana">{{ mana }}</div>
     <div class="hand">
-      <card class="hand-card" ng-repeat="card in testCards" card='card'></card>
+      <card ng-drag="true" ng-repeat="card in testCards" class="hand-card" card="card" ng-drag-data="card" ng-drag-success="summon($data, $event)"></card>
     </div>
   </div>
 </div>

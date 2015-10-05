@@ -13,11 +13,16 @@
   };
   .hand {
     margin-top: -95px;
+    width: 800px;
+    margin-left: 200px;
+  }
+  .hand-card {
     transform: scale(0.5, 0.5);
     -ms-transform: scale(0.5, 0.5); /* IE 9 */
     -webkit-transform: scale(0.5, 0.5); /* Safari and Chrome */
     -o-transform: scale(0.5, 0.5); /* Opera */
     -moz-transform: scale(0.5, 0.5); /* Firefox */
+    margin: 0 -40px;
   }
   .opponent-hand {
     margin-top: -165px;
