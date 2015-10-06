@@ -17,12 +17,12 @@
 
       <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)" role="form">
         <div class="form-group">
-          <label for="inputUsernameEmail">Username or email</label>
+          <label for="inputUsernameEmail" style="font-size: 20px;">Username or email</label>
           <input type="text" class="form-control" id="email" ng-model="login.email">
         </div>
         <div class="form-group">
           <a class="pull-right" href="#">Forgot password?</a>
-          <label for="inputPassword">Password</label>
+          <label for="inputPassword" style="font-size: 20px;">Password</label>
           <input type="password" class="form-control" ng-model="login.password" id="login-password">
         </div>
         <div class="checkbox pull-right">

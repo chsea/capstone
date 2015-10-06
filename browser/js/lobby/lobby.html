@@ -10,7 +10,29 @@
 
 
 </div>
-<div sltye="text-align:right;">
+<div class ="col-lg-4" sltye="text-align:right;">
   <chat></chat>
+
+</div>
+
+<div class="col-lg-3">
+  <span  ng-show=" user.packs > 0" ng-click="openPack()" style="cursor:pointer"> you have {{user.packs}} waiting to be opened. Click here to open your packs </span>
+
+  <div ng-show="showPack">
+    <span style="cursor:pointer;" ng-click="showPack = !showPack">x</span>
+    <div ng-repeat="showCard in showCards">
+      <div class="card">
+        <p>{{showCard.name}}</p>
+        <p>{{showCard.description}} </p>
+
+        </p>
+
+      </div>
+    </div>
+
+
+  </div>
+
+
 
 </div>

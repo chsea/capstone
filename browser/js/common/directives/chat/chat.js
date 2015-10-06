@@ -8,8 +8,8 @@ app.directive('chat', function(Socket) {
       scope.messages = [
         'write message here'
       ];
-      var $chat = $('.chat-stuff');
 
+      var $chat = $('.chat-stuff');
       console.log("loading");
       Socket.on('chat message', function(info){
         $chat.append($('<li>').text(info.user +": " + info.msg));
@@ -30,5 +30,3 @@ app.directive('chat', function(Socket) {
     }
   };
 });
-
-
