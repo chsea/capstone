@@ -104,7 +104,6 @@ var seedUsers = function() {
   });
   users.forEach(function(user){
     tempData.cards.forEach(function(card){
-      console.log(card);
       user.cards.push(card);
     });
   });

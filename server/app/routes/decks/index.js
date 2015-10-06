@@ -27,25 +27,39 @@ router.post('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => res.send(req.deck));
 
-router.put('/:id', function(req, res, next) {
-  var currentdeck = req.deck.cards;
-  console.log("current deck: ", currentdeck);
-  // console.log("req.body is the following", req.body);
-  var ind = req.deck.cards.indexOf(req.body._id);
-  console.log("index: ", ind);
-  req.deck.cards.forEach(function(card){
-    if (card == req.body._id){
-      console.log("removing card");
-      var ind = req.deck.cards.indexOf(card);
-      req.deck.cards.splice(ind, 1);
-    }
-  });
+// router.put('/:id', function(req, res, next) {
+//   var ind = req.deck.cards.indexOf(req.body._id);
+//   if (ind !== -1){
+//     req.deck.cards.splice(ind, 1);
+//   }  else {
+//     req.deck.cards.push(req.body);
+//   }
+//   req.deck.save()
+//     .then(function(updatedDeck) {
+//       res.json(updatedDeck);
+//     })
+//     .then(null, next);
+// });
+
+router.put('/addcard/:id', function(req, res, next) {
+  req.deck.cards.push(req.body);
   req.deck.save()
     .then(function(updatedDeck) {
       res.json(updatedDeck);
     })
     .then(null, next);
 });
+
+router.put('/removecard/:id', function(req, res, next) {
+  var indx = req.deck.cards.indexOf(req.body._id);
+  req.deck.cards.splice(indx, 1);
+  req.deck.save()
+    .then(function(updatedDeck) {
+      res.json(updatedDeck);
+    })
+    .then(null, next);
+});
+
 
 router.delete('/:id', (req, res, next) => {
   req.deck.remove().then(deck => {
