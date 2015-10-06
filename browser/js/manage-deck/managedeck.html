@@ -5,21 +5,22 @@
     </option>
   </select>
   <button class="btn btn-sm btn-default" ng-click="selectDeck()">Select</button>
+  <!-- <button class="btn btn-sm btn-default" ng-click="createDeck()">New Deck</button> -->
 </div>
 <div ng-show="!decks.length"><h3>Opps. You don't have any decks. Please add a deck first!</h3></div>
-<div class="text-center top col-md-10">
+<div class="text-center top col-md-10" style="overflow: scroll; width: 1200px; height: 700px;">
   <h3>{{username}}'s Cards</h3>
       <card card="usercard" ng-click="addToDeck(usercard)" ng-repeat="usercard in usercards"></card>
 </div>
 
 
-<div ng-show="showCards" class="container pull-right col-xs-2" style="background-color:#90C3D4;">
+<div ng-show="showCards" class="container pull-right col-xs-2" style="background-color: #00A388;">
   <h4>Your Deck:</h4>
   <div style="text-align: left" ng-click="removeFromDeck(card)" value="card" ng-repeat="card in cardsInDeck">{{card.name}}</div>
 </div>
 
 <div class="pull-right">
-<canvas id="clients" width="230" height="275"></canvas>
+<canvas id="clients" width="350" height="300"></canvas>
 <div ng-show="showCards">
   CARDS: {{total}}/30 <br>
   <button class="btn btn-default" ng-click="removeDeck()">Delete Deck</button>
