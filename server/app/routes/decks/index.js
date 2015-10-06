@@ -20,20 +20,43 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  Deck.create(req.body).then(deck => {
-    res.send(deck);
-  });
+  Deck.create(req.body)
+  .then(deck => {
+    console.log("new deck on backend", deck._id);
+    console.log("newly created deck ", deck);
+    res.json(deck);
+  }).then(null, next);
 });
 
 router.get('/:id', (req, res, next) => res.send(req.deck));
 
-// router.put('/:id', function(req, res, next) {
-//   var ind = req.deck.cards.indexOf(req.body._id);
-//   if (ind !== -1){
-//     req.deck.cards.splice(ind, 1);
-//   }  else {
-//     req.deck.cards.push(req.body);
-//   }
+router.put('/:id', function(req, res, next) {
+  var ind = req.deck.cards.indexOf(req.body._id);
+  if (ind !== -1){
+    req.deck.cards.splice(ind, 1);
+  }  else {
+    req.deck.cards.push(req.body);
+  }
+  req.deck.save()
+    .then(function(updatedDeck) {
+      res.json(updatedDeck);
+    })
+    .then(null, next);
+});
+
+router.put('/name/:id', function(req, res, next) {
+  console.log("req.body", req.body);
+  req.deck.name = req.body;
+  console.log("new deck ", req.deck);
+  req.deck.save()
+    .then(function(updatedDeck) {
+      res.json(updatedDeck);
+    })
+    .then(null, next);
+});
+
+// router.put('/addcard/:id', function(req, res, next) {
+//   req.deck.cards.push(req.body);
 //   req.deck.save()
 //     .then(function(updatedDeck) {
 //       res.json(updatedDeck);
@@ -41,14 +64,7 @@ router.get('/:id', (req, res, next) => res.send(req.deck));
 //     .then(null, next);
 // });
 
-router.put('/addcard/:id', function(req, res, next) {
-  req.deck.cards.push(req.body);
-  req.deck.save()
-    .then(function(updatedDeck) {
-      res.json(updatedDeck);
-    })
-    .then(null, next);
-});
+
 
 router.put('/removecard/:id', function(req, res, next) {
   var indx = req.deck.cards.indexOf(req.body._id);
