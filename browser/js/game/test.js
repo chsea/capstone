@@ -8,7 +8,11 @@ app.config($stateProvider => {
     }
   });
 }).controller('TestController', ($scope, $state, $compile, Socket, user) => {
-  $scope.mana = 9;
+  $scope.summonable = (card) => {
+    return $scope.turn && card.cost <= $scope.mana;
+  };
+
+  $scope.mana = 2;
   $scope.hand = [];
   $scope.decidingCards = [];
   let rejectedCards = [];
@@ -17,13 +21,18 @@ app.config($stateProvider => {
   $scope.opponentMinions = [];
   let removed = '';
 
-  // $scope.testCards = [
+// Testing layout
+  // $scope.hand = [
   //   {name: "Hello", description: "happiness is ephermal", cost: 2, ap: 1, hp: 1},
-  //   {name: "Goodbye", description: "happiness is eternal", cost: 1, ap: 1, hp: 1},
+  //   {name: "Goodbye", description: "happiness is eternal", cost: 3, ap: 1, hp: 1},
   //   {name: "Bonjour", description: "was machst du", cost: 1, ap: 4, hp: 1}
   // ];
+  // $scope.opponentCards = [{}, {}, {}];
+  // $scope.summonedMinions = [$scope.hand[0], $scope.hand[1]];
+  // $scope.opponentMinions = [$scope.hand[1]];
   // $scope.player = "sea";
   // $scope.opponent = "sky";
+  // $scope.turn = true;
 
   let deck = user.decks[0].cards.map(card => card._id);
   Socket.emit('playerReady', user.username, deck);
@@ -63,12 +72,13 @@ app.config($stateProvider => {
       $scope.opponentCards = [{}, {}, {}];
       if (turn) $scope.opponentCards.push({});
     });
-    $compile(`<card ng-drag="turn" ng-repeat="card in hand" class="hand-card" card="card" ng-drag-data="card" ng-drag-success="summon($data, $event)"></card>`)($scope).appendTo('#player .hand');
+    // $compile(`<card ng-drag="turn" ng-repeat="card in hand" class="hand-card" card="card" ng-drag-data="card" ng-drag-success="summon($data, $event)"></card>`)($scope).appendTo('#player .hand');
   });
 
   $scope.summon = (card, e) => {
     Socket.emit('summon', card);
     removed = _.remove($scope.hand, handCard => handCard.name === card.name)[0];
+    $scope.mana -= card.cost;
   };
 
   Socket.on('summoned', card => {

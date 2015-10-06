@@ -1,4 +1,13 @@
 minion {
-  display: block;
-  background-color: red;
+  font: 15px Monaco;
+  display: inline-block;
+  border-radius: 50px/65px;
+  background-color: #FF6138;
+  margin: 10px;
+  width: 100px;
+  height: 130px;
+  text-align: center;
+  .content {
+    @include vertical-align();
+  }
 }
