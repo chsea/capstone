@@ -1,9 +1,9 @@
 #chat{
   width: 300px;
   ol{
-    background:yellow;
+    background:grey;
     overflow: scroll;
-   overflow-x: hidden;
+    overflow-x: hidden;
     max-height:500px;
   }
   li{
@@ -12,6 +12,5 @@
     background: #3ea3ba;
     border-radius:4px;
     word-wrap:break-word;
-
   }
 }
