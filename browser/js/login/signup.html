@@ -1,24 +1,49 @@
 <section id="signup">
   <div class="container">
-    <div class="row text-center" style="margin-top:300px;">
-      <form ng-submit="signup()">
+    <div class="row text-center">
+      <pre>
+        {{newUser | json}}
+        {{signupForm | json}}
+      </pre>
 
-
-
+      <form name="signupForm" ng-submit="signupForm.$valid && signup()">
         <div>
-          <span style ="font-size:20px"> Email</span>
+          <span style="font-size:20px"> Username</span>
           <div>
-            <input style="width:400px; height:40px;" /> </div>
+            <p ng-show="signupForm.username.$error.minlength">username is too short</p>
+            <p ng-show="signupForm.username.$dirty && signupForm.username.$error.required">
+              username is required
+            </p>
+            <input name ="username" ng-model="newUser.username" ng-minlength="5" required/> </div>
 
-          </div>
-        <div style="margin-top:30px;">
-          <span style ="font-size:20px">Password</span>
+        </div>
+        <div class="field">
+          <span style="font-size:20px"> Email</span>
           <div>
-            <input style="width:400px; height:40px" />
+            <p ng-show="signupForm.email.$dirty && signupForm.email.$error.required ">
+              Email is a required field</p>
+              <p ng-show=" signupForm.email.$dirty && !$emailValid">
+                email is invalid</p>
+            <input name="email" ng-model="newUser.email"  required/> </div>
+
+        </div>
+        <div class="field"  >
+          <span style="font-size:20px" >Password</span>
+          <div>
+            <p ng-show="signupForm.password.$dirty && signupForm.password.$error.required">
+              Password is required
+            </p>
+            <p ng-show="signupForm.password.$dirty && signupForm.password.$error.minlength">
+              Password is too short
+            </p>
+            <p ng-show="signupForm.password.$dirty && signupForm.password.$error.maxlength">
+              Password is too long
+            </p>
+            <input name=password ng-model="newUser.password" required ng-minlength="6" ng-maxlength="20" />
 
           </div>
         </div>
-        <button style=" margin-top:30px; height:40px; border-radius:20%;">Sign Up!</button>
+        <button type="submit">Sign Up!</button>
       </form>
 
 
