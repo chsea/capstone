@@ -97,13 +97,12 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   $scope.createNewDeck = function(deckname) {
     DeckFactory.create({"name": deckname})
     .then(function(newdeck){
-      $scope.decks.push(newdeck);
-      // console.log($scope.decks);
+      $scope.decks.push(newdeck._id);
       user.decks = $scope.decks;
       UserFactory.update(user._id, user);
     })
     .then(function(updatedUser){
-      console.log("updated user ", updatedUser);
+      // console.log("updated user ", updatedUser);
       //console.log("user updated with a new deck");
     })
     .then(null, function(err){
