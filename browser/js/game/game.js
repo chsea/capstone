@@ -5,9 +5,14 @@ app.config($stateProvider => {
     controller: 'GameController',
   });
 }).controller('GameController', ($scope, $state, $compile, Socket) => {
+  $scope.mana = 9;
   $scope.hand = [];
   $scope.decidingCards = [];
   let rejectedCards = [];
+  $scope.opponentCards = [];
+  $scope.summonedMinions = [];
+  $scope.opponentMinions = [];
+  let removed = '';
 
   Socket.emit('playerReady');
 
@@ -20,7 +25,7 @@ app.config($stateProvider => {
   });
   Socket.on('initialCards', cards => {
     $scope.decidingCards = cards;
-    $compile(`<div id="initial"><div ng-repeat="card in decidingCards" ng-click="reject(this.$index)"><card card="card" ng-class="{'selected' : card.selected}"></card></div><button ng-click="reject()" id="reject">Reject</button></div>`)($scope).appendTo('#gameboard');
+    $compile(`<div id="initial"><div class="initial-cards" ng-repeat="card in decidingCards" ng-click="reject(this.$index)"><card card="card" ng-class="{'selected' : card.selected}"></card></div><button ng-click="reject()" id="reject">Reject</button></div>`)($scope).appendTo('#gameboard');
   });
   $scope.reject = idx => {
     if (idx + 1) {
@@ -38,10 +43,29 @@ app.config($stateProvider => {
     $('#initial').remove();
     $compile(`<div id="initial"><h1>Please wait for your opponent to decide.</h1></div>`)($scope).appendTo('#gameboard');
   });
-  Socket.on('startTurn1', hand => {
-    $scope.hand = hand;
-    $('#initial').remove();
-    $compile(`<card ng-repeat="card in hand" card="card"></card>`)($scope).appendTo('#gameboard');
+  Socket.on('startTurn1', (hand, turn) => {
+    $scope.$apply(() => {
+      $scope.hand = hand;
+      $scope.turn = turn;
+      $('#initial').remove();
+      $scope.opponentCards = [{}, {}, {}];
+      if (turn) $scope.opponentCards.push({});
+    });
+    $compile(`<card ng-drag="turn" ng-repeat="card in hand" class="hand-card" card="card" ng-drag-data="card" ng-drag-success="summon($data, $event)"></card>`)($scope).appendTo('#player .hand');
+  });
+
+  $scope.summon = (card, e) => {
+    Socket.emit('summon', card);
+    removed = _.remove($scope.hand, handCard => handCard.name === card.name)[0];
+  };
+
+  Socket.on('summoned', card => {
+    console.log(`summoned ${card.name}`);
+    if (removed.name !== card.name) return console.log('nooo');
+    $scope.$apply(() => $scope.summonedMinions.push(card));
+  });
+  Socket.on('opponentSummoned', card => {
+    $scope.$apply(() => $scope.opponentMinions.push(card));
   });
 
   $scope.leave = () => {
