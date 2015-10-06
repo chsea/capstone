@@ -5,11 +5,7 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-#gameboard {
-  background-color: white;
-  padding: 50px;
-}
-card {
+card, blank-card {
   box-shadow: 0 0 1em #999;
   font: 15px Monaco;
   border-radius: 15px;
@@ -38,12 +34,17 @@ card {
       @include vertical-align();
     }
     height: 76%;
+    padding: 5%;
     .name {
       font-size: 20px;
       text-transform: uppercase;
     }
   }
+  &.selected {
+    border: 2px solid #BEEB9F;
+  }
 }
-.selected {
-  border: 2px solid #BEEB9F;
+
+blank-card .text {
+  height: 100%;
 }

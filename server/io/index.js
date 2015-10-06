@@ -34,10 +34,10 @@ module.exports = function (server) {
     // });
     require('./join')(io, socket, games);
     require('./game')(io, socket, games);
-    require('./chat')(io, socket)
+    require('./chat')(io, socket);
 
     // Testing:
-    // require('./test')(io, socket);
+    require('./test')(io, socket);
   });
 
   return io;
