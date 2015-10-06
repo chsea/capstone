@@ -4,11 +4,18 @@
     <option style="color:black;" ng-repeat= "deck in decks" value="{{deck._id}}">{{deck.name}}
     </option>
   </select>
-  <button class="btn btn-sm btn-default" ng-click="selectDeck()">Select</button>
-  <!-- <button class="btn btn-sm btn-default" ng-click="createDeck()">New Deck</button> -->
+  <button class="btn btn-sm btn-primary" ng-click="selectDeck()">Select</button>
+  <button class="btn btn-primary btn-sm" ng-click="showCreateDeckForm()">New Deck</button>
+  <button class="btn btn-primary btn-sm" ng-click="removeDeck()">Delete Deck</button>
+</div>
+<div ng-show="createDeck" class="text-center top container"><br>
+  <form ng-submit="createNewDeck(deckname)"><h3>Name your new deck:</h3><br>
+    <input type="text" ng-model="deckname"/>
+    <input type="submit" value="Submit" /><br>
+  </form>
 </div>
 <div ng-show="!decks.length"><h3>Opps. You don't have any decks. Please add a deck first!</h3></div>
-<div class="text-center top col-md-10" style="overflow: scroll; width: 1200px; height: 700px;">
+<div class="text-center top col-md-10" style="overflow: scroll; width: 1000px; height: 700px;">
   <h3>{{username}}'s Cards</h3>
       <card card="usercard" ng-click="addToDeck(usercard)" ng-repeat="usercard in usercards"></card>
 </div>
@@ -16,14 +23,13 @@
 
 <div ng-show="showCards" class="container pull-right col-xs-2" style="background-color: #00A388;">
   <h4>Your Deck:</h4>
-  <div style="text-align: left" ng-click="removeFromDeck(card)" value="card" ng-repeat="card in cardsInDeck">{{card.name}}</div>
+  <div style="text-align: left" ng-click="removeFromDeck(cardname)" value="card" ng-repeat="(cardname, qty) in uniqueCardsInDeck"><strong>{{cardname}}</strong><small> Qty:{{qty}}</small></div>
 </div>
 
 <div class="pull-right">
 <canvas id="clients" width="350" height="300"></canvas>
 <div ng-show="showCards">
   CARDS: {{total}}/30 <br>
-  <button class="btn btn-default" ng-click="removeDeck()">Delete Deck</button>
 </div>
 </div>
 
