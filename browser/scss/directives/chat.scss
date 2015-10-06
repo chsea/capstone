@@ -1,0 +1,17 @@
+#chat{
+  width: 300px;
+  ol{
+    background:yellow;
+    overflow: scroll;
+   overflow-x: hidden;
+    max-height:500px;
+  }
+  li{
+    width: 200px;
+    border: 1px solid black;
+    background: #3ea3ba;
+    border-radius:4px;
+    word-wrap:break-word;
+
+  }
+}

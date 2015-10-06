@@ -1,5 +1,4 @@
 /*
-
 This seed file is only a placeholder. It should be expanded and altered
 to fit the development of your application.
 
@@ -14,7 +13,6 @@ This seed file has a safety check to see if you already have users
 in the database. If you are developing multiple applications with the
 fsg scaffolding, keep in mind that fsg always uses the same database
 name in the environment files.
-
 */
 
 var mongoose = require('mongoose');
@@ -35,6 +33,13 @@ var tempData = {};
 var companies = ["Abacus", "AirHelp", "AirPair", "Algolia", "Ambition", "AptDeco", "Beacon", "Bellabeat", "Boostable", "Cambly", "Camperoo", "CareMessage", "CodeCombat", "CodeNow", "Eventjoy", "Framed Data", "Gbatteries"];
 var spellNames = ["Astral Communion", "Bite", "Claw", "Dark Wispers", "Force of Nature", "Healing Touch", "Innervate", "Living Roots", "Mark of the Wild", "Poison Seeds", "Recycle"];
 var category = ["transportation", "education", "communication", "sharing economy"];
+var spells = require('./cards.js').spells;
+var minions = require('./cards.js').minions;
+// var allCards = spells.concat(minions)
+// var allCardIds =[]
+
+
+
 
 function randPhoto() {
   var g = chance.pick(['men', 'women']);
@@ -97,9 +102,14 @@ var seedUsers = function() {
     var deck2 = tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id;
     user.decks.push(deck1, deck2);
   });
+  users.forEach(function(user){
+    tempData.cards.forEach(function(card){
+      user.cards.push(card);
+    });
+  });
+
   return User.createAsync(users);
 };
-
 
 function seedDeck() {
   var decks = [];
@@ -120,45 +130,39 @@ function seedDeck() {
   return Deck.createAsync(decks);
 }
 
-function seedCards() {
-  var cards = [];
-  for (var i = 0; i < 30; i++){
-    cards.push(tempData.cards);
-  }
-  return Cards.createAsync(cards);
-}
-
 function seedMinions() {
-  var minions = [];
 
-  for (var i = 0; i < 100; i++) {
-    var obj = {};
-    obj.name = companies[Math.floor(Math.random() * companies.length)] + i;
-    obj.category = category[Math.floor(Math.random() * category.length)];
-    obj.description = "Y Combinator Company";
-    obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
-    obj.rarity = Math.floor(Math.random() * 4);
-    obj.cost = Math.floor(Math.random() * 10);
-    obj.hitPoints = Math.floor(Math.random() * 10);
-    obj.attackPoints = Math.floor(Math.random() * 10);
-    minions.push(obj);
-  }
+  // var minions = [];
+  //
+  // for (var i = 0; i < 100; i++) {
+  //   var obj = {};
+  //   obj.name = companies[Math.floor(Math.random() * companies.length)] + i;
+  //   obj.category = category[Math.floor(Math.random() * category.length)];
+  //   obj.description = "Y Combinator Company";
+  //   obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
+  //   obj.rarity = Math.floor(Math.random() * 4);
+  //   obj.cost = Math.floor(Math.random() * 10);
+  //   obj.hitPoints = Math.floor(Math.random() * 10);
+  //   obj.attackPoints = Math.floor(Math.random() * 10);
+  //   minions.push(obj);
+  // }
 
   return Minion.createAsync(minions);
 }
 
 function seedSpells() {
-  var spells = [];
-  for (var i = 0; i < 100; i++) {
-    var obj = {};
-    obj.name = spellNames[Math.floor(Math.random() * spellNames.length)] + i;
-    obj.category = category[Math.floor(Math.random() * category.length)];
-    obj.cost = Math.floor(Math.random() * 10);
-    obj.description = "Y Combinator Spell";
-    obj.rarity = Math.floor(Math.random() * 4);
-    obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
-    spells.push(obj);
-  }
+  // var spells = [];
+  // for (var i = 0; i < 100; i++) {
+  //   var obj = {};
+  //   obj.name = spellNames[Math.floor(Math.random() * spellNames.length)] + i;
+  //   obj.category = category[Math.floor(Math.random() * category.length)];
+  //   obj.cost = Math.floor(Math.random() * 10);
+  //   obj.description = "Y Combinator Spell";
+  //   obj.rarity = Math.floor(Math.random() * 4);
+  //   obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
+  //   spells.push(obj);
+  // }
+
   return Spell.createAsync(spells);
 }
 
@@ -192,7 +196,7 @@ connectToDb.then(function() {
       tempData.cards = minions;
       return seedSpells();
     }).then(function(spells) {
-      tempData.cards.concat(spells);
+      tempData.cards = tempData.cards.concat(spells);
       return seedDeck();
     }).then(function(decks) {
       tempData.decks = decks;

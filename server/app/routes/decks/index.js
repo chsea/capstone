@@ -5,11 +5,12 @@ var mongoose = require('mongoose');
 var Deck = mongoose.model('Deck');
 
 router.param('id', (req, res, next, id) => {
-  Deck.findById(id).then(deck => {
+  Deck.findById(id)
+  .then(function(deck) {
       req.deck = deck;
       next();
-    })
-    .then(null, next);
+  })
+  .then(null, next);
 });
 
 router.get('/', (req, res, next) => {
@@ -26,12 +27,39 @@ router.post('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => res.send(req.deck));
 
-router.put('/:id', (req, res, next) => {
-  _.merge(req.deck, req.body);
-  req.deck.save().then(deck => {
-    res.send(deck);
-  }).then(null, next);
+// router.put('/:id', function(req, res, next) {
+//   var ind = req.deck.cards.indexOf(req.body._id);
+//   if (ind !== -1){
+//     req.deck.cards.splice(ind, 1);
+//   }  else {
+//     req.deck.cards.push(req.body);
+//   }
+//   req.deck.save()
+//     .then(function(updatedDeck) {
+//       res.json(updatedDeck);
+//     })
+//     .then(null, next);
+// });
+
+router.put('/addcard/:id', function(req, res, next) {
+  req.deck.cards.push(req.body);
+  req.deck.save()
+    .then(function(updatedDeck) {
+      res.json(updatedDeck);
+    })
+    .then(null, next);
 });
+
+router.put('/removecard/:id', function(req, res, next) {
+  var indx = req.deck.cards.indexOf(req.body._id);
+  req.deck.cards.splice(indx, 1);
+  req.deck.save()
+    .then(function(updatedDeck) {
+      res.json(updatedDeck);
+    })
+    .then(null, next);
+});
+
 
 router.delete('/:id', (req, res, next) => {
   req.deck.remove().then(deck => {
