@@ -9,6 +9,7 @@ class Player {
     this.discard = [];
     this.hand = [];
     this.summonedMinions = [];
+    this.mana = 9;
   }
 
   shuffle() {
@@ -19,6 +20,17 @@ class Player {
     let card = this.deck.pop();
     this.hand.push(card);
     return card;
+  }
+
+  startTurn() {
+    this.mana++;
+    this.draw();
+  }
+
+  summonMinion(card) {
+    this.summonedMinions.push(card);
+    _.remove(this.hand, handCard => handCard.name === card.name);
+    this.mana -= card.cost;
   }
 }
 

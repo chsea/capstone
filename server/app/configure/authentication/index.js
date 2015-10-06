@@ -44,7 +44,7 @@ module.exports = function(app) {
   passport.deserializeUser(function(id, done) {
 
     UserModel.findById(id)
-    .deepPopulate('games decks.game decks.cards')
+    .deepPopulate('games decks.game decks.cards cards')
     .exec(function (err, user) {
         done(err, user);
      });

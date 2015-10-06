@@ -1,24 +1,29 @@
-<div class="text-center top">
+<div ng-show="decks.length" class="text-center top">
   <h2>Choose a deck</h2>
   <select style="color:black;" ng-model="selectedDeck">
     <option style="color:black;" ng-repeat= "deck in decks" value="{{deck._id}}">{{deck.name}}
     </option>
   </select>
   <button class="btn btn-sm btn-default" ng-click="selectDeck()">Select</button>
+  <!-- <button class="btn btn-sm btn-default" ng-click="createDeck()">New Deck</button> -->
+</div>
+<div ng-show="!decks.length"><h3>Opps. You don't have any decks. Please add a deck first!</h3></div>
+<div class="text-center top col-md-10" style="overflow: scroll; width: 1200px; height: 700px;">
+  <h3>{{username}}'s Cards</h3>
+      <card card="usercard" ng-click="addToDeck(usercard)" ng-repeat="usercard in usercards"></card>
 </div>
 
-<div class="text-center top container" style="background-color:grey;">
-  <h3>ALL CARDS</h3>
 
+<div ng-show="showCards" class="container pull-right col-xs-2" style="background-color: #00A388;">
+  <h4>Your Deck:</h4>
+  <div style="text-align: left" ng-click="removeFromDeck(card)" value="card" ng-repeat="card in cardsInDeck">{{card.name}}</div>
 </div>
 
-
-<div class="container pull-right col-xs-2">
-  <h5>{{deckName | uppercase}}</h5>
-  <div style="text-align: left" ng-repeat="card in cards">{{card.name}}</div>
-</div>
+<div class="pull-right">
+<canvas id="clients" width="350" height="300"></canvas>
 <div ng-show="showCards">
   CARDS: {{total}}/30 <br>
-  DECK: {{deckName | uppercase}} <br>
+  <button class="btn btn-default" ng-click="removeDeck()">Delete Deck</button>
 </div>
-<canvas id="clients" width="400" height="400"></canvas>
+</div>
+

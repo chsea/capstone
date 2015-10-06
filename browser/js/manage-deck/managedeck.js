@@ -9,19 +9,21 @@ app.config(function($stateProvider) {
   });
 });
 
-app.controller('manageDeckController', function($scope, user) {
+app.controller('manageDeckController', function($scope, user, $http, $state) {
   var context;
   var clientsChart;
   $scope.total = 0;
   $scope.barData = {};
   $scope.showCards = false;
-  $scope.cards = [];
+  $scope.cardsInDeck = [];
+  $scope.username = user.username;
   $scope.decks = user.decks;
+  $scope.usercards = user.cards;
   $scope.selectDeck = () => {
     $scope.deck = _.find(user.decks, {_id: $scope.selectedDeck});
-    $scope.cards = $scope.deck.cards;
-    $scope.total = $scope.cards.length;
+    $scope.cardsInDeck = $scope.deck.cards;
     $scope.deckName = $scope.deck.name;
+    $scope.total = $scope.cardsInDeck.length;
     $scope.showCards = true;
     $scope.barData.labels = ["1", "2", "3", "4", "5", "6","7+"];
     $scope.barData.datasets = [{
@@ -40,7 +42,7 @@ app.controller('manageDeckController', function($scope, user) {
   
   $scope.calccost = function() {
     $scope.deckCost = [0,0,0,0,0,0,0];
-    $scope.cards.forEach(function(card) {
+    $scope.cardsInDeck.forEach(function(card) {
       if (card.cost <= 6) {
         $scope.deckCost[card.cost-1]++;
       }
@@ -51,8 +53,33 @@ app.controller('manageDeckController', function($scope, user) {
     return $scope.deckCost;
   };
 
-  $scope.removeCard = function(card) {
+  $scope.removeFromDeck = function(card) {
+    if ($scope.total < 1) return;
+    var url = "api/decks/removecard/" + $scope.deck._id;
+    $http.put(url, card)
+    .then(function(deck) {
+    }).then(null, function(err) {
+      console.log("error occured", err);
+    });
+  };
 
+
+  $scope.removeDeck = function() {
+    $http.delete("api/decks/" + $scope.deck._id)
+    .then(function(res) {
+    }).then(null, function(err) {
+      console.log("error occured", err);
+    });
+  };
+
+  $scope.addToDeck = function(card){
+    if ($scope.total >= 30) return;
+    var url = "api/decks/addcard/" + $scope.deck._id;
+    $http.put(url, card)
+    .then(function(deck) {
+    }).then(null, function(err) {
+      console.log("error occured", err);
+    });
   };
 
 
