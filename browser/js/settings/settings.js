@@ -37,8 +37,19 @@ app.controller('UserSettingsController', function($scope, user, UserFactory) {
   };
 
   $scope.updateUser = function(userInfo) {
-    // allow use to change their username
-    console.log(userInfo);
+    for (var key in $scope.user){
+      for (var prop in userInfo){
+        if (key == prop) {
+          $scope.user[key] = userInfo[prop];
+        }
+      }
+    }
+    UserFactory.update($scope.user._id, $scope.user)
+    .then(function(updateUser){
+    })
+    .then(null, function(err){
+      console.log("error occured ", err);
+    });
   };
 
   $scope.removeDeck = function() {
