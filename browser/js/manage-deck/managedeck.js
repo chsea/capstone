@@ -54,19 +54,32 @@ app.controller('manageDeckController', function($scope, user, $http, $state) {
   };
 
   $scope.removeFromDeck = function(card) {
-    // var ind = $scope.cardsInDeck.indexOf(card);
-    // var deck = $scope.cardsInDeck;
-    // var removedCard = deck.splice(ind, 1);
-    var url = "api/decks/" + $scope.deck._id;
-    $http.put(url, card);
-    // $http.put(url, deck)
-    // .then(function(newdeck) {
-    //   console.log(newdeck);
-    // });
+    if ($scope.total < 1) return;
+    var url = "api/decks/removecard/" + $scope.deck._id;
+    $http.put(url, card)
+    .then(function(deck) {
+    }).then(null, function(err) {
+      console.log("error occured", err);
+    });
+  };
+
+
+  $scope.removeDeck = function() {
+    $http.delete("api/decks/" + $scope.deck._id)
+    .then(function(res) {
+    }).then(null, function(err) {
+      console.log("error occured", err);
+    });
   };
 
   $scope.addToDeck = function(card){
-    console.log(card);
+    if ($scope.total >= 30) return;
+    var url = "api/decks/addcard/" + $scope.deck._id;
+    $http.put(url, card)
+    .then(function(deck) {
+    }).then(null, function(err) {
+      console.log("error occured", err);
+    });
   };
 
 
