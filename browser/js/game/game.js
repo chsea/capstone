@@ -51,12 +51,12 @@ app.config($stateProvider => {
       $scope.opponentCards = [{}, {}, {}];
       if (turn) $scope.opponentCards.push({});
     });
-    $compile(`<card ng-drag="turn" ng-repeat="card in hand" class="hand-card" card="card" ng-drag-data="card" ng-drag-success="summon($data, $event)"></card>`)($scope).appendTo('#player .hand');
   });
 
   $scope.summon = (card, e) => {
     Socket.emit('summon', card);
     removed = _.remove($scope.hand, handCard => handCard.name === card.name)[0];
+    $scope.mana -= card.cost;
   };
 
   Socket.on('summoned', card => {

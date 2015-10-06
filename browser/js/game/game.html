@@ -8,13 +8,18 @@
     </div>
   </div>
   <div id="table" ng-drop="true">
-    <minion ng-repeat="minion in opponentMinions" minion="minion"></minion>
-    <minion ng-repeat="minion in summonedMinions" minion="minion"></minion>
+    <div id="opponent-summoned">
+      <minion ng-repeat="minion in opponentMinions" minion="minion"></minion>
+    </div>
+    <div id="summoned">
+      <minion ng-repeat="minion in summonedMinions" minion="minion"></minion>
+    </div>
   </div>
   <div id="player">
     <div class="player">{{ player }}</div>
     <div class="mana">{{ mana }}</div>
     <div class="hand">
+      <card ng-repeat="card in hand" class="hand-card" card="card" ng-drag-data="card" ng-drag="summonable(card)" ng-drag-success="summon($data, $event)"></card>
     </div>
   </div>
 </div>
