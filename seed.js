@@ -52,14 +52,16 @@ var seedUsers = function() {
     password: 'password',
     cards: [],
     photo: randPhoto(),
-    decks:[]
+    decks:[],
+    stardust: 23
   }, {
     username: "L.i.z.z.y",
     email: 'obama@gmail.com',
     password: 'potus',
     photo: randPhoto(),
     cards: [],
-    decks: []
+    decks: [],
+    stardust: 34
   }, {
     username: "moodie",
     email: "omri@fsa.com",
@@ -67,14 +69,16 @@ var seedUsers = function() {
     isAdmin: true,
     photo: randPhoto(),
     cards: [],
-    decks: []
+    decks: [],
+    stardust: 234
   }, {
     username: "xoxo_Karrie",
     email: "karrie@gmail.com",
     password: "password",
     photo: randPhoto(),
     cards: [],
-    decks: []
+    decks: [],
+    stardust: 57
   },
   {
     username: "sea",
@@ -82,7 +86,8 @@ var seedUsers = function() {
     password: "bye",
     photo: randPhoto(),
     cards: [],
-    decks: []
+    decks: [],
+    stardust: 132
   },
   {
     username: "sky",
@@ -90,7 +95,8 @@ var seedUsers = function() {
     password: "bye",
     photo: randPhoto(),
     cards: [],
-    decks: []
+    decks: [],
+    stardust: 102
   }];
   users.forEach(function(user) {
     var deck1 = tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id;
@@ -106,7 +112,7 @@ function seedDeck() {
   var names = ['alex\'s', 'chelsea\'s', 'kate\'s'];
   var adjectives = ['amazing', 'super', 'cool', 'best', 'next-level'];
   var nouns = ['deck', 'assortment of cards', 'selection'];
-
+  
   for (var i = 0; i < 20; i++) {
     var deck = {};
     deck.name = names[Math.floor(Math.random() * names.length)] + ' ' + adjectives[Math.floor(Math.random() * adjectives.length)] + ' ' + nouns[Math.floor(Math.random() * nouns.length)];
@@ -141,6 +147,7 @@ function seedMinions() {
     obj.cost = Math.floor(Math.random() * 10);
     obj.hitPoints = Math.floor(Math.random() * 10);
     obj.attackPoints = Math.floor(Math.random() * 10);
+    obj.stardustCost = Math.floor(Math.random() * 5);
     minions.push(obj);
   }
 
@@ -157,6 +164,7 @@ function seedSpells() {
     obj.description = "Y Combinator Spell";
     obj.rarity = Math.floor(Math.random() * 4);
     obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
+    obj.stardustCost = Math.floor(Math.random() * 5);
     spells.push(obj);
   }
   return Spell.createAsync(spells);

@@ -64,9 +64,15 @@ var schema = new mongoose.Schema({
     type: Number,
     default: 6,
     min: 0
+  },
+
+
+
+  stardust: {
+    type: Number,
+    default: 0,
+    min: 0
   }
-
-
 });
 
 

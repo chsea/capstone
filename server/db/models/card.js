@@ -32,7 +32,12 @@ var cardSchema = new Schema({
 	cost: {
 		type: Number,
 		min: 0
+  },
+  stardustCost: {
+		type: Number,
+		min: 0
   }
+
 }, { collection : 'cards', discriminatorKey : 'type' });
 
 var minionSchema = cardSchema.extend({
