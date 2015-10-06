@@ -9,11 +9,13 @@ app.config($stateProvider => {
   });
 }).controller('TestController', ($scope, $state, $compile, Socket, user) => {
   $scope.player = {
+    hp: 30,
     mana: 10,
     hand: [],
     summonedMinions: []
   };
   $scope.opponent = {
+    hp: 30,
     mana: 0,
     hand: [],
     summonedMinions: []

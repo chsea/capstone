@@ -55,13 +55,13 @@ body {
     line-height: 300%;
   }
 
-  @mixin vertical-align($position: relative) {
-    position: $position;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-  }
+@mixin vertical-align($position: relative) {
+  position: $position;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
 
 button {
   color: black!important
@@ -75,5 +75,6 @@ button {
 @import 'game/main';
 @import 'game/card';
 @import 'game/minion';
+@import 'game/player';
 @import 'lobby/main';
 @import 'bootstrap/main'

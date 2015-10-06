@@ -2,7 +2,9 @@
 <p>Game!</p>
 <div id="gameboard">
   <div id="opponent">
-    <div class="player-info">{{ opponent.name }}</div>
+    <div class="player-info">
+      <player player="opponent"></player>
+    </div>
     <div class="hand">
       <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card='card'></blank-card>
     </div>
@@ -18,8 +20,7 @@
   </div>
   <div id="player">
     <div class="player-info">
-      <div class="player">{{ player.name }}</div>
-      <div class="mana">{{ player.mana }}</div>
+      <player player="player"></player>
     </div>
     <div class="hand">
       <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="summonable(card)" ng-drag-success="summon($data, $event)"></card>

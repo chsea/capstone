@@ -1,0 +1,12 @@
+player {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  display: block;
+  margin-left: 100px;
+  text-align: center;
+  .content {
+    @include vertical-align();
+    text-transform: uppercase;
+  }
+}
