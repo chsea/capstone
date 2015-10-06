@@ -6,7 +6,7 @@ app.directive('chat', function(Socket) {
 
 
       scope.messages = [
-        'dadasd'
+
 
 
       ]
