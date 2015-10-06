@@ -22,9 +22,10 @@ module.exports = (io, socket, createdGames) => {
     let game = createdGames[i()];
     let decks = [CardModel.find({_id: {$in: game.p1.deck}}).exec(), CardModel.find({_id: {$in: game.p2.deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
+      let i = 0;
       let decks = resolvedDecks.map(deck => {
         return deck.map(card => {
-          return card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, card.hitPoints, card.attackPoints) : new Spell(card.name, card.cost, card.description);
+          return card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, i++, card.hitPoints, card.attackPoints) : new Spell(card.name, card.cost, card.description, i++);
         });
       });
       let p1 = new Player(game.p1.name, decks[0], game.p1.socket);
@@ -95,7 +96,7 @@ module.exports = (io, socket, createdGames) => {
 
   socket.on('summon', card => {
     console.log(`${p()} summoning ${card.name}`);
-    if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.name === card.name)) return;
+    if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
 
     if (card.type === 'minion') player().summonMinion(card);
 

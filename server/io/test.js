@@ -3,7 +3,7 @@ var _ = require('lodash');
 var Promise = require('bluebird');
 var Card = require('./classes/card');
 var Minion = Card.Minion;
-var Spell = Card.spell;
+var Spell = Card.Spell;
 var Player = require('./classes/player');
 var Game = require('./classes/game');
 
@@ -27,11 +27,13 @@ module.exports = (io, socket) => {
 
     let decks = [CardModel.find({_id: {$in: p1.deck}}).exec(), CardModel.find({_id: {$in: deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
+      let id = 0;
       let decks = resolvedDecks.map(deck => {
         return deck.map(card => {
-          return card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, card.hitPoints, card.attackPoints) : new Spell(card.name, card.cost, card.description);
+          return card.type === 'Minion' ? new Minion(card, id++) : new Spell(card, id++);
         });
       });
+      console.log(decks);
       let player1 = new Player(p1.name, decks[0], p1.socket);
       let player2 = new Player(name, decks[1], socket);
       player1.shuffle();

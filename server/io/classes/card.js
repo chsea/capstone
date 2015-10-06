@@ -1,22 +1,23 @@
 class Card {
-  constructor(name, cost, description) {
-    this.name = name;
-    this.cost = cost;
-    this.description = description;
+  constructor(card, id) {
+    this.name = card.name;
+    this.cost = card.cost;
+    this.description = card.description;
+    this.id = id;
   }
 }
 class Spell extends Card {
-  constructor(name, cost, description) {
-    super(name, cost, description);
+  constructor(card) {
+    super(card);
     this.type = 'spell';
   }
 }
 class Minion extends Card {
-  constructor(name, cost, description, hp, ap) {
-    super(name, cost, description);
+  constructor(card, id) {
+    super(card, id);
     this.type = 'minion';
-    this.hp = hp;
-    this.ap = ap;
+    this.hp = card.hitPoints;
+    this.ap = card.attackPoints;
   }
 }
 
