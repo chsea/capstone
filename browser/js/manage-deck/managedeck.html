@@ -7,18 +7,21 @@
   <button class="btn btn-sm btn-default" ng-click="selectDeck()">Select</button>
 </div>
 
-<div class="text-center top container" style="background-color:grey;">
-  <h3>ALL CARDS</h3>
-
+<div class="text-center top col-md-10">
+  <h3>{{username}}'s Cards</h3>
+      <card card="usercard" ng-click="addToDeck(usercard)" ng-repeat="usercard in usercards"></card>
 </div>
 
 
-<div class="container pull-right col-xs-2">
-  <h5>{{deckName | uppercase}}</h5>
-  <div style="text-align: left" ng-repeat="card in cards">{{card.name}}</div>
+<div ng-show="showCards" class="container pull-right col-xs-2" style="background-color:#90C3D4;">
+  <h4>{{deckName | uppercase}}<br>{{$scope.deck._id}}</h4>
+  <div style="text-align: left" ng-click="removeFromDeck(card)" value="card" ng-repeat="card in cardsInDeck">{{card.name}}</div>
 </div>
+
+<div class="pull-right">
+<canvas id="clients" width="230" height="275"></canvas>
 <div ng-show="showCards">
   CARDS: {{total}}/30 <br>
-  DECK: {{deckName | uppercase}} <br>
 </div>
-<canvas id="clients" width="400" height="400"></canvas>
+</div>
+
