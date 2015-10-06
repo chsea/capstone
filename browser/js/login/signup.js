@@ -32,8 +32,7 @@ app.controller('signupCtrl', function($scope, $state, AuthService, UserFactory) 
     } else {
       UserFactory.create($scope.newUser)
         .then(user => {
-          console.log(user)
-          resetUser()
+
           $state.go('login')
         })
     }
