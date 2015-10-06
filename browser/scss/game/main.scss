@@ -1,4 +1,5 @@
 #gameboard {
+  color: black;
   background-color: white;
   width: 1200px;
   height: 600px;
@@ -12,9 +13,10 @@
     height: 400px;
   };
   #summoned, #opponent-summoned {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 200px;
-    margin-top: 25px;
-    text-align: center;
   };
   #initial {
     position: absolute;
@@ -24,23 +26,35 @@
   .initial-card {
     display: inline-block;
   }
-  .hand, .opponent-hand {
+
+  #player, #opponent {
+    display: flex;
+    justify-content: center;
+  }
+  #player {
+    align-items: flex-start;
+    .hand {
+      padding-top: 25px;
+    }
+  }
+  #opponent {
+    align-items: flex-end;
+    .hand {
+      padding-bottom: 25px;
+    }
+  }
+  .player-info {
+    width: 200px;
+  }
+  .hand {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     width: 800px;
     text-align: center;
   }
-  .hand {
-    margin-top: -95px;
-  }
-  .opponent-hand {
-    margin-top: -165px;
-  }
-  .hand-card {
-    transform: scale(0.5, 0.5);
-    -ms-transform: scale(0.5, 0.5); /* IE 9 */
-    -webkit-transform: scale(0.5, 0.5); /* Safari and Chrome */
-    -o-transform: scale(0.5, 0.5); /* Opera */
-    -moz-transform: scale(0.5, 0.5); /* Firefox */
-    margin: 0 -40px;
+  .extra {
+    width: 200px;
   }
   overflow: hidden;
 }

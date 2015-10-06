@@ -89,6 +89,10 @@ app.config($stateProvider => {
     $scope.$apply(() => $scope.opponentMinions.push(card));
   });
 
+  $scope.endTurn = () => {
+    $socket.emit('endTurn');
+  };
+
   $scope.leave = () => {
     Socket.emit('leave');
   };
