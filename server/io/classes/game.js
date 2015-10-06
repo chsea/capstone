@@ -12,6 +12,9 @@ class Game {
     this.turn++;
     let p = this.currentPlayer;
     this.currentPlayer = this.waitingPlayer;
+    this.currentPlayer.socket.turn = true;
+    this.currentPlayer.mana++;
+    p.socket.turn = false;
     this.waitingPlayer = p;
   }
 }
