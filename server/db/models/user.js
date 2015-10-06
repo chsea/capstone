@@ -57,6 +57,9 @@ var schema = new mongoose.Schema({
     type: Number,
     max: 50,
     default: 0
+  }, packs:{
+    type: Number,
+    default: 6
   }
 
 });

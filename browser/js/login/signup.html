@@ -1,12 +1,8 @@
 <section id="signup">
   <div class="container">
     <div class="row text-center">
-      <pre>
-        {{newUser | json}}
-        {{signupForm | json}}
-      </pre>
 
-      <form name="signupForm" ng-submit="signupForm.$valid && signup()">
+      <form name="signupForm" ng-submit="signupForm.$valid && signup()" novalidate>
         <div>
           <span style="font-size:20px"> Username</span>
           <div>
