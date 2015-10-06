@@ -1,0 +1,53 @@
+<section id="signup">
+  <div class="container">
+    <div class="row text-center">
+      <pre>
+        {{newUser | json}}
+        {{signupForm | json}}
+      </pre>
+
+      <form name="signupForm" ng-submit="signupForm.$valid && signup()">
+        <div>
+          <span style="font-size:20px"> Username</span>
+          <div>
+            <p ng-show="signupForm.username.$error.minlength">username is too short</p>
+            <p ng-show="signupForm.username.$dirty && signupForm.username.$error.required">
+              username is required
+            </p>
+            <input name ="username" ng-model="newUser.username" ng-minlength="5" required/> </div>
+
+        </div>
+        <div class="field">
+          <span style="font-size:20px"> Email</span>
+          <div>
+            <p ng-show="signupForm.email.$dirty && signupForm.email.$error.required ">
+              Email is a required field</p>
+              <p ng-show=" signupForm.email.$dirty && !$emailValid">
+                email is invalid</p>
+            <input name="email" ng-model="newUser.email"  required/> </div>
+
+        </div>
+        <div class="field"  >
+          <span style="font-size:20px" >Password</span>
+          <div>
+            <p ng-show="signupForm.password.$dirty && signupForm.password.$error.required">
+              Password is required
+            </p>
+            <p ng-show="signupForm.password.$dirty && signupForm.password.$error.minlength">
+              Password is too short
+            </p>
+            <p ng-show="signupForm.password.$dirty && signupForm.password.$error.maxlength">
+              Password is too long
+            </p>
+            <input name=password ng-model="newUser.password" required ng-minlength="6" ng-maxlength="20" />
+
+          </div>
+        </div>
+        <button type="submit">Sign Up!</button>
+      </form>
+
+
+    </div>
+
+  </div>
+</section>

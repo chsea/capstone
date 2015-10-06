@@ -2,3 +2,22 @@
   width: 60%;
   margin: 0 auto;
 }
+#signup {
+  font-size: 20px;
+  .row {
+    margin:200px auto;
+  }
+  input {
+    width: 400px;
+    height: 40px;
+  }
+  .field {
+    margin-top: 20px;
+  }
+  button {
+    margin-top: 30px;
+    width: 120px;
+    height: 40px;
+    border-radius: 10%;
+  }
+}
