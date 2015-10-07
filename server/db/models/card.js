@@ -27,7 +27,9 @@ var cardSchema = new Schema({
 		min: 0
   },
   logic: {
-		type: String
+		type: {
+      String: {}
+    }
   },
 	cost: {
 		type: Number,
@@ -54,6 +56,7 @@ var minionSchema = cardSchema.extend({
 });
 
 var spellSchema = cardSchema.extend({});
+
 
 cardSchema.virtual('rarity.name').get(function () {
   var names = ['common', 'uncommon', 'rare', 'legendary'];
