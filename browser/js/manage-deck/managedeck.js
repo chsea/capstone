@@ -13,15 +13,16 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   var context;
   var clientsChart;
   $scope.total = 0;
-  //$scope.newdeckname ;
   $scope.barData = {};
   $scope.showCards = false;
   $scope.createDeck = false;
+  $scope.craft = false;
   $scope.uniqueCardsInDeck = {};
   $scope.username = user.username;
   $scope.decks = user.decks;
   $scope.usercards = user.cards;
   $scope.selectDeck = () => {
+    if ($scope.selectedDeck === undefined) return;
     $scope.deck = _.find(user.decks, {_id: $scope.selectedDeck});
     $scope.deck.cards.forEach(function(card){
       if ($scope.uniqueCardsInDeck.hasOwnProperty(card.name)){
@@ -30,7 +31,6 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
         $scope.uniqueCardsInDeck[card.name] = 1;
       }
     });
-
     $scope.deckName = $scope.deck.name;
     $scope.total = $scope.deck.cards.length;
     $scope.showCards = true;
@@ -41,48 +41,44 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
             strokeColor: "rgba(220,220,220,0.8)",
             highlightFill: "rgba(220,220,220,0.75)",
             highlightStroke: "rgba(220,220,220,1)",
-            data: $scope.calccost()
+            data: $scope.deckcost()
         }];
 
   context = document.getElementById('clients').getContext('2d');
   clientsChart = new Chart(context).Bar($scope.barData);
-
   };
   
-  $scope.calccost = function() {
-    $scope.deckCost = [0,0,0,0,0,0,0];
+  $scope.deckcost = function() {
+    $scope.cost = [0,0,0,0,0,0,0];
     $scope.deck.cards.forEach(function(card) {
       if (card.cost <= 6) {
-        $scope.deckCost[card.cost-1]++;
+        $scope.cost[card.cost-1]++;
       }
       else {
-        $scope.deckCost[6]++;
+        $scope.cost[6]++;
       }
     });
-    return $scope.deckCost;
+    return $scope.cost;
   };
 
   $scope.removeFromDeck = function(cardname) {
-    if ($scope.total < 1) return;
-    var card;
+    if ($scope.total < 1 || $scope.deck === undefined) return;
     $scope.deck.cards.forEach(function(currentcard, index) {
       if (currentcard.name === cardname) {
-        card = currentcard;
+        $scope.deck.cards.splice(index, 1);
         return;
       }
-    });
-    $http.put("api/decks/removecard/" + $scope.deck._id, card)
-    .then(function(deck) {
-    }).then(null, function(err) {
-      console.log("error occured", err);
+      updateDeck($scope.deck);
     });
   };
 
   $scope.removeDeck = function() {
-    $http.delete("api/decks/" + $scope.deck._id)
-    .then(function(res) {
-    }).then(null, function(err) {
-      console.log("error occured", err);
+    if ($scope.deck === undefined) return;
+    DeckFactory.destroy($scope.deck._id)
+    .then(function(deletedDeck){
+      //console.log("deleted deck", deletedDeck);
+    }).then(null, function(err){
+      console.log(err);
     });
   };
 
@@ -95,30 +91,92 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.createNewDeck = function(deckname) {
+    if (deckname === undefined || deckname.length < 1) return;
     DeckFactory.create({"name": deckname})
     .then(function(newdeck){
-      $scope.decks.push(newdeck._id);
+      $scope.decks.push(newdeck);
       user.decks = $scope.decks;
-      UserFactory.update(user._id, user);
-    })
-    .then(function(updatedUser){
-      // console.log("updated user ", updatedUser);
-      //console.log("user updated with a new deck");
-    })
-    .then(null, function(err){
-      console.log("error occured ", err);
+      updateUser();
     });
   };
 
   $scope.addToDeck = function(card){
-    if ($scope.total >= 30) return;
-    var url = "api/decks/addcard/" + $scope.deck._id;
-    $http.put(url, card)
-    .then(function(deck) {
-    }).then(null, function(err) {
-      console.log("error occured", err);
-    });
+    if ($scope.deck === undefined || $scope.total > 29) return;
+    if (duplicateChecker(card)) {
+      console.log("cannot have more than 2 duplicates in the deck");
+      return;
+    }
+    $scope.deck.cards.push(card);
+    updateDeck($scope.deck);
   };
 
+  $scope.showCraftForm = function() {
+    if ($scope.craft) {
+      $scope.craft = false;
+    } else {
+      $scope.craft = true;
+    }
+  };
+
+  $scope.disenchant = function(card){
+    // 1. Remove card from user.cards
+    var cost = card.stardustCost;
+    removeCardFromUser(card);
+    // 2. Add card's stardust value to user's stardust points
+    user.stardust += cost;
+    updateUser();
+  };
+
+  function updateDeck(deck){
+    DeckFactory.update(deck._id, deck)
+      .then(function(updatedDeck){
+        //console.log("deck updated");
+      })
+      .then(null, function(err){
+        console.log("Error occured ", err);
+      });
+  }
+
+  function updateUser(){
+    UserFactory.update(user._id, user)
+      .then(function(updatedUser){
+        // console.log("user updated");
+        return true;
+      })
+      .then(null, function(err){
+        console.log("Error occured ", err);
+        return false;
+      });
+  }
+
+  function duplicateChecker(card) {
+    var count = 0;
+    $scope.deck.cards.forEach(function(currentcard){
+      if (currentcard._id === card._id){
+        count++;
+      }
+    });
+    if (count >= 2) return true;
+    return false;
+  }
+
+  function removeCardFromUser(card) {
+    // remove the card from the user's user.cards property
+    var indx = -1;
+    user.cards.forEach(function(currentcard, index){
+      if (currentcard._id === card._id){
+        indx = index;
+      }
+    });
+    user.cards.splice(indx, 1);
+  }
 
 });
+
+
+
+
+
+
+
+

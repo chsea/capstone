@@ -13,9 +13,10 @@ var missingItemHandler = function(error, cb) {
 };
 
 router.param('userId', function(req, res, next, id) {
-  User.findById(id).deepPopulate('decks.cards username').exec()
-    .then(function(element) {
-      req.foundUser = element;
+  User.findById(id) //.deepPopulate('decks.cards username').exec()
+    .then(function(user) {
+      console.log(user);
+      req.foundUser = user;
       next();
     })
     .then(null, function(error) {
@@ -24,8 +25,8 @@ router.param('userId', function(req, res, next, id) {
 });
 
 router.get('/', function(req, res, next) {
+  //included req.query in the case of possibly filtering users - possibly not needed.
   User.find(req.query).populate('decks').exec()
-    //included req.query in the case of possibly filtering users - possibly not needed.
     .then(function(results) {
       res.json(results);
     })
@@ -36,6 +37,17 @@ router.get('/:userId', function(req, res) {
   res.json(req.foundUser);
 });
 
+router.put('/:userId', function(req, res, next) {
+  Object.keys(req.body).forEach(function(key) {
+    req.foundUser[key] = req.body[key];
+  });
+  return req.foundUser.save()
+    .then(function(element) {
+      res.json(element);
+    })
+    .then(null, next);
+});
+
 router.post('/', function(req, res, next) {
   if (req.user && !req.user.isAdmin) delete req.body.isAdmin;
   User.create(req.body)
@@ -44,20 +56,6 @@ router.post('/', function(req, res, next) {
         if (error) throw new Error();
         res.status(200).json(user);
       });
-    })
-    .then(null, next);
-});
-
-router.put('/:userId', function(req, res, next) {
-  // if (req.user.name !== req.foundUser.name) return res.sendStatus(404);
-  Object.keys(req.body).forEach(function(key) {
-    if (key === 'isAdmin') return
-    else req.foundUser[key] = req.body[key]
-    // if (req.foundUser[key] == false || key === 'isAdmin') req.foundUser[key] = req.body[key];
-  });
-  return req.foundUser.save()
-    .then(function(element) {
-      res.json(element);
     })
     .then(null, next);
 });
