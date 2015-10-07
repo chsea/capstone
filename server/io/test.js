@@ -119,8 +119,13 @@ module.exports = (io, socket) => {
   socket.on('attack', (attackerId, attackeeId) => {
     console.log(`${p()}: ${attackerId} attacking ${attackeeId}`);
     let hps = games[i()].attack(attackerId, attackeeId);
-    socket.emit('attacked', {id: attackerId, hp: hps[0]}, {id: attackeeId, hp: hps[1]});
-    opponent().socket.emit('wasAttacked', {id: attackerId, hp: hps[0]}, {id: attackeeId, hp: hps[1]});
+    if (hps[1] === 0 && !attackerId) {
+      socket.emit('win');
+      opponent().socket.emit('lose');
+    } else {
+      socket.emit('attacked', {id: attackerId, hp: hps[0]}, {id: attackeeId, hp: hps[1]});
+      opponent().socket.emit('wasAttacked', {id: attackerId, hp: hps[0]}, {id: attackeeId, hp: hps[1]});
+    }
   });
 
   socket.on('endTurn', () => {

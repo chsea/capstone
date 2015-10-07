@@ -23,9 +23,14 @@ class Game {
   attack(attackerId, attackeeId) {
     let attacker = _.find(this.currentPlayer.summonedMinions, minion => minion.id = attackerId);
     if (!attacker.canAttack) return;
-    let attackee = _.find(this.waitingPlayer.summonedMinions, minion => minion.id = attackeeId);
+    let attackee;
+    if (attackeeId) {
+      attackee = _.find(this.waitingPlayer.summonedMinions, minion => minion.id = attackeeId);
+      attacker.hp -= attackee.ap;
+    } else {
+      attackee = this.waitingPlayer;
+    }
     attacker.canAttack = false;
-    attacker.hp -= attackee.ap;
     attackee.hp -= attacker.ap;
 
     if (attacker.hp <= 0) {
@@ -33,7 +38,7 @@ class Game {
       attacker.hp = 0;
     }
     if (attackee.hp <= 0) {
-      _.remove(this.waitingPlayer.summonedMinions, minion => minion.id = attackee.id);
+      if (attackerId) _.remove(this.waitingPlayer.summonedMinions, minion => minion.id = attackee.id);
       attackee.hp = 0;
     }
     console.log(attacker.hp, attackee.hp);

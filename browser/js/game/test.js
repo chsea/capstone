@@ -130,8 +130,8 @@ app.config($stateProvider => {
   let attack = (player, attackerMinion, attackeeMinion) => {
     let opponent = player === 'player' ? 'opponent' : 'player';
     let attacker = _.find($scope[player].summonedMinions, minion => minion.id === attackerMinion.id);
-    console.log(attacker);
-    let attackee = _.find($scope[opponent].summonedMinions, minion => minion.id === attackeeMinion.id);
+
+    let attackee = attackeeMinion.id ?  _.find($scope[opponent].summonedMinions, minion => minion.id === attackeeMinion.id) : $scope[opponent];
 
     $scope.$apply(() =>{
       attacker.canAttack = false;
@@ -143,7 +143,9 @@ app.config($stateProvider => {
     });
   };
   $scope.attack = (data, e) => {
-    Socket.emit('attack', data.attacker.id, data.attackee.id);
+    let attackee = data.attackee ? data.attackee.id : null;
+    console.log(attackee);
+    Socket.emit('attack', data.attacker.id, attackee);
   };
   Socket.on('attacked', (attacker, attackee) => {
     console.log('attacked!');
