@@ -2,27 +2,37 @@
 <p>Game!</p>
 <div id="gameboard">
   <div id="opponent">
-    <div class="player">Opponent: {{ opponent }}</div>
-    <div class="opponent-hand hand">
-      <blank-card class="opponent-card hand-card" ng-repeat="card in opponentCards" card='card'></blank-card>
+    <div class="player-info">
+      <player player="opponent"></player>
+    </div>
+    <div class="hand">
+      <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card='card'></blank-card>
+    </div>
+    <div class="extra">
+      <div>{{ opponent.mana }}</div>
     </div>
   </div>
   <div id="table" ng-drop="true">
     <div id="opponent-summoned">
-      <minion ng-repeat="minion in opponentMinions" minion="minion"></minion>
+      <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="true" ng-drop-success="attack({attacker: $data, attackee: minion}, $event)"></minion>
     </div>
     <div id="summoned">
-      <minion ng-repeat="minion in summonedMinions" minion="minion"></minion>
+      <minion ng-repeat="minion in player.summonedMinions" minion="minion" ng-drag-data="minion" ng-drag="true"></minion>
     </div>
   </div>
   <div id="player">
-    <div class="player">{{ player }}</div>
-    <div class="mana">{{ mana }}</div>
+    <div class="player-info">
+      <player player="player"></player>
+    </div>
     <div class="hand">
-      <card ng-repeat="card in hand" class="hand-card" card="card" ng-drag-data="card" ng-drag="summonable(card)" ng-drag-success="summon($data, $event)"></card>
+      <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="summonable(card)" ng-drag-success="summon($data, $event)"></card>
+    </div>
+    <div class="extra">
+      <div>{{ player.mana }}</div>
+      <div>{{ message }}</div>
+      <button ng-click="endTurn()" ng-show="turn">End Turn</button>
+      <button ng-click='leave()'>Leave game</button>
     </div>
   </div>
 </div>
-<button ng-click='leave()'>Leave game</button>
 </section>
-<div>{{ message }}</div>
