@@ -4,6 +4,7 @@ class Card {
     this.cost = card.cost;
     this.description = card.description;
     this.id = id;
+    this.logic = card.logic
   }
 }
 class Spell extends Card {
@@ -18,6 +19,7 @@ class Minion extends Card {
     this.type = 'minion';
     this.hp = card.hitPoints;
     this.ap = card.attackPoints;
+    this.canAttack = false;
   }
 }
 

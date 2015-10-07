@@ -13,7 +13,6 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   var context;
   var clientsChart;
   $scope.total = 0;
-  //$scope.newdeckname ;
   $scope.barData = {};
   $scope.showCards = false;
   $scope.createDeck = false;
@@ -22,6 +21,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   $scope.decks = user.decks;
   $scope.usercards = user.cards;
   $scope.selectDeck = () => {
+    if ($scope.selectedDeck === undefined) return;
     $scope.deck = _.find(user.decks, {_id: $scope.selectedDeck});
     $scope.deck.cards.forEach(function(card){
       if ($scope.uniqueCardsInDeck.hasOwnProperty(card.name)){
@@ -41,48 +41,44 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
             strokeColor: "rgba(220,220,220,0.8)",
             highlightFill: "rgba(220,220,220,0.75)",
             highlightStroke: "rgba(220,220,220,1)",
-            data: $scope.calccost()
+            data: $scope.deckcost()
         }];
 
   context = document.getElementById('clients').getContext('2d');
   clientsChart = new Chart(context).Bar($scope.barData);
-
   };
   
-  $scope.calccost = function() {
-    $scope.deckCost = [0,0,0,0,0,0,0];
+  $scope.deckcost = function() {
+    $scope.cost = [0,0,0,0,0,0,0];
     $scope.deck.cards.forEach(function(card) {
       if (card.cost <= 6) {
-        $scope.deckCost[card.cost-1]++;
+        $scope.cost[card.cost-1]++;
       }
       else {
-        $scope.deckCost[6]++;
+        $scope.cost[6]++;
       }
     });
-    return $scope.deckCost;
+    return $scope.cost;
   };
 
   $scope.removeFromDeck = function(cardname) {
-    if ($scope.total < 1) return;
-    var card;
+    if ($scope.total < 1 || $scope.deck === undefined) return;
     $scope.deck.cards.forEach(function(currentcard, index) {
       if (currentcard.name === cardname) {
-        card = currentcard;
+        $scope.deck.cards.splice(index, 1);
         return;
       }
-    });
-    $http.put("api/decks/removecard/" + $scope.deck._id, card)
-    .then(function(deck) {
-    }).then(null, function(err) {
-      console.log("error occured", err);
+      updateDeck($scope.deck);
     });
   };
 
   $scope.removeDeck = function() {
-    $http.delete("api/decks/" + $scope.deck._id)
-    .then(function(res) {
-    }).then(null, function(err) {
-      console.log("error occured", err);
+    if ($scope.deck === undefined) return;
+    DeckFactory.destroy($scope.deck._id)
+    .then(function(deletedDeck){
+      //console.log("deleted deck", deletedDeck);
+    }).then(null, function(err){
+      console.log(err);
     });
   };
 
@@ -95,30 +91,42 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.createNewDeck = function(deckname) {
+    if (deckname === undefined || deckname.length < 1) return;
     DeckFactory.create({"name": deckname})
     .then(function(newdeck){
-      $scope.decks.push(newdeck._id);
+      $scope.decks.push(newdeck);
       user.decks = $scope.decks;
-      UserFactory.update(user._id, user);
-    })
-    .then(function(updatedUser){
-      // console.log("updated user ", updatedUser);
-      //console.log("user updated with a new deck");
-    })
-    .then(null, function(err){
-      console.log("error occured ", err);
+      updateUser();
     });
   };
 
   $scope.addToDeck = function(card){
-    if ($scope.total >= 30) return;
-    var url = "api/decks/addcard/" + $scope.deck._id;
-    $http.put(url, card)
-    .then(function(deck) {
-    }).then(null, function(err) {
-      console.log("error occured", err);
-    });
-  };
+    if ($scope.total >= 30 || $scope.deck === undefined) return;
+    $scope.deck.cards.push(card);
+    updateDeck($scope.deck);
+};
 
+  function updateDeck(deck){
+    DeckFactory.update(deck._id, deck)
+      .then(function(updatedDeck){
+        //console.log("deck updated");
+      })
+      .then(null, function(err){
+        console.log("Error occured ", err);
+      });
+  }
+
+  function updateUser(){
+    console.log("user id ", user._id);
+    UserFactory.update(user._id, user)
+      .then(function(updatedUser){
+        //console.log("user updated");
+      })
+      .then(null, function(err){
+        console.log("Error occured ", err);
+      });
+  }
 
 });
+
+

@@ -31,15 +31,16 @@ router.post('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => res.send(req.deck));
 
 router.put('/:id', function(req, res, next) {
-  var ind = req.deck.cards.indexOf(req.body._id);
-  if (ind !== -1){
-    req.deck.cards.splice(ind, 1);
-  }  else {
-    req.deck.cards.push(req.body);
-  }
-  req.deck.save()
+  Object.keys(req.body).forEach(function(key) {
+    // if (key === 'isAdmin') {
+    //   res.status(404).json();
+    //   return;
+    // }
+    req.deck[key] = req.body[key];
+  });
+  return req.deck.save()
     .then(function(updatedDeck) {
-      res.json(updatedDeck);
+      res.status(200).json(updatedDeck);
     })
     .then(null, next);
 });
@@ -54,17 +55,6 @@ router.put('/name/:id', function(req, res, next) {
     })
     .then(null, next);
 });
-
-// router.put('/addcard/:id', function(req, res, next) {
-//   req.deck.cards.push(req.body);
-//   req.deck.save()
-//     .then(function(updatedDeck) {
-//       res.json(updatedDeck);
-//     })
-//     .then(null, next);
-// });
-
-
 
 router.put('/removecard/:id', function(req, res, next) {
   var indx = req.deck.cards.indexOf(req.body._id);
