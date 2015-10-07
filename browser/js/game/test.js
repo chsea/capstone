@@ -10,13 +10,13 @@ app.config($stateProvider => {
 }).controller('TestController', ($scope, $state, $compile, Socket, user) => {
   $scope.player = {
     hp: 30,
-    mana: 10,
+    mana: 9,
     hand: [],
     summonedMinions: []
   };
   $scope.opponent = {
     hp: 30,
-    mana: 0,
+    mana: 9,
     hand: [],
     summonedMinions: []
   };
@@ -65,7 +65,6 @@ app.config($stateProvider => {
   };
 
   Socket.on('waitInitial', () => {
-    $scope.$apply(() => $scope.opponent.hand.push({}));
     $('#initial').remove();
     $compile(`<div id="initial"><h1>Please wait for your opponent to decide.</h1></div>`)($scope).appendTo('#gameboard');
   });
@@ -78,6 +77,8 @@ app.config($stateProvider => {
       if (turn) {
         $scope.player.mana++;
         $scope.opponent.hand.push({});
+      } else {
+        $scope.opponent.mana++;
       }
       $scope.message = turn ? "Your turn!" : "Opponent's turn!";
     });
