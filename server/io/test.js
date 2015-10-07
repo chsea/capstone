@@ -106,13 +106,20 @@ module.exports = (io, socket) => {
   });
 
   socket.on('summon', card => {
+    if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
     console.log(`${p()} summoning ${card.name}`);
-    if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.name === card.name)) return;
 
     if (card.type === 'minion') player().summonMinion(card);
 
     socket.emit('summoned', card);
     opponent().socket.emit('opponentSummoned', card);
+  });
+
+  socket.on('attack', (attackerId, attackeeId) => {
+    console.log(`${p()}: ${attackerId} attacking ${attackeeId}`);
+    let hps = games[i()].attack(attackerId, attackeeId);
+    socket.emit('attacked', {id: attackerId, hp: hps[0]}, {id: attackeeId, hp: hps[1]});
+    opponent().socket.emit('wasAttacked', {id: attackerId, hp: hps[0]}, {id: attackeeId, hp: hps[1]});
   });
 
   socket.on('endTurn', () => {

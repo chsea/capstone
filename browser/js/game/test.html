@@ -8,7 +8,9 @@
     <div class="hand">
       <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card='card'></blank-card>
     </div>
-    <div class="extra">dsf</div>
+    <div class="extra">
+      <div>{{ opponent.mana }}</div>
+    </div>
   </div>
   <div id="table" ng-drop="true">
     <div id="opponent-summoned">
@@ -26,6 +28,7 @@
       <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="summonable(card)" ng-drag-success="summon($data, $event)"></card>
     </div>
     <div class="extra">
+      <div>{{ player.mana }}</div>
       <div>{{ message }}</div>
       <button ng-click="endTurn()" ng-show="turn">End Turn</button>
       <button ng-click='leave()'>Leave game</button>
