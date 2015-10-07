@@ -30,7 +30,6 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
         $scope.uniqueCardsInDeck[card.name] = 1;
       }
     });
-
     $scope.deckName = $scope.deck.name;
     $scope.total = $scope.deck.cards.length;
     $scope.showCards = true;
@@ -101,10 +100,14 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.addToDeck = function(card){
-    if ($scope.total >= 30 || $scope.deck === undefined) return;
+    if ($scope.deck === undefined || $scope.total > 29) return;
+    if (duplicateChecker(card)) {
+      console.log("cannot have more than 2 duplicates in the deck");
+      return;
+    }
     $scope.deck.cards.push(card);
     updateDeck($scope.deck);
-};
+  };
 
   function updateDeck(deck){
     DeckFactory.update(deck._id, deck)
@@ -127,6 +130,24 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
       });
   }
 
+  function duplicateChecker(card) {
+    var count = 0;
+    $scope.deck.cards.forEach(function(currentcard){
+      if (currentcard._id === card._id){
+        count++;
+      }
+    });
+    if (count >= 2) return true;
+    return false;
+  }
+
+
 });
+
+
+
+
+
+
 
 

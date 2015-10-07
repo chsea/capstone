@@ -32,10 +32,6 @@ router.get('/:id', (req, res, next) => res.send(req.deck));
 
 router.put('/:id', function(req, res, next) {
   Object.keys(req.body).forEach(function(key) {
-    // if (key === 'isAdmin') {
-    //   res.status(404).json();
-    //   return;
-    // }
     req.deck[key] = req.body[key];
   });
   return req.deck.save()
