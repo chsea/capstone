@@ -1,4 +1,6 @@
 minion {
+  @include noselect();
+  cursor: pointer;
   font: 15px Monaco;
   display: inline-block;
   border-radius: 50px/65px;

@@ -1,4 +1,6 @@
 card, blank-card {
+  @include noselect();
+  cursor: pointer;
   &.small{
     font-size: 8px;
     border-radius: 8px;

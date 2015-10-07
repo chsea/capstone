@@ -4,7 +4,7 @@ class Player {
   constructor(name, deck, socket) {
     this.name = name;
     this.socket = socket;
-    this.hp = 100;
+    this.hp = 30;
     this.deck = deck;
     this.discard = [];
     this.hand = [];
@@ -24,7 +24,10 @@ class Player {
 
   startTurn() {
     this.mana++;
-    this.draw();
+    this.summonedMinions.forEach(minion => {
+      if (!minion.canAttack) minion.canAttack = true;
+    });
+    return this.draw();
   }
 
   summonMinion(card) {
