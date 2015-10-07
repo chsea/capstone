@@ -10,18 +10,21 @@ app.config($stateProvider => {
 }).controller('TestController', ($scope, $state, $compile, Socket, user) => {
   $scope.player = {
     hp: 30,
-    mana: 10,
+    mana: 9,
     hand: [],
     summonedMinions: []
   };
   $scope.opponent = {
     hp: 30,
-    mana: 0,
+    mana: 9,
     hand: [],
     summonedMinions: []
   };
   $scope.summonable = (card) => {
     return $scope.turn && card.cost <= $scope.player.mana;
+  };
+  $scope.canAttack = (minion) => {
+    return $scope.turn && minion.canAttack;
   };
   let rejectedCards = [];
 
@@ -65,7 +68,6 @@ app.config($stateProvider => {
   };
 
   Socket.on('waitInitial', () => {
-    $scope.$apply(() => $scope.opponent.hand.push({}));
     $('#initial').remove();
     $compile(`<div id="initial"><h1>Please wait for your opponent to decide.</h1></div>`)($scope).appendTo('#gameboard');
   });
@@ -78,6 +80,8 @@ app.config($stateProvider => {
       if (turn) {
         $scope.player.mana++;
         $scope.opponent.hand.push({});
+      } else {
+        $scope.opponent.mana++;
       }
       $scope.message = turn ? "Your turn!" : "Opponent's turn!";
     });
@@ -88,6 +92,10 @@ app.config($stateProvider => {
       $scope.player.hand.push(card);
       $scope.player.mana++;
       $scope.turn = true;
+      $scope.player.summonedMinions.forEach(minion => {
+        if (!minion.canAttack) minion.canAttack = true;
+      });
+      console.log($scope.player.summonedMinions);
       $scope.message = 'Your turn!';
     });
   });
@@ -122,10 +130,11 @@ app.config($stateProvider => {
   let attack = (player, attackerMinion, attackeeMinion) => {
     let opponent = player === 'player' ? 'opponent' : 'player';
     let attacker = _.find($scope[player].summonedMinions, minion => minion.id === attackerMinion.id);
-    console.log(attacker);
-    let attackee = _.find($scope[opponent].summonedMinions, minion => minion.id === attackeeMinion.id);
+
+    let attackee = attackeeMinion.id ?  _.find($scope[opponent].summonedMinions, minion => minion.id === attackeeMinion.id) : $scope[opponent];
 
     $scope.$apply(() =>{
+      attacker.canAttack = false;
       attacker.hp = attackerMinion.hp;
       attackee.hp = attackeeMinion.hp;
 
@@ -134,7 +143,9 @@ app.config($stateProvider => {
     });
   };
   $scope.attack = (data, e) => {
-    Socket.emit('attack', data.attacker.id, data.attackee.id);
+    let attackee = data.attackee ? data.attackee.id : null;
+    console.log(attackee);
+    Socket.emit('attack', data.attacker.id, attackee);
   };
   Socket.on('attacked', (attacker, attackee) => {
     console.log('attacked!');
