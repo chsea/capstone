@@ -7,7 +7,7 @@ app.config($stateProvider => {
       user: AuthService => AuthService.getLoggedInUser()
     }
   });
-}).controller('TestController', ($scope, $state, $compile, Socket, user) => {
+}).controller('TestController', ($scope, $state, $compile, Socket, user, CardLogicFactory) => {
   $scope.player = {
     hp: 30,
     mana: 10,
@@ -25,7 +25,7 @@ app.config($stateProvider => {
   };
   let rejectedCards = [];
 
-// Testing layout
+  // Testing layout
   // $scope.player.hand = [
   //   {name: "Hello", description: "happiness is ephermal", cost: 2, ap: 1, hp: 6, id: 0},
   //   {name: "Goodbye", description: "happiness is eternal", cost: 3, ap: 1, hp: 1, id: 1},
@@ -105,12 +105,16 @@ app.config($stateProvider => {
       _.remove($scope[player].hand, handCard => handCard.name === card.name);
       $scope[player].mana -= card.cost;
       $scope[player].summonedMinions.push(card);
+
     });
   };
   $scope.summon = (card, e) => {
     Socket.emit('summon', card);
   };
+
   Socket.on('summoned', card => {
+    CardLogicFactory.checkCardLogic(card)
+
     console.log(`summoned ${card.name}`);
     summon('player', card);
   });
@@ -125,7 +129,7 @@ app.config($stateProvider => {
     console.log(attacker);
     let attackee = _.find($scope[opponent].summonedMinions, minion => minion.id === attackeeMinion.id);
 
-    $scope.$apply(() =>{
+    $scope.$apply(() => {
       attacker.hp = attackerMinion.hp;
       attackee.hp = attackeeMinion.hp;
 

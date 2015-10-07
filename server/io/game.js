@@ -25,7 +25,7 @@ module.exports = (io, socket, createdGames) => {
       let i = 0;
       let decks = resolvedDecks.map(deck => {
         return deck.map(card => {
-          return card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, i++, card.hitPoints, card.attackPoints) : new Spell(card.name, card.cost, card.description, i++);
+          return card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, i++, card.logic, card.hitPoints, card.attackPoints) : new Spell(card.name, card.logic, card.cost, card.description, i++);
         });
       });
       let p1 = new Player(game.p1.name, decks[0], game.p1.socket);
