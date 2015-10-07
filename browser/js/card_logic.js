@@ -1,181 +1,230 @@
 // general
 //typing pseudo code for now
-function balancedTeam(){
-  // if you have three differnet types of units
-
-  //raise their attacks by 20% increase by 20% for each differnet unit
 
 
-}
-
-//start up abilities
-function shelter (unit){
-  //airbnb
-  // selected unit takes 50% less damage
-  //unit.
-
-}
-function getAround (){
-  //uber
-  // selected unit can attack twice this turn
-
-}
-
-function communication (){
-  //slack
-  // can only use if 3 or more units on the field,
-  // allows you to act as if the units combined to be one unit
-}
-
-function disappear (){
-  //snapcaht
-  // select a unit, it disappears in 3 turns
-
-}
-function StudentOrGraduate(){
-  //FullstackAcademy
-  // summon a student, or graduate a student
-
-}
-
-function encryption(){
-  //coinbase
-  //encrypt your units, give them all 1 armor
-}
-
-function browse(){
-  //pinterest
-  //randomly add a card from your deck into your hand
-}
+//$this.summonedMinions = array of summoned minions
 
 
 
 
+var cardLogic = {
 
-//spell cards
-function poachEmployee(){}
+  balancedTeam: function balancedTeam() {
+    // if you have three differnet types of units
 
-function techBoom() {
+    //raise their attacks by 20% increase by 20% for each differnet unit
+
+
+  },
+
+
+  //start up abilities
+  shelter: function shelter(unit) {
+    //airbnb
+    // selected unit takes 50% less damage
+    //unit.
+
+  },
+
+  getAround: function getAround() {
+    //uber
+    // selected unit can attack twice this turn
+
+  },
+
+
+  communication: function communication() {
+    //slack
+    // can only use if 3 or more units on the field,
+    // allows you to act as if the units combined to be one unit
+  },
+
+
+  disappear: function disappear() {
+    //snapcaht
+    // select a unit, it disappears in 3 turns
+
+  },
+
+  StudentOrGraduate: function StudentOrGraduate() {
+    //FullstackAcademy
+    // summon a student, or graduate a student
+
+  },
+
+
+  encryption: function encryption() {
+    //coinbase
+    //encrypt your units, give them all 1 armor
+  },
+
+
+  browse: function browse() {
+    //pinterest
+    //randomly add a card from your deck into your hand
+  },
+
+
+
+
+
+
+  //spell cards
+  poachEmployee: function poachEmployee() {
+
+  },
+
+
+  techBoom: function techBoom() {
     // raise all valuations by 30%
-}
-
-function nasdaqCrash (){
-  // lower all valuations by 30%
-
-}
-function downRound(){
-  //lower enemies valuations by 15%
+  },
 
 
-}
+  nasdaqCrash: function nasdaqCrash() {
+    // lower all valuations by 30%
 
-function IPO (){
-  // cash in your startup, empowering ur units and doubling
-  // valuation for next 3 turns
+  },
 
-
-}
-
-function agileMethodology(){
-  // use agile metholody, allows units to attack twice this turn
+  downRound: function downRound() {
+    //lower enemies valuations by 15%
 
 
-}
-
-function consultant () {
-  //hire a consultant
-}
-
-function  onRamp (){
-  //raises all units one tier
-
-}
-
-function unicorn(){
-  // valuaton becomes so high becomes invulernable for two turns
-
-}
-
-function ridTechnicalDebt (){
-  //draw cards for every other turn that has passed
-
-}
-function copyIdea () {
-  // copy your opponents idea for three turns, allowing
-  // you to cast their special
-
-}
-function goneViral(){
-  //startup goes viral, increasing hype(and valuation), but exhuasting
-  // employees
-
-}
-
-function angelRound(){
-  // give your startup(and units) an chance
-  // allows one unit to cheat death
-
-}
-
-function rapidIteration(){
-  // give one unit agile
-
-}
+  },
 
 
-
-// minion- special abilities
-
-//passive special abiltiies
-function passive(){
+  IPO: function IPO() {
+    // cash in your startup, empowering ur units and doubling
+    // valuation for next 3 turns
 
 
-}
-// initiave same as charge in hearthstone
-function initiative(){
-  // unit can attack on the same turn its summoned
+  },
 
-}
-// Agile same as windury
-// windfury
-function Agile (){
 
-}
+  agileMethodology: function agileMethodology() {
+    // use agile metholody, allows units to attack twice this turn
+
+
+  },
+
+
+  consultant: function consultant() {
+    //hire a consultant
+  },
+
+
+  onRamp: function onRamp() {
+    //raises all units one tier
+
+  },
+
+
+  unicorn: function unicorn() {
+    // valuaton becomes so high becomes invulernable for two turns
+
+  },
+
+
+  ridTechnicalDebt: function ridTechnicalDebt() {
+    //draw cards for every other turn that has passed
+
+  },
+
+  copyIdea: function copyIdea() {
+    // copy your opponents idea for three turns, allowing
+    // you to cast their special
+
+  },
+
+  goneViral: function goneViral() {
+    //startup goes viral, increasing hype(and valuation), but exhuasting
+    // employees
+
+  },
+
+
+  angelRound: function angelRound() {
+    // give your startup(and units) an chance
+    // allows one unit to cheat death
+
+  },
+
+
+  rapidIteration: function rapidIteration() {
+    // give one unit agile
+
+  },
 
 
 
-// inspiration same as battlecry in hearthstone
-// things taht happen on summon
-function inspiration(){
-  function davidOrNimit(){
+
+  // minion- special abilities
+
+  //passive special abiltiies
+  passive: function passive() {
+
+
+  },
+
+  // initiave same as charge in hearthstone
+  initiative: function initiative() {
+    console.log("basic")
+    // unit can attack on the same turn its summoned
+
+  },
+
+  // Agile same as windury
+  // windfury
+  Agile: function Agile() {
+
+  },
+
+
+
+
+  // inspiration same as battlecry in hearthstone
+  // things taht happen on summon
+  inspiration: function inspiration() {
+
+  },
+  davidOrNimit: function davidOrNimit() {
     //summon a fullstackGraduate
     //if both are on the field summon a fullstack graduate everyTurn
     // doubles each other attack and health
-  }
-  function MarkZuckerburg(){
+  },
+
+  MarkZuckerburg: function MarkZuckerburg() {
+
+  },
+
+
+
+  awsNinja: function awsNinja() {
+
+  },
+
+
+  productManager: function productManager() {
+
+  },
+
+
+
+  genericCeo: function genericCeo() {
+
+  },
+
+
+  fullstackGrad: function fullstackGrad() {
+
+  },
+
+
+  juniorFront: function juniorFront() {
+
+  },
+
+
+  juniorBack: function juniorBack() {
 
   }
-
 }
-
-function awsNinja(){
-
-}
-
-function productManager (){
-
-}
-
-
-function genericCeo (){
-
-}
-function juniorBack(){
-
-}
-
-function fullstackGrad(){}
-
-
-
-

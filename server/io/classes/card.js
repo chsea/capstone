@@ -4,6 +4,7 @@ class Card {
     this.cost = card.cost;
     this.description = card.description;
     this.id = id;
+    this.logic = card.logic
   }
 }
 class Spell extends Card {
