@@ -57,14 +57,16 @@ var seedUsers = function() {
     password: 'password',
     cards: [],
     photo: randPhoto(),
-    decks:[]
+    decks:[],
+    stardust: 23
   }, {
     username: "L.i.z.z.y",
     email: 'obama@gmail.com',
     password: 'potus',
     photo: randPhoto(),
     cards: [],
-    decks: []
+    decks: [],
+    stardust: 34
   }, {
     username: "moodie",
     email: "omri@fsa.com",
@@ -72,14 +74,16 @@ var seedUsers = function() {
     isAdmin: true,
     photo: randPhoto(),
     cards: [],
-    decks: []
+    decks: [],
+    stardust: 234
   }, {
     username: "xoxo_Karrie",
     email: "karrie@gmail.com",
     password: "password",
     photo: randPhoto(),
     cards: [],
-    decks: []
+    decks: [],
+    stardust: 57
   },
   {
     username: "sea",
@@ -87,7 +91,8 @@ var seedUsers = function() {
     password: "bye",
     photo: randPhoto(),
     cards: [],
-    decks: []
+    decks: [],
+    stardust: 132
   },
   {
     username: "sky",
@@ -95,7 +100,8 @@ var seedUsers = function() {
     password: "bye",
     photo: randPhoto(),
     cards: [],
-    decks: []
+    decks: [],
+    stardust: 102
   }];
   users.forEach(function(user) {
     var deck1 = tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id;

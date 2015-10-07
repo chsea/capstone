@@ -3,6 +3,8 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 var deepPopulate = require('mongoose-deep-populate')(mongoose);
+var Card = require('./card.js')
+var _ = require('lodash')
 
 
 var schema = new mongoose.Schema({
@@ -57,18 +59,48 @@ var schema = new mongoose.Schema({
     type: Number,
     max: 50,
     default: 0
-  }
+  },
+  packs: {
+    type: Number,
+    default: 6,
+    min: 0
+  },
 
+
+
+  stardust: {
+    type: Number,
+    default: 0,
+    min: 0
+  }
 });
 
 
 schema.plugin(deepPopulate, {});
+
 schema.method('experienceToLevel', function() {
   if (this.experience >= 100) {
     this.level += 1;
     this.experience = this.experience % 100;
   }
 });
+
+//
+// schema.method('openPack', function() {
+//   console.log("what")
+//
+//   var self = this
+//   this.packs -= 1
+//
+//   return Card.find().then(cards => {
+//     // self.cards += _.sample(cards, 5)
+//     return cards
+//   })
+//
+// })
+//
+
+
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.

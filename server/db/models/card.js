@@ -32,7 +32,12 @@ var cardSchema = new Schema({
 	cost: {
 		type: Number,
 		min: 0
+  },
+  stardustCost: {
+		type: Number,
+		min: 0
   }
+
 }, { collection : 'cards', discriminatorKey : 'type' });
 
 var minionSchema = cardSchema.extend({
@@ -55,7 +60,9 @@ cardSchema.virtual('rarity.name').get(function () {
   return names[this.rarity];
 });
 
+
 mongoose.model('Card', cardSchema);
+
 mongoose.model('Minion', minionSchema);
 mongoose.model('Spell', spellSchema);
 mongoose.model('minion', minionSchema);

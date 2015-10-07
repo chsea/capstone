@@ -1,12 +1,8 @@
 <section id="signup">
   <div class="container">
     <div class="row text-center">
-      <pre>
-        {{newUser | json}}
-        {{signupForm | json}}
-      </pre>
 
-      <form name="signupForm" ng-submit="signupForm.$valid && signup()">
+      <form name="signupForm" ng-submit="signupForm.$valid && signup()" novalidate>
         <div>
           <span style="font-size:20px"> Username</span>
           <div>
@@ -14,7 +10,7 @@
             <p ng-show="signupForm.username.$dirty && signupForm.username.$error.required">
               username is required
             </p>
-            <input name ="username" ng-model="newUser.username" ng-minlength="5" required/> </div>
+            <input name ="username" ng-model="newUser.username" ng-minlength="4" required/> </div>
 
         </div>
         <div class="field">

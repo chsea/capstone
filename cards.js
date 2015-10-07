@@ -8,8 +8,9 @@ var spells = [
     description: 'TechBoom is in town! Increase all valuations by 30%',
     rarity: 2,
     cost: 8,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 12
 
   }, {
     name: 'Nasdaq Crash',
@@ -17,8 +18,9 @@ var spells = [
     description: 'tech companies are crashing! run! Cut all valuations by 30%',
     rarity: 1,
     cost: 6,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 32
 
   }, {
     name: 'Agile Methodology',
@@ -26,40 +28,45 @@ var spells = [
     description: 'It\'s all about the burn-down chart! Units can attack twice this turn',
     rarity: 2,
     cost: 7,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 53
   }, {
     name: 'Down Round',
     logic: 'downRound',
     description: 'Things aren\'t going so well. Lower your opponents valuation by 15%',
     rarity: 1,
     cost: 4,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 17
   }, {
     name: 'Consultant',
     logic: 'consultant',
     description: 'Need some outside help. For the next three turns there are 2 more minions on the field',
     rarity: 1,
     cost: 3,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 37
   }, {
     name: 'IPO',
     logic: 'ipo',
     description: 'Lets get rich (on paper)! Increases valuation and unit health and attack by 50% for next three turns only',
     rarity: 2,
     cost: 8,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 37
   }, {
     name: 'On Ramp',
     logic: 'onRamp',
     description: 'Raise all units up one level up (junir > senior > legendary) as long as there is one unit of that kind',
     rarity: 1,
     cost: 6,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 32
 
   }, {
     name: 'Unicorn',
@@ -67,16 +74,18 @@ var spells = [
     description: 'valuation becomes so high that you become invulnerable for two turns',
     rarity: 3,
     cost: 10,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 34
   }, {
     name: 'Poach Employee',
     logic: 'poachEmployee',
     description: 'Take control of one of your opponents units',
     rarity: 1,
     cost: 8,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 23
 
   }, {
     name: 'Copy Idea',
@@ -84,46 +93,46 @@ var spells = [
     description: 'Copy your opponents idea, allowing you to cast their innate spell for the next three turns',
     rarity: 1,
     cost: 3,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 12
   },{
     name: 'Rid Technical Debt',
     logic: 'technicalDebt',
     description: 'for every other turn that has passed, draw that many cards ',
     rarity: 2,
     cost: 6,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 27
   },{
     name: 'Gone Viral',
     logic: 'goneViral',
     description: 'increase valuation by 50%, but your units are exhausted and can\'t attack this turn ',
     rarity: 1,
     cost: 5,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 25
   },{
     name: 'Angel Round',
     logic: 'angelRound',
     description: 'Get a chance! if a unit takes damage that would kill it, bring it back to life',
     rarity: 2,
     cost: 6,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
   },{
     name: 'Rapid Iteration',
     logic: 'rapidIteration',
     description: 'Fail fast, fail often. give unit Agile',
     rarity: 1,
     cost: 5,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 32
   }
-
-
-]
-
-
+];
 
 
 var minions = [{
@@ -134,8 +143,9 @@ var minions = [{
     hitPoints: 8,
     attackPoints: 10,
     cost: 7,
-    portait: 'a',
-    category: 'founder'
+    portait:'awesome',
+    category: 'founder',
+    stardustCost: 37
   }, {
     name: 'Nimit Maaru',
     logic: 'davidOrNimit',
@@ -144,8 +154,9 @@ var minions = [{
     hitPoints: 10,
     attackPoints: 8,
     cost: 7,
-    portait: 'a',
-    category: 'founder'
+    portait:'awesome',
+    category: 'founder',
+    stardustCost: 31
   }, {
     name: 'Mark Zuckerburg',
     logic: 'Mark',
@@ -154,8 +165,9 @@ var minions = [{
     hitPoints: 7,
     attackPoints: 7,
     cost: 6,
-    portait: 'a',
-    category: 'founder'
+    portait:'awesome',
+    category: 'founder',
+    stardustCost: 35
   }, {
     name: 'Fullstack Graduate',
     logic: 'fullstackGrad',
@@ -164,8 +176,9 @@ var minions = [{
     hitPoints: 6,
     attackPoints: 6,
     cost: 6,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 34
   }, {
     name: 'Junior Front-End Engineer',
     logic: 'juniorFront',
@@ -174,8 +187,9 @@ var minions = [{
     hitPoints: 2,
     attackPoints: 4,
     cost: 2,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 52
   }, {
     name: 'Junior Back-End Engineer',
     logic: 'juniorBack',
@@ -184,8 +198,9 @@ var minions = [{
     hitPoints: 4,
     attackPoints: 2,
     cost: 2,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 37
   }, {
     name: 'Senior Front-end Engineer',
     logic: 'seniorFrontend',
@@ -194,8 +209,9 @@ var minions = [{
     hitPoints: 2,
     attackPoints: 4,
     cost: 2,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 12
   }, {
     name: 'Senior Back-end Engineer',
     logic: 'seniorBackend',
@@ -204,8 +220,9 @@ var minions = [{
     hitPoints: 2,
     attackPoints: 4,
     cost: 2,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 10
   }, {
     name: 'productManager',
     logic: 'da',
@@ -214,8 +231,9 @@ var minions = [{
     hitPoints: 2,
     attackPoints: 4,
     cost: 2,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 16
   }, {
     name: 'Andreessen Horowitz',
     logic: 'andresen',
@@ -224,8 +242,9 @@ var minions = [{
     hitPoints: 8,
     attackPoints: 7,
     cost: 7,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 17
   }, {
     name: 'Fast mover',
     logic: 'initiave',
@@ -234,8 +253,9 @@ var minions = [{
     hitPoints: 3,
     attackPoints: 4,
     cost: 3,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 17
   }, {
     name: 'AWS Ninja',
     logic: 'awsNinja',
@@ -244,8 +264,9 @@ var minions = [{
     hitPoints: 2,
     attackPoints: 4,
     cost: 2,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 14
   }, {
     name: 'Fortran Engineer',
     logic: '',
@@ -254,8 +275,9 @@ var minions = [{
     hitPoints: 3,
     attackPoints: 2,
     cost: 2,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 13
   }, {
     name: 'designer',
     logic: 'da',
@@ -264,8 +286,9 @@ var minions = [{
     hitPoints: 4,
     attackPoints: 4,
     cost: 4,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 17
   },{
     name: 'Generic CEO',
     logic: 'genericCeo',
@@ -274,8 +297,9 @@ var minions = [{
     hitPoints: 6,
     attackPoints: 6,
     cost: 4,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 16
   },{
     name: 'Non-technical Co-Founder',
     logic: 'nonTech',
@@ -284,14 +308,13 @@ var minions = [{
     hitPoints: 4,
     attackPoints: 4,
     cost: 5,
-    portait: 'a',
-    category: 's'
+    portait:'awesome',
+    category:'super',
+    stardustCost: 15
   }
-
-
-]
+];
 
 module.exports = {
   spells:spells,
   minions:minions
-}
+};

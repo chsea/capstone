@@ -13,7 +13,7 @@ var missingItemHandler = function(error, cb) {
 };
 
 router.param('userId', function(req, res, next, id) {
-  User.findById(id).deepPopulate('decks.cards').exec()
+  User.findById(id).deepPopulate('decks.cards username').exec()
     .then(function(element) {
       req.foundUser = element;
       next();
@@ -49,14 +49,15 @@ router.post('/', function(req, res, next) {
 });
 
 router.put('/:userId', function(req, res, next) {
-  if (req.user.name !== req.foundUser.name) return res.sendStatus(404);
+  // if (req.user.name !== req.foundUser.name) return res.sendStatus(404);
   Object.keys(req.body).forEach(function(key) {
-    if (req.foundUser[key] === false || key === 'isAdmin') req.foundUser[key] = req.body[key];
+    if (key === 'isAdmin') return
+    else req.foundUser[key] = req.body[key]
+    // if (req.foundUser[key] == false || key === 'isAdmin') req.foundUser[key] = req.body[key];
   });
   return req.foundUser.save()
     .then(function(element) {
-      console.log("updated user");
-      return res.json(element);
+      res.json(element);
     })
     .then(null, next);
 });

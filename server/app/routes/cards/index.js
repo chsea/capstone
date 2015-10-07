@@ -13,6 +13,7 @@ router.param('id', (req, res, next, id) => {
 });
 
 router.get('/', (req, res, next) => {
+
   Card.find(req.query)
   .then(cards => res.send(cards))
   .then(null, next);
