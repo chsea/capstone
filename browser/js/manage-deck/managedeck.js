@@ -16,6 +16,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   $scope.barData = {};
   $scope.showCards = false;
   $scope.createDeck = false;
+  $scope.craft = false;
   $scope.uniqueCardsInDeck = {};
   $scope.username = user.username;
   $scope.decks = user.decks;
@@ -109,6 +110,23 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
     updateDeck($scope.deck);
   };
 
+  $scope.showCraftForm = function() {
+    if ($scope.craft) {
+      $scope.craft = false;
+    } else {
+      $scope.craft = true;
+    }
+  };
+
+  $scope.disenchant = function(card){
+    // 1. Remove card from user.cards
+    var cost = card.stardustCost;
+    removeCardFromUser(card);
+    // 2. Add card's stardust value to user's stardust points
+    user.stardust += cost;
+    updateUser();
+  };
+
   function updateDeck(deck){
     DeckFactory.update(deck._id, deck)
       .then(function(updatedDeck){
@@ -120,13 +138,14 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   }
 
   function updateUser(){
-    console.log("user id ", user._id);
     UserFactory.update(user._id, user)
       .then(function(updatedUser){
-        //console.log("user updated");
+        // console.log("user updated");
+        return true;
       })
       .then(null, function(err){
         console.log("Error occured ", err);
+        return false;
       });
   }
 
@@ -141,6 +160,16 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
     return false;
   }
 
+  function removeCardFromUser(card) {
+    // remove the card from the user's user.cards property
+    var indx = -1;
+    user.cards.forEach(function(currentcard, index){
+      if (currentcard._id === card._id){
+        indx = index;
+      }
+    });
+    user.cards.splice(indx, 1);
+  }
 
 });
 

@@ -7,7 +7,16 @@
   <button class="btn btn-sm btn-primary" ng-click="selectDeck()">Select</button>
   <button class="btn btn-primary btn-sm" ng-click="showCreateDeckForm()">New Deck</button>
   <button class="btn btn-primary btn-sm" ng-click="removeDeck()">Delete Deck</button>
+  <button class="btn btn-primary btn-sm" ng-click="showCraftForm()">Craft or Disenchant Cards</button>
 </div>
+
+<div ng-show="craft" class="text-center top">
+  <h4>Click on a cards below to trade it for stardust</h4>
+</div>
+
+
+
+
 <div ng-show="createDeck" class="text-center top container"><br>
   <form ng-submit="createNewDeck(deckname)"><h3>Name your new deck:</h3><br>
     <input type="text" ng-model="deckname"/>
@@ -15,9 +24,14 @@
   </form>
 </div>
 <div ng-show="!decks.length"><h3>Opps. You don't have any decks. Please add a deck first!</h3></div>
-<div class="text-center top col-md-10" style="overflow: scroll; width: 1000px; height: 700px;">
+<div ng-hide="craft" class="text-center top col-md-10" style="overflow: scroll; width: 1000px; height: 700px;">
   <h3>{{username}}'s Cards</h3>
       <card card="usercard" ng-click="addToDeck(usercard)" ng-repeat="usercard in usercards"></card>
+</div>
+
+<div ng-show="craft" class="text-center top col-md-10" style="overflow: scroll; width: 1000px; height: 700px;">
+  <h3>{{username}}'s Cards</h3>
+      <card card="usercard" ng-click="disenchant(usercard)" ng-repeat="usercard in usercards"></card>
 </div>
 
 
@@ -27,7 +41,7 @@
 </div>
 
 <div class="pull-right">
-<canvas id="clients" width="350" height="300"></canvas>
+<canvas id="clients" width="300" height="300"></canvas>
 <div ng-show="showCards">
   CARDS: {{total}}/30 <br>
 </div>
