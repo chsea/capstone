@@ -10,7 +10,7 @@
 
 
 </div>
-<div class ="col-lg-4" sltye="text-align:right;">
+<div class ="col-lg-3" sltye="text-align:right;">
   <chat></chat>
 
 </div>
@@ -20,14 +20,15 @@
 
   <div ng-show="showPack">
     <span style="cursor:pointer;" ng-click="showPack = !showPack">x</span>
-    <div ng-repeat="showCard in showCards">
       <div class="card">
-        <p>{{showCard.name}}</p>
-        <p>{{showCard.description}} </p>
+        <div class="text-center top col-md-8" style="overflow: scroll; width: 1000px; height: 700px;">
+
+        <card card="showCard" ng-repeat="showCard in showCards"></card>
+
+
 
         </p>
 
-      </div>
     </div>
 
 
