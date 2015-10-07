@@ -1,8 +1,17 @@
 card, blank-card {
+  &.small{
+    font-size: 8px;
+    border-radius: 8px;
+    width: 100px;
+    height: 150px;
+    .text .content .name {
+      font-size: 10px;
+    }
+  }
   box-shadow: 0 0 1em #999;
   font: 15px Monaco;
   border-radius: 15px;
-  margin: 10px;
+  margin: 0 10px;
   display: none;
   background-color: #00A388;
   color: white;
@@ -34,7 +43,7 @@ card, blank-card {
     }
   }
   &.selected {
-    border: 2px solid #BEEB9F;
+    border: 1px solid #BEEB9F;
   }
 }
 
