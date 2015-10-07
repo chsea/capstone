@@ -23,6 +23,9 @@ app.config($stateProvider => {
   $scope.summonable = (card) => {
     return $scope.turn && card.cost <= $scope.player.mana;
   };
+  $scope.canAttack = (minion) => {
+    return $scope.turn && minion.canAttack;
+  };
   let rejectedCards = [];
 
 // Testing layout
@@ -89,6 +92,10 @@ app.config($stateProvider => {
       $scope.player.hand.push(card);
       $scope.player.mana++;
       $scope.turn = true;
+      $scope.player.summonedMinions.forEach(minion => {
+        if (!minion.canAttack) minion.canAttack = true;
+      });
+      console.log($scope.player.summonedMinions);
       $scope.message = 'Your turn!';
     });
   });
@@ -127,6 +134,7 @@ app.config($stateProvider => {
     let attackee = _.find($scope[opponent].summonedMinions, minion => minion.id === attackeeMinion.id);
 
     $scope.$apply(() =>{
+      attacker.canAttack = false;
       attacker.hp = attackerMinion.hp;
       attackee.hp = attackeeMinion.hp;
 

@@ -22,7 +22,9 @@ class Game {
 
   attack(attackerId, attackeeId) {
     let attacker = _.find(this.currentPlayer.summonedMinions, minion => minion.id = attackerId);
+    if (!attacker.canAttack) return;
     let attackee = _.find(this.waitingPlayer.summonedMinions, minion => minion.id = attackeeId);
+    attacker.canAttack = false;
     attacker.hp -= attackee.ap;
     attackee.hp -= attacker.ap;
 

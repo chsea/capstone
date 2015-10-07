@@ -24,7 +24,10 @@ class Player {
 
   startTurn() {
     this.mana++;
-    this.draw();
+    this.summonedMinions.forEach(minion => {
+      if (!minion.canAttack) minion.canAttack = true;
+    });
+    return this.draw();
   }
 
   summonMinion(card) {

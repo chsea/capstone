@@ -107,6 +107,7 @@ module.exports = (io, socket) => {
 
   socket.on('summon', card => {
     if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
+    if (card.type === 'spell') return;
     console.log(`${p()} summoning ${card.name}`);
 
     if (card.type === 'minion') player().summonMinion(card);
@@ -127,9 +128,9 @@ module.exports = (io, socket) => {
     if (games[i()].currentPlayer !== player()) return;
     games[i()].endTurn();
     socket.emit('wait');
-    let newCard = opponent().draw();
-    console.log(`Next turn - ${newCard.name}.`);
+    let newCard = opponent().startTurn();
     opponent().socket.emit('startTurn', newCard);
+    console.log(`Next turn - ${opponent().mana}.`);
   });
 
   socket.on('leave', () => {
