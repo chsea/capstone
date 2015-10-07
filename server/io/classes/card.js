@@ -18,6 +18,7 @@ class Minion extends Card {
     this.type = 'minion';
     this.hp = card.hitPoints;
     this.ap = card.attackPoints;
+    this.canAttack = false;
   }
 }
 
