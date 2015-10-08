@@ -14,7 +14,7 @@
   </div>
   <div id="table" ng-drop="true">
     <div id="opponent-summoned">
-      <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="true" ng-drop-success="attack({attacker: $data, attackee: minion}, $event)"></minion>
+      <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="true" ng-drop-success="attack({attacker: $data, attackee: minion})"></minion>
     </div>
     <div id="summoned">
       <minion ng-repeat="minion in player.summonedMinions" minion="minion" ng-drag-data="minion" ng-drag="canAttack(minion)"></minion>
@@ -29,7 +29,7 @@
     </div>
     <div class="extra">
       <div>{{ player.mana }}</div>
-      <div>{{ message }}</div>
+      <div>{{ player.message }}</div>
       <button ng-click="endTurn()" ng-show="player.turn">End Turn</button>
       <button ng-click='leave()'>Leave game</button>
     </div>

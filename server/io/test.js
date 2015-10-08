@@ -106,7 +106,8 @@ module.exports = (io, socket) => {
     if (games[i()].state != 'setInitialHand') return;
     games[i()].state = 'playing';
     games[i()].waitingPlayer.socket.emit('wait');
-    games[i()].currentPlayer.startTurn();
+    games[i()].turns++;
+    games[i()].currentPlayer.startTurn(games[i()].turn);
   });
 
   socket.on('summon', card => {
@@ -137,7 +138,8 @@ module.exports = (io, socket) => {
     if (games[i()].currentPlayer !== player()) return;
     games[i()].endTurn();
     socket.emit('wait');
-    opponent().startTurn();
+    games[i()].turn++;
+    opponent().startTurn(games[i()].turn);
     console.log(`Next turn - ${opponent().mana}.`);
   });
 

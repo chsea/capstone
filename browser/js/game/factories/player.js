@@ -3,14 +3,16 @@ app.factory('Player', (Socket, $rootScope) => {
     constructor() {
       this.name = '';
       this.hp = 30;
-      this.mana = 0;
       this.summonedMinions = [];
+      this.turns = 10;
     }
 
     startTurn(card) {
+      this.turns++;
       this.turn = true;
       this.hand.push(card);
-      this.mana++;
+      this.mana = this.turns > 10 ? 10 : this.turns;
+      $rootScope.$digest();
     }
 
     summoned(card) {

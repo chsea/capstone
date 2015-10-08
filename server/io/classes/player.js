@@ -9,7 +9,7 @@ class Player {
     this.discard = [];
     this.hand = [];
     this.summonedMinions = [];
-    this.mana = 0;
+    this.mana = 10;
   }
 
   shuffle() {
@@ -22,9 +22,10 @@ class Player {
     return card;
   }
 
-  startTurn() {
+  startTurn(turn) {
     console.log('start turn');
-    this.mana++;
+    let m = Math.ceil(turn / 2);
+    this.mana = m > 10 ? 10 : m;
     this.summonedMinions.forEach(minion => {
       if (!minion.canAttack) minion.canAttack = true;
     });

@@ -7,9 +7,9 @@ app.config($stateProvider => {
       user: AuthService => AuthService.getLoggedInUser()
     }
   });
-}).controller('TestController', ($scope, $state, $compile, Socket, user, Self, Opponent, Game) => {
-  $scope.player = Self($scope);
-  $scope.opponent = Opponent($scope);
+}).controller('TestController', ($scope, $state, $compile, Socket, user, Game) => {
+  $scope.player = Game($scope).player;
+  $scope.opponent = Game($scope).opponent;
   $scope.summonable = (card) => {
     return $scope.player.turn && card.cost <= $scope.player.mana;
   };
@@ -30,7 +30,7 @@ app.config($stateProvider => {
   // $scope.opponent.summonedMinions = [$scope.player.hand[2]];
   // $scope.player.name = "sea";
   // $scope.opponent.name = "sky";
-  // $scope.turn = true;
+  // $scope.player.turn = true;
 
   let deck = user.decks[0].cards.map(card => card._id);
   Socket.emit('playerReady', user.username, deck);
@@ -39,28 +39,9 @@ app.config($stateProvider => {
     $scope.player.decide(idx, rejectedCards);
   };
 
-  // let summon = (player, card) => {
-  //   $scope.$apply(() => {
-  //     _.remove($scope[player].hand, handCard => handCard.name === card.name);
-  //     $scope[player].mana -= card.cost;
-  //     $scope[player].summonedMinions.push(card);
-  //   });
-  // };
   $scope.summon = (card, e) => {
     $scope.player.summon(card);
   };
-  //
-  // Socket.on('summoned', card => {
-  //   // CardLogicFactory.checkCardLogic(card)
-  //
-  //   console.log(`summoned ${card.name}`);
-  //   summon('player', card);
-  // });
-  // Socket.on('opponentSummoned', card => {
-  //   console.log(`opponent summoned ${card.name}`);
-  //   summon('opponent', card);
-  // });
-  //
   // let attack = (player, attackerMinion, attackeeMinion) => {
   //   let opponent = player === 'player' ? 'opponent' : 'player';
   //   let attacker = _.find($scope[player].summonedMinions, minion => minion.id === attackerMinion.id);
@@ -77,11 +58,9 @@ app.config($stateProvider => {
   //     if (!attackee.hp) _.remove($scope[opponent].summonedMinions, minion => minion.id === attackee.id);
   //   });
   // };
-  // $scope.attack = (data, e) => {
-  //   let attackee = data.attackee ? data.attackee.id : null;
-  //   console.log(attackee);
-  //   Socket.emit('attack', data.attacker.id, attackee);
-  // };
+  $scope.attack = data => {
+    $scope.player.attack(data);
+  };
   // Socket.on('attacked', (attacker, attackee) => {
   //   console.log('attacked!');
   //   attack('player', attacker, attackee);

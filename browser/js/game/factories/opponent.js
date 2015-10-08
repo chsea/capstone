@@ -1,28 +1,27 @@
-app.factory('Opponent', (Player, Game, Socket, $rootScope) => {
-  let opponent = scope => {
-    let opponent = new Player();
+app.factory('Opponent', (Player, Socket, $rootScope) => {
+  let opponent = new Player();
 
-    Socket.on('gameStart', players => {
-      opponent.name = players.opponent;
-    });
-    Socket.on('setInitialHand', (hand, turn) => {
-      opponent.hand = [{}, {}, {}];
-      if (turn) opponent.hand.push({});
-      $rootScope.$digest();
-    });
+  //initial draw
+  Socket.on('gameStart', players => {
+    opponent.name = players.opponent;
+    $rootScope.$digest();
+  });
+  Socket.on('setInitialHand', (hand, turn) => {
+    opponent.hand = [{}, {}, {}];
+    if (turn) opponent.hand.push({});
+    $rootScope.$digest();
+  });
 
-    Socket.on('opponentSummoned', card => {
-      console.log(`opponent summoned ${card.name}`);
-      opponent.summoned(card);
-    });
+  //opponent turn
+  Socket.on('wait', () => {
+    opponent.startTurn({});
+  });
 
-    Socket.on('wait', () => {
-      opponent.startTurn({});
-      Game(scope).setMessage("Opponent's turn!");
-    });
-
-    return opponent;
-  };
+  //summoning
+  Socket.on('opponentSummoned', card => {
+    console.log(`opponent summoned ${card.name}`);
+    opponent.summoned(card);
+  });
 
   return opponent;
 });
