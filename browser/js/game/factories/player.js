@@ -13,7 +13,7 @@ app.factory('Player', (Socket, $rootScope) => {
       this.mana++;
     }
 
-    summon(card) {
+    summoned(card) {
       _.remove(this.hand, handCard => handCard.id === card.id);
       this.mana -= card.cost;
       this.summonedMinions.push(card);

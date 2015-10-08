@@ -37,7 +37,7 @@ app.factory('Self', (Player, Game, Socket, $rootScope, $compile) => {
     };
     Socket.on('summoned', card => {
       console.log(`summoned ${card.name}`);
-      player.summon(card);
+      player.summoned(card);
     });
 
     Socket.on('startTurn', card => {

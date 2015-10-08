@@ -13,7 +13,7 @@ app.factory('Opponent', (Player, Game, Socket, $rootScope) => {
 
     Socket.on('opponentSummoned', card => {
       console.log(`opponent summoned ${card.name}`);
-      opponent.summon(card);
+      opponent.summoned(card);
     });
 
     Socket.on('wait', () => {

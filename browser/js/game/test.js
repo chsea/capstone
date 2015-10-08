@@ -11,10 +11,10 @@ app.config($stateProvider => {
   $scope.player = Self($scope);
   $scope.opponent = Opponent($scope);
   $scope.summonable = (card) => {
-    return $scope.turn && card.cost <= $scope.player.mana;
+    return $scope.player.turn && card.cost <= $scope.player.mana;
   };
   $scope.canAttack = (minion) => {
-    return $scope.turn && minion.canAttack;
+    return $scope.player.turn && minion.canAttack;
   };
   let rejectedCards = [];
   $scope.message = '';
@@ -47,7 +47,7 @@ app.config($stateProvider => {
   //   });
   // };
   $scope.summon = (card, e) => {
-    player.summon(card);
+    $scope.player.summon(card);
   };
   //
   // Socket.on('summoned', card => {
