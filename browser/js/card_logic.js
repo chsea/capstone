@@ -9,9 +9,8 @@
 
 var cardLogic = {
 
-  balancedTeam: function balancedTeam() {
+  balancedTeam: function () {
     // if you have three differnet types of units
-
     //raise their attacks by 20% increase by 20% for each differnet unit
 
 
