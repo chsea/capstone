@@ -17,7 +17,6 @@ app.config($stateProvider => {
     return $scope.player.turn && minion.canAttack;
   };
   let rejectedCards = [];
-  $scope.message = '';
 
   // Testing layout
   // $scope.player.hand = [
@@ -42,48 +41,15 @@ app.config($stateProvider => {
   $scope.summon = (card, e) => {
     $scope.player.summon(card);
   };
-  // let attack = (player, attackerMinion, attackeeMinion) => {
-  //   let opponent = player === 'player' ? 'opponent' : 'player';
-  //   let attacker = _.find($scope[player].summonedMinions, minion => minion.id === attackerMinion.id);
-  //
-  //   let attackee = attackeeMinion.id ?  _.find($scope[opponent].summonedMinions, minion => minion.id === attackeeMinion.id) : $scope[opponent];
-  //
-  //
-  //   $scope.$apply(() =>{
-  //     attacker.canAttack = false;
-  //     attacker.hp = attackerMinion.hp;
-  //     attackee.hp = attackeeMinion.hp;
-  //
-  //     if (!attacker.hp) _.remove($scope[player].summonedMinions, minion => minion.id === attacker.id);
-  //     if (!attackee.hp) _.remove($scope[opponent].summonedMinions, minion => minion.id === attackee.id);
-  //   });
-  // };
   $scope.attack = data => {
     $scope.player.attack(data);
   };
-  // Socket.on('attacked', (attacker, attackee) => {
-  //   console.log('attacked!');
-  //   attack('player', attacker, attackee);
-  // });
-  // Socket.on('wasAttacked', (attacker, attackee) => {
-  //   console.log('was attacked!');
-  //   attack('opponent', attacker, attackee);
-  // });
-  //
+
   $scope.endTurn = () => {
-    $scope.player.endTurn();
+    $scope.player.emitEndTurn();
   };
 
   $scope.leave = () => {
     Socket.emit('leave');
   };
-
-  Socket.on('win', () => {
-    Game($scope).setMessage("You win!");
-    setTimeout(() => $state.go('lobby'), 3000);
-  });
-  Socket.on('lose', () => {
-    Game($scope).setMessage("You lose!");
-    setTimeout(() => $state.go('lobby'), 3000);
-  });
 });

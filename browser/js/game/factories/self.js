@@ -1,4 +1,4 @@
-app.factory('Self', (Player, Socket, $rootScope) => {
+app.factory('Self', (Player, Card, Socket, $rootScope) => {
   let player = new Player();
 
   Socket.on('gameStart', players => {
@@ -23,7 +23,7 @@ app.factory('Self', (Player, Socket, $rootScope) => {
   });
   Socket.on('setInitialHand', (hand, turn) => {
     $('#initial').remove();
-    player.hand = hand;
+    player.hand = hand.map(card => new Card(card));
     player.turn = turn;
     $rootScope.$digest();
     Socket.emit('initialHandSet');
@@ -32,24 +32,21 @@ app.factory('Self', (Player, Socket, $rootScope) => {
   //turns
   Socket.on('startTurn', card => {
     console.log(`start turn - ${card.name}`);
-    player.summonedMinions.forEach(minion => {
-      if (!minion.canAttack) minion.canAttack = true;
-    });
     player.message = "Your turn!";
     player.startTurn(card);
   });
   Socket.on('wait', () => {
     player.message = "Opponent's turn!";
-    $rootScope.$digest();
+    player.opponentTurn();
   });
-  player.endTurn = () => {
-    player.turn = false;
+  player.emitEndTurn = () => {
+    player.endTurn();
     Socket.emit('endTurn');
   };
 
   //summoning
   player.summon = card => {
-    Socket.emit('summon', card);
+    Socket.emit('summon', card.id);
   };
   Socket.on('summoned', card => {
     console.log(`summoned ${card.name}`);
@@ -61,6 +58,24 @@ app.factory('Self', (Player, Socket, $rootScope) => {
     let attackee = data.attackee ? data.attackee.id : null;
     Socket.emit('attack', data.attacker.id, attackee);
   };
-  
+  Socket.on('attacked', (attacker) => {
+    player.attacked(attacker);
+  });
+  Socket.on('wasAttacked', (attacker, attackee) => {
+    player.wasAttacked(attackee);
+  });
+
+  //ending
+  Socket.on('win', () => {
+    player.message("You win!");
+    $rootScope.$digest();
+    setTimeout(() => $state.go('lobby'), 3000);
+  });
+  Socket.on('lose', () => {
+    player.setMessage("You lose!");
+    $rootScope.$digest();
+    setTimeout(() => $state.go('lobby'), 3000);
+  });
+
   return player;
 });
