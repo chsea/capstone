@@ -26,16 +26,6 @@ var cardSchema = new Schema({
     type: Number,
     min: 0
   },
-  logic: {
-    battlecry: {type:[ObjectId], ref: 'Effect'},
-    deathrattle: {type:[ObjectId], ref:'Effect'},
-    eachTurn: {type:[ObjectId], ref: 'Effect'},
-    enrage: {type:[ObjectId], ref: 'Effect'},
-    taunt: {type: Boolean, default:false},
-    windfury: {type: Boolean, default:false},
-    charge: {type: Boolean, default:false},
-    divineshield: {type: Boolean, default:false}
-  },
   cost: {
     type: Number,
     min: 0
@@ -56,6 +46,16 @@ var minionSchema = cardSchema.extend({
     required: true,
     min: 0
   },
+  logic: {
+    battlecry: {type:[ObjectId], ref: 'Effect'},
+    deathrattle: {type:[ObjectId], ref:'Effect'},
+    eachTurn: {type:[ObjectId], ref: 'Effect'},
+    enrage: {type:[ObjectId], ref: 'Effect'},
+    taunt: {type: Boolean, default:false},
+    windfury: {type: Boolean, default:false},
+    charge: {type: Boolean, default:false},
+    divineshield: {type: Boolean, default:false}
+  },
   attackPoints: {
     type: Number,
     required: true,
@@ -63,7 +63,12 @@ var minionSchema = cardSchema.extend({
   },
 });
 
-var spellSchema = cardSchema.extend({});
+var spellSchema = cardSchema.extend({
+  logic:{
+    type:[ObjectId],
+    ref:'Effect'
+  }
+});
 
 
 cardSchema.virtual('rarity.name').get(function() {
@@ -73,7 +78,5 @@ cardSchema.virtual('rarity.name').get(function() {
 
 
 mongoose.model('Card', cardSchema);
-
 mongoose.model('Minion', minionSchema);
 mongoose.model('Spell', spellSchema);
-mongoose.model('minion', minionSchema);

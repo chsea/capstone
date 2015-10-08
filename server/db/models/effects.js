@@ -11,16 +11,15 @@ var effectsSchema = new mongoose.Schema({
   },
   target: {
     type: [String],
-    enum: ['player', 'ownMinion','opponentMinion', 'opponent'],
-
-
+    enum: ['player', 'playerCard','opponentCard', 'opponent','anyCard'],
   },
   quantity: {
     type: Number
   }
-
-})
-
+  }, {
+    collection: 'effects',
+    discriminatorKey: 'type'
+});
 
 
 var damageSchema = effectsSchema.extend({
@@ -28,29 +27,33 @@ var damageSchema = effectsSchema.extend({
     type: Number
   }
 
-})
+});
 var healSchema = effectsSchema.extend({
   amount :{
     type:Number
   }
-})
+});
 
 var AlterPropertySchema = effectsSchema.extend({
-  AP: {
+  attackPoints: {
     type: Number
   },
-  HP:{
+  hitPoints:{
     type: Number
   } ,
-  lowerCost: {
+  cost: {
     type: Number
+  },
+  logic:{
+    windury: Boolean,
+    battlecry: Boolean,
+    divineShield: Boolean,
+    charge: Boolean
   }
-})
-
+});
 
 
 mongoose.model('Effect', effectsSchema);
-
 mongoose.model('Damage', damageSchema);
 mongoose.model('Heal', effectsSchema);
 mongoose.model('Alter', AlterPropertySchema);

@@ -18,19 +18,6 @@ app.config($stateProvider => {
   };
   let rejectedCards = [];
 
-  // Testing layout
-  // $scope.player.hand = [
-  //   {name: "Hello", description: "happiness is ephermal", cost: 2, ap: 1, hp: 6, id: 0},
-  //   {name: "Goodbye", description: "happiness is eternal", cost: 3, ap: 1, hp: 1, id: 1},
-  //   {name: "Bonjour", description: "was machst du", cost: 1, ap: 3, hp: 4, id: 2}
-  // ];
-  // $scope.opponent.hand = [{}, {}, {}];
-  // $scope.player.summonedMinions = [$scope.player.hand[0], $scope.player.hand[1]];
-  // $scope.opponent.summonedMinions = [$scope.player.hand[2]];
-  // $scope.player.name = "sea";
-  // $scope.opponent.name = "sky";
-  // $scope.player.turn = true;
-
   let deck = user.decks[0].cards.map(card => card._id);
   Socket.emit('playerReady', user.username, deck);
 
@@ -41,6 +28,7 @@ app.config($stateProvider => {
   $scope.summon = (card, e) => {
     $scope.player.summon(card);
   };
+
   $scope.attack = data => {
     $scope.player.attack(data);
   };

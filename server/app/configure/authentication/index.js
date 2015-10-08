@@ -6,7 +6,7 @@ var passport = require('passport');
 var path = require('path');
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
-var deepPopulate = require('mongoose-deep-populate')(mongoose)
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 var ENABLED_AUTH_STRATEGIES = [
   'local',

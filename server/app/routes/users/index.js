@@ -1,9 +1,9 @@
 'use strict';
 var mongoose = require('mongoose');
 var router = require('express').Router();
-module.exports = router;
 var User = mongoose.model('User');
-var deepPopulate = require('mongoose-deep-populate')(mongoose)
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
+module.exports = router;
 
 
 var missingItemHandler = function(error, cb) {
@@ -12,8 +12,8 @@ var missingItemHandler = function(error, cb) {
   cb(error);
 };
 
-router.param('userId', function(req, res, next, id) {
-  User.findById(id) //.deepPopulate('decks.cards username').exec()
+router.param('userId', function(req, res, next, userId) {
+  User.findById(userId).deepPopulate('decks cards username').exec()
     .then(function(user) {
       console.log(user);
       req.foundUser = user;
