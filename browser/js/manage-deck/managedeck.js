@@ -47,7 +47,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   context = document.getElementById('clients').getContext('2d');
   clientsChart = new Chart(context).Bar($scope.barData);
   };
-  
+
   $scope.deckcost = function() {
     $scope.cost = [0,0,0,0,0,0,0];
     $scope.deck.cards.forEach(function(card) {
@@ -172,11 +172,3 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   }
 
 });
-
-
-
-
-
-
-
-

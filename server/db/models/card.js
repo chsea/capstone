@@ -6,59 +6,67 @@ var Schema = mongoose.Schema;
 
 var cardSchema = new Schema({
   name: {
-		type: String,
-		required: true,
+    type: String,
+    required: true,
     unique: true
   },
-	category: {
-		type: String,
-		required: true
+  category: {
+    type: String,
+    required: true
   },
   description: {
-		type: String,
-		required: true,
+    type: String,
+    required: true,
   },
   portrait: {
-		type: String,
-		default: "http://thecatapi.com/api/images/get?format=src&type=gif"
+    type: String,
+    default: "http://thecatapi.com/api/images/get?format=src&type=gif"
   },
   rarity: {
-		type: Number,
-		min: 0
+    type: Number,
+    min: 0
   },
   logic: {
-		type: {
-      String: {}
-    }
+    battlecry: {type:[ObjectId], ref: 'Effect'},
+    deathrattle: {type:[ObjectId], ref:'Effect'},
+    eachTurn: {type:[ObjectId], ref: 'Effect'},
+    enrage: {type:[ObjectId], ref: 'Effect'},
+    taunt: {type: Boolean, default:false},
+    windfury: {type: Boolean, default:false},
+    charge: {type: Boolean, default:false},
+    divineshield: {type: Boolean, default:false}
   },
-	cost: {
-		type: Number,
-		min: 0
+  cost: {
+    type: Number,
+    min: 0
   },
   stardustCost: {
-		type: Number,
-		min: 0
+    type: Number,
+    min: 0
   }
 
-}, { collection : 'cards', discriminatorKey : 'type' });
+}, {
+  collection: 'cards',
+  discriminatorKey: 'type'
+});
 
 var minionSchema = cardSchema.extend({
   hitPoints: {
-		type: Number,
-		required: true,
-		min: 0
+    type: Number,
+    required: true,
+    min: 0
   },
   attackPoints: {
-		type: Number,
-		required: true,
-		min: 0
+    type: Number,
+    required: true,
+    min: 0
   },
 });
 
 var spellSchema = cardSchema.extend({});
 
 
-cardSchema.virtual('rarity.name').get(function () {
+cardSchema.virtual('rarity.name').get(function() {
   var names = ['common', 'uncommon', 'rare', 'legendary'];
   return names[this.rarity];
 });

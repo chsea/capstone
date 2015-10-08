@@ -11,8 +11,12 @@ var effectsSchema = new mongoose.Schema({
   },
   target: {
     type: [String],
-    enum: ['player', 'ownMinion','opponentMinion', 'opponent']
+    enum: ['player', 'ownMinion','opponentMinion', 'opponent'],
 
+
+  },
+  quantity: {
+    type: Number
   }
 
 })
@@ -30,6 +34,7 @@ var healSchema = effectsSchema.extend({
     type:Number
   }
 })
+
 var AlterPropertySchema = effectsSchema.extend({
   AP: {
     type: Number
@@ -37,10 +42,15 @@ var AlterPropertySchema = effectsSchema.extend({
   HP:{
     type: Number
   } ,
-  logic: {
-    type: enum['s']
-  },
-  cost: {
+  lowerCost: {
     type: Number
   }
 })
+
+
+
+mongoose.model('Effect', effectsSchema);
+
+mongoose.model('Damage', damageSchema);
+mongoose.model('Heal', effectsSchema);
+mongoose.model('Alter', AlterPropertySchema);
