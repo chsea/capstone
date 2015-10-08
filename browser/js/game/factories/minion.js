@@ -6,8 +6,8 @@ app.factory('Minion', (Socket, $rootScope) => {
       this.description = minion.description;
       this.id = minion.id;
       this.logic = minion.logic;
-      this.hp = minion.hitPoints;
-      this.ap = minion.attackPoints;
+      this.hp = minion.hp;
+      this.ap = minion.ap;
       this.canAttack = false;
       this.attackable = true;
 
@@ -36,7 +36,7 @@ app.factory('Minion', (Socket, $rootScope) => {
       if (this.logic.windfury && !this.attacked) this.attacked = true;
       else this.canAttack = false;
 
-      changeHealth(hp);
+      this.hp = hp;
     }
     wasAttacked(hp) {
       if (this.logic.divineShield) this.logic.divineShield = false;
@@ -44,8 +44,5 @@ app.factory('Minion', (Socket, $rootScope) => {
     }
   }
 
-  return {
-    Minion: Minion,
-    Spell: Spell
-  };
+  return Minion;
 });

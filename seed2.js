@@ -258,9 +258,9 @@ connectToDb.then(function() {
       return seedMinions();
     }).then(function(minions) {
       tempData.cards = minions;
-      return seedSpells();
-    }).then(function(spells) {
-      tempData.cards = tempData.cards.concat(spells);
+      // return seedSpells();
+    // }).then(function(spells) {
+      // tempData.cards = tempData.cards.concat(spells);
       return seedDeck();
     }).then(function(decks) {
       tempData.decks = decks;

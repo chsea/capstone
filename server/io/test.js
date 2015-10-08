@@ -18,7 +18,6 @@ module.exports = (io, socket) => {
 
   socket.on('playerReady', (name, deck) => {
     console.log(`player joined as ${socket.p1 ? 'p1' : 'p2'}`);
-    console.log(deck.length);
     socket.game = 1;
     if (!games.length && !p1) {
       p1 = {name: name, deck: deck, socket: socket};
@@ -114,8 +113,8 @@ module.exports = (io, socket) => {
   });
 
   socket.on('summon', card => {
-    if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
-    if (card.type === 'spell') return;
+    // if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
+    // if (card.type === 'spell') return;
     console.log(`${p()} summoning ${card.name}`);
 
     if (card.type === 'minion') player().summonMinion(card);
