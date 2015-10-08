@@ -113,13 +113,17 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.addToDeck = function(card){
-    if ($scope.currentdeck === undefined || $scope.total > 29) return;
-    if (duplicateChecker(card)) {
+    if ($scope.currentdeck === undefined || $scope.currentdeck.cards.length >= 30){
+      console.log("cannot add card to the deck, deck is already full");
+    }
+    else if (duplicateChecker(card)) {
       console.log("cannot have more than 2 duplicates in the currentdeck");
       return;
     }
-    $scope.currentdeck.cards.push(card);
-    updateDeck();
+    else {
+      $scope.currentdeck.cards.push(card);
+      updateDeck();
+    }
   };
 
   $scope.showCraftForm = function() {
