@@ -20,7 +20,9 @@
     <input type="submit" value="Submit" /><br>
   </form>
 </div>
-<div ng-show="!user.decks.length"><h3>Opps. You don't have any decks. Please add a deck first!</h3></div>
+<div ng-show="!user.decks.length"><h3>Opps. You don't have any decks. Please add a deck first!</h3>
+  <button class="btn btn-primary btn-sm" ng-click="showCreateDeckForm()">New Deck</button>
+</div>
 <div ng-hide="craft" class="text-center top col-md-10" style="overflow: scroll; width: 1000px; height: 700px;">
   <h3>{{user.username}}'s Cards</h3>
       <card card="usercard" ng-click="addToDeck(usercard)" ng-repeat="usercard in user.cards"></card>

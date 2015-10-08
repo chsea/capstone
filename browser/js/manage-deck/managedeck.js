@@ -53,9 +53,10 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
       }
     });
     return cardsInDeckObj;
-  };
+  }
   
   $scope.deckcost = function() {
+    if ($scope.currentdeck === undefined) return;
     $scope.cost = [0,0,0,0,0,0,0];
     $scope.currentdeck.cards.forEach(function(card) {
       if (card.cost <= 6) {
@@ -113,13 +114,23 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.addToDeck = function(card){
+<<<<<<< HEAD
     if ($scope.currentdeck === undefined || $scope.currentdeck.cards.length >= 30){
       console.log("cannot add card to the deck, deck is already full");
+=======
+    if ($scope.currentdeck === undefined || $scope.total > 29) {
+      console.log("cannot add card the to the deck");
+>>>>>>> c74e50eb441cf8254a22b904bf011e6cffd0d527
     }
     else if (duplicateChecker(card)) {
       console.log("cannot have more than 2 duplicates in the currentdeck");
-      return;
     }
+<<<<<<< HEAD
+=======
+    else if (card.rarity === 3 && legendaryChecker(card)) {
+      console.log("cannot have more than one legenary card in the same deck");
+    }
+>>>>>>> c74e50eb441cf8254a22b904bf011e6cffd0d527
     else {
       $scope.currentdeck.cards.push(card);
       updateDeck();
@@ -135,6 +146,8 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.disenchant = function(card){
+    // lets users trade in their cards for stardust
+    if (card === undefined) return;
     // 1. Remove card from user.cards
     var cost = card.stardustCost;
     removeCardFromUser(card);
@@ -167,6 +180,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   }
 
   function duplicateChecker(card) {
+    // prohibits user from adding more than 2 duplicate cards to the same deck
     var count = 0;
     $scope.currentdeck.cards.forEach(function(currentcard){
       if (currentcard._id === card._id){
@@ -175,6 +189,17 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
     });
     if (count >= 2) return true;
     return false;
+  }
+
+  function legendaryChecker(card) {
+    // prohibits users from adding more than one of the same legendary card
+    var count = 0;
+    $scope.currentdeck.cards.forEach(function(currentcard){
+      if (currentcard._id === card._id){
+        count++;
+      }
+    });
+    return count >= 1 ? true : false;
   }
 
   function removeCardFromUser(card) {
@@ -189,11 +214,3 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   }
 
 });
-
-
-
-
-
-
-
-

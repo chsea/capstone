@@ -9,9 +9,8 @@
 
 var cardLogic = {
 
-  balancedTeam: function balancedTeam() {
+  balancedTeam: function () {
     // if you have three differnet types of units
-
     //raise their attacks by 20% increase by 20% for each differnet unit
 
 
@@ -167,7 +166,7 @@ var cardLogic = {
 
   // initiave same as charge in hearthstone
   initiative: function initiative() {
-    console.log("basic")
+    console.log("basic");
     // unit can attack on the same turn its summoned
 
   },
@@ -227,4 +226,4 @@ var cardLogic = {
   juniorBack: function juniorBack() {
 
   }
-}
+};
