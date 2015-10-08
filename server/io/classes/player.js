@@ -9,7 +9,7 @@ class Player {
     this.discard = [];
     this.hand = [];
     this.summonedMinions = [];
-    this.mana = 9;
+    this.mana = 0;
   }
 
   shuffle() {
@@ -23,14 +23,20 @@ class Player {
   }
 
   startTurn() {
+    console.log('start turn');
     this.mana++;
     this.summonedMinions.forEach(minion => {
       if (!minion.canAttack) minion.canAttack = true;
     });
-    return this.draw();
+    let card = this.draw();
+    this.socket.emit('startTurn', card);
   }
 
   summonMinion(card) {
+    if (card.logic.charge) card.canAttack = true;
+    if (card.taunt) {
+      this.summonedMinions.forEach(minion => minion.attackable = false);
+    }
     this.summonedMinions.push(card);
     _.remove(this.hand, handCard => handCard.name === card.name);
     this.mana -= card.cost;

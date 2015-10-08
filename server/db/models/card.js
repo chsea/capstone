@@ -26,9 +26,7 @@ var cardSchema = new Schema({
 		type: Number,
 		min: 0
   },
-  logic: {
-		type: String
-  },
+  logic: {},
 	cost: {
 		type: Number,
 		min: 0

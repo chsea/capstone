@@ -247,7 +247,9 @@ var minions = [{
     stardustCost: 17
   }, {
     name: 'Fast mover',
-    logic: 'initiave',
+    logic: {
+      initiative: true;
+    },
     description: 'a unit that gets things done, can attack on first turn ',
     rarity: 1,
     hitPoints: 3,

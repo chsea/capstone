@@ -30,7 +30,7 @@
     <div class="extra">
       <div>{{ player.mana }}</div>
       <div>{{ message }}</div>
-      <button ng-click="endTurn()" ng-show="turn">End Turn</button>
+      <button ng-click="endTurn()" ng-show="player.turn">End Turn</button>
       <button ng-click='leave()'>Leave game</button>
     </div>
   </div>

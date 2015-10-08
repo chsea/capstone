@@ -41,7 +41,6 @@ class Game {
       if (attackerId) _.remove(this.waitingPlayer.summonedMinions, minion => minion.id = attackee.id);
       attackee.hp = 0;
     }
-    console.log(attacker.hp, attackee.hp);
     return [attacker.hp, attackee.hp];
   }
 }
