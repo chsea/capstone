@@ -3,9 +3,10 @@ var router = require('express').Router();
 var _ = require('lodash');
 var mongoose = require('mongoose');
 var Deck = mongoose.model('Deck');
+var deepPopulate = require('mongoose-deep-populate');
 
 router.param('id', (req, res, next, id) => {
-  Deck.findById(id)
+  Deck.findById(id).deepPopulate('cards')
   .then(function(deck) {
       req.deck = deck;
       next();

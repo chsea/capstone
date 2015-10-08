@@ -16,12 +16,10 @@ var effectsSchema = new mongoose.Schema({
   quantity: {
     type: Number
   }
-
-}, {
-  collection: 'effects',
-  discriminatorKey: 'type'
+  }, {
+    collection: 'effects',
+    discriminatorKey: 'type'
 });
-
 
 
 var damageSchema = effectsSchema.extend({
@@ -55,9 +53,7 @@ var AlterPropertySchema = effectsSchema.extend({
 });
 
 
-
 mongoose.model('Effect', effectsSchema);
-
 mongoose.model('Damage', damageSchema);
 mongoose.model('Heal', effectsSchema);
 mongoose.model('Alter', AlterPropertySchema);

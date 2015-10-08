@@ -10,6 +10,7 @@ app.config(function($stateProvider) {
 });
 
 app.controller('manageDeckController', function($scope, user, $http, $state, DeckFactory, UserFactory) {
+  if (!user) return;
   var context;
   var clientsChart;
   $scope.barData = {};
@@ -43,6 +44,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   function displayDeck() {
+    console.log($scope.currentdeck);
     if ($scope.currentdeck === undefined) return;
     var cardsInDeckObj = {};
     $scope.currentdeck.cards.forEach(function(card){
@@ -82,6 +84,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.removeDeck = function() {
+    console.log("trying to delete deck: ", $scope.currentdeck);
     if ($scope.currentdeck === undefined) return;
     DeckFactory.destroy($scope.currentdeck._id)
     .then(function(deletedDeck){
@@ -114,23 +117,15 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.addToDeck = function(card){
-<<<<<<< HEAD
     if ($scope.currentdeck === undefined || $scope.currentdeck.cards.length >= 30){
-      console.log("cannot add card to the deck, deck is already full");
-=======
-    if ($scope.currentdeck === undefined || $scope.total > 29) {
-      console.log("cannot add card the to the deck");
->>>>>>> c74e50eb441cf8254a22b904bf011e6cffd0d527
+      console.log("deck is already full");
     }
     else if (duplicateChecker(card)) {
       console.log("cannot have more than 2 duplicates in the currentdeck");
     }
-<<<<<<< HEAD
-=======
     else if (card.rarity === 3 && legendaryChecker(card)) {
       console.log("cannot have more than one legenary card in the same deck");
     }
->>>>>>> c74e50eb441cf8254a22b904bf011e6cffd0d527
     else {
       $scope.currentdeck.cards.push(card);
       updateDeck();
