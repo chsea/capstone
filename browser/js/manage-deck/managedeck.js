@@ -56,6 +56,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   }
   
   $scope.deckcost = function() {
+    if ($scope.currentdeck === undefined) return;
     $scope.cost = [0,0,0,0,0,0,0];
     $scope.currentdeck.cards.forEach(function(card) {
       if (card.cost <= 6) {
@@ -137,6 +138,8 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.disenchant = function(card){
+    // lets users trade in their cards for stardust
+    if (card === undefined) return;
     // 1. Remove card from user.cards
     var cost = card.stardustCost;
     removeCardFromUser(card);

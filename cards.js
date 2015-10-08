@@ -252,7 +252,7 @@ var minions = [{
   }, {
     name: 'Fast mover',
     logic: {
-      initiative: true;
+      initiative: true
     },
     description: 'a unit that gets things done, can attack on first turn ',
     rarity: 1,
