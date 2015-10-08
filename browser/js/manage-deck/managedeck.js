@@ -113,13 +113,19 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.addToDeck = function(card){
-    if ($scope.currentdeck === undefined || $scope.total > 29) return;
-    if (duplicateChecker(card)) {
-      console.log("cannot have more than 2 duplicates in the currentdeck");
-      return;
+    if ($scope.currentdeck === undefined || $scope.total > 29) {
+      console.log("cannot add card the to the deck");
     }
-    $scope.currentdeck.cards.push(card);
-    updateDeck();
+    else if (duplicateChecker(card)) {
+      console.log("cannot have more than 2 duplicates in the currentdeck");
+    }
+    else if (card.rarity === 3 && legendaryChecker(card)) {
+      console.log("cannot have more than one legenary card in the same deck");
+    }
+    else {
+      $scope.currentdeck.cards.push(card);
+      updateDeck();
+    }
   };
 
   $scope.showCraftForm = function() {
@@ -163,6 +169,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   }
 
   function duplicateChecker(card) {
+    // prohibits user from adding more than 2 duplicate cards to the same deck
     var count = 0;
     $scope.currentdeck.cards.forEach(function(currentcard){
       if (currentcard._id === card._id){
@@ -171,6 +178,17 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
     });
     if (count >= 2) return true;
     return false;
+  }
+
+  function legendaryChecker(card) {
+    // prohibits users from adding more than one of the same legendary card
+    var count = 0;
+    $scope.currentdeck.cards.forEach(function(currentcard){
+      if (currentcard._id === card._id){
+        count++;
+      }
+    });
+    return count >= 1 ? true : false;
   }
 
   function removeCardFromUser(card) {
