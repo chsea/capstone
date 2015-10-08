@@ -113,7 +113,6 @@ app.config($stateProvider => {
       _.remove($scope[player].hand, handCard => handCard.name === card.name);
       $scope[player].mana -= card.cost;
       $scope[player].summonedMinions.push(card);
-
     });
   };
   $scope.summon = (card, e) => {
@@ -121,7 +120,7 @@ app.config($stateProvider => {
   };
 
   Socket.on('summoned', card => {
-    CardLogicFactory.checkCardLogic(card)
+    CardLogicFactory.checkCardLogic(card);
 
     console.log(`summoned ${card.name}`);
     summon('player', card);

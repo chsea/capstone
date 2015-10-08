@@ -166,7 +166,7 @@ var cardLogic = {
 
   // initiave same as charge in hearthstone
   initiative: function initiative() {
-    console.log("basic")
+    console.log("basic");
     // unit can attack on the same turn its summoned
 
   },
@@ -226,4 +226,4 @@ var cardLogic = {
   juniorBack: function juniorBack() {
 
   }
-}
+};

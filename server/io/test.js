@@ -33,7 +33,6 @@ module.exports = (io, socket) => {
           return card.type === 'Minion' ? new Minion(card, id++) : new Spell(card, id++);
         });
       });
-      console.log(decks)
 
       let player1 = new Player(p1.name, decks[0], p1.socket);
       let player2 = new Player(name, decks[1], socket);
