@@ -13,8 +13,8 @@ var spells = [
     stardustCost: 12
   }, {
     name: 'Nasdaq Crash',
-    logic: [],
-    description: 'Tech companies are crashing! deal 6 damage to everything',
+    logic: ['DamageOCO6'],
+    description: 'Tech companies are crashing! deal 6 damage to your opponent and his minions',
     rarity: 1,
     cost: 6,
     portait: 'awesome',
@@ -23,7 +23,7 @@ var spells = [
 
   }, {
     name: 'Agile Methodology',
-    logic: [],
+    logic: ['AlterPCWindfuryAll'],
     description: 'It\'s all about the burn-down chart! Units can attack twice this turn',
     rarity: 2,
     cost: 7,
@@ -32,7 +32,7 @@ var spells = [
     stardustCost: 53
   }, {
     name: 'Down Round',
-    logic: [],
+    logic: ['DamageO5'],
     description: 'Things aren\'t going so well. Lower your opponents valuation by 15%',
     rarity: 1,
     cost: 4,
@@ -50,8 +50,8 @@ var spells = [
     stardustCost: 37
   }, {
     name: 'IPO',
-    logic: [],
-    description: 'Lets get rich (on paper)! Increases valuation and unit health and attack by 50% for next three turns only',
+    logic: ['AlterPCAll3AP3HP'],
+    description: 'Lets get rich (on paper)! Increases valuation and unit health and attack by 3 for next three turns only',
     rarity: 2,
     cost: 8,
     portait: 'awesome',
@@ -107,9 +107,9 @@ var spells = [
   }, {
     name: 'Gone Viral',
     logic: [],
-    description: 'increase valuation by 50%, but your units are exhausted and can\'t attack this turn ',
+    description: 'heal 10, but your units are exhausted and can\'t attack this turn ',
     rarity: 1,
-    cost: 5,
+    cost: 7,
     portait: 'awesome',
     category: 'super',
     stardustCost: 25
@@ -137,7 +137,7 @@ var spells = [
 var minions = [{
   name: 'David Yang',
   logic: {
-
+    battlecry:[]
   },
   description: 'A Legendary Co-Founder. Inspiration:Summons a Fullstack Gradute; 3 if Nimit is around',
   rarity: 3,
@@ -150,7 +150,7 @@ var minions = [{
 }, {
   name: 'Nimit Maaru',
   logic: {
-
+    battlecry:[]
   },
   description: 'A Legendary Co-Founder. Inspiration:Summons a Fullstack Gradute; 3 if David is around',
   rarity: 3,
@@ -163,7 +163,7 @@ var minions = [{
 }, {
   name: 'Mark Zuckerburg',
   logic: {
-
+    battlecry:[]
   },
   description: 'A Legendary, young CEO-Founder. Inspiration: doubles all technical units attack for two turns',
   rarity: 3,
@@ -176,7 +176,7 @@ var minions = [{
 }, {
   name: 'Fullstack Graduate',
   logic: {
-
+    eachTurn:[]
   },
   description: 'A truly great engineer. Gains +1 attack and strength for each other Fullstack graduate, gains +2 with Nimit or David',
   rarity: 2,
@@ -189,7 +189,7 @@ var minions = [{
 }, {
   name: 'Junior Front-End Engineer',
   logic: {
-
+    eachTurn:[]
   },
   description: 'Learning the ropes, will become a senior in three turns',
   rarity: 0,
@@ -215,7 +215,7 @@ var minions = [{
 }, {
   name: 'Senior Front-end Engineer',
   logic: {
-
+    windfury:true
   },
   description: 'experienced front-end engineer with agile',
   rarity: 1,
@@ -227,8 +227,10 @@ var minions = [{
   stardustCost: 12
 }, {
   name: 'Senior Back-end Engineer',
-  logic: {},
-  description: 'experienced back-end engineer with tuant',
+  logic: {
+    taunt:true
+  },
+  description: 'experienced back-end engineer with taunt',
   rarity: 1,
   hitPoints: 2,
   attackPoints: 4,
@@ -249,7 +251,9 @@ var minions = [{
   stardustCost: 16
 }, {
   name: 'Andreessen Horowitz',
-  logic: {},
+  logic: {
+    eachTurn:[]
+  },
   description: 'The legendary VC, restore 5% valuation each turn',
   rarity: 3,
   hitPoints: 8,
@@ -260,7 +264,9 @@ var minions = [{
   stardustCost: 17
 }, {
   name: 'Fast mover',
-  logic: {},
+  logic: {
+    charge:true
+  },
   description: 'a unit that gets things done, can attack on first turn ',
   rarity: 1,
   hitPoints: 3,
@@ -271,7 +277,9 @@ var minions = [{
   stardustCost: 17
 }, {
   name: 'AWS Ninja',
-  logic: {},
+  logic: {
+    eachTurn:[]
+  },
   description: 'Uses AWS infrastrucute to make everything better: decreases cost of everything by 1',
   rarity: 2,
   hitPoints: 2,
@@ -282,7 +290,9 @@ var minions = [{
   stardustCost: 14
 }, {
   name: 'Fortran Engineer',
-  logic: {},
+  logic: {
+    charge:true
+  },
   description: 'These guys are still around?',
   rarity: 0,
   hitPoints: 3,
@@ -293,8 +303,10 @@ var minions = [{
   stardustCost: 13
 }, {
   name: 'Customer Support',
-  logic: {},
-  description: 'These guys are still around?',
+  logic: {
+    windfury:true
+  },
+  description: 'an employee always looking out for your customers ',
   rarity: 0,
   hitPoints: 2,
   attackPoints: 1,
@@ -303,9 +315,24 @@ var minions = [{
   category: 'super',
   stardustCost: 13
 }, {
-  name: 'slacker',
-  logic: {},
-  description: ' what a slacker',
+  name: 'Slacker',
+  logic: {
+    taunt:true
+  },
+  description: 'what a slacker',
+  rarity: 0,
+  hitPoints: 3,
+  attackPoints: 1,
+  cost: 1,
+  portait: 'awesome',
+  category: 'super',
+  stardustCost: 13
+},{
+  name: 'SteadFast employee',
+  logic: {
+    divineShield:true
+  },
+  description: 'what a slacker',
   rarity: 0,
   hitPoints: 3,
   attackPoints: 1,
@@ -314,7 +341,7 @@ var minions = [{
   category: 'super',
   stardustCost: 13
 }, {
-  name: 'designer',
+  name: 'Designer',
   logic: {},
   description: 'if a front-end engineer is on the board both this card and that card gain agile, if its a senior front end this card gets agile + 2 h/a',
   rarity: 1,
@@ -326,7 +353,9 @@ var minions = [{
   stardustCost: 17
 }, {
   name: 'Generic CEO',
-  logic: {},
+  logic: {
+
+  },
   description: 'is powerful alone, lower health and attack by 1 for every allied unit',
   rarity: 1,
   hitPoints: 6,
@@ -349,83 +378,96 @@ var minions = [{
 }];
 
 
+
+
+
 var damageEffects = [{
-    name: 'damageO1',
+    name: 'DamageO1',
     target: ['opponent'],
     quantity: 1,
     baseAmount: 1
   }, {
-    name: 'damageO2',
+    name: 'DamageO2',
     target: ['opponent'],
     quantity: 1,
     baseAmount: 2
   }, {
-    name: 'damageO3',
+    name: 'DamageO3',
     target: ['opponent'],
     quantity: 1,
     baseAmount: 3
   }, {
-    name: 'damageO4',
+    name: 'DamageO4',
     target: ['opponent'],
     quantity: 1,
     baseAmount: 4
-  }, {
-    name: 'damageOC1',
+  },{
+    name: 'DamageO5',
+    target: ['opponent'],
+    quantity: 1,
+    baseAmount: 5
+  },  {
+    name: 'DamageOC1',
     target: ['opponentCard'],
     quantity: 1,
     baseAmount: 1
   }, {
-    name: 'damageOC2',
+    name: 'DamageOC2',
     target: ['opponentCard'],
     quantity: 1,
     baseAmount: 2
   }, {
-    name: 'damageOC3',
+    name: 'DamageOC3',
     target: ['opponentCard'],
     quantity: 1,
     baseAmount: 3
   }, {
-    name: 'damageOCKill',
+    name: 'DamageOCKill',
     target: ['opponentCard'],
     quantity: 1,
     baseAmount: 99
   }, {
-    name: 'damageOCO1',
+    name: 'DamageOCO1',
     target: ['opponentCard', 'opponent'],
     quantity: 10,
     baseAmount: 1
   }, {
-    name: 'damageOCO2',
+    name: 'DamageOCO2',
     target: ['opponentCard', 'opponent'],
     quantity: 10,
     baseAmount: 2
   }, {
-    name: 'damageOCO3',
+    name: 'DamageOCO3',
     target: ['opponentCard', 'opponent'],
     quantity: 10,
     baseAmount: 3
   }, {
-    name: 'damageOCO4',
+    name: 'DamageOCO4',
     target: ['opponentCard', 'opponent'],
     quantity: 10,
-    baseAmount: 5
-  }, {
-    name: 'damageAOEOC1',
+    baseAmount: 4
+  },{
+    name: 'DamageOCO6',
+    target: ['opponentCard', 'opponent'],
+    quantity: 10,
+    baseAmount: 6
+  },  {
+    name: 'DamageAOEOC1',
     target: ['opponentCard'],
     quantity: 10,
     baseAmount: 1
   },{
-    name: 'damageAOEOC2',
+    name: 'DamageAOEOC2',
     target: ['opponentCard'],
     quantity: 10,
     baseAmount: 2
   }, {
-    name: 'damageAOEOC3',
+    name: 'DamageAOEOC3',
     target: ['opponentCard'],
     quantity: 10,
     baseAmount: 3
   }, {
-    name: 'damageAOEOC4',
+    name: 'DamageAOEOC4',
     target: ['opponentCard'],
     quantity: 10,
     baseAmount: 4
@@ -541,6 +583,14 @@ var alterPropertyEffects = [{
     cost: 0,
 
   }, {
+    name: 'AlterPCAll3AP3HP',
+    target: ['playerCard'],
+    quantity: 1,
+    hitPoints: 2,
+    attackPoints: 2,
+    cost: 0,
+
+  }, {
     name: 'AlterPCCost1',
     target: ['playerCard'],
     quantity: 1,
@@ -564,7 +614,40 @@ var alterPropertyEffects = [{
     attackPoints: 0,
     cost: 3,
 
+  },{
+    name: 'AlterPCCWindfury1',
+    target: ['playerCard'],
+    quantity: 1,
+    hitPoints: 0,
+    attackPoints: 0,
+    cost: 0,
+    logic: {
+      windfury:true
+    }
+
+  },{
+    name: 'AlterPCWindfuryAll',
+    target: ['playerCard'],
+    quantity: 10,
+    hitPoints: 0,
+    attackPoints: 0,
+    cost: 0,
+    logic:{
+      windfury:true
+    }
+  },{
+    name: 'AlterPInvulernable',
+    target: ['playerCard'],
+    quantity: 1,
+    hitPoints: 0,
+    attackPoints: 0,
+    cost: 0,
+    logic: {
+      windfury:true
+    }
+
   }
+
 ];
 
 

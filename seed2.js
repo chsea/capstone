@@ -159,6 +159,9 @@ function seedMinions() {
   //   minions.push(obj);
   // }
 
+
+
+
   return Minion.createAsync(minions);
 }
 
@@ -184,6 +187,7 @@ function seedSpells() {
         _id: thing._id
       };
     });
+
   spells.forEach(function(spell) {
     if (spell.logic.length > 0) {
 

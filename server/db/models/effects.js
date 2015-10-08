@@ -45,7 +45,7 @@ var AlterPropertySchema = effectsSchema.extend({
     type: Number
   },
   logic:{
-    windury: Boolean,
+    windfury: Boolean,
     battlecry: Boolean,
     divineShield: Boolean,
     charge: Boolean
