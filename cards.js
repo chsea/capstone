@@ -4,8 +4,8 @@ var spells = [
 
   {
     name: 'Tech Boom',
-    logic: {},
-    description: 'TechBoom is in town! Increase all valuations by 30%',
+    logic:['HealAllP6'],
+    description: 'A tech boom is in town! Heal all yourself and your minions by 6',
     rarity: 2,
     cost: 8,
     portait: 'awesome',
@@ -13,8 +13,8 @@ var spells = [
     stardustCost: 12
   }, {
     name: 'Nasdaq Crash',
-    logic: {},
-    description: 'tech companies are crashing! run! Cut all valuations by 30%',
+    logic: [],
+    description: 'Tech companies are crashing! deal 6 damage to everything',
     rarity: 1,
     cost: 6,
     portait: 'awesome',
@@ -23,7 +23,7 @@ var spells = [
 
   }, {
     name: 'Agile Methodology',
-    logic: {},
+    logic: [],
     description: 'It\'s all about the burn-down chart! Units can attack twice this turn',
     rarity: 2,
     cost: 7,
@@ -32,7 +32,7 @@ var spells = [
     stardustCost: 53
   }, {
     name: 'Down Round',
-    logic: {},
+    logic: [],
     description: 'Things aren\'t going so well. Lower your opponents valuation by 15%',
     rarity: 1,
     cost: 4,
@@ -41,7 +41,7 @@ var spells = [
     stardustCost: 17
   }, {
     name: 'Consultant',
-    logic: {},
+    logic: [],
     description: 'Need some outside help. For the next three turns there are 2 more minions on the field',
     rarity: 1,
     cost: 3,
@@ -50,7 +50,7 @@ var spells = [
     stardustCost: 37
   }, {
     name: 'IPO',
-    logic: {},
+    logic: [],
     description: 'Lets get rich (on paper)! Increases valuation and unit health and attack by 50% for next three turns only',
     rarity: 2,
     cost: 8,
@@ -59,7 +59,7 @@ var spells = [
     stardustCost: 37
   }, {
     name: 'On Ramp',
-    logic: {},
+    logic: [],
     description: 'Raise all units up one level up (junir > senior > legendary) as long as there is one unit of that kind',
     rarity: 1,
     cost: 6,
@@ -69,7 +69,7 @@ var spells = [
 
   }, {
     name: 'Unicorn',
-    logic: {},
+    logic: [],
     description: 'valuation becomes so high that you become invulnerable for two turns',
     rarity: 3,
     cost: 10,
@@ -78,7 +78,7 @@ var spells = [
     stardustCost: 34
   }, {
     name: 'Poach Employee',
-    logic: {},
+    logic: [],
     description: 'Take control of one of your opponents units',
     rarity: 1,
     cost: 8,
@@ -88,7 +88,7 @@ var spells = [
 
   }, {
     name: 'Copy Idea',
-    logic: {},
+    logic: [],
     description: 'Copy your opponents idea, allowing you to cast their innate spell for the next three turns',
     rarity: 1,
     cost: 3,
@@ -97,7 +97,7 @@ var spells = [
     stardustCost: 12
   }, {
     name: 'Rid Technical Debt',
-    logic: {},
+    logic: [],
     description: 'for every other turn that has passed, draw that many cards ',
     rarity: 2,
     cost: 6,
@@ -106,7 +106,7 @@ var spells = [
     stardustCost: 27
   }, {
     name: 'Gone Viral',
-    logic: {},
+    logic: [],
     description: 'increase valuation by 50%, but your units are exhausted and can\'t attack this turn ',
     rarity: 1,
     cost: 5,
@@ -115,7 +115,7 @@ var spells = [
     stardustCost: 25
   }, {
     name: 'Angel Round',
-    logic: {},
+    logic: [],
     description: 'Get a chance! if a unit takes damage that would kill it, bring it back to life',
     rarity: 2,
     cost: 6,
@@ -123,7 +123,7 @@ var spells = [
     category: 'super',
   }, {
     name: 'Rapid Iteration',
-    logic: {},
+    logic: [],
     description: 'Fail fast, fail often. give unit Agile',
     rarity: 1,
     cost: 5,
@@ -136,7 +136,9 @@ var spells = [
 
 var minions = [{
   name: 'David Yang',
-  logic: {},
+  logic: {
+
+  },
   description: 'A Legendary Co-Founder. Inspiration:Summons a Fullstack Gradute; 3 if Nimit is around',
   rarity: 3,
   hitPoints: 8,
@@ -147,7 +149,9 @@ var minions = [{
   stardustCost: 37
 }, {
   name: 'Nimit Maaru',
-  logic: {},
+  logic: {
+
+  },
   description: 'A Legendary Co-Founder. Inspiration:Summons a Fullstack Gradute; 3 if David is around',
   rarity: 3,
   hitPoints: 10,
@@ -158,7 +162,9 @@ var minions = [{
   stardustCost: 31
 }, {
   name: 'Mark Zuckerburg',
-  logic: {},
+  logic: {
+
+  },
   description: 'A Legendary, young CEO-Founder. Inspiration: doubles all technical units attack for two turns',
   rarity: 3,
   hitPoints: 7,
@@ -169,7 +175,9 @@ var minions = [{
   stardustCost: 35
 }, {
   name: 'Fullstack Graduate',
-  logic: {},
+  logic: {
+
+  },
   description: 'A truly great engineer. Gains +1 attack and strength for each other Fullstack graduate, gains +2 with Nimit or David',
   rarity: 2,
   hitPoints: 6,
@@ -180,7 +188,9 @@ var minions = [{
   stardustCost: 34
 }, {
   name: 'Junior Front-End Engineer',
-  logic: {},
+  logic: {
+
+  },
   description: 'Learning the ropes, will become a senior in three turns',
   rarity: 0,
   hitPoints: 2,
@@ -191,7 +201,9 @@ var minions = [{
   stardustCost: 52
 }, {
   name: 'Junior Back-End Engineer',
-  logic: {},
+  logic: {
+
+  },
   description: 'Learning the ropes, will become a senior in three turns',
   rarity: 0,
   hitPoints: 4,
@@ -202,7 +214,9 @@ var minions = [{
   stardustCost: 37
 }, {
   name: 'Senior Front-end Engineer',
-  logic: {},
+  logic: {
+
+  },
   description: 'experienced front-end engineer with agile',
   rarity: 1,
   hitPoints: 2,
@@ -277,7 +291,7 @@ var minions = [{
   portait: 'awesome',
   category: 'super',
   stardustCost: 13
-},{
+}, {
   name: 'Customer Support',
   logic: {},
   description: 'These guys are still around?',
@@ -288,7 +302,7 @@ var minions = [{
   portait: 'awesome',
   category: 'super',
   stardustCost: 13
-},{
+}, {
   name: 'slacker',
   logic: {},
   description: ' what a slacker',
@@ -336,85 +350,86 @@ var minions = [{
 
 
 var damageEffects = [{
+    name: 'damageO1',
+    target: ['opponent'],
+    quantity: 1,
+    baseAmount: 1
+  }, {
     name: 'damageO2',
     target: ['opponent'],
     quantity: 1,
-    baseAmount: 4
+    baseAmount: 2
+  }, {
+    name: 'damageO3',
+    target: ['opponent'],
+    quantity: 1,
+    baseAmount: 3
   }, {
     name: 'damageO4',
     target: ['opponent'],
     quantity: 1,
     baseAmount: 4
   }, {
-    name: 'damageO6',
-    target: ['opponent'],
-    quantity: 1,
-    baseAmount: 6
-  }, {
-    name: 'damageO8',
-    target: ['opponent'],
-    quantity: 1,
-    baseAmount: 8
-  }, {
-    name: 'damageOM1',
-    target: ['opponentMinion'],
+    name: 'damageOC1',
+    target: ['opponentCard'],
     quantity: 1,
     baseAmount: 1
   }, {
-    name: 'damageOM2',
-    target: ['opponentMinion'],
+    name: 'damageOC2',
+    target: ['opponentCard'],
     quantity: 1,
     baseAmount: 2
   }, {
-    name: 'damageOM3',
-    target: ['opponentMinion'],
+    name: 'damageOC3',
+    target: ['opponentCard'],
     quantity: 1,
     baseAmount: 3
   }, {
-<<<<<<< HEAD
-    name: 'damageOMKill',
-    target: ['opponentMinion'],
+    name: 'damageOCKill',
+    target: ['opponentCard'],
     quantity: 1,
     baseAmount: 99
-=======
-    name: 'Fast mover',
-    logic: {
-      initiative: true
-    },
-    description: 'a unit that gets things done, can attack on first turn ',
-    rarity: 1,
-    hitPoints: 3,
-    attackPoints: 4,
-    cost: 3,
-    portait:'awesome',
-    category:'super',
-    stardustCost: 17
->>>>>>> master
   }, {
-    name: 'damageAllO1',
-    target: ['opponentMinion', 'opponent'],
+    name: 'damageOCO1',
+    target: ['opponentCard', 'opponent'],
     quantity: 10,
     baseAmount: 1
   }, {
-    name: 'damageAllO2',
-    target: ['opponentMinion', 'opponent'],
+    name: 'damageOCO2',
+    target: ['opponentCard', 'opponent'],
     quantity: 10,
     baseAmount: 2
   }, {
-    name: 'damageAllO3',
-    target: ['opponentMinion', 'opponent'],
+    name: 'damageOCO3',
+    target: ['opponentCard', 'opponent'],
     quantity: 10,
     baseAmount: 3
   }, {
-    name: 'damageAllO4',
-    target: ['opponentMinion', 'opponent'],
+    name: 'damageOCO4',
+    target: ['opponentCard', 'opponent'],
     quantity: 10,
     baseAmount: 5
+  }, {
+    name: 'damageAOEOC1',
+    target: ['opponentCard'],
+    quantity: 10,
+    baseAmount: 1
+  },{
+    name: 'damageAOEOC2',
+    target: ['opponentCard'],
+    quantity: 10,
+    baseAmount: 2
+  }, {
+    name: 'damageAOEOC3',
+    target: ['opponentCard'],
+    quantity: 10,
+    baseAmount: 3
+  }, {
+    name: 'damageAOEOC4',
+    target: ['opponentCard'],
+    quantity: 10,
+    baseAmount: 4
   }
-
-
-
-
 
 
 
@@ -440,95 +455,117 @@ var healEffects = [{
     quantity: 1,
     baseAmount: 8
   }, {
-    name: 'HealPM1',
-    target: ['playerMinion'],
+    name: 'HealPC1',
+    target: ['playerCard'],
     quantity: 1,
     baseAmount: 1
   }, {
-    name: 'HealPM2',
-    target: ['playerMinion'],
+    name: 'HealPC2',
+    target: ['playerCard'],
     quantity: 1,
     baseAmount: 2
   }, {
-    name: 'HealPM3',
-    target: ['playerMinion'],
+    name: 'HealPC3',
+    target: ['playerCard'],
     quantity: 1,
     baseAmount: 3
   }, {
-    name: 'HealPMKill',
-    target: ['playerMinion'],
+    name: 'HealPCmaxHeal',
+    target: ['playerCard'],
     quantity: 1,
     baseAmount: 99
   }, {
     name: 'HealAllP1',
-    target: ['playerMinion', 'player'],
+    target: ['playerCard', 'player'],
     quantity: 10,
     baseAmount: 1
   }, {
     name: 'HealAllP2',
-    target: ['playerMinion', 'player'],
+    target: ['playerCard', 'player'],
     quantity: 10,
     baseAmount: 2
   }, {
     name: 'HealAllP3',
-    target: ['playerMinion', 'player'],
+    target: ['playerCard', 'player'],
     quantity: 10,
     baseAmount: 3
   }, {
     name: 'HealAllP4',
-    target: ['playerMinion', 'player'],
+    target: ['playerCard', 'player'],
     quantity: 10,
     baseAmount: 5
+  }, {
+    name: 'HealAllP6',
+    target: ['playerCard', 'player'],
+    quantity: 10,
+    baseAmount: 6
   }
 
 ];
 
 var alterPropertyEffects = [{
-    name: 'AlterPM1AP',
-    target: ['playerMinion'],
-    quantity: 2,
-    amount: 10,
-    HP: 0,
-    AP: 0,
-    lowerCost: 0,
-
-
+    name: 'AlterPC1AP',
+    target: ['playerCard'],
+    quantity: 1,
+    hitPoints: 0,
+    attackPoints: 1,
+    cost: 0,
+  }, {
+    name: 'AlterPC2AP',
+    target: ['playerCard'],
+    quantity: 1,
+    hitPoints: 0,
+    attackPoints: 2,
+    cost: 0,
+  }, {
+    name: 'AlterPC1AP1HP',
+    target: ['playerCard'],
+    quantity: 1,
+    hitPoints: 1,
+    attackPoints: 1,
+    cost: 0,
+  }, {
+    name: 'AlterPC2AP2HP',
+    target: ['playerCard'],
+    quantity: 1,
+    hitPoints: 2,
+    attackPoints: 2,
+    cost: 0,
 
   }, {
-    name: 'AlterPM2AP',
-    target: ['playerMinion'],
-    quantity: 2,
-    amount: 10,
-    HP: 0,
-    AP: 0,
-    lowerCost: 0,
-
-
+    name: 'AlterPC3AP3HP',
+    target: ['playerCard'],
+    quantity: 1,
+    hitPoints: 2,
+    attackPoints: 2,
+    cost: 0,
 
   }, {
-    name: 'AlterPM1AP1HP',
-    target: ['playerMinion'],
-    quantity: 2,
-    amount: 10,
-    HP: 0,
-    AP: 0,
-    lowerCost: 0,
-
-
+    name: 'AlterPCCost1',
+    target: ['playerCard'],
+    quantity: 1,
+    hitPoints: 0,
+    attackPoints: 0,
+    cost: 3,
 
   }, {
-    name: 'AlterPM2AP2HP',
-    target: ['playerMinion'],
-    quantity: 2,
-    amount: 10,
-    HP: 0,
-    AP: 0,
-    lowerCost: 0,
+    name: 'AlterPCCost2',
+    target: ['playerCard'],
+    quantity: 1,
+    hitPoints: 0,
+    attackPoints: 0,
+    cost: 2,
+
+  }, {
+    name: 'AlterPCCost3',
+    target: ['playerCard'],
+    quantity: 1,
+    hitPoints: 0,
+    attackPoints: 0,
+    cost: 3,
 
   }
-
 ];
-
 
 
 
@@ -537,5 +574,9 @@ var alterPropertyEffects = [{
 
 module.exports = {
   spells: spells,
-  minions: minions
+  minions: minions,
+  alter: alterPropertyEffects,
+  damage: damageEffects,
+  heal: healEffects
+
 };

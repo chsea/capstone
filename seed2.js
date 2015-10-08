@@ -23,7 +23,11 @@ var User = Promise.promisifyAll(mongoose.model('User'));
 var Minion = Promise.promisifyAll(mongoose.model('Minion'));
 var Spell = Promise.promisifyAll(mongoose.model('Spell'));
 var Card = Promise.promisifyAll(mongoose.model('Card'));
-var Deck = Promise.promisifyAll(mongoose.model('Deck'));
+var Deck = Promise.promisifyAll(mongoose.model('Deck'))
+var Damage = Promise.promisifyAll(mongoose.model('Damage'));
+var Heal = Promise.promisifyAll(mongoose.model('Heal'));
+var Alter = Promise.promisifyAll(mongoose.model('Alter'));
+
 var _ = require('lodash');
 
 var Game = Promise.promisifyAll(mongoose.model('Game'));
@@ -35,6 +39,10 @@ var spellNames = ["Astral Communion", "Bite", "Claw", "Dark Wispers", "Force of 
 var category = ["transportation", "education", "communication", "sharing economy"];
 var spells = require('./cards.js').spells;
 var minions = require('./cards.js').minions;
+var alter = require('./cards.js').alter
+var damage = require('./cards.js').damage
+var heal = require('./cards.js').heal
+
 // var allCards = spells.concat(minions)
 // var allCardIds =[]
 
@@ -57,7 +65,7 @@ var seedUsers = function() {
     password: 'password',
     cards: [],
     photo: randPhoto(),
-    decks:[],
+    decks: [],
     stardust: 23
   }, {
     username: "L.i.z.z.y",
@@ -84,8 +92,7 @@ var seedUsers = function() {
     cards: [],
     decks: [],
     stardust: 57
-  },
-  {
+  }, {
     username: "sea",
     email: "sea@hi.com",
     password: "bye",
@@ -93,8 +100,7 @@ var seedUsers = function() {
     cards: [],
     decks: [],
     stardust: 132
-  },
-  {
+  }, {
     username: "sky",
     email: "sky@hi.com",
     password: "bye",
@@ -108,8 +114,8 @@ var seedUsers = function() {
     var deck2 = tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id;
     user.decks.push(deck1, deck2);
   });
-  users.forEach(function(user){
-    tempData.cards.forEach(function(card){
+  users.forEach(function(user) {
+    tempData.cards.forEach(function(card) {
       user.cards.push(card);
     });
   });
@@ -157,6 +163,8 @@ function seedMinions() {
 }
 
 function seedSpells() {
+  // var values = _.pluck(tempData.effects, 'name')
+  // console.log(values)
   // var spells = [];
   // for (var i = 0; i < 100; i++) {
   //   var obj = {};
@@ -168,9 +176,42 @@ function seedSpells() {
   //   obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
   //   spells.push(obj);
   // }
+  var effectIds = _.map(
+    tempData.effects,
+    function(thing) {
+      return {
+        name: thing.name,
+        _id: thing._id
+      };
+    });
+  spells.forEach(function(spell) {
+    if (spell.logic.length > 0) {
 
+      spell.logic = _.where(tempData.effects, {
+        name: spell.logic[0]
+      }, '_id')[0]
+    }
+  })
+
+  console.log(spells)
   return Spell.createAsync(spells);
 }
+
+function seedAlter() {
+  return Alter.createAsync(alter)
+}
+
+function seedDamage() {
+  return Damage.createAsync(damage)
+}
+
+function seedHeal() {
+  return Heal.createAsync(heal)
+}
+
+
+
+
 
 function seedGames() {
   var games = [{
@@ -187,6 +228,10 @@ function seedGames() {
   return Game.createAsync(games);
 }
 
+
+
+
+
 connectToDb.then(function() {
   var remove = [
     User.remove(),
@@ -197,6 +242,15 @@ connectToDb.then(function() {
 
   Promise.all(remove)
     .then(function() {
+      return seedHeal();
+    }).then(function(heals) {
+      tempData.effects = heals
+      return seedAlter();
+    }).then(function(alters) {
+      tempData.effects = tempData.effects.concat(alters)
+      return seedDamage();
+    }).then(function(damages) {
+      tempData.effects = tempData.effects.concat(damages)
       return seedMinions();
     }).then(function(minions) {
       tempData.cards = minions;
@@ -212,9 +266,17 @@ connectToDb.then(function() {
       return seedGames();
     }).then(function(games) {
       tempData.games = games;
-      return User.updateAsync({}, {games: tempData.games}, {multi: true});
+      return User.updateAsync({}, {
+        games: tempData.games
+      }, {
+        multi: true
+      });
     }).then(function(users) {
-      return Deck.updateAsync({}, {game: tempData.games[0]}, {multi: true});
+      return Deck.updateAsync({}, {
+        game: tempData.games[0]
+      }, {
+        multi: true
+      });
     }).then(function(decks) {
       console.log(chalk.green('Seed successful!'));
       process.kill(0);
