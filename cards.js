@@ -371,10 +371,25 @@ var damageEffects = [{
     quantity: 1,
     baseAmount: 3
   }, {
+<<<<<<< HEAD
     name: 'damageOMKill',
     target: ['opponentMinion'],
     quantity: 1,
     baseAmount: 99
+=======
+    name: 'Fast mover',
+    logic: {
+      initiative: true
+    },
+    description: 'a unit that gets things done, can attack on first turn ',
+    rarity: 1,
+    hitPoints: 3,
+    attackPoints: 4,
+    cost: 3,
+    portait:'awesome',
+    category:'super',
+    stardustCost: 17
+>>>>>>> master
   }, {
     name: 'damageAllO1',
     target: ['opponentMinion', 'opponent'],

@@ -8,8 +8,8 @@ class Card {
   }
 }
 class Spell extends Card {
-  constructor(card) {
-    super(card);
+  constructor(card, id) {
+    super(card, id);
     this.type = 'spell';
   }
 }
@@ -20,6 +20,7 @@ class Minion extends Card {
     this.hp = card.hitPoints;
     this.ap = card.attackPoints;
     this.canAttack = false;
+    this.attackable = true;
   }
 }
 
