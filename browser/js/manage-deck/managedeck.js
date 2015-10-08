@@ -43,6 +43,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   function displayDeck() {
+    console.log($scope.currentdeck);
     if ($scope.currentdeck === undefined) return;
     var cardsInDeckObj = {};
     $scope.currentdeck.cards.forEach(function(card){
@@ -115,7 +116,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
 
   $scope.addToDeck = function(card){
     if ($scope.currentdeck === undefined || $scope.currentdeck.cards.length >= 30){
-      console.log("cannot add card to the deck, deck is already full");
+      console.log("deck is already full");
     }
     else if (duplicateChecker(card)) {
       console.log("cannot have more than 2 duplicates in the currentdeck");
