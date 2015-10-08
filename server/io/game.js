@@ -56,15 +56,17 @@ module.exports = (io, socket, createdGames) => {
     player().deciding = true;
     socket.emit('initialCards', player().decidingCards);
     setTimeout(() => {
+      if (games[i()].state !== 'initialCards') return;
+      games[i()].state = 'setInitialHand';
+
       if (player().deciding) {
         setInitialHand();
-        socket.emit('startTurn1', player().hand, socket.turn);
+        socket.emit('setInitialHand', player().hand, socket.turn);
       }
       if (opponent().waiting) {
         opponent().waiting = false;
-        opponent().socket.emit('startTurn1', opponent().hand, opponent().socket.turn);
+        opponent().socket.emit('setInitialHand', opponent().hand, opponent().socket.turn);
       }
-      games[i()].state = 'playing';
     }, 10000);
   });
 
@@ -85,23 +87,53 @@ module.exports = (io, socket, createdGames) => {
 
     if (opponent().deciding) {
       player().waiting = true;
-      socket.emit('wait');
+      socket.emit('waitInitial');
     } else {
       opponent().waiting = false;
-      opponent().socket.emit('startTurn1', opponent().hand, opponent().socket.turn);
-      socket.emit('startTurn1', player().hand, socket.turn);
-      games[i()].state = 'playing';
+      opponent().socket.emit('setInitialHand', opponent().hand, opponent().socket.turn);
+      games[i()].state = 'setInitialHand';
+      socket.emit('setInitialHand', player().hand, socket.turn);
     }
+  });
+  socket.on('initialHandSet', () => {
+    if (games[i()].state != 'setInitialHand') return;
+    games[i()].state = 'playing';
+    games[i()].waitingPlayer.socket.emit('wait');
+    games[i()].turns++;
+    games[i()].currentPlayer.startTurn(games[i()].turn);
   });
 
   socket.on('summon', card => {
-    console.log(`${p()} summoning ${card.name}`);
     if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
+    if (card.type === 'spell') return;
+    console.log(`${p()} summoning ${card.name}`);
 
     if (card.type === 'minion') player().summonMinion(card);
 
     socket.emit('summoned', card);
     opponent().socket.emit('opponentSummoned', card);
+  });
+
+  socket.on('attack', (attackerId, attackeeId) => {
+    console.log(`${p()}: ${attackerId} attacking ${attackeeId}`);
+    let hps = games[i()].attack(attackerId, attackeeId);
+    if (hps[1] === 0 && !attackerId) {
+      socket.emit('win');
+      opponent().socket.emit('lose');
+    } else {
+      socket.emit('attacked', {id: attackerId, hp: hps[0]}, {id: attackeeId, hp: hps[1]});
+      opponent().socket.emit('wasAttacked', {id: attackerId, hp: hps[0]}, {id: attackeeId, hp: hps[1]});
+    }
+  });
+
+  socket.on('endTurn', () => {
+    console.log(`${p()} ended their turn.`);
+    if (games[i()].currentPlayer !== player()) return;
+    games[i()].endTurn();
+    socket.emit('wait');
+    games[i()].turn++;
+    opponent().startTurn(games[i()].turn);
+    console.log(`Next turn - ${opponent().mana}.`);
   });
 
   socket.on('leave', () => {

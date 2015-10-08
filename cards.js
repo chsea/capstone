@@ -4,7 +4,11 @@ var spells = [
   // logic is just a string that represents a function
   {
     name: 'Tech Boom',
-    logic: 'techBoom',
+    logic: {
+      battlecry: {
+
+      }
+    },
     description: 'TechBoom is in town! Increase all valuations by 30%',
     rarity: 2,
     cost: 8,
@@ -247,7 +251,9 @@ var minions = [{
     stardustCost: 17
   }, {
     name: 'Fast mover',
-    logic: 'initiave',
+    logic: {
+      initiative: true;
+    },
     description: 'a unit that gets things done, can attack on first turn ',
     rarity: 1,
     hitPoints: 3,

@@ -33,7 +33,6 @@ module.exports = (io, socket) => {
           return card.type === 'Minion' ? new Minion(card, id++) : new Spell(card, id++);
         });
       });
-      console.log(decks)
 
       let player1 = new Player(p1.name, decks[0], p1.socket);
       let player2 = new Player(name, decks[1], socket);
@@ -64,18 +63,16 @@ module.exports = (io, socket) => {
     player().deciding = true;
     socket.emit('initialCards', player().decidingCards);
     setTimeout(() => {
+      if (games[i()].state !== 'initialCards') return;
+      games[i()].state = 'setInitialHand';
+
       if (player().deciding) {
         setInitialHand();
-        if (games[i()].state != 'playing') {
-          games[i()].currentPlayer.draw();
-          games[i()].state = 'playing';
-        }
-        socket.emit('startTurn1', player().hand, socket.turn);
-        let cp = games[i()].currentPlayer;
+        socket.emit('setInitialHand', player().hand, socket.turn);
       }
       if (opponent().waiting) {
         opponent().waiting = false;
-        opponent().socket.emit('startTurn1', opponent().hand, opponent().socket.turn);
+        opponent().socket.emit('setInitialHand', opponent().hand, opponent().socket.turn);
       }
     }, 10000);
   });
@@ -99,12 +96,18 @@ module.exports = (io, socket) => {
       player().waiting = true;
       socket.emit('waitInitial');
     } else {
-      games[i()].currentPlayer.draw();
       opponent().waiting = false;
-      opponent().socket.emit('startTurn1', opponent().hand, opponent().socket.turn);
-      socket.emit('startTurn1', player().hand, socket.turn);
-      games[i()].state = 'playing';
+      opponent().socket.emit('setInitialHand', opponent().hand, opponent().socket.turn);
+      games[i()].state = 'setInitialHand';
+      socket.emit('setInitialHand', player().hand, socket.turn);
     }
+  });
+  socket.on('initialHandSet', () => {
+    if (games[i()].state != 'setInitialHand') return;
+    games[i()].state = 'playing';
+    games[i()].waitingPlayer.socket.emit('wait');
+    games[i()].turns++;
+    games[i()].currentPlayer.startTurn(games[i()].turn);
   });
 
   socket.on('summon', card => {
@@ -135,8 +138,8 @@ module.exports = (io, socket) => {
     if (games[i()].currentPlayer !== player()) return;
     games[i()].endTurn();
     socket.emit('wait');
-    let newCard = opponent().startTurn();
-    opponent().socket.emit('startTurn', newCard);
+    games[i()].turn++;
+    opponent().startTurn(games[i()].turn);
     console.log(`Next turn - ${opponent().mana}.`);
   });
 

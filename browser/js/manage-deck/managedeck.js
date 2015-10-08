@@ -53,7 +53,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
       }
     });
     return cardsInDeckObj;
-  };
+  }
   
   $scope.deckcost = function() {
     $scope.cost = [0,0,0,0,0,0,0];
@@ -185,11 +185,3 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   }
 
 });
-
-
-
-
-
-
-
-
