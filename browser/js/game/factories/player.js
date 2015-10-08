@@ -44,7 +44,8 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
     }
 
     attacked(attacker) {
-      let minion = _(this.summonedMinions).find(m => m.id === attacker.id);
+      let minion = _.find(this.summonedMinions, m => m.id === attacker.id);
+      console.log(minion);
       minion.attacked(attacker.hp);
       if (attacker.hp === 0) _(this.summonedMinions).remove(m => m.id === attacker.id);
       $rootScope.$digest();

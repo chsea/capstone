@@ -1,4 +1,4 @@
-app.factory('Self', (Player, Card, Socket, $rootScope) => {
+app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   let player = new Player();
 
   Socket.on('gameStart', players => {
@@ -23,7 +23,7 @@ app.factory('Self', (Player, Card, Socket, $rootScope) => {
   });
   Socket.on('setInitialHand', (hand, turn) => {
     $('#initial').remove();
-    player.hand = hand.map(card => new Card(card));
+    player.hand = hand;
     player.turn = turn;
     $rootScope.$digest();
     Socket.emit('initialHandSet');
@@ -46,7 +46,7 @@ app.factory('Self', (Player, Card, Socket, $rootScope) => {
 
   //summoning
   player.summon = card => {
-    Socket.emit('summon', card.id);
+    Socket.emit('summon', card);
   };
   Socket.on('summoned', card => {
     console.log(`summoned ${card.name}`);
@@ -55,6 +55,7 @@ app.factory('Self', (Player, Card, Socket, $rootScope) => {
 
   //attacking
   player.attack = data => {
+    console.log(data);
     let attackee = data.attackee ? data.attackee.id : null;
     Socket.emit('attack', data.attacker.id, attackee);
   };

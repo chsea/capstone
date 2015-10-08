@@ -108,21 +108,27 @@ var seedUsers = function() {
 
 
 function seedDeck() {
-  var decks = [];
+  var decks = [
+    {
+      name: 'hi',
+      cards: tempData.cards
+    }
+  ];
   var names = ['alex\'s', 'chelsea\'s', 'kate\'s'];
   var adjectives = ['amazing', 'super', 'cool', 'best', 'next-level'];
   var nouns = ['deck', 'assortment of cards', 'selection'];
-  
-  for (var i = 0; i < 20; i++) {
-    var deck = {};
-    deck.name = names[Math.floor(Math.random() * names.length)] + ' ' + adjectives[Math.floor(Math.random() * adjectives.length)] + ' ' + nouns[Math.floor(Math.random() * nouns.length)];
-    deck.cards = [];
-    for (var j = 0; j < 30; j++) {
-      var card = tempData.cards[Math.floor(Math.random() * tempData.cards.length)];
-      deck.cards.push(card);
-    }
-    decks.push(deck);
-  }
+
+
+  // for (var i = 0; i < 20; i++) {
+  //   var deck = {};
+  //   deck.name = names[Math.floor(Math.random() * names.length)] + ' ' + adjectives[Math.floor(Math.random() * adjectives.length)] + ' ' + nouns[Math.floor(Math.random() * nouns.length)];
+  //   deck.cards = [];
+  //   for (var j = 0; j < 30; j++) {
+  //     var card = tempData.cards[Math.floor(Math.random() * tempData.cards.length)];
+  //     deck.cards.push(card);
+  //   }
+  //   decks.push(deck);
+  // }
   return Deck.createAsync(decks);
 }
 
