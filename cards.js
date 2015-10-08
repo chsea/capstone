@@ -4,7 +4,7 @@ var spells = [
 
   {
     name: 'Tech Boom',
-    logic:[],
+    logic:['HealAllP6'],
     description: 'A tech boom is in town! Heal all yourself and your minions by 6',
     rarity: 2,
     cost: 8,
@@ -59,9 +59,7 @@ var spells = [
     stardustCost: 37
   }, {
     name: 'On Ramp',
-    logic: {
-
-    },
+    logic: [],
     description: 'Raise all units up one level up (junir > senior > legendary) as long as there is one unit of that kind',
     rarity: 1,
     cost: 6,
@@ -71,9 +69,7 @@ var spells = [
 
   }, {
     name: 'Unicorn',
-    logic: {
-
-    },
+    logic: [],
     description: 'valuation becomes so high that you become invulnerable for two turns',
     rarity: 3,
     cost: 10,
@@ -82,9 +78,7 @@ var spells = [
     stardustCost: 34
   }, {
     name: 'Poach Employee',
-    logic: {
-
-    },
+    logic: [],
     description: 'Take control of one of your opponents units',
     rarity: 1,
     cost: 8,
@@ -94,9 +88,7 @@ var spells = [
 
   }, {
     name: 'Copy Idea',
-    logic: {
-
-    },
+    logic: [],
     description: 'Copy your opponents idea, allowing you to cast their innate spell for the next three turns',
     rarity: 1,
     cost: 3,
@@ -105,9 +97,7 @@ var spells = [
     stardustCost: 12
   }, {
     name: 'Rid Technical Debt',
-    logic: {
-
-    },
+    logic: [],
     description: 'for every other turn that has passed, draw that many cards ',
     rarity: 2,
     cost: 6,
@@ -116,9 +106,7 @@ var spells = [
     stardustCost: 27
   }, {
     name: 'Gone Viral',
-    logic: {
-
-    },
+    logic: [],
     description: 'increase valuation by 50%, but your units are exhausted and can\'t attack this turn ',
     rarity: 1,
     cost: 5,
@@ -127,9 +115,7 @@ var spells = [
     stardustCost: 25
   }, {
     name: 'Angel Round',
-    logic: {
-
-    },
+    logic: [],
     description: 'Get a chance! if a unit takes damage that would kill it, bring it back to life',
     rarity: 2,
     cost: 6,
@@ -137,9 +123,7 @@ var spells = [
     category: 'super',
   }, {
     name: 'Rapid Iteration',
-    logic: {
-
-    },
+    logic: [],
     description: 'Fail fast, fail often. give unit Agile',
     rarity: 1,
     cost: 5,

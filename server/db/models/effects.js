@@ -17,6 +17,9 @@ var effectsSchema = new mongoose.Schema({
     type: Number
   }
 
+}, {
+  collection: 'effects',
+  discriminatorKey: 'type'
 });
 
 

@@ -165,43 +165,47 @@ function seedMinions() {
 function seedSpells() {
   // var values = _.pluck(tempData.effects, 'name')
   // console.log(values)
-    // var spells = [];
-    // for (var i = 0; i < 100; i++) {
-    //   var obj = {};
-    //   obj.name = spellNames[Math.floor(Math.random() * spellNames.length)] + i;
-    //   obj.category = category[Math.floor(Math.random() * category.length)];
-    //   obj.cost = Math.floor(Math.random() * 10);
-    //   obj.description = "Y Combinator Spell";
-    //   obj.rarity = Math.floor(Math.random() * 4);
-    //   obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
-    //   spells.push(obj);
-    // }
-    // _(spells).forEach(function(n){
-    //   if (n.logic.length>0){
-    //     n.logic =
-    //   }
-    // })
+  // var spells = [];
+  // for (var i = 0; i < 100; i++) {
+  //   var obj = {};
+  //   obj.name = spellNames[Math.floor(Math.random() * spellNames.length)] + i;
+  //   obj.category = category[Math.floor(Math.random() * category.length)];
+  //   obj.cost = Math.floor(Math.random() * 10);
+  //   obj.description = "Y Combinator Spell";
+  //   obj.rarity = Math.floor(Math.random() * 4);
+  //   obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
+  //   spells.push(obj);
+  // }
+  var effectIds = _.map(
+    tempData.effects,
+    function(thing) {
+      return {
+        name: thing.name,
+        _id: thing._id
+      };
+    });
+  spells.forEach(function(spell) {
+    if (spell.logic.length > 0) {
+
+      spell.logic = _.where(tempData.effects, {
+        name: spell.logic[0]
+      }, '_id')[0]
+    }
+  })
+
+  console.log(spells)
   return Spell.createAsync(spells);
 }
 
 function seedAlter() {
-
-
-
   return Alter.createAsync(alter)
 }
 
 function seedDamage() {
-
-
-
   return Damage.createAsync(damage)
 }
 
 function seedHeal() {
-
-
-
   return Heal.createAsync(heal)
 }
 
