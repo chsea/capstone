@@ -17,9 +17,6 @@ app.config($stateProvider => {
     return $scope.player.turn && minion.canAttack;
   };
   let rejectedCards = [];
-  $scope.message = '';
-
-
 
   let deck = user.decks[0].cards.map(card => card._id);
   Socket.emit('playerReady', user.username, deck);
@@ -28,31 +25,19 @@ app.config($stateProvider => {
     $scope.player.decide(idx, rejectedCards);
   };
 
-
-
   $scope.summon = (card, e) => {
     $scope.player.summon(card);
   };
-
 
   $scope.attack = data => {
     $scope.player.attack(data);
   };
 
   $scope.endTurn = () => {
-    $scope.player.endTurn();
+    $scope.player.emitEndTurn();
   };
 
   $scope.leave = () => {
     Socket.emit('leave');
   };
-
-  Socket.on('win', () => {
-    Game($scope).setMessage("You win!");
-    setTimeout(() => $state.go('lobby'), 3000);
-  });
-  Socket.on('lose', () => {
-    Game($scope).setMessage("You lose!");
-    setTimeout(() => $state.go('lobby'), 3000);
-  });
 });
