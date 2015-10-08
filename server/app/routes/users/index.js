@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var router = require('express').Router();
 module.exports = router;
 var User = mongoose.model('User');
-var deepPopulate = require('mongoose-deep-populate')(mongoose)
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 
 var missingItemHandler = function(error, cb) {
