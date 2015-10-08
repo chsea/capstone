@@ -10,6 +10,7 @@ app.config(function($stateProvider) {
 });
 
 app.controller('manageDeckController', function($scope, user, $http, $state, DeckFactory, UserFactory) {
+  if (!user) return;
   var context;
   var clientsChart;
   $scope.barData = {};
@@ -83,6 +84,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.removeDeck = function() {
+    console.log("trying to delete deck: ", $scope.currentdeck);
     if ($scope.currentdeck === undefined) return;
     DeckFactory.destroy($scope.currentdeck._id)
     .then(function(deletedDeck){

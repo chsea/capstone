@@ -22,7 +22,6 @@ var effectsSchema = new mongoose.Schema({
 });
 
 
-
 var damageSchema = effectsSchema.extend({
   amount: {
     type: Number
