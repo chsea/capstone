@@ -33,7 +33,8 @@ class Player {
     this.socket.emit('startTurn', card);
   }
 
-  summonMinion(card) {
+  summonMinion(cardId) {
+    let card = _(Player.deck).find(card => card.id = cardId);
     if (card.logic.charge) card.canAttack = true;
     if (card.taunt) {
       this.summonedMinions.forEach(minion => minion.attackable = false);

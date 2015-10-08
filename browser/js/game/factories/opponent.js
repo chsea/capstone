@@ -13,6 +13,9 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
   });
 
   //opponent turn
+  Socket.on('startTurn', () => {
+    opponent.opponentTurn();
+  });
   Socket.on('wait', () => {
     opponent.startTurn({});
   });
@@ -20,6 +23,7 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
   //summoning
   Socket.on('opponentSummoned', card => {
     console.log(`opponent summoned ${card.name}`);
+    opponent.hand.pop();
     opponent.summoned(card);
   });
 

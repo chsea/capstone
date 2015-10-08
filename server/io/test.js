@@ -18,6 +18,7 @@ module.exports = (io, socket) => {
 
   socket.on('playerReady', (name, deck) => {
     console.log(`player joined as ${socket.p1 ? 'p1' : 'p2'}`);
+    console.log(deck.length);
     socket.game = 1;
     if (!games.length && !p1) {
       p1 = {name: name, deck: deck, socket: socket};
@@ -27,12 +28,14 @@ module.exports = (io, socket) => {
 
     let decks = [CardModel.find({_id: {$in: p1.deck}}).exec(), CardModel.find({_id: {$in: deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
+      console.log('r', resolvedDecks);
       let id = 0;
       let decks = resolvedDecks.map(deck => {
         return deck.map(card => {
           return card.type === 'Minion' ? new Minion(card, id++) : new Spell(card, id++);
         });
       });
+      console.log(decks);
 
       let player1 = new Player(p1.name, decks[0], p1.socket);
       let player2 = new Player(name, decks[1], socket);

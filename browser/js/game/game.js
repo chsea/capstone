@@ -22,7 +22,7 @@ app.config($stateProvider => {
     $scope.player.decide(idx, rejectedCards);
   };
 
-  $scope.summon = (card, e) => {
+  $scope.summon = card => {
     $scope.player.summon(card);
   };
   $scope.attack = data => {
