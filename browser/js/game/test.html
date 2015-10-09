@@ -3,7 +3,7 @@
 <div id="gameboard">
   <div id="opponent">
     <div class="player-info">
-      <player player="opponent" ng-drop="true" ng-drop-success="attack({attacker: $data, attackee: null}, $event)"></player>
+      <player player="opponent" ng-drop="opponent.attackable && player.turn" ng-drop-success="attack({attacker: $data, attackee: null}, $event)"></player>
     </div>
     <div class="hand">
       <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card="card"></blank-card>
@@ -14,7 +14,7 @@
   </div>
   <div id="table" ng-drop="true">
     <div id="opponent-summoned">
-      <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="true" ng-drop-success="attack({attacker: $data, attackee: minion})"></minion>
+      <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="minion.attackable && player.turn" ng-drop-success="attack({attacker: $data, attackee: minion})"></minion>
     </div>
     <div id="summoned">
       <minion ng-repeat="minion in player.summonedMinions" minion="minion" ng-drag-data="minion" ng-drag="minion.canAttack && player.turn"></minion>

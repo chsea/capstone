@@ -6,6 +6,7 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
       this.hand = [];
       this.summonedMinions = [];
       this.turns = 10;
+      this.attackable = true;
     }
 
     startTurn(card) {
@@ -28,6 +29,8 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
     checkTaunt() {
       let taunt = this.summonedMinions.some(minion => minion.logic.taunt);
       this.summonedMinions.forEach(minion => minion.checkTaunt(taunt));
+      if (taunt) this.attackable = false;
+      else this.attackable = true;
     }
 
     summoned(card) {
