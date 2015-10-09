@@ -252,7 +252,10 @@ var minions = [{
 }, {
   name: 'Andreessen Horowitz',
   logic: {
-    eachTurn:['HealP6']
+    eachTurn: ['HealP6'],
+    deathRattle: ['HealP6']
+
+    
   },
   description: 'Legendary VC. Restore 5 to your startup each turn',
   rarity: 3,
