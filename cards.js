@@ -367,7 +367,7 @@ var minions = [{
 }, {
   name: 'Non-Technical Co-Founder',
   logic: {},
-  description: 'A non-technical co-founder. Gain 1/1 for each technical unit'
+  description: 'A non-technical co-founder. Gain 1/1 for each technical unit',
   rarity: 1,
   hitPoints: 4,
   attackPoints: 4,
