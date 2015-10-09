@@ -16,7 +16,7 @@ mongoose.model('Deck', schema);
 airbnb: give a minion divineshield
 uber: give a minion windfury for a turn
 slack: give minions 1/1 if there are three minions
-disappear: select a unit, it disappears in 3 turns.
+snapchat: heal 2 .
 fullstack: summon a 1/1 student
 coinbase: give your player two armor (make it just a heal if you want)
 pinterest: draw a card

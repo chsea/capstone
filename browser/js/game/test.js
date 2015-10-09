@@ -8,14 +8,9 @@ app.config($stateProvider => {
     }
   });
 }).controller('TestController', ($scope, $state, $compile, Socket, user, Game) => {
-  $scope.player = Game($scope).player;
-  $scope.opponent = Game($scope).opponent;
-  $scope.summonable = (card) => {
-    return $scope.player.turn && card.cost <= $scope.player.mana;
-  };
-  $scope.canAttack = (minion) => {
-    return $scope.player.turn && minion.canAttack;
-  };
+  let players = Game($scope);
+  $scope.player = players.player;
+  $scope.opponent = players.opponent;
   let rejectedCards = [];
 
   let deck = user.decks[0].cards.map(card => card._id);
