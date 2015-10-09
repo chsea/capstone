@@ -41,22 +41,22 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
     }
     minionDeath(minion) {
       minion.death();
-      _(this.summonedMinions).remove(m => m.id === minion.id);
+      _.remove(this.summonedMinions, m => m.id === minion.id);
       if (minion.logic.taunt) checkTaunt();
     }
 
     attacked(attacker) {
       let minion = _.find(this.summonedMinions, m => m.id === attacker.id);
       minion.attacked(attacker.hp);
-      if (attacker.hp === 0) _(this.summonedMinions).remove(m => m.id === attacker.id);
+      if (!attacker.hp) this.minionDeath(minion);
       $rootScope.$digest();
     }
     wasAttacked(attackee) {
       if (!attackee.id) this.hp = attackee.hp;
       else {
-        let minion = _(this.summonedMinions).find(m => m.id === attackee.id);
+        let minion = _.find(this.summonedMinions, m => m.id === attackee.id);
         minion.wasAttacked(attackee.hp);
-        if (attackee.hp === 0) this.minionDeath(minion);
+        if (!attackee.hp) this.minionDeath(minion);
       }
       $rootScope.$digest();
     }

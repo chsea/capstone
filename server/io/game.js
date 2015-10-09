@@ -112,7 +112,7 @@ module.exports = (io, socket, createdGames) => {
   socket.on('attack', (attackerId, attackeeId) => {
     console.log(`${p()}: ${attackerId} attacking ${attackeeId}`);
     let hps = games[i()].attack(attackerId, attackeeId);
-    if (hps[1] === 0 && !attackerId) {
+    if (!hps[1] && !attackeeId) {
       socket.emit('win');
       opponent().socket.emit('lose');
     } else {
@@ -130,7 +130,7 @@ module.exports = (io, socket, createdGames) => {
     opponent().startTurn(games[i()].turn);
     console.log(`Next turn.`);
   });
-  
+
   socket.on('leave', () => {
     if (!socket.game) return;
 
