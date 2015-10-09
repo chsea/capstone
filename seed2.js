@@ -109,6 +109,10 @@ var seedUsers = function() {
     decks: [],
     stardust: 102
   }];
+
+
+
+
   users.forEach(function(user) {
     var deck1 = tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id;
     var deck2 = tempData.decks[Math.floor(Math.random() * tempData.decks.length)]._id;
@@ -160,7 +164,23 @@ function seedMinions() {
   // }
 
 
+  var abilities = ['eachTurn', 'battlecry', 'deathRattle', 'enrage']
+  
 
+  minions.forEach(function(minion) {
+      if (_.has(minion.logic, 'eachTurn') || _.has(minion.logic, 'battlecry') || _.has(minion.logic, 'deathRattle') || _.has(minion.logic, 'enrage')  ) {
+        for (var k in minion.logic) {
+          minion.logic[k].forEach(function(effect, index) {
+            minion.logic[k][index] = _.where(tempData.effects, {
+              name: minion.logic[k][index]
+            }, '_id')[index]
+          })
+        }
+      }
+    })
+    // user.logic = _.where(tempData.effects, {
+    //     name: spell.logic[0]
+    //   }, '_id')[0]
 
   return Minion.createAsync(minions);
 }
@@ -259,7 +279,7 @@ connectToDb.then(function() {
     }).then(function(minions) {
       tempData.cards = minions;
       // return seedSpells();
-    // }).then(function(spells) {
+      // }).then(function(spells) {
       // tempData.cards = tempData.cards.concat(spells);
       return seedDeck();
     }).then(function(decks) {
