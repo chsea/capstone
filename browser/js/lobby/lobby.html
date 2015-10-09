@@ -15,25 +15,16 @@
 
 </div>
 
-<div class="col-lg-3">
-  <span  ng-show=" user.packs > 0" ng-click="openPack()" style="cursor:pointer"> you have {{user.packs}} waiting to be opened. Click here to open your packs </span>
+<div class="text-center top col-lg-3">
+  <div  ng-show=" user.packs > 0" ng-click="openPack()" style="cursor:pointer">
+    <br>
+   Click <strong>HERE</strong> to open your packs </div>
 
   <div ng-show="showPack">
-    <span style="cursor:pointer;" ng-click="showPack = !showPack">x</span>
+    <span style="cursor:pointer;" ng-click="showPack = !showPack">toggle show/hide pack</span>
       <div class="card">
         <div class="text-center top col-md-8" style="overflow: scroll; width: 1000px; height: 700px;">
-
-        <card card="showCard" ng-repeat="showCard in showCards"></card>
-
-
-
-        </p>
-
+          <card card="showCard" ng-repeat="showCard in showCards"></card>
     </div>
-
-
   </div>
-
-
-
 </div>

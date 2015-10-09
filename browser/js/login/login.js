@@ -14,9 +14,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
     $scope.error = null;
 
     $scope.sendLogin = function (loginInfo) {
-
         $scope.error = null;
-
         AuthService.login(loginInfo).then(function () {
             $state.go('lobby');
         }).catch(function () {
@@ -24,5 +22,4 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
         });
 
     };
-
 });

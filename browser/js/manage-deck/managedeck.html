@@ -16,6 +16,7 @@
 <div ng-show="craft" class="text-center top">
   <h4>Click on a cards below to trade it for stardust</h4>
 </div>
+<div class="text-center top"><h3>{{usermessage}}</h3></div>
 
 <div ng-show="createDeck" class="text-center top container"><br>
   <form ng-submit="createNewDeck(deckname)"><h3>Name your new deck:</h3><br>
@@ -35,7 +36,6 @@
   <h3>{{user.username}}'s Cards</h3>
       <card card="usercard" ng-click="disenchant(usercard)" ng-repeat="usercard in user.cards"></card>
 </div>
-
 
 <div ng-show="showCards" class="container pull-right col-xs-2" style="background-color: #00A388;">
   <h4>Your Deck:</h4>

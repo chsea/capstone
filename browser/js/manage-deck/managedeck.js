@@ -1,5 +1,5 @@
 app.config(function($stateProvider) {
-  $stateProvider.state('managedeck', {
+  $stateProvider.state('manageDeck', {
     url: '/managedeck',
     templateUrl: '/js/manage-deck/managedeck.html',
     controller: 'manageDeckController',
@@ -19,6 +19,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   $scope.cardsInDeck = {};
   $scope.user = user;
   $scope.craft = false;
+  $scope.usermessage = "";
   
   $scope.selectDeck = function() {
     $scope.currentdeck = _.find($scope.user.decks, {_id: $scope.selectedDeck});
@@ -108,25 +109,35 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.createNewDeck = function(deckname) {
-    if (deckname === undefined || deckname.length < 1) return;
-    DeckFactory.create({"name": deckname})
-    .then(function(newdeck){
-      $scope.user.decks.push(newdeck);
-      updateUser();
-    });
+    if (deckname === undefined || deckname.length < 1) {
+      $scope.usermessage = "please name the deck first";
+    } 
+    else {
+      $scope.usermessage = "";
+      DeckFactory.create({"name": deckname})
+      .then(function(newdeck){
+        $scope.createDeck = false;
+        $scope.user.decks.push(newdeck);
+        updateUser();
+      });
+    }
   };
 
   $scope.addToDeck = function(card){
-    if ($scope.currentdeck === undefined || $scope.currentdeck.cards.length >= 30){
-      console.log("deck is already full");
+    if ($scope.currentdeck === undefined){
+      $scope.usermessage = "please select a deck first";
+    }
+    else if ($scope.currentdeck.cards.length >= 30){
+      $scope.usermessage = "you cannot add cards because your deck is full";
     }
     else if (duplicateChecker(card)) {
-      console.log("cannot have more than 2 duplicates in the currentdeck");
+      $scope.usermessage = "cannot have more than 2 duplicates in the currentdeck";
     }
     else if (card.rarity === 3 && legendaryChecker(card)) {
-      console.log("cannot have more than one legenary card in the same deck");
+      $scope.usermessage = "cannot have more than one legenary card in the same deck";
     }
     else {
+      $scope.usermessage = "";
       $scope.currentdeck.cards.push(card);
       updateDeck();
     }
