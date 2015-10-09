@@ -292,11 +292,11 @@
 var minions = [{
   name: 'Fortran Engineer',
   logic: {
-    charge:true
+    charge: true
   },
   description: 'These guys are still around?',
   rarity: 0,
-  hitPoints: 3,
+  hitPoints: 2,
   attackPoints: 2,
   cost: 2,
   portait: 'awesome',
@@ -305,11 +305,11 @@ var minions = [{
 }, {
   name: 'Customer Support',
   logic: {
-    windfury:true
+    windfury: true
   },
   description: 'an employee always looking out for your customers ',
   rarity: 0,
-  hitPoints: 2,
+  hitPoints: 1,
   attackPoints: 1,
   cost: 1,
   portait: 'awesome',
@@ -318,7 +318,7 @@ var minions = [{
 }, {
   name: 'Slacker',
   logic: {
-    taunt:true
+    taunt: true
   },
   description: 'what a slacker',
   rarity: 0,
@@ -331,7 +331,7 @@ var minions = [{
 },{
   name: 'SteadFast employee',
   logic: {
-    divineShield:true
+    divineShield: true
   },
   description: 'what a slacker',
   rarity: 0,
@@ -352,7 +352,7 @@ var minions = [{
   portait: 'awesome',
   category: 'super',
   stardustCost: 17
-},]
+}]
 // {
 //   name: 'Generic CEO',
 //   logic: {

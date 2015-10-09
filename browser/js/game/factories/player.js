@@ -3,6 +3,7 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
     constructor() {
       this.name = '';
       this.hp = 30;
+      this.hand = [];
       this.summonedMinions = [];
       this.turns = 10;
     }
@@ -35,6 +36,7 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
 
       this.mana -= card.cost;
       this.summonedMinions.push(minion);
+      this.checkTaunt();
       $rootScope.$digest();
     }
     minionDeath(minion) {
@@ -45,7 +47,6 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
 
     attacked(attacker) {
       let minion = _.find(this.summonedMinions, m => m.id === attacker.id);
-      console.log(minion);
       minion.attacked(attacker.hp);
       if (attacker.hp === 0) _(this.summonedMinions).remove(m => m.id === attacker.id);
       $rootScope.$digest();

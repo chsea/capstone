@@ -17,7 +17,6 @@ app.factory('Minion', (Socket, $rootScope) => {
 
     startTurn() {
       this.canAttack = true;
-      this.attacked = false;
       if (this.logic.everyTurn) return;
     }
     endTurn() {
@@ -33,7 +32,7 @@ app.factory('Minion', (Socket, $rootScope) => {
       if (this.logic.deathRattle) return;
     }
     attacked(hp) {
-      if (this.logic.windfury && !this.attacked) this.attacked = true;
+      if (this.logic.windfury && this.canAttack !== 'attacked') this.canAttack = 'attacked';
       else this.canAttack = false;
 
       this.hp = hp;
