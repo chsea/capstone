@@ -22,18 +22,21 @@ module.exports = (io, socket, createdGames) => {
     let game = createdGames[i()];
     let decks = [CardModel.find({_id: {$in: game.p1.deck}}).exec(), CardModel.find({_id: {$in: game.p2.deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
-      let i = 0;
+      let id = 0;
       let decks = resolvedDecks.map(deck => {
         return deck.map(card => {
-          return card.type === 'Minion' ? new Minion(card.name, card.cost, card.description, i++, card.logic, card.hitPoints, card.attackPoints) : new Spell(card.name, card.logic, card.cost, card.description, i++);
+          return card.type === 'Minion' ? new Minion(card, id++) : new Spell(card, id++);
         });
       });
-      let p1 = new Player(game.p1.name, decks[0], game.p1.socket);
-      let p2 = new Player(game.p2.name, decks[1], game.p2.socket);
-      p1.shuffle();
-      p2.shuffle();
-      games[i()] = new Game(p1, p2);
+
+      console.log(decks);
+      let player1 = new Player(p1.name, decks[0], p1.socket);
+      let player2 = new Player(name, decks[1], socket);
+      player1.shuffle();
+      player2.shuffle();
+      games[i()] = new Game(player1, player2);
       socket.emit('gameStart', {player: player().name, opponent: opponent().name});
+      opponent().socket.emit('gameStart', {player: opponent().name, opponent: player().name});
     });
   });
 
@@ -57,11 +60,11 @@ module.exports = (io, socket, createdGames) => {
     socket.emit('initialCards', player().decidingCards);
     setTimeout(() => {
       if (games[i()].state !== 'initialCards') return;
-      games[i()].state = 'setInitialHand';
 
       if (player().deciding) {
-        setInitialHand();
+        player().setInitialHand([]);
         socket.emit('setInitialHand', player().hand, socket.turn);
+        if (!opponent().deciding) games[i()].state = 'setInitialHand';
       }
       if (opponent().waiting) {
         opponent().waiting = false;
@@ -70,18 +73,10 @@ module.exports = (io, socket, createdGames) => {
     }, 10000);
   });
 
-  function setInitialHand() {
-    player().hand = player().decidingCards;
-    player().deciding = false;
-    player().decidingCards = [];
-  }
-
-  socket.on('rejectCards', cards => {
+  socket.on('rejectCards', rejectedCards => {
     if (!socket.game || games[i()].state !== 'initialCards') return;
 
-    cards.forEach(i => player().deck.push(player().decidingCards.splice(i, 1)));
-    player().shuffle();
-    setInitialHand();
+    player().setInitialHand(rejectedCards);
     let l = socket.turn ? 3 : 4;
     while (player().hand.length < l) player().draw();
 
@@ -104,8 +99,8 @@ module.exports = (io, socket, createdGames) => {
   });
 
   socket.on('summon', card => {
-    if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
-    if (card.type === 'spell') return;
+    // if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
+    // if (card.type === 'spell') return;
     console.log(`${p()} summoning ${card.name}`);
 
     if (card.type === 'minion') player().summonMinion(card);
@@ -127,15 +122,15 @@ module.exports = (io, socket, createdGames) => {
   });
 
   socket.on('endTurn', () => {
-    console.log(`${p()} ended their turn.`);
     if (games[i()].currentPlayer !== player()) return;
+
+    console.log(`${p()} ended their turn.`);
     games[i()].endTurn();
     socket.emit('wait');
-    games[i()].turn++;
     opponent().startTurn(games[i()].turn);
-    console.log(`Next turn - ${opponent().mana}.`);
+    console.log(`Next turn.`);
   });
-
+  
   socket.on('leave', () => {
     if (!socket.game) return;
 

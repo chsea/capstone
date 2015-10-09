@@ -34,6 +34,7 @@ module.exports = (io, socket) => {
         });
       });
 
+      console.log(decks);
       let player1 = new Player(p1.name, decks[0], p1.socket);
       let player2 = new Player(name, decks[1], socket);
       player1.shuffle();
@@ -127,7 +128,7 @@ module.exports = (io, socket) => {
 
   socket.on('endTurn', () => {
     if (games[i()].currentPlayer !== player()) return;
-    
+
     console.log(`${p()} ended their turn.`);
     games[i()].endTurn();
     socket.emit('wait');
