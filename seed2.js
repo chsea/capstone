@@ -134,7 +134,9 @@ function seedDeck() {
   var nouns = ['deck', 'assortment of cards', 'selection'];
 
   for (var i = 0; i < 20; i++) {
+    var types = ['airbnb','uber','snapchat','pinterest','fullstack','slack','coinbase']
     var deck = {};
+    deck.type = _.sample(types)
     deck.name = names[Math.floor(Math.random() * names.length)] + ' ' + adjectives[Math.floor(Math.random() * adjectives.length)] + ' ' + nouns[Math.floor(Math.random() * nouns.length)];
     deck.cards = [];
     for (var j = 0; j < 30; j++) {
