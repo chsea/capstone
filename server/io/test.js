@@ -27,14 +27,12 @@ module.exports = (io, socket) => {
 
     let decks = [CardModel.find({_id: {$in: p1.deck}}).exec(), CardModel.find({_id: {$in: deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
-      console.log('r', resolvedDecks);
       let id = 0;
       let decks = resolvedDecks.map(deck => {
         return deck.map(card => {
           return card.type === 'Minion' ? new Minion(card, id++) : new Spell(card, id++);
         });
       });
-      console.log(decks);
 
       let player1 = new Player(p1.name, decks[0], p1.socket);
       let player2 = new Player(name, decks[1], socket);
@@ -66,11 +64,11 @@ module.exports = (io, socket) => {
     socket.emit('initialCards', player().decidingCards);
     setTimeout(() => {
       if (games[i()].state !== 'initialCards') return;
-      games[i()].state = 'setInitialHand';
 
       if (player().deciding) {
-        setInitialHand();
+        player().setInitialHand([]);
         socket.emit('setInitialHand', player().hand, socket.turn);
+        if (!opponent().deciding) games[i()].state = 'setInitialHand';
       }
       if (opponent().waiting) {
         opponent().waiting = false;
@@ -79,18 +77,10 @@ module.exports = (io, socket) => {
     }, 10000);
   });
 
-  function setInitialHand() {
-    player().hand = player().decidingCards;
-    player().deciding = false;
-    player().decidingCards = [];
-  }
-
-  socket.on('rejectCards', cards => {
+  socket.on('rejectCards', rejectedCards => {
     if (!socket.game || games[i()].state !== 'initialCards') return;
 
-    cards.forEach(i => player().deck.push(player().decidingCards.splice(i, 1)));
-    player().shuffle();
-    setInitialHand();
+    player().setInitialHand(rejectedCards);
     let l = socket.turn ? 3 : 4;
     while (player().hand.length < l) player().draw();
 
@@ -136,13 +126,13 @@ module.exports = (io, socket) => {
   });
 
   socket.on('endTurn', () => {
-    console.log(`${p()} ended their turn.`);
     if (games[i()].currentPlayer !== player()) return;
+    
+    console.log(`${p()} ended their turn.`);
     games[i()].endTurn();
     socket.emit('wait');
-    games[i()].turn++;
     opponent().startTurn(games[i()].turn);
-    console.log(`Next turn - ${opponent().mana}.`);
+    console.log(`Next turn.`);
   });
 
   socket.on('leave', () => {

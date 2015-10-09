@@ -22,6 +22,14 @@ class Player {
     return card;
   }
 
+  setInitialHand(rejectedCards) {
+    rejectedCards.forEach(i => this.deck.push(this.decidingCards.splice(i, 1)));
+    this.shuffle();
+    this.hand = this.decidingCards;
+    this.deciding = false;
+    this.decidingCards = [];
+  }
+
   startTurn(turn) {
     console.log('start turn');
     let m = Math.ceil(turn / 2);
@@ -35,9 +43,6 @@ class Player {
 
   summonMinion(card) {
     if (card.logic.charge) card.canAttack = true;
-    if (card.taunt) {
-      this.summonedMinions.forEach(minion => minion.attackable = false);
-    }
     this.summonedMinions.push(card);
     _.remove(this.hand, handCard => handCard.name === card.name);
     this.mana -= card.cost;
