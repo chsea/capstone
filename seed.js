@@ -108,12 +108,15 @@ var seedUsers = function() {
 
 
 function seedDeck() {
-  var decks = [
-    {
-      name: 'hi',
-      cards: tempData.cards
-    }
-  ];
+  var decks = [{
+    name: 'hi',
+    cards: []
+  }];
+
+  for (var j = 0; j < 30; j++) {
+    var card = tempData.cards[Math.floor(Math.random() * tempData.cards.length)];
+    decks[0].cards.push(card);
+  }
   var names = ['alex\'s', 'chelsea\'s', 'kate\'s'];
   var adjectives = ['amazing', 'super', 'cool', 'best', 'next-level'];
   var nouns = ['deck', 'assortment of cards', 'selection'];

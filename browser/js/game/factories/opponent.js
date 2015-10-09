@@ -27,5 +27,15 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
     opponent.summoned(card);
   });
 
+  //attacking
+  Socket.on('attacked', (attacker, attackee) => {
+    console.log('attacked!');
+    opponent.wasAttacked(attackee);
+  });
+  Socket.on('wasAttacked', (attacker, attackee) => {
+    console.log('was attacked!');
+    opponent.attacked(attacker);
+  });
+
   return opponent;
 });

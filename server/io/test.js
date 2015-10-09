@@ -34,7 +34,6 @@ module.exports = (io, socket) => {
         });
       });
 
-      console.log(decks);
       let player1 = new Player(p1.name, decks[0], p1.socket);
       let player2 = new Player(name, decks[1], socket);
       player1.shuffle();
@@ -117,7 +116,7 @@ module.exports = (io, socket) => {
   socket.on('attack', (attackerId, attackeeId) => {
     console.log(`${p()}: ${attackerId} attacking ${attackeeId}`);
     let hps = games[i()].attack(attackerId, attackeeId);
-    if (hps[1] === 0 && !attackerId) {
+    if (!hps[1] && !attackeeId) {
       socket.emit('win');
       opponent().socket.emit('lose');
     } else {
