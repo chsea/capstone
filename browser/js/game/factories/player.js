@@ -6,6 +6,7 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
       this.hand = [];
       this.summonedMinions = [];
       this.turns = 10;
+      this.attackable = true;
     }
 
     startTurn(card) {
@@ -28,6 +29,8 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
     checkTaunt() {
       let taunt = this.summonedMinions.some(minion => minion.logic.taunt);
       this.summonedMinions.forEach(minion => minion.checkTaunt(taunt));
+      if (taunt) this.attackable = false;
+      else this.attackable = true;
     }
 
     summoned(card) {
@@ -41,22 +44,23 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
     }
     minionDeath(minion) {
       minion.death();
-      _(this.summonedMinions).remove(m => m.id === minion.id);
+      _.remove(this.summonedMinions, m => m.id === minion.id);
       if (minion.logic.taunt) checkTaunt();
     }
 
     attacked(attacker) {
       let minion = _.find(this.summonedMinions, m => m.id === attacker.id);
       minion.attacked(attacker.hp);
-      if (attacker.hp === 0) _(this.summonedMinions).remove(m => m.id === attacker.id);
+      if (!attacker.hp) this.minionDeath(minion);
       $rootScope.$digest();
     }
     wasAttacked(attackee) {
-      if (!attackee.id) return this.hp = attackee.hp;
-
-      let minion = _(this.summonedMinions).find(m => m.id === attackee.id);
-      minion.wasAttacked(attackee.hp);
-      if (attackee.hp === 0) this.minionDeath(minion);
+      if (!attackee.id) this.hp = attackee.hp;
+      else {
+        let minion = _.find(this.summonedMinions, m => m.id === attackee.id);
+        minion.wasAttacked(attackee.hp);
+        if (!attackee.hp) this.minionDeath(minion);
+      }
       $rootScope.$digest();
     }
   }

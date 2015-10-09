@@ -34,9 +34,9 @@ class Player {
     console.log('start turn');
     let m = Math.ceil(turn / 2);
     this.mana = m > 10 ? 10 : m;
-    this.summonedMinions.forEach(minion => {
-      if (!minion.canAttack) minion.canAttack = true;
-    });
+    // this.summonedMinions.forEach(minion => {
+    //   if (!minion.canAttack) minion.canAttack = true;
+    // });
     let card = this.draw();
     this.socket.emit('startTurn', card);
   }

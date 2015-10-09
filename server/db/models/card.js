@@ -54,7 +54,7 @@ var minionSchema = cardSchema.extend({
     taunt: {type: Boolean, default:false},
     windfury: {type: Boolean, default:false},
     charge: {type: Boolean, default:false},
-    divineshield: {type: Boolean, default:false}
+    divineShield: {type: Boolean, default:false}
   },
   attackPoints: {
     type: Number,

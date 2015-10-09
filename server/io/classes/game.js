@@ -22,16 +22,18 @@ class Game {
 
   attack(attackerId, attackeeId) {
     let attacker = _.find(this.currentPlayer.summonedMinions, minion => minion.id === attackerId);
-    if (!attacker.canAttack) return;
+    // if (!attacker.canAttack) return;
     let attackee;
     if (attackeeId) {
       attackee = _.find(this.waitingPlayer.summonedMinions, minion => minion.id === attackeeId);
-      attacker.hp -= attackee.ap;
+      if (attacker.logic.divineShield) attacker.logic.divineShield = false;
+      else attacker.hp -= attackee.ap;
     } else {
       attackee = this.waitingPlayer;
     }
-    attacker.canAttack = false;
-    attackee.hp -= attacker.ap;
+    // attacker.canAttack = false;
+    if (attackee.logic && attackee.logic.divineShield) attackee.logic.divineShield = false;
+    else attackee.hp -= attacker.ap;
 
     if (attacker.hp <= 0) {
       _.remove(this.currentPlayer.summonedMinions, minion => minion.id === attacker.id);

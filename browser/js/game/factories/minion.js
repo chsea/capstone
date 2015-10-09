@@ -24,8 +24,11 @@ app.factory('Minion', (Socket, $rootScope) => {
     }
 
     checkTaunt(taunt) {
-      if (taunt && !this.taunt) this.attackable = false;
+      if (taunt && !this.logic.taunt) {
+        this.attackable = false;
+      }
       else this.attackable = true;
+      console.log(this.name, this.attackable);
     }
 
     death() {
