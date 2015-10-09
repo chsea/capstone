@@ -37,7 +37,6 @@
       <card card="usercard" ng-click="disenchant(usercard)" ng-repeat="usercard in user.cards"></card>
 </div>
 
-
 <div ng-show="showCards" class="container pull-right col-xs-2" style="background-color: #00A388;">
   <h4>Your Deck:</h4>
   <div style="text-align: left" ng-click="removeFromDeck(cardname)" ng-repeat="(cardname, qty) in cardsInDeck">

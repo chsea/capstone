@@ -1,5 +1,5 @@
 app.config(function($stateProvider) {
-  $stateProvider.state('managedeck', {
+  $stateProvider.state('manageDeck', {
     url: '/managedeck',
     templateUrl: '/js/manage-deck/managedeck.html',
     controller: 'manageDeckController',

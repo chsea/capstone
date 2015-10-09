@@ -17,33 +17,32 @@ app.config(function($stateProvider) {
 
 app.controller('LobbyController', function($scope, user, UserFactory,CardFactory) {
 
-  $scope.showPack = false
-  $scope.showCards = []
+  $scope.showPack = false;
+  $scope.showCards = [];
 
   $scope.openPack = function(){
-    console.log('clicked openpack')
-    if (user.packs < 1 ) return
-    user.packs -= 1
+    console.log('clicked openpack');
+    if (user.packs < 1 ) return;
+    user.packs -= 1;
     
     CardFactory.findAll().then(cards => {
 
-      let chosenCards = _.sample(cards,5)
-      $scope.showCards = chosenCards
-      $scope.showPack = true
-      return chosenCards
+      let chosenCards = _.sample(cards,5);
+      $scope.showCards = chosenCards;
+      $scope.showPack = true;
+      return chosenCards;
     }).then(theCards => {
-      var cardIds = []
+      var cardIds = [];
       theCards.forEach(card => {
-        cardIds.push(card._id)
-      })
+        cardIds.push(card._id);
+      });
       user.cards = user.cards.concat(cardIds);
-      return UserFactory.update(user , {cards: user.cards, packs: user.packs   , isAdmin:false})
+      return UserFactory.update(user , {cards: user.cards, packs: user.packs   , isAdmin:false});
 
     }).then(function(user){
 
-    })
-  }
-
+    });
+  };
 
   $scope.user = user;
   $scope.options = [{
@@ -51,7 +50,7 @@ app.controller('LobbyController', function($scope, user, UserFactory,CardFactory
     sref: 'play'
   }, {
     name: 'Manage Deck',
-    sref: 'managedeck'
+    sref: 'manageDeck'
   }, {
     name: 'Join Game',
     sref: 'joinGame'
@@ -62,6 +61,6 @@ app.controller('LobbyController', function($scope, user, UserFactory,CardFactory
   }, {
     name: 'Settings',
     sref: 'settings'
-  }]
+  }];
 
-})
+});
