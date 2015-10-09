@@ -1,3 +1,6 @@
+// This state isnt currently being used,
+// but may be used in the future to enable users to create their own cards
+
 app.config(function ($stateProvider) {
 
     // Register our *about* state.
