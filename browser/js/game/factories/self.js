@@ -17,7 +17,6 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
     } else Socket.emit('rejectCards', rejectedCards);
   };
   Socket.on('initialCards', cards => {
-    console.log(cards);
     player.decidingCards = cards;
     $rootScope.$digest();
   });
@@ -55,14 +54,15 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
 
   //attacking
   player.attack = data => {
-    console.log(data);
     let attackee = data.attackee ? data.attackee.id : null;
     Socket.emit('attack', data.attacker.id, attackee);
   };
   Socket.on('attacked', (attacker) => {
+    console.log('attacked!');
     player.attacked(attacker);
   });
   Socket.on('wasAttacked', (attacker, attackee) => {
+    console.log('was attacked!');
     player.wasAttacked(attackee);
   });
 

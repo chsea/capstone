@@ -52,11 +52,12 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
       $rootScope.$digest();
     }
     wasAttacked(attackee) {
-      if (!attackee.id) return this.hp = attackee.hp;
-
-      let minion = _(this.summonedMinions).find(m => m.id === attackee.id);
-      minion.wasAttacked(attackee.hp);
-      if (attackee.hp === 0) this.minionDeath(minion);
+      if (!attackee.id) this.hp = attackee.hp;
+      else {
+        let minion = _(this.summonedMinions).find(m => m.id === attackee.id);
+        minion.wasAttacked(attackee.hp);
+        if (attackee.hp === 0) this.minionDeath(minion);
+      }
       $rootScope.$digest();
     }
   }

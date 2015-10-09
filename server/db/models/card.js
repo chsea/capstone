@@ -48,13 +48,13 @@ var minionSchema = cardSchema.extend({
   },
   logic: {
     battlecry: {type:[ObjectId], ref: 'Effect'},
-    deathrattle: {type:[ObjectId], ref:'Effect'},
+    deathRattle: {type:[ObjectId], ref:'Effect'},
     eachTurn: {type:[ObjectId], ref: 'Effect'},
     enrage: {type:[ObjectId], ref: 'Effect'},
     taunt: {type: Boolean, default:false},
     windfury: {type: Boolean, default:false},
     charge: {type: Boolean, default:false},
-    divineshield: {type: Boolean, default:false}
+    divineShield: {type: Boolean, default:false}
   },
   attackPoints: {
     type: Number,
