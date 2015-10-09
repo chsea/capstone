@@ -128,14 +128,23 @@ var seedUsers = function() {
 };
 
 function seedDeck() {
-  var decks = [{
-    name: 'hi',
-    cards: []
-  }];
+  var decks = [];
+  var names = ['alex\'s', 'chelsea\'s', 'kate\'s'];
+  var adjectives = ['amazing', 'super', 'cool', 'best', 'next-level'];
+  var nouns = ['deck', 'assortment of cards', 'selection'];
 
-  for (var j = 0; j < 30; j++) {
-    var card = tempData.cards[Math.floor(Math.random() * tempData.cards.length)];
-    decks[0].cards.push(card);
+  for (var i = 0; i < 20; i++) {
+    var types = ['airbnb', 'uber', 'snapchat', 'pinterest', 'fullstack', 'slack', 'coinbase']
+    var deck = {};
+    deck.type = _.sample(types)
+    deck.name = names[Math.floor(Math.random() * names.length)] + ' ' + adjectives[Math.floor(Math.random() * adjectives.length)] + ' ' + nouns[Math.floor(Math.random() * nouns.length)];
+    deck.cards = [];
+    for (var j = 0; j < 30; j++) {
+      var card = tempData.cards[Math.floor(Math.random() * tempData.cards.length)];
+      deck.cards.push(card);
+    }
+    decks.push(deck);
+
   }
   return Deck.createAsync(decks);
 }
@@ -159,10 +168,10 @@ function seedMinions() {
 
 
   var abilities = ['eachTurn', 'battlecry', 'deathRattle', 'enrage']
-  
+
 
   minions.forEach(function(minion) {
-      if (_.has(minion.logic, 'eachTurn') || _.has(minion.logic, 'battlecry') || _.has(minion.logic, 'deathRattle') || _.has(minion.logic, 'enrage')  ) {
+      if (_.has(minion.logic, 'eachTurn') || _.has(minion.logic, 'battlecry') || _.has(minion.logic, 'deathRattle') || _.has(minion.logic, 'enrage')) {
         for (var k in minion.logic) {
           minion.logic[k].forEach(function(effect, index) {
             minion.logic[k][index] = _.where(tempData.effects, {
