@@ -1,6 +1,6 @@
-<section id="home">
+<!-- <section id="home">
     <fullstack-logo></fullstack-logo>
-		<h1 class="text-success">Windfury</h1><br>
+		<h1 class="text-success"><strong>Windfury</strong></h1><br>
 	<h3>
 		<small>A fast-paced strategy card game for everyone.<br>
 			Deceptively Simple. Insanely Fun.
@@ -11,3 +11,41 @@
 		<a href="https://github.com/chsea/capstone"><button class="btn btn-default btn-lg">Find out More</button></a>
 	</div>
 </section>
+ -->
+
+ <section id="home">
+    <fullstack-logo></fullstack-logo>
+    <h1 class="text-success"><strong>Windfury</strong></h1><br>
+  <h3>
+    <small>A fast-paced strategy card game for everyone.<br>
+      Deceptively Simple. Insanely Fun.
+    </small>
+  </h3>
+  <br>
+  <div class="text-center top">
+    <span ng-repeat="option in options">
+        <button class="btn btn-default" ui-sref="{{option.sref}}">
+        {{option.name}}
+        </button>
+      </span>  </div>
+</section>
+
+<!-- 
+<div class ="col-lg-3" sltye="text-align:right;">
+  <chat></chat>
+</div>
+ -->
+ 
+<div class="text-center top col-lg-3">
+  <div  ng-show=" user.packs > 0" ng-click="openPack()" style="cursor:pointer">
+    <br>
+   Click <strong>HERE</strong> to open your packs </div>
+
+  <div ng-show="showPack">
+    <span style="cursor:pointer;" ng-click="showPack = !showPack">toggle show/hide pack</span>
+      <div class="card">
+        <div class="text-center top col-md-8" style="overflow: scroll; width: 1000px; height: 700px;">
+          <card card="showCard" ng-repeat="showCard in showCards"></card>
+    </div>
+  </div>
+</div>
