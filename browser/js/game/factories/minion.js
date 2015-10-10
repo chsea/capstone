@@ -28,7 +28,6 @@ app.factory('Minion', (Socket, $rootScope) => {
         this.attackable = false;
       }
       else this.attackable = true;
-      console.log(this.name, this.attackable);
     }
 
     death() {

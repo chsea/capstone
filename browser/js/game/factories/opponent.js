@@ -7,6 +7,7 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
     $rootScope.$digest();
   });
   Socket.on('setInitialHand', (hand, turn) => {
+    console.log(turn);
     opponent.hand = [{}, {}, {}];
     if (turn) opponent.hand.push({});
     $rootScope.$digest();

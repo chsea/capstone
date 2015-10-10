@@ -59,10 +59,12 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   };
   Socket.on('attacked', (attacker) => {
     console.log('attacked!');
+    console.log(attacker);
     player.attacked(attacker);
   });
   Socket.on('wasAttacked', (attacker, attackee) => {
     console.log('was attacked!');
+    console.log(attackee);
     player.wasAttacked(attackee);
   });
 

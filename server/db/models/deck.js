@@ -6,7 +6,7 @@ var schema = new mongoose.Schema({
   name: {type: String},
   game: {type: ObjectId, ref: 'Game'},
   cards: [{type: ObjectId, ref: "Card"}],
-  type: {type:String}
+  type: {}
 });
 
 schema.plugin(deepPopulate,{});

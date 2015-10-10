@@ -1,23 +1,25 @@
-var CardModel = require('mongoose').model('Card');
-var _ = require('lodash');
-var Promise = require('bluebird');
-var Card = require('./classes/card');
-var Minion = Card.Minion;
-var Spell = Card.spell;
-var Player = require('./classes/player');
-var Game = require('./classes/game');
+const CardModel = require('mongoose').model('Card');
+const _ = require('lodash');
+const Promise = require('bluebird');
+const Card = require('./classes/card-class');
+const Minion = Card.Minion;
+const Spell = Card.spell;
+const Player = require('./classes/player-class');
+const Game = require('./classes/game-class');
 
-var games = [];
+const games = [];
 
 module.exports = (io, socket, createdGames) => {
-  let i = () => socket.game - 1;
-  let player = () => socket.p1 ? games[i()].p1 : games[i()].p2;
-  let opponent = () => socket.p1 ? games[i()].p2 : games[i()].p1;
-  let p = () => socket.p1 ? 'p1' : 'p2';
+  const i = () => socket.game - 1;
+  const player = () => socket.p1 ? games[i()].p1 : games[i()].p2;
+  const opponent = () => socket.p1 ? games[i()].p2 : games[i()].p1;
+  const p = () => socket.p1 ? 'p1' : 'p2';
 
   socket.on('playerReady', () => {
     if (!socket.game) return;
+
     console.log(`player joined as ${p()}`);
+    if (!games[i()]) return games[i()] = true;
 
     let game = createdGames[i()];
     let decks = [CardModel.find({_id: {$in: game.p1.deck}}).exec(), CardModel.find({_id: {$in: game.p2.deck}}).exec()];
@@ -29,7 +31,6 @@ module.exports = (io, socket, createdGames) => {
         });
       });
 
-      console.log(decks);
       let player1 = new Player(p1.name, decks[0], p1.socket);
       let player2 = new Player(name, decks[1], socket);
       player1.shuffle();

@@ -1,0 +1,87 @@
+var _ = require('lodash');
+
+class Player {
+  constructor(name, deck, socket) {
+    this.name = name;
+    this.socket = socket;
+    this.socket.turn = false;
+    this.hp = 30;
+    this.deck = deck;
+    this.discard = [];
+    this.hand = [];
+    this.summonedMinions = [];
+    this.mana = 0;
+    this.turns = 0;
+
+  }
+
+  emit(socket, ...data) {
+    this.socket.emit(socket, ...data);
+  }
+
+  shuffle() {
+    this.deck = _.shuffle(this.deck);
+    return this.deck;
+  }
+  draw() {
+    let card = this.deck.pop();
+    this.hand.push(card);
+    return card;
+  }
+
+  setInitialCards() {
+    this.decidingCards = [this.deck.pop(), this.deck.pop(), this.deck.pop()];
+    if (!this.socket.turn) this.decidingCards.push(this.deck.pop());
+    this.deciding = true;
+    this.emit('initialCards', this.decidingCards);
+  }
+  setInitialHand(rejectedCards) {
+    rejectedCards.forEach(i => this.deck.push(this.decidingCards.splice(i, 1)[0]));
+    this.shuffle();
+    this.hand = this.decidingCards;
+    this.deciding = false;
+    this.decidingCards = [];
+
+    let l = this.socket.turn ? 3 : 4;
+    while (this.hand.length < l) this.draw();
+  }
+  endInitialWait() {
+    this.waiting = false;
+    this.emit('setInitialHand', this.hand, this.socket.turn);
+  }
+
+  startTurn() {
+    console.log('start turn');
+    this.waiting = false;
+    this.turns++;
+    this.mana = this.turns > 10 ? 10 : this.turns;
+    // this.summonedMinions.forEach(minion => {
+    //   if (!minion.canAttack) minion.canAttack = true;
+    // });
+    let card;
+    if (this.deck.length) card = this.draw();
+    else card = null;
+    this.emit('startTurn', card);
+  }
+  wait() {
+    this.waiting = true;
+    this.emit('wait');
+  }
+
+  summon(card) {
+    let summoned = _.remove(this.hand, hCard => hCard.id === card)[0];
+
+    if (summoned.type === 'minion') this.summonedMinions.push(summoned);
+
+    summoned.summoned();
+    this.mana -= summoned.cost;
+    return summoned;
+  }
+
+  wasAttacked(attacker) {
+    this.hp -= attacker.ap;
+    this.hp = this.hp < 0 ? 0 : this.hp;
+  }
+}
+
+module.exports = Player;

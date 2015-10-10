@@ -5,15 +5,17 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
       this.hp = 30;
       this.hand = [];
       this.summonedMinions = [];
-      this.turns = 10;
+      this.mana = 0;
+      this.turns = 0;
       this.attackable = true;
     }
 
     startTurn(card) {
       this.turns++;
       this.turn = true;
-      this.hand.push(card);
       this.mana = this.turns > 10 ? 10 : this.turns;
+      if (card) this.hand.push(card);
+      else this.hp--;
       this.summonedMinions.forEach(minion => minion.startTurn());
       $rootScope.$digest();
     }
