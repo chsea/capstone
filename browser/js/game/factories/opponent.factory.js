@@ -7,7 +7,6 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
     $rootScope.$digest();
   });
   Socket.on('setInitialHand', (hand, turn) => {
-    console.log(turn);
     opponent.hand = [{}, {}, {}];
     if (turn) opponent.hand.push({});
     $rootScope.$digest();
@@ -23,19 +22,24 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
 
   //summoning
   Socket.on('opponentSummoned', card => {
-    console.log(`opponent summoned ${card.name}`);
+    console.log(`Opponent summoned ${card.name}`);
     opponent.hand.pop();
     opponent.summoned(card);
   });
 
   //attacking
   Socket.on('attacked', (attacker, attackee) => {
-    console.log('attacked!');
+    console.log('Opponent attacked!');
     opponent.wasAttacked(attackee);
   });
   Socket.on('wasAttacked', (attacker, attackee) => {
-    console.log('was attacked!');
+    console.log('Opponent was attacked!');
     opponent.attacked(attacker);
+  });
+
+  Socket.on('opponentHealed', patient => {
+    console.log('Opponent healed!');
+    opponent.healed(patient);
   });
 
   return opponent;
