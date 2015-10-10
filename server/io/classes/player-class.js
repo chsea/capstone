@@ -4,6 +4,7 @@ class Player {
   constructor(name, deck, socket) {
     this.name = name;
     this.socket = socket;
+    this.socket.turn = false;
     this.hp = 30;
     this.deck = deck;
     this.discard = [];
@@ -11,10 +12,11 @@ class Player {
     this.summonedMinions = [];
     this.mana = 0;
     this.turns = 0;
+
   }
 
-  emit(socket, data) {
-    this.socket.emit(socket, data);
+  emit(socket, ...data) {
+    this.socket.emit(socket, ...data);
   }
 
   shuffle() {

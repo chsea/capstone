@@ -65,6 +65,7 @@ module.exports = (io, socket) => {
   });
 
   socket.on('rejectCards', rejectedCards => {
+    console.log(socket.turn);
     if (!socket.game || games[i()].state !== 'initialCards') return;
 
     player().setInitialHand(rejectedCards);

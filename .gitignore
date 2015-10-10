@@ -1,4 +1,5 @@
 .idea
+.jshintrc
 node_modules
 npm-debug.log
 public
