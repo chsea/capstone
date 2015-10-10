@@ -21,7 +21,8 @@ app.config($stateProvider => {
   };
 
   $scope.summon = (card, e) => {
-    $scope.player.summon(card);
+    console.log(card);
+    $scope.player.summon(card.id);
   };
 
   $scope.attack = data => {
