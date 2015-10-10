@@ -38,5 +38,10 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
     opponent.attacked(attacker);
   });
 
+  Socket.on('opponentHealed', patient => {
+    console.log('Opponent healed!');
+    opponent.healed(patient);
+  });
+
   return opponent;
 });

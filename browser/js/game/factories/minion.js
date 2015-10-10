@@ -43,6 +43,10 @@ app.factory('Minion', (Socket, $rootScope) => {
       if (this.logic.divineShield) this.logic.divineShield = false;
       else this.hp = hp;
     }
+
+    healed(hp) {
+      this.hp = hp;
+    }
   }
 
   return Minion;

@@ -57,15 +57,19 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
     let attackee = data.attackee ? data.attackee.id : null;
     Socket.emit('attack', data.attacker.id, attackee);
   };
-  Socket.on('attacked', (attacker) => {
-    console.log('attacked!');
-    console.log(attacker);
+  Socket.on('attacked', attacker => {
+    console.log('Attacked!');
     player.attacked(attacker);
   });
   Socket.on('wasAttacked', (attacker, attackee) => {
-    console.log('was attacked!');
-    console.log(attackee);
+    console.log('Was attacked!');
     player.wasAttacked(attackee);
+  });
+
+  //spells
+  Socket.on('healed', patient => {
+    console.log('Healed!');
+    player.healed(patient);
   });
 
   //ending
