@@ -13,7 +13,12 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UserFactory) 
     $scope.togglelogin = true;
     $scope.login = {};
     $scope.error = null;
-    $scope.signupform = false;
+    $scope.$emailValid = true;
+
+    var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    $scope.emailValidate = function(email) {
+        return regex.test(email);
+    };
 
     $scope.sendLogin = function (loginInfo) {
         $scope.error = null;
@@ -25,22 +30,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UserFactory) 
 
     };
 
-      var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-      $scope.emailValidate = function(email) {
-        return regex.test(email);
-      };
-
-      $scope.$emailValid = true;
-
-      function resetUser() {
-        $scope.newUser = {
-          email: null,
-          username: null,
-          password: null
-        };
-      }
-
-      $scope.sendSignup = function() {
+    $scope.sendSignup = function() {
         if (!$scope.emailValidate($scope.newUser.email)) {
           $scope.$emailValid = false;
         } else {
@@ -48,9 +38,18 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UserFactory) 
             .then(user => {
               resetUser();
               $state.go('lobby');
-              resetUser();
             });
         }
-      };
+    };
+
+    function resetUser() {
+        $scope.newUser = {
+          email: null,
+          username: null,
+          password: null
+        };
+    }
+    
+    resetUser();
 
 });
