@@ -1,41 +1,79 @@
 <div class="container">
   <div class="row">
-    <div class="main col-md-6">
-      <h3>Please Log In, or <a ui-sref="signup">Sign Up</a></h3>
-      <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" id="signup-form">
-            <oauth-button class="btn btn-lg btn-primary btn-block" provider-name="Facebook" onClick="window.location='/auth/facebook';">Facebook</oauth-button>
-        </div>
-        <div class="col-xs-6 col-sm-6 col-md-6 buffer oauth">
-            <oauth-button class="btn btn-lg btn-info btn-block" provider-name="Google" onClick="window.location='/auth/google';">Google</oauth-button>
+    <div class="main text-center top">
+      <h3>Please Login, or <a ng-click="togglelogin = !togglelogin">Sign Up</a></h3>
+
+        <div ng-hide="togglelogin">
+              <div class="row">
+                <div class="col-md-6" id="signup-form">
+                    <oauth-button class="btn btn-lg btn-primary btn-block" provider-name="Facebook" onClick="window.location='/auth/facebook';">Facebook</oauth-button>
+                </div>
+                <div class="col-md-6 buffer oauth">
+                    <oauth-button class="btn btn-lg btn-info btn-block" provider-name="Google" onClick="window.location='/auth/google';">Google</oauth-button>
+                </div>
+              </div>
+              <div class="login-or">
+                <hr class="hr-or">
+                <span class="span-or">or</span>
+              </div>
+
+              <form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && sendSignup()" novalidate>
+                <div class="form-group">
+                  <label for="username" style="font-size: 20px;">Username</label>
+                  <p ng-show="signupForm.username.$error.minlength">username is too short</p>
+                  <p ng-show="signupForm.username.$dirty && signupForm.username.$error.required">username is required</p>
+                  <input type="text" class="form-control" id="username" ng-model="newUser.username">
+                </div>
+                <div class="form-group">
+                  <label for="email" style="font-size: 20px;">Email</label>
+                  <p ng-show="signupForm.email.$dirty && signupForm.email.$error.required ">Email is a required field</p>
+                  <p ng-show=" signupForm.email.$dirty && !$emailValid">Email is invalid</p>
+                  <input type="email" class="form-control" id="email" ng-model="newUser.email">
+                </div>
+                <div class="form-group">
+                  <label for="password" style="font-size: 20px;">Password</label>
+                  <p ng-show="signupForm.password.$dirty && signupForm.password.$error.required">Password is required</p>
+                  <p ng-show="signupForm.password.$dirty && signupForm.password.$error.minlength">Password is too short</p>
+                  <p ng-show="signupForm.password.$dirty && signupForm.password.$error.maxlength">Password is too long</p>
+                  <input type="password" class="form-control" id="login-password" ng-model="newUser.password">
+                </div>
+                <button type="submit" class="btn btn btn-primary">
+                  Signup
+                </button>
+              </form>
+            </div>
+          </div>
+       </div>
+      <div class="main text-center top">
+        <div ng-show="togglelogin">
+          <div class="row">
+            <div class="col-md-6" id="signup-form">
+                <oauth-button class="btn btn-lg btn-primary btn-block" provider-name="Facebook" onClick="window.location='/auth/facebook';">Facebook</oauth-button>
+            </div>
+            <div class="col-md-6 buffer oauth">
+                <oauth-button class="btn btn-lg btn-info btn-block" provider-name="Google" onClick="window.location='/auth/google';">Google</oauth-button>
+            </div>
+          </div>
+          <div class="login-or">
+            <hr class="hr-or">
+            <span class="span-or">or</span>
+          </div>
+
+          <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)" role="form">
+            <div class="form-group">
+              <label for="inputUsernameEmail" style="font-size: 20px;">Username or email</label>
+              <input type="text" class="form-control" id="email" ng-model="login.email">
+            </div>
+            <div class="form-group">
+              <label for="inputPassword" style="font-size: 20px;">Password</label>
+              <input type="password" class="form-control" ng-model="login.password" id="login-password">
+            </div>
+            <button type="submit" class="btn btn btn-primary">
+              Login
+            </button>
+          </form>
         </div>
       </div>
-      <div class="login-or">
-        <hr class="hr-or">
-        <span class="span-or">or</span>
-      </div>
-
-      <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)" role="form">
-        <div class="form-group">
-          <label for="inputUsernameEmail" style="font-size: 20px;">Username or email</label>
-          <input type="text" class="form-control" id="email" ng-model="login.email">
-        </div>
-        <div class="form-group">
-          <a class="pull-right" href="#">Forgot password?</a>
-          <label for="inputPassword" style="font-size: 20px;">Password</label>
-          <input type="password" class="form-control" ng-model="login.password" id="login-password">
-        </div>
-        <div class="checkbox pull-right">
-          <label>
-            <input type="checkbox">
-            Remember me </label>
-        </div>
-        <button type="submit" class="btn btn btn-primary">
-          Log In
-        </button>
-      </form>
-
     </div>
-
   </div>
 </div>
