@@ -35,10 +35,10 @@ var healSchema = effectsSchema.extend({
 });
 
 var AlterPropertySchema = effectsSchema.extend({
-  attackPoints: {
+  ap: {
     type: Number
   },
-  hitPoints:{
+  hp:{
     type: Number
   } ,
   cost: {

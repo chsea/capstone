@@ -12,11 +12,12 @@ var cardSchema = new Schema({
   },
   category: {
     type: String,
-    required: true
+    required: true,
+    default: "none"
   },
   description: {
     type: String,
-    required: true,
+    // required: true,
   },
   portrait: {
     type: String,
@@ -41,22 +42,22 @@ var cardSchema = new Schema({
 });
 
 var minionSchema = cardSchema.extend({
-  hitPoints: {
+  hp: {
     type: Number,
     required: true,
     min: 0
   },
   logic: {
-    battlecry: {type:[ObjectId], ref: 'Effect'},
-    deathRattle: {type:[ObjectId], ref:'Effect'},
-    eachTurn: {type:[ObjectId], ref: 'Effect'},
-    enrage: {type:[ObjectId], ref: 'Effect'},
-    taunt: {type: Boolean, default:false},
-    windfury: {type: Boolean, default:false},
-    charge: {type: Boolean, default:false},
-    divineShield: {type: Boolean, default:false}
+    // battlecry: {type:[ObjectId], ref: 'Effect'},
+    // deathRattle: {type:[ObjectId], ref:'Effect'},
+    // eachTurn: {type:[ObjectId], ref: 'Effect'},
+    // enrage: {type:[ObjectId], ref: 'Effect'},
+    // taunt: {type: Boolean, default: false},
+    // windfury: {type: Boolean, default: false},
+    // charge: {type: Boolean, default: false},
+    // divineShield: {type: Boolean, default: false}
   },
-  attackPoints: {
+  ap: {
     type: Number,
     required: true,
     min: 0
@@ -64,9 +65,9 @@ var minionSchema = cardSchema.extend({
 });
 
 var spellSchema = cardSchema.extend({
-  logic:{
-    type:[ObjectId],
-    ref:'Effect'
+  logic: {
+    // type:[ObjectId],
+    // ref:'Effect'
   }
 });
 

@@ -19,8 +19,8 @@ class Minion extends Card {
   constructor(card, id) {
     super(card, id);
     this.type = 'minion';
-    this.hp = card.hitPoints;
-    this.ap = card.attackPoints;
+    this.hp = card.hp;
+    this.ap = card.ap;
     this.canAttack = false;
     this.attackable = true;
   }

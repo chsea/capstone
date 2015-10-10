@@ -51,7 +51,7 @@ describe('Card Route', function () {
     });
 
     beforeEach('Create card', function(done) {
-      cardInfo = {name: 'butterfly', category: 'communication', type: 'minion', description: "butterfly destroys it enemys with beautifuly written code", hitPoints: 5, attackPoints: 7};
+      cardInfo = {name: 'butterfly', category: 'communication', type: 'minion', description: "butterfly destroys it enemys with beautifuly written code", hp: 5, ap: 7};
       Card.create(cardInfo)
       .then(function(card) {
         currentCard = card;

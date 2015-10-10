@@ -161,8 +161,8 @@ function seedMinions() {
   //   obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
   //   obj.rarity = Math.floor(Math.random() * 4);
   //   obj.cost = Math.floor(Math.random() * 10);
-  //   obj.hitPoints = Math.floor(Math.random() * 10);
-  //   obj.attackPoints = Math.floor(Math.random() * 10);
+  //   obj.hp = Math.floor(Math.random() * 10);
+  //   obj.ap = Math.floor(Math.random() * 10);
   //   minions.push(obj);
   // }
 
