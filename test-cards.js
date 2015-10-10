@@ -49,13 +49,13 @@ var minions = [
     rarity: 1,
     logic: {
       taunt: true,
-      enrage: {
-        propertyChange: {
-          target: 'self',
-          property: 'ap',
-          amount: 3
-        }
-      }
+      // enrage: {
+      //   propertyChange: {
+      //     target: 'self',
+      //     property: 'ap',
+      //     amount: 3
+      //   }
+      // }
     }
   }
 ];
@@ -67,7 +67,8 @@ var spells = [
     logic: {
       heal: {
         target: {
-          self: true
+          targets: ["self"],
+          select: "all"
         },
         amount: 2
       }

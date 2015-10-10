@@ -44,8 +44,8 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   };
 
   //summoning
-  player.summon = card => {
-    Socket.emit('summon', card);
+  player.summon = id => {
+    Socket.emit('summon', id);
   };
   Socket.on('summoned', card => {
     console.log(`summoned ${card.name}`);

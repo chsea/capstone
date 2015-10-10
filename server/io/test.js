@@ -89,9 +89,7 @@ module.exports = (io, socket) => {
     // if (card.type === 'spell') return;
     console.log(`${p()} summoning ${card}`);
 
-    let summoned = player().summon(card);
-    player().emit('summoned', summoned);
-    opponent().emit('opponentSummoned', summoned);
+    game().summon(card);
   });
 
   socket.on('attack', (attackerId, attackeeId) => {
