@@ -15,16 +15,14 @@ router.param('id', (req, res, next, id) => {
 });
 
 router.get('/', (req, res, next) => {
-  Deck.find(req.query).populate('cards').exec()
-  .then(decks => res.send(decks))
+  Deck.find(req.query).deepPopulate('cards').exec()
+  .then(decks => res.json(decks))
   .then(null, next);
 });
 
 router.post('/', (req, res, next) => {
   Deck.create(req.body)
   .then(deck => {
-    console.log("new deck on backend", deck._id);
-    console.log("newly created deck ", deck);
     res.json(deck);
   }).then(null, next);
 });
@@ -66,7 +64,7 @@ router.put('/removecard/:id', function(req, res, next) {
 
 router.delete('/:id', (req, res, next) => {
   req.deck.remove().then(deck => {
-    res.send(deck);
+    res.json(deck);
   }).then(null, next);
 });
 
