@@ -20,6 +20,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   $scope.user = user;
   $scope.craft = false;
   $scope.usermessage = "";
+  $scope.toggleCreateDeck = false;
   
   $scope.selectDeck = function() {
     $scope.currentdeck = _.find($scope.user.decks, {_id: $scope.selectedDeck});
@@ -82,36 +83,35 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
     });
     $scope.currentdeck.cards.splice(indx, 1);
     updateDeck();
+    clientsChart.update();
+
   };
 
   $scope.removeDeck = function() {
-    console.log("trying to delete deck: ", $scope.currentdeck);
-    if ($scope.currentdeck === undefined) return;
-    DeckFactory.destroy($scope.currentdeck._id)
-    .then(function(deletedDeck){
-      var indx = -1;
-      $scope.user.decks.forEach(function(thisdeck, index){
-        if (thisdeck._id === deletedDeck._id){
-          indx = index;
-        }
+    if ($scope.currentdeck === undefined) {
+      $scope.usermessage = "please select a deck first";
+    }
+    else {
+      DeckFactory.destroy($scope.currentdeck._id)
+      .then(function(deletedDeck){
+        var indx = -1;
+        $scope.user.decks.forEach(function(thisdeck, index){
+          if (thisdeck._id === deletedDeck._id){
+            indx = index;
+          }
+        });
+        $scope.user.decks.splice(indx, 1);
+        updateUser();
+        $scope.usermessage = "";
       });
-      $scope.user.decks.splice(indx, 1);
-      updateUser();
-    });
-  };
-
-  $scope.showCreateDeckForm = function(){
-    if ($scope.createDeck){
-      $scope.createDeck = false;
-    } else {
-      $scope.createDeck = true;
     }
   };
+
 
   $scope.createNewDeck = function(deckname) {
     if (deckname === undefined || deckname.length < 1) {
       $scope.usermessage = "please name the deck first";
-    } 
+    }
     else {
       $scope.usermessage = "";
       DeckFactory.create({"name": deckname})
@@ -119,6 +119,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
         $scope.createDeck = false;
         $scope.user.decks.push(newdeck);
         updateUser();
+        $scope.toggleCreateDeck = false;
       });
     }
   };
@@ -140,6 +141,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
       $scope.usermessage = "";
       $scope.currentdeck.cards.push(card);
       updateDeck();
+      $scope.deckcost();
     }
   };
 

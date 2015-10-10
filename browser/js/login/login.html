@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="main text-center top">
-      <h3>Please Login, or <a ng-click="togglelogin = !togglelogin">Sign Up</a></h3>
+      <h3>Please <span ng-click="togglelogin = !togglelogin">Login,</span> or <a ng-click="togglelogin = !togglelogin">Sign Up</a></h3>
 
         <div ng-hide="togglelogin">
               <div class="row">
@@ -61,7 +61,7 @@
 
           <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)" role="form">
             <div class="form-group">
-              <label for="inputUsernameEmail" style="font-size: 20px;">Username or email</label>
+              <label for="inputUsernameEmail" style="font-size: 20px;">Email</label>
               <input type="text" class="form-control" id="email" ng-model="login.email">
             </div>
             <div class="form-group">

@@ -17,24 +17,8 @@ app.config(function($stateProvider) {
 app.controller('UserSettingsController', function($scope, user, UserFactory) {
   $scope.user = user;
   $scope.count = 1;
-  $scope.showcards = true;
-  $scope.showsettings = false;
+  $scope.toggleviewcards = true;
 
-  $scope.showCardsNow = function() {
-    if ($scope.showcards){
-      $scope.showcards = false;
-    } else {
-      $scope.showcards = true;
-    }
-  };
-
-  $scope.showSettingsNow = function() {
-    if ($scope.showsettings){
-      $scope.showsettings = false;
-    } else {
-      $scope.showsettings = true;
-    }
-  };
 
   $scope.updateUser = function(userInfo) {
     for (var key in $scope.user){
