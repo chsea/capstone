@@ -36,7 +36,6 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
     }
 
     summoned(card) {
-      _.remove(this.hand, handCard => handCard.id === card.id);
       let minion = new Minion(card);
 
       this.mana -= card.cost;
@@ -48,7 +47,7 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
     minionDeath(minion) {
       minion.death();
       _.remove(this.summonedMinions, m => m.id === minion.id);
-      if (minion.logic.taunt) checkTaunt();
+      if (minion.logic.taunt) this.checkTaunt();
     }
 
     attacked(attacker) {

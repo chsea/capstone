@@ -4,7 +4,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   Socket.on('gameStart', players => {
     player.name = players.player;
     $rootScope.$digest();
-    Socket.emit('initialDraw');
+    // Socket.emit('initialDraw');
   });
 
   //initial draw
@@ -25,7 +25,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
     player.hand = hand;
     player.turn = turn;
     $rootScope.$digest();
-    Socket.emit('initialHandSet');
+    // Socket.emit('initialHandSet');
   });
 
   //turns
@@ -45,6 +45,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
 
   //summoning
   player.summon = id => {
+    _.remove(player.hand, card => card.id === id);
     Socket.emit('summon', id);
   };
   Socket.on('summoned', card => {

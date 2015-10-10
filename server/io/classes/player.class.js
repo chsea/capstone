@@ -70,7 +70,7 @@ class Player {
   summon(minion) {
     this.summonedMinions.push(minion);
     minion.summoned();
-    this.mana -= summoned.cost;
+    this.mana -= minion.cost;
     this.emit('summoned', minion);
   }
 
