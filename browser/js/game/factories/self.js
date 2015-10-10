@@ -70,12 +70,12 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   Socket.on('win', () => {
     player.message("You win!");
     $rootScope.$digest();
-    setTimeout(() => $state.go('lobby'), 3000);
+    setTimeout(() => $state.go('home'), 3000);
   });
   Socket.on('lose', () => {
     player.setMessage("You lose!");
     $rootScope.$digest();
-    setTimeout(() => $state.go('lobby'), 3000);
+    setTimeout(() => $state.go('home'), 3000);
   });
 
   return player;
