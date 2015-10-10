@@ -23,7 +23,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UserFactory) 
     $scope.sendLogin = function (loginInfo) {
         $scope.error = null;
         AuthService.login(loginInfo).then(function () {
-            $state.go('lobby');
+            $state.go('home');
         }).catch(function () {
             $scope.error = 'Invalid login credentials.';
         });
@@ -37,7 +37,7 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state, UserFactory) 
         UserFactory.create($scope.newUser)
             .then(user => {
               resetUser();
-              $state.go('lobby');
+              $state.go('home');
             });
         }
     };
