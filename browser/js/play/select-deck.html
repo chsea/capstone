@@ -1,12 +1,10 @@
-<!-- <section ng-hide="isLoggedIn">
-  <h1>Please login!</h1>
-</section> -->
 <section ng-show="waiting">
   <h1>Waiting for a matching player!</h1>
 </section>
-<section ng-hide="notLoggedIn || waiting">
+<section ng-hide="waiting">
   <select ng-model="selectedDeck">
-    <option ng-repeat="deck in decks" value="{{deck._id}}">{{ deck.name }}</option>
+    <option ng-repeat="deck in decks" value="{{deck._id}}">{{deck.name}}</option>
   </select>
-  <button ng-click="start()">Start!</button>
+  <br><br>
+  <button class="btn btn-success" ng-click="start()">Start!</button>
 </section>
