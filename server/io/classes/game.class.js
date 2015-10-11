@@ -72,8 +72,13 @@ class Game {
           this.waitingPlayer.summonedMinions.forEach(minion => selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer, minion: minion}));
           break;
         default:
-          let minions = this.currentPlayer.summonedMinions.concat(this.waitingPlayer.summonedMinions);
-          selectableTargets.push(_.find(minions, minion.id = target));
+          let minion = _.find(this.currentPlayer.summonedMinions, m => m.id === target);
+          if (minion) {
+            selectableTargets.push({player: this.currentPlayer, opponent: this.waitingPlayer, minion: minion});
+          } else {
+            minion = _.find(this.waitingPlayer.summonedMinions, m => m.id === target);
+            selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer, minion: minion});
+          }
       }
     });
 

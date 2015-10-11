@@ -83,6 +83,7 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
       if (!property.id) this[property.property] = property.amount;
       else {
         let minion = _.find(this.summonedMinions, m => m.id === property.id);
+        console.log(minion);
         minion.propertyChanged(property);
       }
       $rootScope.$digest();

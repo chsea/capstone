@@ -92,6 +92,7 @@ module.exports = (io, socket) => {
   });
 
   socket.on('cast', target => {
+    console.log('selecting', target);
     let logic = {
       target: {
         targets: [target],
