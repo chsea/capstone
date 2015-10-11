@@ -84,6 +84,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   });
   Socket.on('propertyChanged', property => {
     console.log(`${property} changed`);
+    console.log(player.summonedMinions);
     player.propertyChanged(property);
   });
 

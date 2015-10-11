@@ -46,6 +46,7 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
 
   Socket.on('opponentPropertyChanged', property => {
     console.log(`Opponent ${property} changed`);
+    console.log(opponent.summonedMinions);
     opponent.propertyChanged(property);
   });
 

@@ -87,12 +87,7 @@ class Player {
   }
 
   changeProperty(property, amount) {
-    if (property === 'logic') {
-      if (amount.all) this.logic = {};
-      else this.logic[amount.property] = amount.amount;
-    } else {
-      this[property] += amount;
-    }
+    this[property] += amount;
   }
 }
 
