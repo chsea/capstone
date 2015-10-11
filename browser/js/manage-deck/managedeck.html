@@ -1,23 +1,11 @@
 <div ng-show="user.decks.length" class="text-center top">
-  <h1 class="text-success"><strong>My Collections</strong></h1>
-  <h3><small>Choose a deck to manage</small></h3>
+  <h1><strong class="text-success">My Collections</strong><br><small>Choose a deck to manage</small</h1>
   <select ng-model="selectedDeck">
     <option style="color:black;" ng-repeat= "deck in user.decks" value="{{deck._id}}">{{deck.name}}
     </option>
   </select>
-  <button class="btn btn-sm btn-primary" ng-click="selectDeck()">Select</button>
+  <img src="/images/basiccheck.png" width="35" height="35"  ng-click="selectDeck()"/>
   <br><br>
-  <div>
-    <span popover-placement="left" popover="Click to create a new deck" popover-trigger="mouseenter">
-     <button class="btn btn-info btn-sm" ng-click="toggleCreateDeck = !toggleCreateDeck">New Deck</button>
-    </span>
-    <span popover-placement="bottom" popover="Click to remove selected deck" popover-trigger="mouseenter">
-      <button class="btn btn-info btn-sm" ng-click="removeDeck()">Delete Deck</button>
-    </span>
-    <span popover-placement="bottom" popover="Trade cards for stardust" popover-trigger="mouseenter">
-      <button class="btn btn-info btn-sm" ng-click="showCraftForm()">Craft or Disenchant Cards</button>
-    </span>
-  </div>
 </div>
 
 <div ng-show="!user" class="text-center top">
@@ -34,31 +22,63 @@
     <input type="submit" value="Submit" />
   </form>
 </div>
-<div ng-show="user && user.decks.length <= 0"><h3>Opps. You don't have any decks. Please create a deck first!</h3>
+
+<div ng-show="user && user.decks.length <= 0">
+  <h3>Opps. You don't have any decks. Please create a deck first!
+      <span popover-placement="left" popover="Click to create a new deck" popover-trigger="mouseenter">
+        <img src="/images/create.png" width="20" height="20" ng-click="toggleCreateDeck = !toggleCreateDeck"/>
+      </span>
+  </h3>
   <button class="btn btn-primary btn-sm`" ng-click="toggleCreateDeck = !toggleCreateDeck">New Deck</button>
 </div>
-<div ng-hide="craft || !user" class="text-center top col-md-10" style="overflow: scroll; width: 1000px; height: 350px;">
-  <h3>{{user.username}}'s Cards</h3>
-      <card card="usercard" ng-click="addToDeck(usercard)" ng-repeat="usercard in user.cards | orderBy:'-cost'"></card>
+
+<div ng-hide="craft || !user" class="text-center top col-md-9">
+  <h3><span class="text-success"><strong>{{user.username}}'s Cards</strong></span>
+    <span popover-placement="bottom" popover="Trade cards for stardust" popover-trigger="mouseenter">
+      <img src="/images/manapotion.png" width="25" height="25" ng-click="showCraftForm()"/>
+    </span>
+  </h3>
+    <input placeholder="Search" ng-model="searchText">
+      <div style="overflow: scroll; height: 350px;">
+      <card card="usercard" ng-click="addToDeck(usercard)" ng-repeat="usercard in user.cards | orderBy:'-cost' | filter:searchText"></card>
+    </div>
 </div>
 
-<div ng-show="craft" class="text-center top col-md-10" style="overflow: scroll; width: 1000px; height: 350px;">
+<!-- <div ng-show="craft" class="text-center top col-md-10" style="overflow: scroll; width: 1000px; height: 350px;">
   <h3>{{user.username}}'s Cards</h3>
       <card card="usercard" ng-click="disenchant(usercard)" ng-repeat="usercard in user.cards | orderBy:'-cost'"></card>
+</div> -->
+
+<div class="container pull-right col-xs-2 panel panel-default">
+  <h2><strong class="panel-heading">My Decks</strong>
+    <span popover-placement="left" popover="Click to create a new deck" popover-trigger="mouseenter">
+      <img src="/images/create.png" width="20" height="20" ng-click="toggleCreateDeck = !toggleCreateDeck"/>
+    </span>
+  </h2>
+    <div ng-repeat= "deck in user.decks">{{deck.name}}
+      </div>
+      <div ng-show="showCards">
+        <h4><strong>{{currentdeck.name}}</strong>
+            <span popover-placement="bottom" popover="Click to remove selected deck" popover-trigger="mouseenter">
+              <img class="text-align right" src="/images/trash.png" width="20" height="20" ng-click="removeDeck()"/>
+            </span>
+        </h4>
+        <div style="text-align: left" ng-click="removeFromDeck(cardname)" ng-repeat="(cardname, qty) in cardsInDeck">
+          <strong>{{cardname}}</strong>
+          <small> Qty:{{qty}}</small>
+        </div>
+      </div>
+      <span ng-show="cardsInDeck">
+        <canvas id="clients" width="225" height="300"></canvas>
+        <div ng-show="showCards">
+          CARDS: {{currentdeck.cards.length}}/30 <br>
+        </div>
+      </span>
+    </div>
 </div>
 
-<div ng-show="showCards" class="container pull-right col-xs-2" style="background-color: #00A388;">
-  <h4><strong>{{currentdeck.name}}</strong></h4>
-  <div ng-show="!cardsInDeck">Add cards to your deck</div>
-  <div style="text-align: left" ng-click="removeFromDeck(cardname)" ng-repeat="(cardname, qty) in cardsInDeck">
-    <strong>{{cardname}}</strong>
-    <small> Qty:{{qty}}</small>
-  </div>
-</div>
 
-<div class="pull-right">
-<canvas id="clients" width="300" height="300"></canvas>
-<div ng-show="showCards">
-  CARDS: {{currentdeck.cards.length}}/30 <br>
-</div>
-</div>
+
+
+
+

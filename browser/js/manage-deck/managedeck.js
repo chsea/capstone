@@ -73,6 +73,16 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
     return $scope.cost;
   };
 
+  // $scope.sortCardsByCost = function(manacost){
+  //   $scope.sortedCards = [];
+  //   if (manacost)
+  //   var sortedCard = user.cards.filter(function(card) {
+  //     return card.cost === manacost;
+  //   });
+  // }
+
+
+
   $scope.removeFromDeck = function(cardname) {
     if ($scope.total < 1 || $scope.currentdeck === undefined) return;
     var indx = -1;
@@ -191,9 +201,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
     // prohibits user from adding more than 2 duplicate cards to the same deck
     var count = 0;
     $scope.currentdeck.cards.forEach(function(currentcard){
-      if (currentcard._id === card._id){
-        count++;
-      }
+      if (currentcard._id === card._id) count++;
     });
     if (count >= 2) return true;
     return false;
@@ -203,9 +211,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
     // prohibits users from adding more than one of the same legendary card
     var count = 0;
     $scope.currentdeck.cards.forEach(function(currentcard){
-      if (currentcard._id === card._id){
-        count++;
-      }
+      if (currentcard._id === card._id) count++;
     });
     return count >= 1 ? true : false;
   }
