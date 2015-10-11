@@ -38,9 +38,9 @@ class Minion extends Card {
     }
     this.hp = this.hp < 0 ? 0 : this.hp;
   }
-  wasAttacked(attacker) {
+  wasAttacked(amount) {
     if (this.logic.divineShield) this.logic.divineShield = false;
-    else this.hp -= attacker.ap;
+    else this.hp -= amount;
     this.hp = this.hp < 0 ? 0 : this.hp;
   }
 

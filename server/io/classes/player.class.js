@@ -22,10 +22,12 @@ class Player {
     this.deck = _.shuffle(this.deck);
     return this.deck;
   }
-  draw() {
-    let card = this.deck.pop();
-    this.hand.push(card);
-    return card;
+  draw(amount) {
+    amount = amount || 1;
+    let cards = [];
+    while (cards.length < amount) cards.push(this.deck.pop());
+    this.hand = this.hand.concat(cards);
+    return cards;
   }
 
   setInitialCards() {
@@ -58,7 +60,7 @@ class Player {
     //   if (!minion.canAttack) minion.canAttack = true;
     // });
     let card;
-    if (this.deck.length) card = this.draw();
+    if (this.deck.length) card = this.draw()[0];
     else card = null;
     this.emit('startTurn', card);
   }
@@ -74,8 +76,8 @@ class Player {
     this.emit('summoned', minion);
   }
 
-  wasAttacked(attacker) {
-    this.hp -= attacker.ap;
+  wasAttacked(amount) {
+    this.hp -= amount;
     this.hp = this.hp < 0 ? 0 : this.hp;
   }
 

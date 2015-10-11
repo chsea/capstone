@@ -45,7 +45,8 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
 
   //summoning
   player.summon = id => {
-    _.remove(player.hand, card => card.id === id);
+    let card = _.remove(player.hand, card => card.id === id)[0];
+    player.mana -= card.cost;
     Socket.emit('summon', id);
   };
   Socket.on('summoned', card => {
@@ -71,6 +72,15 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   Socket.on('healed', patient => {
     console.log('Healed!');
     player.healed(patient);
+  });
+  //different animations for spell dmg vs minion attacking?
+  Socket.on('damaged', attackee => {
+    console.log('Was damaged!');
+    player.wasAttacked(attackee);
+  });
+  Socket.on('drew', cards => {
+    console.log(`Drew ${cards.length} cards`);
+    player.drew(cards);
   });
 
   //ending

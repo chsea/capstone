@@ -146,6 +146,111 @@ var spells = [
         amount: 1
       }
     }
+  },
+  {
+    name: "Self-Damage",
+    cost: 1,
+    logic: {
+      damage: {
+        target: {
+          targets: ["self"],
+          select: "all"
+        },
+        amount: 1
+      }
+    }
+  },
+  {
+    name: "Opponent Damage",
+    cost: 1,
+    logic: {
+      damage: {
+        target: {
+          targets: ["opponent"],
+          select: "all"
+        },
+        amount: 1
+      }
+    }
+  },
+  {
+    name: "Opponent Minion Damage",
+    cost: 1,
+    logic: {
+      damage: {
+        target: {
+          targets: ["opponentMinions"],
+          select: "all"
+        },
+        amount: 1
+      }
+    }
+  },
+  {
+    name: "Player Minion Damage",
+    cost: 1,
+    logic: {
+      damage: {
+        target: {
+          targets: ["playerMinions"],
+          select: "all"
+        },
+        amount: 1
+      }
+    }
+  },
+  {
+    name: "Player + Minion Damage",
+    cost: 1,
+    logic: {
+      damage: {
+        target: {
+          targets: ["self", "playerMinions"],
+          select: "all"
+        },
+        amount: 1
+      }
+    }
+  },
+  {
+    name: "Random Player + Minion Damage",
+    cost: 1,
+    logic: {
+      damage: {
+        target: {
+          targets: ["self", "playerMinions"],
+          select: "random",
+          qty: 4
+        },
+        amount: 1
+      }
+    }
+  },
+  {
+    name: "Self-Draw",
+    cost: 1,
+    logic: {
+      draw: {
+        target: {
+          targets: ["self"],
+          select: "all"
+        },
+        amount: 3
+      }
+    }
+  },
+  {
+    name: "Opponent Draw",
+    cost: 1,
+    logic: {
+      draw: {
+        target: {
+          targets: ["opponent"],
+          select: "all"
+        },
+        amount: 1
+      }
+    }
   }
 ];
 
