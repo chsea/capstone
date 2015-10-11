@@ -18,7 +18,11 @@ app.controller('LandingController', function($scope, user, UserFactory,CardFacto
 
   $scope.showPack = false;
   $scope.showCards = [];
-	$scope.uiRouterState = "home";
+
+   $scope.dynamicPopover = {
+    content: 'Hello, World!',
+    title: 'Title'
+  };
 
   $scope.openPack = function(){
     console.log('clicked openpack');
