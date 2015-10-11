@@ -91,6 +91,17 @@ module.exports = (io, socket) => {
     games[i()].summon(card);
   });
 
+  socket.on('cast', target => {
+    let logic = {
+      target: {
+        targets: [target],
+        select: 'all'
+      },
+      spells: games[i()].decidingSpell
+    };
+    games[i()].cast(logic);
+  });
+
   socket.on('attack', (attackerId, attackeeId) => {
     games[i()].attack(attackerId, attackeeId);
   });

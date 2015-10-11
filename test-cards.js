@@ -289,14 +289,16 @@ var spells = [
     name: "Add 3 ap to random",
     cost: 1,
     logic: {
-      changeProperty: {
-        target: {
-          targets: ["playerMinions"],
-          select: "random",
-          qty: 1
-        },
-        amount: 3,
-        property: 'ap'
+      target: {
+        targets: ["playerMinions"],
+        select: "random",
+        qty: 1
+      },
+      spells: {
+        changeProperty: {
+          amount: 3,
+          property: 'ap'
+        }
       }
     }
   }

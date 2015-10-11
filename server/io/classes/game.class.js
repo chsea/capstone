@@ -48,41 +48,45 @@ class Game {
     this.currentPlayer.startTurn();
   }
 
-  cast(spells, id) {
-    for (let spell in spells) {
-      if (spells[spell].target.select === 'selectable') return this.currentPlayer.emit('selectTarget', id);
+  cast(logic) {
+    if (logic.target.select === 'selectable') {
+      this.decidingSpell = logic.spells;
+      this.currentPlayer.emit('selectTarget');
+      return;
+    }
 
-      let selectableTargets = [],
-          targets = [];
-      spells[spell].target.targets.forEach(target => {
-        switch (target) {
-          case 'self':
-            selectableTargets.push({player: this.currentPlayer, opponent: this.waitingPlayer});
-            break;
-          case 'opponent':
-            selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer});
-            break;
-          case 'playerMinions':
-            this.currentPlayer.summonedMinions.forEach(minion => selectableTargets.push({player: this.currentPlayer, opponent: this.waitingPlayer, minion: minion}));
-            break;
-          case 'opponentMinions':
-            this.waitingPlayer.summonedMinions.forEach(minion => selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer, minion: minion}));
-            break;
-          default:
-            let minions = this.currentPlayerPlayer.summonedMinions.concat(this.waitinwaitingPlayer.summonedMinions);
-            selectableTargets.push(_.find(minions, minion.id = target));
-        }
-      });
-
-      if (spells[spell].target.select === 'all') targets = selectableTargets;
-      else if (spells[spell].target.select === 'random') {
-        while (targets.length < spells[spell].target.qty) {
-          let i = Math.floor(Math.random() * selectableTargets.length);
-          targets.push(selectableTargets[i]);
-        }
+    let selectableTargets = [],
+        targets = [];
+    logic.target.targets.forEach(target => {
+      switch (target) {
+        case 'self':
+          selectableTargets.push({player: this.currentPlayer, opponent: this.waitingPlayer});
+          break;
+        case 'opponent':
+          selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer});
+          break;
+        case 'playerMinions':
+          this.currentPlayer.summonedMinions.forEach(minion => selectableTargets.push({player: this.currentPlayer, opponent: this.waitingPlayer, minion: minion}));
+          break;
+        case 'opponentMinions':
+          this.waitingPlayer.summonedMinions.forEach(minion => selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer, minion: minion}));
+          break;
+        default:
+          let minions = this.currentPlayer.summonedMinions.concat(this.waitingPlayer.summonedMinions);
+          selectableTargets.push(_.find(minions, minion.id = target));
       }
+    });
 
-      Spell[spell](targets, spells[spell].amount, spells[spell].property);
+    if (logic.target.select === 'all') targets = selectableTargets;
+    else if (logic.target.select === 'random') {
+      while (targets.length < logic.target.qty) {
+        let i = Math.floor(Math.random() * selectableTargets.length);
+        targets.push(selectableTargets[i]);
+      }
+    }
+
+    for (let spell in logic.spells) {
+      Spell[spell](targets, logic.spells[spell].amount, logic.spells[spell].property);
     }
   }
 
@@ -92,7 +96,7 @@ class Game {
       this.currentPlayer.summon(summoned);
       this.waitingPlayer.emit('opponentSummoned', summoned);
     } else {
-      this.cast(summoned.logic, id);
+      this.cast(summoned.logic);
     }
   }
 
