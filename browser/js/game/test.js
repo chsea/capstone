@@ -25,6 +25,7 @@ app.config($stateProvider => {
   };
 
   $scope.attack = data => {
+    if (!data.attacker.canAttack) return;
     $scope.player.attack(data);
   };
 

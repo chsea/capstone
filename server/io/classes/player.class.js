@@ -81,9 +81,13 @@ class Player {
     this.hp = this.hp < 0 ? 0 : this.hp;
   }
 
-  healed(amount) {
+  heal(amount) {
     this.hp += amount;
     if (this.hp > 30) this.hp = 30;
+  }
+
+  changeProperty(property, amount) {
+    this[property] += amount;
   }
 }
 

@@ -44,6 +44,12 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
     opponent.healed(patient);
   });
 
+  Socket.on('opponentPropertyChanged', property => {
+    console.log(`Opponent ${property} changed`);
+    console.log(opponent.summonedMinions);
+    opponent.propertyChanged(property);
+  });
+
   Socket.on('opponentDrew', length => {
     console.log(`Drew ${length} cards`);
     let cards = _.fill(Array(length), {});

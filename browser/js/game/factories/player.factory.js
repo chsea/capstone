@@ -79,6 +79,15 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
       $rootScope.$digest();
     }
 
+    propertyChanged(property) {
+      if (!property.id) this[property.property] = property.amount;
+      else {
+        let minion = _.find(this.summonedMinions, m => m.id === property.id);
+        minion.propertyChanged(property);
+      }
+      $rootScope.$digest();
+    }
+
     fatigue() {
       this.hp--;
       $rootScope.$digest();

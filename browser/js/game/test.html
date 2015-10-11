@@ -12,7 +12,7 @@
       <div>{{ opponent.mana }}</div>
     </div>
   </div>
-  <div id="table" ng-drop="true">
+  <div id="table" ng-drop="player.turn">
     <div id="opponent-summoned">
       <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="minion.attackable && player.turn" ng-drop-success="attack({attacker: $data, attackee: minion})"></minion>
     </div>
