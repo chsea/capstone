@@ -8,15 +8,18 @@ app.config($stateProvider => {
     }
   });
 }).controller('PlaySelectDeckController', ($scope, $state, $stateParams, $http, Socket, user) => {
-  $scope.decks = user.decks.filter(deck => deck.game.name == $stateParams.name);
+  $scope.decks = user.decks;
+
   $scope.start = () => {
-    let deck = _.find($scope.decks, {_id: $scope.selectedDeck});
-    Socket.emit('join', user.username, deck.cards);
+    Socket.emit('join', user.username, $scope.selectedDeck.cards);
   };
+
   Socket.on('waitForPlayer', () => {
     $scope.$apply(() => $scope.waiting = true);
   });
+
   Socket.on('gameReady', i => {
-    $state.go('game', {id: i})
+    $state.go('game', {id: i});
   });
+  
 });
