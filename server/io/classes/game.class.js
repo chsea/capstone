@@ -8,6 +8,7 @@ class Game {
     this.state = 'initialCards';
     this.currentPlayer = null;
     this.waitingPlayer = null;
+    this.idx = 30;
 
     this.p1.emit('gameStart', {player: p1.name, opponent: p2.name});
     this.p2.emit('gameStart', {player: p2.name, opponent: p1.name});
@@ -45,7 +46,7 @@ class Game {
     this.waitingPlayer = p;
 
     this.waitingPlayer.wait();
-    this.currentPlayer.startTurn();
+    this.currentPlayer.startTurn(this);
   }
 
   cast(logic) {
@@ -98,7 +99,7 @@ class Game {
   summon(id) {
     let summoned = _.remove(this.currentPlayer.hand, handCard => handCard.id === id)[0];
     if (summoned.type === 'minion') {
-      this.currentPlayer.summon(summoned);
+      this.currentPlayer.summon(summoned, this);
       this.waitingPlayer.emit('opponentSummoned', summoned);
     } else {
       this.cast(summoned.logic);
@@ -113,8 +114,8 @@ class Game {
     else attackee = this.waitingPlayer;
     console.log(`${attacker.name} attacking ${attackee.name}`);
 
-    attacker.attacked(attackee);
-    attackee.wasAttacked(attacker.ap);
+    attacker.attacked(attackee, this);
+    attackee.wasAttacked(attacker.ap, this);
 
     this.currentPlayer.emit('attacked', {id: attackerId, hp: attacker.hp}, {id: attackeeId, hp: attackee.hp});
     if (!attacker.hp) _.remove(this.currentPlayer.summonedMinions, minion => minion.id === attacker.id);

@@ -27,20 +27,34 @@ class Minion extends Card {
     this.ap = card.ap;
     this.canAttack = false;
     this.attackable = true;
+
+    for (let spell in this.logic) {
+      if (logic[spell].target === 'thisMinion') logic[spell].target = this.id;
+    }
   }
 
-  summoned() {
-    if (this.logic.battlecry) return;
+  summoned(game) {
+    if (this.logic.battlecry) game.cast(this.logic.battlecry);
+  }
+  startTurn(game) {
+    if (this.logic.eachTurn) game.cast(this.logic.eachTurn);
   }
 
-  attacked(attackee) {
+  attacked(attackee, game) {
     if (attackee.id) {
       if (this.logic.divineShield && attackee.ap) this.logic.divineShield = false;
       else this.hp -= attackee.ap;
     }
-    this.hp = this.hp < 0 ? 0 : this.hp;
+    if (this.hp > 0 && this.hp < this.initialHp && this.logic.enrage) {
+      game.cast(this.logic.enrage);
+      this.enraged = true;
+    }
+    if (this.hp <= 0) {
+      this.hp = 0;
+      this.death(game);
+    }
   }
-  wasAttacked(amount) {
+  wasAttacked(amount, game) {
     if (this.logic.divineShield) this.logic.divineShield = false;
     else this.hp -= amount;
     this.hp = this.hp < 0 ? 0 : this.hp;
@@ -58,6 +72,10 @@ class Minion extends Card {
     } else {
       this[property] += amount;
     }
+  }
+
+  death(game) {
+    if (this.logic.deathRattle) game.cast(this.logic.deathRattle);
   }
 }
 
