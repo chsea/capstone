@@ -36,7 +36,6 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
     }
 
     summoned(card) {
-      _.remove(this.hand, handCard => handCard.id === card.id);
       let minion = new Minion(card);
 
       this.mana -= card.cost;
@@ -44,10 +43,11 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
       this.checkTaunt();
       $rootScope.$digest();
     }
+
     minionDeath(minion) {
       minion.death();
       _.remove(this.summonedMinions, m => m.id === minion.id);
-      if (minion.logic.taunt) checkTaunt();
+      if (minion.logic.taunt) this.checkTaunt();
     }
 
     attacked(attacker) {
@@ -62,6 +62,15 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
         let minion = _.find(this.summonedMinions, m => m.id === attackee.id);
         minion.wasAttacked(attackee.hp);
         if (!attackee.hp) this.minionDeath(minion);
+      }
+      $rootScope.$digest();
+    }
+
+    healed(patient) {
+      if (!patient.id) this.hp = patient.hp;
+      else {
+        let minion = _.find(this.summonedMinions, m => m.id === patient.id);
+        minion.healed(patient.hp);
       }
       $rootScope.$digest();
     }

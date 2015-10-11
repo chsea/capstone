@@ -21,7 +21,6 @@ app.config($stateProvider => {
   };
 
   $scope.summon = (card, e) => {
-    console.log(card);
     $scope.player.summon(card.id);
   };
 

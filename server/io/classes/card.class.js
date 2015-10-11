@@ -19,12 +19,14 @@ class Minion extends Card {
   constructor(card, id) {
     super(card, id);
     this.type = 'minion';
+    this.initialHp = card.hp;
+    this.initialAp = card.ap;
     this.hp = card.hp;
     this.ap = card.ap;
     this.canAttack = false;
     this.attackable = true;
   }
-  
+
   summoned() {
     if (this.logic.battlecry) return;
   }
@@ -40,6 +42,11 @@ class Minion extends Card {
     if (this.logic.divineShield) this.logic.divineShield = false;
     else this.hp -= attacker.ap;
     this.hp = this.hp < 0 ? 0 : this.hp;
+  }
+
+  healed(amount) {
+    this.hp += amount;
+    if (this.hp > this.initialHp) this.hp = this.initialHp;
   }
 }
 

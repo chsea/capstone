@@ -12,7 +12,6 @@ class Player {
     this.summonedMinions = [];
     this.mana = 0;
     this.turns = 0;
-
   }
 
   emit(socket, ...data) {
@@ -68,19 +67,21 @@ class Player {
     this.emit('wait');
   }
 
-  summon(card) {
-    let summoned = _.remove(this.hand, hCard => hCard.id === card)[0];
-
-    if (summoned.type === 'minion') this.summonedMinions.push(summoned);
-
-    summoned.summoned();
-    this.mana -= summoned.cost;
-    return summoned;
+  summon(minion) {
+    this.summonedMinions.push(minion);
+    minion.summoned();
+    this.mana -= minion.cost;
+    this.emit('summoned', minion);
   }
 
   wasAttacked(attacker) {
     this.hp -= attacker.ap;
     this.hp = this.hp < 0 ? 0 : this.hp;
+  }
+
+  healed(amount) {
+    this.hp += amount;
+    if (this.hp > 30) this.hp = 30;
   }
 }
 

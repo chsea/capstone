@@ -1,11 +1,11 @@
 var CardModel = require('mongoose').model('Card');
 var _ = require('lodash');
 var Promise = require('bluebird');
-var Card = require('./classes/card-class');
+var Card = require('./classes/card.class');
 var Minion = Card.Minion;
 var Spell = Card.Spell;
-var Player = require('./classes/player-class');
-var Game = require('./classes/game-class');
+var Player = require('./classes/player.class');
+var Game = require('./classes/game.class');
 
 let games = [];
 let p1;
@@ -88,10 +88,7 @@ module.exports = (io, socket) => {
     // if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
     // if (card.type === 'spell') return;
     console.log(`${p()} summoning ${card}`);
-
-    let summoned = player().summon(card);
-    player().emit('summoned', summoned);
-    opponent().emit('opponentSummoned', summoned);
+    games[i()].summon(card);
   });
 
   socket.on('attack', (attackerId, attackeeId) => {
