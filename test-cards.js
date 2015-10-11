@@ -256,15 +256,17 @@ var spells = [
     name: "Remove all opponent minions properties",
     cost: 1,
     logic: {
-      changeProperty: {
-        target: {
-          targets: ["opponentMinions"],
-          select: "all"
-        },
-        amount: {
-          all: true
-        },
-        property: 'logic'
+      target: {
+        targets: ["opponentMinions"],
+        select: "all"
+      },
+      spells: {
+        changeProperty: {
+          amount: {
+            all: true
+          },
+          property: 'logic'
+        }
       }
     }
   },
@@ -272,31 +274,35 @@ var spells = [
     name: "give all charge",
     cost: 1,
     logic: {
-      changeProperty: {
-        target: {
-          targets: ["playerMinions"],
-          select: "all"
-        },
-        amount: {
-          property: "charge",
-          amount: true
-        },
-        property: 'logic'
+      target: {
+        targets: ["playerMinions"],
+        select: "all"
+      },
+      spells: {
+        changeProperty: {
+          amount: {
+            property: "charge",
+            amount: true
+          },
+          property: 'logic'
+        }
       }
     }
   },
   {
-    name: "Add 3 ap to random",
+    name: "Add 3 ap to selectable",
     cost: 1,
     logic: {
-      changeProperty: {
-        target: {
-          targets: ["playerMinions"],
-          select: "random",
-          qty: 1
-        },
-        amount: 3,
-        property: 'ap'
+      target: {
+        targets: ["playerMinions"],
+        select: "selectable",
+        qty: 1
+      },
+      spells: {
+        changeProperty: {
+          amount: 3,
+          property: 'ap'
+        }
       }
     }
   }

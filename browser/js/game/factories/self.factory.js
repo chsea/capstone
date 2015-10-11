@@ -76,8 +76,8 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   });
   player.selected = selectee => {
     if (!selectee) selectee = 'opponent';
-    if (selectee.id) selectee = selectee.id;
-    Socket.emit('cast');
+    else if (selectee.id) selectee = selectee.id;
+    Socket.emit('cast', selectee);
   };
   Socket.on('healed', patient => {
     console.log('Healed!');
@@ -94,7 +94,6 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   });
   Socket.on('propertyChanged', property => {
     console.log(`${property} changed`);
-    console.log(player.summonedMinions);
     player.propertyChanged(property);
   });
 

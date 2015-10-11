@@ -25,7 +25,6 @@ app.config($stateProvider => {
   };
 
   $scope.select = data => {
-    if (!data.attacker.canAttack) return;
     if (data.selector) $scope.player.attack({attacker: data.selector, attackee: data.selectee});
     else $scope.player.selected(data.selectee);
   };
