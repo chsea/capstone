@@ -3,7 +3,7 @@
 </section>
 <section ng-hide="waiting">
   <select ng-model="selectedDeck">
-    <option ng-repeat="deck in decks" value="{{deck._id}}">{{deck.name}}</option>
+    <option ng-repeat="deck in decks" value="{{deck}}">{{deck.name}}</option>
   </select>
   <br><br>
   <button class="btn btn-success" ng-click="start()">Start!</button>
