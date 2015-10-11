@@ -1,10 +1,23 @@
-<section ng-show="gameSelected">
-  <h1>{{ selectedGame }}</h1>
+<section id="home">
+  <fullstack-logo></fullstack-logo>
+  <h1 class="text-success"><strong>Windfury</strong><br>
+  	<small ng-hide="gameSelected">Select a game to play</small></h1>
+  
+  <div ng-hide="user" class="text-center top">
+		<section ng-show="gameSelected">
+		  <h1>{{ selectedGame }}</h1>
+		</section>
+		<section ng-hide="gameSelected">
+		  <select ng-model="selectedGame">
+		    <option ng-repeat="game in games" value="{{ game.name }}">{{ game.name }}</option>
+		  </select>
+		  <br><br>
+		  <button ng-click="select()" class="btn btn-primary btn-lg" >Play {{ selectedGame }}!</button>
+		</section>
+		<ui-view />
+  </div>
+
 </section>
-<section ng-hide="gameSelected">
-  <select ng-model="selectedGame">
-    <option ng-repeat="game in games" value="{{ game.name }}">{{ game.name }}</option>
-  </select>
-  <button ng-click="select()">Play {{ selectedGame }}!</button>
-</section>
-<ui-view />
+
+
+
