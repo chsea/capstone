@@ -6,22 +6,40 @@
 Please use the following logic format for spell cards:
 
 logic: {
-  heal: {
-    target: {
-      targets: ["self", "opponent", "playerMinions", "opponentMinions"],
-      select: "all"/"random"/"selectable",
-      //qty: only for random
+  target: {
+    targets: ["self", "opponent", "playerMinions", "opponentMinions"],
+    select: "all"/"random"/"selectable",
+    //qty: only for random
+  },
+  spells {
+    heal: {
+      amount: 2
     },
-    amount: 2
-  }
+    damage: {
+      amount: 3
+    },
+    draw: {
+      amount: 2
+    },
+    changeProperty: {
+      property: 'logic',
+      amount: {
+        property: 'charge',
+        amount: true
+      }  
+    },
+    changeProperty: {
+      property: 'ap',
+      amount: 3
+    }
+  }  
 }
 
-Right now, I only have heal implemented. I plan on also adding "damaage", "chanageProperty", and "draw" abilities tonight hopefully. Other more complicated abilities we'll have to discuss I think.
-
-chanageProperty will also need a "property" property to denote which one you want to change.
+Each key in 'spells' corresponds to a particular spell. Only the four above are built right now. Let's discuss if we want something more complicated.
+changeProperty's amount key also take additional logic of which property to change. If you want to change a card's logic (i.e. give a minion charge), just write set amount to true like above, false if you want to take it away. Additionally, if you want to remove all the properties, just set property to 'all'.
 
 target.targets takes an array of values from the four options above.
 
-target.select takes a string from the three options above. "selectable" is not implemented yet. "all" will apply the spell to all the targets you've selected. "random" all requires an additional target.targets.qty property to denote how many random targets from the targets array to apply the spell to.
+target.select takes a string from the three options above. "all" will apply the spell to all the targets you've selected. "random" all requires an additional target.targets.qty property to denote how many random targets from the targets array to apply the spell to. "selectable" lets you drag the light blue square in the corner to the target you want to select. However, if you try to increase a player's ap, it'll error. :(
 
-I have test-seed.js and test-cards.js setup with a pre-built deck. Use test-seed to test out healing! :) (Also, I've didn't test extensively so I'm sure there's quite a few bugs so let me know if you guys find some!)
+I have test-seed.js and test-cards.js setup with a very simple pre-built deck. Open two sessions and go to /test test out the game! :) (Also, I've not testes extensively so I'm sure there's quite a few bugs so let me know if you guys find some!)
