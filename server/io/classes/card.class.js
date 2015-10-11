@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 class Card {
   constructor(card, id) {
     this.name = card.name;
@@ -44,9 +46,18 @@ class Minion extends Card {
     this.hp = this.hp < 0 ? 0 : this.hp;
   }
 
-  healed(amount) {
+  heal(amount) {
     this.hp += amount;
     if (this.hp > this.initialHp) this.hp = this.initialHp;
+  }
+
+  changeProperty(property, amount) {
+    if (property === 'logic') {
+      if (amount.all) this.logic = {};
+      else this.logic[amount.property] = amount.amount;
+    } else {
+      this[property] += amount;
+    }
   }
 }
 

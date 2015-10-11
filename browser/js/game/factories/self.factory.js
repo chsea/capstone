@@ -82,6 +82,10 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
     console.log(`Drew ${cards.length} cards`);
     player.drew(cards);
   });
+  Socket.on('propertyChanged', property => {
+    console.log(`${property} changed`);
+    player.propertyChanged(property);
+  });
 
   //ending
   Socket.on('win', () => {

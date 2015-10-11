@@ -79,7 +79,7 @@ class Game {
         }
       }
 
-      Spell[spell](targets, spells[spell].amount);
+      Spell[spell](targets, spells[spell].amount, spells[spell].property);
     }
   }
 

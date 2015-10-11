@@ -47,6 +47,10 @@ app.factory('Minion', (Socket, $rootScope) => {
     healed(hp) {
       this.hp = hp;
     }
+
+    propertyChanged(property) {
+      this[property.property] = property.amount;
+    }
   }
 
   return Minion;
