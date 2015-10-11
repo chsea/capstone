@@ -10,13 +10,16 @@ app.factory('Minion', (Socket, $rootScope) => {
       this.ap = minion.ap;
       this.canAttack = false;
       this.attackable = true;
+      this.turns = 1;
 
       if (this.logic.charge) this.canAttack = true;
       if (this.logic.battlecry) return;
     }
 
     startTurn() {
+      this.turns++;
       this.canAttack = true;
+      this.attacked = false;
       if (this.logic.everyTurn) return;
     }
     endTurn() {
@@ -29,14 +32,22 @@ app.factory('Minion', (Socket, $rootScope) => {
       }
       else this.attackable = true;
     }
+    checkCanAttack(prevLogic) {
+      if (!prevLogic.charge && this.logic.charge && this.firstTurn) this.canAttack = true;
+
+      if (!prevLogic.windfury && this.logic.windfury && this.attacked) this.canAttack = true;
+    }
 
     death() {
       if (this.logic.deathRattle) return;
     }
     attacked(hp) {
-      if (this.logic.windfury && this.canAttack !== 'attacked') this.canAttack = 'attacked';
+      if (this.logic.windfury && this.canAttack) {
+        if (this.attacked) this.canAttack = false;
+      }
       else this.canAttack = false;
 
+      this.attacked = true;
       this.hp = hp;
     }
     wasAttacked(hp) {
@@ -49,7 +60,9 @@ app.factory('Minion', (Socket, $rootScope) => {
     }
 
     propertyChanged(property) {
+      let prevLogic = this.logic;
       this[property.property] = property.amount;
+      checkCanAttack(prevLogic);
     }
   }
 

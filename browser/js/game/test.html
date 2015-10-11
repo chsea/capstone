@@ -3,7 +3,7 @@
 <div id="gameboard">
   <div id="opponent">
     <div class="player-info">
-      <player player="opponent" ng-drop="opponent.attackable && player.turn" ng-drop-success="attack({attacker: $data, attackee: null}, $event)"></player>
+      <player player="opponent" ng-drop="player.selecting || opponent.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: null}, $event)"></player>
     </div>
     <div class="hand">
       <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card="card"></blank-card>
@@ -14,15 +14,16 @@
   </div>
   <div id="table" ng-drop="player.turn">
     <div id="opponent-summoned">
-      <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="minion.attackable && player.turn" ng-drop-success="attack({attacker: $data, attackee: minion})"></minion>
+      <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="player.selecting || minion.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
     </div>
     <div id="summoned">
-      <minion ng-repeat="minion in player.summonedMinions" minion="minion" ng-drag-data="minion" ng-drag="minion.canAttack && player.turn"></minion>
+      <minion ng-repeat="minion in player.summonedMinions" minion="minion" ng-drop="player.selecting" ng-drag-data="minion" ng-drag="minion.canAttack && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
     </div>
   </div>
   <div id="player">
     <div class="player-info">
-      <player player="player"></player>
+      <selector ng-drag="player.selecting" ng-drag-data=""></selector>
+      <player player="player" ng-drop="player.selecting" ng-drop-success="select({selector: $data, selectee: 'self')"></player>
     </div>
     <div class="hand">
       <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)"></card>

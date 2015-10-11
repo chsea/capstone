@@ -69,6 +69,16 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   });
 
   //spells
+  Socket.on('selectTarget', () => {
+    player.selecting = true;
+    player.message = "Select a target!";
+    $rootScope.$digest();
+  });
+  player.selected = selectee => {
+    if (!selectee) selectee = 'opponent';
+    if (selectee.id) selectee = selectee.id;
+    Socket.emit('cast');
+  };
   Socket.on('healed', patient => {
     console.log('Healed!');
     player.healed(patient);

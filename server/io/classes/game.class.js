@@ -48,9 +48,9 @@ class Game {
     this.currentPlayer.startTurn();
   }
 
-  cast(spells) {
+  cast(spells, id) {
     for (let spell in spells) {
-      if (spells[spell].target.select === 'selectable') return; //emit 'select'
+      if (spells[spell].target.select === 'selectable') return this.currentPlayer.emit('selectTarget', id);
 
       let selectableTargets = [],
           targets = [];
@@ -68,6 +68,9 @@ class Game {
           case 'opponentMinions':
             this.waitingPlayer.summonedMinions.forEach(minion => selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer, minion: minion}));
             break;
+          default:
+            let minions = this.currentPlayerPlayer.summonedMinions.concat(this.waitinwaitingPlayer.summonedMinions);
+            selectableTargets.push(_.find(minions, minion.id = target));
         }
       });
 
@@ -89,7 +92,7 @@ class Game {
       this.currentPlayer.summon(summoned);
       this.waitingPlayer.emit('opponentSummoned', summoned);
     } else {
-      this.cast(summoned.logic);
+      this.cast(summoned.logic, id);
     }
   }
 

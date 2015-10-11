@@ -24,9 +24,10 @@ app.config($stateProvider => {
     $scope.player.summon(card.id);
   };
 
-  $scope.attack = data => {
+  $scope.select = data => {
     if (!data.attacker.canAttack) return;
-    $scope.player.attack(data);
+    if (data.selector) $scope.player.attack({attacker: data.selector, attackee: data.selectee});
+    else $scope.player.selected(data.selectee);
   };
 
   $scope.endTurn = () => {

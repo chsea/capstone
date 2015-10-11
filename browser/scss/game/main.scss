@@ -5,9 +5,6 @@
   height: 600px;
   padding: 0;
   margin: 0 auto;
-  #player, #opponent {
-    height: 100px;
-  }
   #table {
     content: "";
     height: 400px;
@@ -33,6 +30,7 @@
   #player, #opponent {
     display: flex;
     justify-content: center;
+    height: 100px
   }
   #player {
     align-items: flex-start;
@@ -47,6 +45,8 @@
     }
   }
   .player-info {
+    display: flex;
+    justify-content: flex-end;
     width: 200px;
   }
   .hand {
