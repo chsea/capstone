@@ -19,11 +19,6 @@ app.controller('LandingController', function($scope, user, UserFactory,CardFacto
   $scope.showPack = false;
   $scope.showCards = [];
 
-   $scope.dynamicPopover = {
-    content: 'Hello, World!',
-    title: 'Title'
-  };
-
   $scope.openPack = function(){
     console.log('clicked openpack');
     if (user.packs < 1 ) return;
