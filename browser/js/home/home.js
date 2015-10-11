@@ -18,7 +18,6 @@ app.controller('LandingController', function($scope, user, UserFactory,CardFacto
 
   $scope.showPack = false;
   $scope.showCards = [];
-	$scope.uiRouterState = "home";
 
   $scope.openPack = function(){
     console.log('clicked openpack');
