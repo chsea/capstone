@@ -107,7 +107,7 @@ class Game {
     console.log(`${attacker.name} attacking ${attackee.name}`);
 
     attacker.attacked(attackee);
-    attackee.wasAttacked(attacker);
+    attackee.wasAttacked(attacker.ap);
 
     this.currentPlayer.emit('attacked', {id: attackerId, hp: attacker.hp}, {id: attackeeId, hp: attackee.hp});
     if (!attacker.hp) _.remove(this.currentPlayer.summonedMinions, minion => minion.id === attacker.id);

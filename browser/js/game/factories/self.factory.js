@@ -72,6 +72,15 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
     console.log('Healed!');
     player.healed(patient);
   });
+  //different animations for spell dmg vs minion attacking?
+  Socket.on('damaged', attackee => {
+    console.log('Was damaged!');
+    player.wasAttacked(attackee);
+  });
+  Socket.on('drew', cards => {
+    console.log(`Drew ${cards.length} cards`);
+    player.drew(cards);
+  });
 
   //ending
   Socket.on('win', () => {

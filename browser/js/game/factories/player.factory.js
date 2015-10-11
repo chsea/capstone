@@ -10,14 +10,19 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
       this.attackable = true;
     }
 
+    drew(cards) {
+      cards.forEach(card => {
+        this.hand.push(card);
+      });
+    }
+
     startTurn(card) {
       this.turns++;
       this.turn = true;
       this.mana = this.turns > 10 ? 10 : this.turns;
-      if (card) this.hand.push(card);
-      else this.hp--;
       this.summonedMinions.forEach(minion => minion.startTurn());
-      $rootScope.$digest();
+      if (card) this.drew([card]);
+      else this.fatigue();
     }
     opponentTurn() {
       this.checkTaunt();
@@ -72,6 +77,11 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
         let minion = _.find(this.summonedMinions, m => m.id === patient.id);
         minion.healed(patient.hp);
       }
+      $rootScope.$digest();
+    }
+
+    fatigue() {
+      this.hp--;
       $rootScope.$digest();
     }
   }

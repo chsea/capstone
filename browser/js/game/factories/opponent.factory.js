@@ -29,17 +29,25 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
 
   //attacking
   Socket.on('attacked', (attacker, attackee) => {
-    console.log('Opponent attacked!');
     opponent.wasAttacked(attackee);
   });
   Socket.on('wasAttacked', (attacker, attackee) => {
-    console.log('Opponent was attacked!');
     opponent.attacked(attacker);
+  });
+  Socket.on('opponentDamaged', attackee => {
+    console.log('Opponent was damaged!');
+    opponent.wasAttacked(attackee);
   });
 
   Socket.on('opponentHealed', patient => {
     console.log('Opponent healed!');
     opponent.healed(patient);
+  });
+
+  Socket.on('opponentDrew', length => {
+    console.log(`Drew ${cards.length} cards`);
+    let cards = Array.new(length).map(i => {});
+    opponent.drew();
   });
 
   return opponent;
