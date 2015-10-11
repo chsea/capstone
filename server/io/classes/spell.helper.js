@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 const heal = (targets, amount) => {
   targets.forEach(target => {
     let patient = target.minion ? target.minion : target.player;
@@ -37,5 +39,6 @@ const draw = (targets, amount) => {
 
 module.exports = {
   heal: heal,
-  damage: damage
+  damage: damage,
+  draw: draw
 };

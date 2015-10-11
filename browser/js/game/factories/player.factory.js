@@ -13,6 +13,7 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
     drew(cards) {
       cards.forEach(card => {
         this.hand.push(card);
+        $rootScope.$digest();
       });
     }
 
@@ -42,8 +43,6 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
 
     summoned(card) {
       let minion = new Minion(card);
-
-      this.mana -= card.cost;
       this.summonedMinions.push(minion);
       this.checkTaunt();
       $rootScope.$digest();

@@ -45,9 +45,9 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
   });
 
   Socket.on('opponentDrew', length => {
-    console.log(`Drew ${cards.length} cards`);
-    let cards = Array.new(length).map(i => {});
-    opponent.drew();
+    console.log(`Drew ${length} cards`);
+    let cards = _.fill(Array(length), {});
+    opponent.drew(cards);
   });
 
   return opponent;

@@ -13,13 +13,8 @@ class Game {
     this.p2.emit('gameStart', {player: p2.name, opponent: p1.name});
     //testing only
     this.setFirstPlayer();
-    this.waitingPlayer.draw();
-    this.waitingPlayer.draw();
-    this.waitingPlayer.draw();
-    this.waitingPlayer.draw();
-    this.currentPlayer.draw();
-    this.currentPlayer.draw();
-    this.currentPlayer.draw();
+    this.waitingPlayer.draw(4);
+    this.currentPlayer.draw(3);
     this.p1.emit('setInitialHand', this.p1.hand, this.p1.socket.turn);
     this.p2.emit('setInitialHand', this.p2.hand, this.p2.socket.turn);
     this.startPlaying();

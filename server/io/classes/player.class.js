@@ -25,10 +25,8 @@ class Player {
   draw(amount) {
     amount = amount || 1;
     let cards = [];
-    for (let i = 0; i < amount; i++) {
-      cards.push(this.deck.pop());
-    }
-    this.hand.concat(cards);
+    while (cards.length < amount) cards.push(this.deck.pop());
+    this.hand = this.hand.concat(cards);
     return cards;
   }
 
@@ -78,8 +76,8 @@ class Player {
     this.emit('summoned', minion);
   }
 
-  wasAttacked(attacker) {
-    this.hp -= attacker.ap;
+  wasAttacked(amount) {
+    this.hp -= amount;
     this.hp = this.hp < 0 ? 0 : this.hp;
   }
 

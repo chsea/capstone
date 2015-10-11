@@ -45,7 +45,8 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
 
   //summoning
   player.summon = id => {
-    _.remove(player.hand, card => card.id === id);
+    let card = _.remove(player.hand, card => card.id === id)[0];
+    player.mana -= card.cost;
     Socket.emit('summon', id);
   };
   Socket.on('summoned', card => {
