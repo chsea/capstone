@@ -7,9 +7,6 @@ app.config(function ($stateProvider) {
 				user: function(AuthService) {
 					return AuthService.getLoggedInUser();
 				}
-			},
-			data: {
-				authenticate: true
 			}
     });
 });
@@ -18,6 +15,8 @@ app.controller('LandingController', function($scope, user, UserFactory,CardFacto
 
   $scope.showPack = false;
   $scope.showCards = [];
+
+  console.log(user);
 
   $scope.openPack = function(){
     console.log('clicked openpack');
@@ -46,18 +45,22 @@ app.controller('LandingController', function($scope, user, UserFactory,CardFacto
   $scope.options = [{
     name: 'Play Now',
     sref: 'play'
-  }, {
-    name: 'Manage Deck',
+  }, 
+  {
+    name: 'My Collections',
     sref: 'manageDeck'
-  }, {
-    name: 'Join Game',
-    sref: 'joinGame'
-  }, {
-    name: 'Create Game',
-    sref: 'joinGame'
+  },
+  // {
+  //   name: 'Join Game',
+  //   sref: 'joinGame'
+  // },
+  // {
+  //   name: 'Create Game',
+  //   sref: 'joinGame'
 
-  }, {
-    name: 'Settings',
+  // },
+  {
+    name: 'User Settings',
     sref: 'settings'
   }];
 

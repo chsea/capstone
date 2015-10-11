@@ -7,8 +7,13 @@ app.config($stateProvider => {
       user: AuthService => AuthService.getLoggedInUser()
     }
   });
-}).controller('PlayController', ($scope, $state, user) => {
-  if (!user) $scope.notLoggedIn = true;
+});
+
+app.controller('PlayController', ($scope, $state, user) => {
+  $scope.isLoggedIn = true;
+  if (!user) {
+    $scope.isLoggedIn = false;
+  }
   $scope.games = user.games;
   $scope.select = () => {
     $scope.gameSelected = true;

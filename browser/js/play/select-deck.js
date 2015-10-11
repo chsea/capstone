@@ -3,9 +3,15 @@ app.config($stateProvider => {
     url: '/:name/select-deck',
     templateUrl: 'js/play/select-deck.html',
     controller: 'PlaySelectDeckController',
+    resolve: {
+      user: AuthService => AuthService.getLoggedInUser()
+    }
   });
 }).controller('PlaySelectDeckController', ($scope, $state, $stateParams, $http, Socket, user) => {
-  if (!user) $scope.notLoggedIn = true;
+  $scope.isLoggedIn = true;
+  if (!user) {
+    $scope.isLoggedIn = false;
+  }
   $scope.decks = user.decks.filter(deck => deck.game.name == $stateParams.name);
   $scope.start = () => {
     let deck = _.find($scope.decks, {_id: $scope.selectedDeck});

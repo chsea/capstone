@@ -1,14 +1,14 @@
-<h1>{{user.username}}'s Profile Page</h1>
+<h1 class="text-center top text-success"><strong>{{user.username}}'s Profile Page</strong></h1>
 <hr>
 <div class="container">
     <div class="row">
-  		<div class="col-sm-10"><img class="img-responsive" ng-src="{{user.photo}}"></div>
+  		<div class="col-sm-2"><img class="img-responsive" style="border-radius: 50%;" ng-src="{{user.photo}}"></div>
     </div>
     <div class="row">
-  		<div class="col-sm-3"><!--left col-->
+  		<div class="col-sm-2"><!--left col-->
                          
 	      <div class="panel panel-default">
-	        <div class="panel-heading">{{user.username}}'s Info <i class="fa fa-link fa-1x"></i></div>
+	        <div class="panel-heading">{{user.username}}'s Stats <i class="fa fa-link fa-1x"></i></div>
 	        <div class="panel-body">
 	        <ul class="list-group">
 	        <li class="list-group-item text-right"><span class="pull-left"><strong>Experience</strong></span>{{user.experience}}</li>
