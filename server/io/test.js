@@ -132,6 +132,7 @@ module.exports = (io, socket) => {
 
   socket.on('disconnect', () => {
     games = [];
+    p1 = null;
   });
 
   return socket;
