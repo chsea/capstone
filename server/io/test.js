@@ -88,7 +88,10 @@ module.exports = (io, socket) => {
     // if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
     // if (card.type === 'spell') return;
     console.log(`${p()} summoning ${card}`);
-    games[i()].summon(card);
+    var player = games[i()];
+    if (player) {
+      player.summon(card);
+    }
   });
 
   socket.on('cast', target => {
@@ -125,6 +128,7 @@ module.exports = (io, socket) => {
     // createdGames[i()] = undefined;
     socket.game = undefined;
     socket.p1 = undefined;
+    socket.getSocket().removeAllListeners();
   });
 
   socket.on('disconnect', () => {
