@@ -4,7 +4,17 @@ var spells = [
 
   {
     name: 'Tech Boom',
-    logic:['HealAllP6'],
+    logic: {
+      target: {
+        targets: ["self", "playerMinions"],
+        select: 'all'
+      },
+      spells: {
+        heal: {
+          amount: 6
+        }
+      }
+    },
     description: 'A tech boom is in town! Heal yourself and your minions by 6',
     rarity: 2,
     cost: 8,
@@ -13,17 +23,40 @@ var spells = [
     stardustCost: 12
   }, {
     name: 'Nasdaq Crash',
-    logic: ['DamageOCO6'],
+    logic: {
+      target: {
+        targets: ['opponentMinions, opponent'],
+        select: "selectable"
+      },
+      spells: {
+        damage: {
+          amount: 6
+        }
+      }
+    },
     description: 'Tech companies are crashing! deal 6 damage to your opponent and his minions',
     rarity: 1,
     cost: 6,
     portait: 'awesome',
     category: 'super',
     stardustCost: 32
-
   }, {
     name: 'Agile Methodology',
-    logic: ['AlterPCWindfuryAll'],
+    logic: {
+      target: {
+        targets: ['playerMinions'],
+        select: "selectable"
+      },
+      spells: {
+        changeProperty: {
+          property: 'logic',
+          amount: {
+            property: 'windfury',
+            amount: true
+          }
+        }
+      }
+    },
     description: 'It\'s all about the burn-down chart! Units can attack twice this turn',
     rarity: 2,
     cost: 7,
@@ -32,8 +65,18 @@ var spells = [
     stardustCost: 53
   }, {
     name: 'Down Round',
-    logic: ['DamageO5'],
-    description: 'Things aren\'t going so well. Lower your opponents valuation by 15%',
+    logic: {
+      target: {
+        targets: ['opponent'],
+        select: "selectable"
+      },
+      spells: {
+        damage: {
+          amount: 8
+        }
+      }
+    },
+    description: 'Things aren\'t going so well. Lower your opponents valuation by 8',
     rarity: 1,
     cost: 4,
     portait: 'awesome',
@@ -41,8 +84,17 @@ var spells = [
     stardustCost: 17
   }, {
     name: 'Consultant',
-    logic: [],
-    description: 'Need some outside help. For the next three turns there are 2 more minions on the field',
+    logic: {
+      target: {
+        targets: ['opponentMinions, opponent'],
+        select: "selectable"
+      },
+      spells: {
+        summon: {}
+      }
+
+    },
+    description: 'Need some outside help. Summon two 1/2 consultants with tautnt',
     rarity: 1,
     cost: 3,
     portait: 'awesome',
@@ -50,7 +102,19 @@ var spells = [
     stardustCost: 37
   }, {
     name: 'IPO',
-    logic: ['AlterPCAll3AP3HP'],
+    logic: {
+      target: {
+        targets: ['playerMinions'],
+        select: "all"
+      },
+      spells: {
+        changeProperty: {
+          property: 'ap',
+          amount: 3
+        }
+      }
+
+    },
     description: 'Lets get rich (on paper)! Increases valuation and unit health and attack by 3 for next three turns',
     rarity: 2,
     cost: 8,
@@ -59,26 +123,58 @@ var spells = [
     stardustCost: 37
   }, {
     name: 'On Ramp',
-    logic: [],
-    description: 'Acquaint an employee with your startup, increasing their attack.',
+    logic: {
+      target: {
+        targets: ['Player Minions'],
+        select: "selectable"
+      },
+      spells: {
+        changeProperty: {
+          property: 'ap',
+          amount: 3
+        }
+      }
+    },
+    description: 'Acquaint an employee with your startup, increasing their attack 3 .',
     rarity: 1,
-    cost: 6,
+    cost: 2,
     portait: 'awesome',
     category: 'super',
     stardustCost: 32
 
   }, {
     name: 'Unicorn',
-    logic: [],
+    logic: {
+      target: {
+        targets: ['self'],
+        select: "selectable"
+      },
+      spells: {
+        changeProperty: {
+          property: 'attackable',
+          amount: 'invulnerable'
+        }
+      }
+
+    },
     description: 'Valuation becomes so high that you become invulnerable for two turns',
     rarity: 3,
-    cost: 10,
+    cost: 8,
     portait: 'awesome',
     category: 'super',
     stardustCost: 34
   }, {
     name: 'Poach Employee',
-    logic: [],
+    logic: {
+      target: {
+        targets: ['opponentMinions'],
+        select: "selectable"
+      },
+      spells: {
+
+      }
+
+    },
     description: 'Take control of one of your opponent\'s units',
     rarity: 1,
     cost: 8,
@@ -88,7 +184,15 @@ var spells = [
 
   }, {
     name: 'Copy Idea',
-    logic: [],
+    logic: {
+      target: {
+        targets: ['opponentMinions, opponent'],
+        select: "selectable"
+      },
+      spells: {
+
+      }
+    },
     description: 'Copy your opponent\'s idea, allowing you to use their startup power for the next three turns',
     rarity: 1,
     cost: 3,
@@ -97,16 +201,36 @@ var spells = [
     stardustCost: 12
   }, {
     name: 'Rid Technical Debt',
-    logic: [],
-    description: 'For every other turn that has passed, draw cards ',
+    logic: {
+      target: {
+        targets: ['opponentMinions, opponent'],
+        select: "selectable"
+      },
+      spells: {
+        draw: {
+          amount: 3
+        }
+      }
+    },
+    description: 'draw 3 cards',
     rarity: 2,
-    cost: 6,
+    cost: 5,
     portait: 'awesome',
     category: 'super',
     stardustCost: 27
   }, {
     name: 'Gone Viral',
-    logic: [],
+    logic: {
+      target: {
+        targets: ['playerMinions'],
+        select: "selectable"
+      },
+      spells: {
+        heal: {
+          amount: 10
+        }
+      }
+    },
     description: 'Heal 10, but your units are exhausted and can\'t attack this turn ',
     rarity: 1,
     cost: 6,
@@ -115,7 +239,15 @@ var spells = [
     stardustCost: 25
   }, {
     name: 'Angel Round',
-    logic: [],
+    logic: {
+      target: {
+        targets: ['opponentMinions, opponent'],
+        select: "selectable"
+      },
+      spells: {
+
+      }
+    },
     description: 'Get a chance! If a unit takes damage that would kill it, bring it back to life',
     rarity: 2,
     cost: 6,
@@ -123,7 +255,21 @@ var spells = [
     category: 'super',
   }, {
     name: 'Rapid Iteration',
-    logic: [],
+    logic: {
+      target: {
+        targets: ['playerMinions'],
+        select: "selectable"
+      },
+      spells: {
+        changeProperty: {
+          property: 'logic',
+          amount: {
+            property: 'windfury',
+            amount: true
+          }
+        }
+      }
+    },
     description: 'Fail fast, fail often. Give unit Agile',
     rarity: 1,
     cost: 5,
@@ -137,7 +283,7 @@ var spells = [
 var minions = [{
   name: 'David Yang',
   logic: {
-    battlecry:[]
+    battlecry: []
   },
   description: 'A Legendary Co-Founder. Inspiration: Summon a Fullstack Graduate; summon 3 if Nimit is present',
   rarity: 3,
@@ -150,7 +296,7 @@ var minions = [{
 }, {
   name: 'Nimit Maaru',
   logic: {
-    battlecry:[]
+    battlecry: []
   },
   description: 'A Legendary Co-Founder. Inspiration: Summon a Fullstack Graduate; 3 if Daid is present',
   rarity: 3,
@@ -163,7 +309,7 @@ var minions = [{
 }, {
   name: 'Mark Zuckerburg',
   logic: {
-    battlecry:[]
+    battlecry: []
   },
   description: 'The Legendary CEO-Founder. Inspiration: double all technical units\' attack',
   rarity: 3,
@@ -176,7 +322,7 @@ var minions = [{
 }, {
   name: 'Fullstack Graduate',
   logic: {
-    eachTurn:[]
+
   },
   description: 'A well-trained Engineer. Gains +1 attack and strength for each other Fullstack graduate, gains +2 with Nimit or David',
   rarity: 2,
@@ -189,9 +335,9 @@ var minions = [{
 }, {
   name: 'Junior Front-End Engineer',
   logic: {
-    eachTurn:[]
+    eachTurn: []
   },
-  description: 'Learning the ropes, will become a senior in three turns',
+  description: 'Learning the ropes. Will become a senior in three turns',
   rarity: 0,
   hp: 2,
   ap: 4,
@@ -204,7 +350,7 @@ var minions = [{
   logic: {
 
   },
-  description: 'Learning the ropes, will become a senior in three turns',
+  description: 'Learning the ropes. Will become a senior in three turns',
   rarity: 0,
   hp: 4,
   ap: 2,
@@ -215,7 +361,7 @@ var minions = [{
 }, {
   name: 'Senior Front end Engineer',
   logic: {
-    windfury:true
+    windfury: true
   },
   description: 'Experienced front end engineer with agile',
   rarity: 1,
@@ -228,7 +374,7 @@ var minions = [{
 }, {
   name: 'Senior Back end Engineer',
   logic: {
-    taunt:true
+    taunt: true
   },
   description: 'Experienced back end engineer with taunt',
   rarity: 1,
@@ -252,10 +398,16 @@ var minions = [{
 }, {
   name: 'Andreessen Horowitz',
   logic: {
-    eachTurn: ['HealP6'],
-    deathRattle: ['HealP6']
-
-
+    eachTurn: {
+      target: {
+        targets: ["self"]
+      },
+      spells: {
+        heal: {
+          amount: 5
+        }
+      }
+    },
   },
   description: 'Legendary VC. Restore 5 to your startup each turn',
   rarity: 3,
@@ -268,7 +420,7 @@ var minions = [{
 }, {
   name: 'Fast mover',
   logic: {
-    charge:true
+    charge: true
   },
   description: 'A unit that gets things done. Can attack on the turn it is summoned ',
   rarity: 1,
@@ -281,7 +433,7 @@ var minions = [{
 }, {
   name: 'AWS Ninja',
   logic: {
-    eachTurn:[]
+    eachTurn: []
   },
   description: 'Uses AWS infrastructure to make everything more effecient. Decrease cost of everything by 1',
   rarity: 2,
@@ -294,7 +446,7 @@ var minions = [{
 }, {
   name: 'Fortran Engineer',
   logic: {
-    charge:true
+    charge: true
   },
   description: 'These guys are still around?',
   rarity: 0,
@@ -307,7 +459,7 @@ var minions = [{
 }, {
   name: 'Customer Support',
   logic: {
-    windfury:true
+    windfury: true
   },
   description: 'An employee that\'s always looking out for your customers. Windfury ',
   rarity: 0,
@@ -320,7 +472,7 @@ var minions = [{
 }, {
   name: 'Slacker',
   logic: {
-    taunt:true
+    taunt: true
   },
   description: 'Can\'t live with them, can\'t live without them. Taunt ',
   rarity: 0,
@@ -330,10 +482,10 @@ var minions = [{
   portait: 'awesome',
   category: 'super',
   stardustCost: 13
-},{
+}, {
   name: 'SteadFast employee',
   logic: {
-    divineShield:true
+    divineShield: true
   },
   description: 'An employee who has been around for a while. Divineshield',
   rarity: 0,
@@ -359,7 +511,7 @@ var minions = [{
   logic: {
 
   },
-  description: 'A generic CEO who isn\'t always the right fit. Powerful alone, weak in teams',
+  description: 'A generic CEO who isn\'t always the right fit. Powerful alone, weak in teams, loses 1/1 for every other minion on the field',
   rarity: 1,
   hp: 6,
   ap: 6,
@@ -404,12 +556,12 @@ var damageEffects = [{
     target: ['opponent'],
     quantity: 1,
     baseAmount: 4
-  },{
+  }, {
     name: 'DamageO5',
     target: ['opponent'],
     quantity: 1,
     baseAmount: 5
-  },  {
+  }, {
     name: 'DamageOC1',
     target: ['opponentCard'],
     quantity: 1,
@@ -449,17 +601,17 @@ var damageEffects = [{
     target: ['opponentCard', 'opponent'],
     quantity: 10,
     baseAmount: 4
-  },{
+  }, {
     name: 'DamageOCO6',
     target: ['opponentCard', 'opponent'],
     quantity: 10,
     baseAmount: 6
-  },  {
+  }, {
     name: 'DamageAOEOC1',
     target: ['opponentCard'],
     quantity: 10,
     baseAmount: 1
-  },{
+  }, {
     name: 'DamageAOEOC2',
     target: ['opponentCard'],
     quantity: 10,
@@ -494,7 +646,7 @@ var healEffects = [{
     target: ['player'],
     quantity: 1,
     baseAmount: 5
-  },{
+  }, {
     name: 'HealP6',
     target: ['player'],
     quantity: 1,
@@ -622,7 +774,7 @@ var alterPropertyEffects = [{
     ap: 0,
     cost: 3,
 
-  },{
+  }, {
     name: 'AlterPCCWindfury1',
     target: ['playerCard'],
     quantity: 1,
@@ -630,20 +782,20 @@ var alterPropertyEffects = [{
     ap: 0,
     cost: 0,
     logic: {
-      windfury:true
+      windfury: true
     }
 
-  },{
+  }, {
     name: 'AlterPCWindfuryAll',
     target: ['playerCard'],
     quantity: 10,
     hp: 0,
     ap: 0,
     cost: 0,
-    logic:{
-      windfury:true
+    logic: {
+      windfury: true
     }
-  },{
+  }, {
     name: 'AlterPInvulernable',
     target: ['playerCard'],
     quantity: 1,
@@ -651,7 +803,7 @@ var alterPropertyEffects = [{
     ap: 0,
     cost: 0,
     logic: {
-      windfury:true
+      windfury: true
     }
 
   }
