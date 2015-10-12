@@ -21,6 +21,15 @@ logic: {
     draw: {
       amount: 2
     },
+    summon: {
+      amount: {
+        minion: {
+          name: "hi",
+          ap: 1,
+          hp, 2
+        }
+      }
+    },
     changeProperty: {
       property: 'logic',
       amount: {

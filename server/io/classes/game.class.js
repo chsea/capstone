@@ -105,7 +105,7 @@ class Game {
       this.waitingPlayer.emit('opponentSummoned', summoned);
     } else if (summoned) {
       this.cast(summoned.logic);
-    } 
+    }
   }
 
   attack(attackerId, attackeeId) {

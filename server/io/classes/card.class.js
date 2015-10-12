@@ -20,6 +20,7 @@ class Spell extends Card {
 class Minion extends Card {
   constructor(card, id) {
     super(card, id);
+    this.logic = this.logic.toJSON();
     this.type = 'minion';
     this.initialHp = card.hp;
     this.initialAp = card.ap;
@@ -28,10 +29,8 @@ class Minion extends Card {
     this.canAttack = false;
     this.attackable = true;
 
-    let logic = this.logic.toJSON();
-    console.log('log', logic);
-    for (var x in logic) {
-      if(logic.hasOwnProperty(logic)) console.log('x', x);
+    for (var spell in this.logic) {
+      if (this.logic[spell].target && this.logic[spell].target.targets[0] === 'thisMinion') this.logic[spell].target.targets[0] = this.id;
     }
   }
 

@@ -65,7 +65,6 @@ module.exports = (io, socket) => {
   });
 
   socket.on('rejectCards', rejectedCards => {
-    console.log(socket.turn);
     if (!socket.game || games[i()].state !== 'initialCards') return;
 
     player().setInitialHand(rejectedCards);
@@ -80,7 +79,9 @@ module.exports = (io, socket) => {
     }
   });
   socket.on('initialHandSet', () => {
+    console.log('yes');
     if (games[i()].state != 'setInitialHand') return;
+    console.log('go');
     games[i()].startPlaying();
   });
 
@@ -128,14 +129,12 @@ module.exports = (io, socket) => {
     // createdGames[i()] = undefined;
     socket.game = undefined;
     socket.p1 = undefined;
-    debugger;
     socket.removeAllListeners();
     console.log("made it past removeAllListeners");
   });
 
   socket.on('disconnect', () => {
     games = [];
-    p1 = null;
   });
 
   return socket;
