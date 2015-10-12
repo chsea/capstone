@@ -23,7 +23,7 @@ var User = Promise.promisifyAll(mongoose.model('User'));
 var Minion = Promise.promisifyAll(mongoose.model('Minion'));
 var Spell = Promise.promisifyAll(mongoose.model('Spell'));
 var Card = Promise.promisifyAll(mongoose.model('Card'));
-var Deck = Promise.promisifyAll(mongoose.model('Deck'))
+var Deck = Promise.promisifyAll(mongoose.model('Deck'));
 var Damage = Promise.promisifyAll(mongoose.model('Damage'));
 var Heal = Promise.promisifyAll(mongoose.model('Heal'));
 var Alter = Promise.promisifyAll(mongoose.model('Alter'));
@@ -39,9 +39,9 @@ var spellNames = ["Astral Communion", "Bite", "Claw", "Dark Wispers", "Force of 
 var category = ["transportation", "education", "communication", "sharing economy"];
 var spells = require('./cards.js').spells;
 var minions = require('./cards.js').minions;
-var alter = require('./cards.js').alter
-var damage = require('./cards.js').damage
-var heal = require('./cards.js').heal
+var alter = require('./cards.js').alter;
+var damage = require('./cards.js').damage;
+var heal = require('./cards.js').heal;
 
 // var allCards = spells.concat(minions)
 // var allCardIds =[]
@@ -134,9 +134,9 @@ function seedDeck() {
   var nouns = ['deck', 'assortment of cards', 'selection'];
 
   for (var i = 0; i < 20; i++) {
-    var types = ['airbnb', 'uber', 'snapchat', 'pinterest', 'fullstack', 'slack', 'coinbase']
+    var types = ['airbnb', 'uber', 'snapchat', 'pinterest', 'fullstack', 'slack', 'coinbase'];
     var deck = {};
-    deck.type = _.sample(types)
+    deck.type = _.sample(types);
     deck.name = names[Math.floor(Math.random() * names.length)] + ' ' + adjectives[Math.floor(Math.random() * adjectives.length)] + ' ' + nouns[Math.floor(Math.random() * nouns.length)];
     deck.cards = [];
     for (var j = 0; j < 30; j++) {
@@ -167,20 +167,22 @@ function seedMinions() {
   // }
 
 
-  var abilities = ['eachTurn', 'battlecry', 'deathRattle', 'enrage']
+  var abilities = ['eachTurn', 'battlecry', 'deathRattle', 'enrage'];
 
 
-  minions.forEach(function(minion) {
-      if (_.has(minion.logic, 'eachTurn') || _.has(minion.logic, 'battlecry') || _.has(minion.logic, 'deathRattle') || _.has(minion.logic, 'enrage')) {
-        for (var k in minion.logic) {
-          minion.logic[k].forEach(function(effect, index) {
-            minion.logic[k][index] = _.where(tempData.effects, {
-              name: minion.logic[k][index]
-            }, '_id')[index]
-          })
-        }
-      }
-    })
+  // minions.forEach(function(minion) {
+
+
+    //   if (_.has(minion.logic, 'eachTurn') || _.has(minion.logic, 'battlecry') || _.has(minion.logic, 'deathRattle') || _.has(minion.logic, 'enrage')) {
+    //     for (var k in minion.logic) {
+    //       minion.logic[k].forEach(function(effect, index) {
+    //         minion.logic[k][index] = _.where(tempData.effects, {
+    //           name: minion.logic[k][index]
+    //         }, '_id')[index];
+    //       });
+    //     }
+    //   }
+    // });
     // user.logic = _.where(tempData.effects, {
     //     name: spell.logic[0]
     //   }, '_id')[0]
@@ -202,38 +204,37 @@ function seedSpells() {
   //   obj.portrait = "http://thecatapi.com/api/images/get?format=src&type=gif";
   //   spells.push(obj);
   // }
-  var effectIds = _.map(
-    tempData.effects,
-    function(thing) {
-      return {
-        name: thing.name,
-        _id: thing._id
-      };
-    });
+  // var effectIds = _.map(
+  //   tempData.effects,
+  //   function(thing) {
+  //     return {
+  //       name: thing.name,
+  //       _id: thing._id
+  //     };
+  //   });
 
-  spells.forEach(function(spell) {
-    if (spell.logic.length > 0) {
+  // spells.forEach(function(spell) {
+  //   if (spell.logic.length > 0) {
+  //
+  //     spell.logic = _.where(tempData.effects, {
+  //       name: spell.logic[0]
+  //     }, '_id')[0];
+  //   }
+  // });
 
-      spell.logic = _.where(tempData.effects, {
-        name: spell.logic[0]
-      }, '_id')[0]
-    }
-  })
-
-  console.log(spells)
   return Spell.createAsync(spells);
 }
 
 function seedAlter() {
-  return Alter.createAsync(alter)
+  return Alter.createAsync(alter);
 }
 
 function seedDamage() {
-  return Damage.createAsync(damage)
+  return Damage.createAsync(damage);
 }
 
 function seedHeal() {
-  return Heal.createAsync(heal)
+  return Heal.createAsync(heal);
 }
 
 
@@ -241,15 +242,21 @@ function seedHeal() {
 
 
 function seedGames() {
+  var users =[];
+  tempData.users.forEach(function(user){
+    users.push({
+      id:user._id, isAdmin: false
+    });
+  });
   var games = [{
-    name: 'Startup',
+    name: 'Windfury',
     cards: tempData.cards.map(function(card) {
       return card._id;
     }),
     decks: tempData.decks.map(function(deck) {
       return deck._id;
     }),
-    creators: [tempData.users[0]._id]
+    users: users
   }];
 
   return Game.createAsync(games);
@@ -271,19 +278,19 @@ connectToDb.then(function() {
     .then(function() {
       return seedHeal();
     }).then(function(heals) {
-      tempData.effects = heals
+      tempData.effects = heals;
       return seedAlter();
     }).then(function(alters) {
-      tempData.effects = tempData.effects.concat(alters)
+      tempData.effects = tempData.effects.concat(alters);
       return seedDamage();
     }).then(function(damages) {
-      tempData.effects = tempData.effects.concat(damages)
+      tempData.effects = tempData.effects.concat(damages);
       return seedMinions();
     }).then(function(minions) {
       tempData.cards = minions;
-      // return seedSpells();
-      // }).then(function(spells) {
-      // tempData.cards = tempData.cards.concat(spells);
+      return seedSpells();
+      }).then(function(spells) {
+      tempData.cards = tempData.cards.concat(spells);
       return seedDeck();
     }).then(function(decks) {
       tempData.decks = decks;
