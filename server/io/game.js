@@ -22,6 +22,7 @@ module.exports = (io, socket, createdGames) => {
     if (!games[i()]) return games[i()] = true;
 
     let game = createdGames[i()];
+    console.log(game);
     let decks = [CardModel.find({_id: {$in: game.p1.deck}}).exec(), CardModel.find({_id: {$in: game.p2.deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
       let id = 0;
@@ -29,8 +30,8 @@ module.exports = (io, socket, createdGames) => {
         return deck.map(card => card.type === 'Minion' ? new Minion(card, id++) : new Spell(card, id++));
       });
 
-      let player1 = new Player(p1.name, decks[0], p1.socket);
-      let player2 = new Player(name, decks[1], socket);
+      let player1 = new Player(game.p1.name, decks[0], game.p1.socket);
+      let player2 = new Player(game.p2.name, decks[1], game.p2.socket);
       player1.shuffle();
       player2.shuffle();
       games[i()] = new Game(player1, player2);
@@ -56,7 +57,6 @@ module.exports = (io, socket, createdGames) => {
   });
 
   socket.on('rejectCards', rejectedCards => {
-    console.log(socket.turn);
     if (!socket.game || games[i()].state !== 'initialCards') return;
 
     player().setInitialHand(rejectedCards);
@@ -79,8 +79,19 @@ module.exports = (io, socket, createdGames) => {
     // if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
     // if (card.type === 'spell') return;
     console.log(`${p()} summoning ${card}`);
+    games[i()].summon(card);
+  });
 
-    game[i()].summon(card);
+  socket.on('cast', target => {
+    console.log('selecting', target);
+    let logic = {
+      target: {
+        targets: [target],
+        select: 'all'
+      },
+      spells: games[i()].decidingSpell
+    };
+    games[i()].cast(logic);
   });
 
   socket.on('attack', (attackerId, attackeeId) => {

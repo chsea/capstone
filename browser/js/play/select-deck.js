@@ -11,6 +11,8 @@ app.config($stateProvider => {
   $scope.decks = user.decks;
 
   $scope.start = () => {
+    console.log(typeof $scope.selectedDeck);
+    console.log($scope.selectedDeck.cards);
     Socket.emit('join', user.username, $scope.selectedDeck.cards);
   };
 
@@ -21,5 +23,5 @@ app.config($stateProvider => {
   Socket.on('gameReady', i => {
     $state.go('game', {id: i});
   });
-  
+
 });
