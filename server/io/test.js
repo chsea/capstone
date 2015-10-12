@@ -125,6 +125,7 @@ module.exports = (io, socket) => {
     // createdGames[i()] = undefined;
     socket.game = undefined;
     socket.p1 = undefined;
+    debugger;
     socket.removeAllListeners();
     console.log("made it past removeAllListeners");
   });

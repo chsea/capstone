@@ -100,7 +100,7 @@ class Game {
 
   summon(id) {
     let summoned = _.remove(this.currentPlayer.hand, handCard => handCard.id === id)[0];
-    if (summoned.type === 'minion') {
+    if (summoned && summoned.type === 'minion') {
       this.currentPlayer.summon(summoned, this);
       this.waitingPlayer.emit('opponentSummoned', summoned);
     } else {

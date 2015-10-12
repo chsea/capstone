@@ -1,4 +1,4 @@
-app.factory('Self', (Player, Minion, Socket, $rootScope) => {
+app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
   let player = new Player();
 
   Socket.on('gameStart', players => {
@@ -105,17 +105,17 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
 
   //ending
   Socket.on('win', () => {
-    player.message("You win!");
+    player.message = "You win!";
     $rootScope.$digest();
     // the line below is still untested. Could potentially cause problems
-    socket.removeAllListeners();
+    Socket.removeAllListeners();
     setTimeout(() => $state.go('home'), 3000);
   });
   Socket.on('lose', () => {
     player.message = "You lose!";
     $rootScope.$digest();
     // the line below is still untested. Could potentially cause problems
-    socket.removeAllListeners();
+    Socket.removeAllListeners();
     setTimeout(() => $state.go('home'), 3000);
   });
 
