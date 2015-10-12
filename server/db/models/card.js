@@ -48,6 +48,10 @@ var minionSchema = cardSchema.extend({
     min: 0
   },
   logic: {
+    battlecry: {},
+    deathRattle: {},
+    eachTurn: {},
+    enrage: {},
     taunt: {type: Boolean, default: false},
     windfury: {type: Boolean, default: false},
     charge: {type: Boolean, default: false},

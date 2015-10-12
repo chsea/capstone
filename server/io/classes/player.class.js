@@ -51,7 +51,7 @@ class Player {
     this.emit('setInitialHand', this.hand, this.socket.turn);
   }
 
-  startTurn() {
+  startTurn(game) {
     console.log('start turn');
     this.waiting = false;
     this.turns++;
@@ -63,17 +63,18 @@ class Player {
     if (this.deck.length) card = this.draw()[0];
     else card = null;
     this.emit('startTurn', card);
+    this.summonedMinions.forEach(minion => minion.startTurn(game));
   }
   wait() {
     this.waiting = true;
     this.emit('wait');
   }
 
-  summon(minion) {
+  summon(minion, game) {
     this.summonedMinions.push(minion);
-    minion.summoned();
     this.mana -= minion.cost;
     this.emit('summoned', minion);
+    minion.summoned(game);
   }
 
   wasAttacked(amount) {

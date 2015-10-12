@@ -43,3 +43,22 @@ target.targets takes an array of values from the four options above.
 target.select takes a string from the three options above. "all" will apply the spell to all the targets you've selected. "random" all requires an additional target.targets.qty property to denote how many random targets from the targets array to apply the spell to. "selectable" lets you drag the light blue square in the corner to the target you want to select. However, if you try to increase a player's ap, it'll error. :(
 
 I have test-seed.js and test-cards.js setup with a very simple pre-built deck. Open two sessions and go to /test test out the game! :) (Also, I've not testes extensively so I'm sure there's quite a few bugs so let me know if you guys find some!)
+
+##Card logic
+Cards have a similar format for logic except you'd say:
+
+logic: {
+  battlecry: {
+    target: {
+      targets: ['self'],
+      select: 'all'
+    },
+    spells: {
+      heal: {
+        amount: 2
+      }
+    }
+  }
+}
+
+So far, I've only tested battlecry, but I've written the code for deathRattle, enrage, and eachTurn. There is an issue with targeting the minion casting the spell that I have to ask Joe about.
