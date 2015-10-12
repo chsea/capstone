@@ -157,7 +157,6 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   function updateDeck(){
     DeckFactory.update($scope.selectedDeck._id, $scope.selectedDeck)
       .then(function(updatedDeck){
-        $scope.cardsInDeck = displayDeck();
         $scope.selectedDeck = updatedDeck;
         $scope.selectDeck();
       })
