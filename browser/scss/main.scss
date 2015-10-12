@@ -3,8 +3,8 @@
 }
 
 body {
-  background: #fdfdfd;
-  font-size: 12px
+  font-size: 12px;
+  background-image: url('./images/blurred-background.jpg');
 }
 
 @mixin clearfix {

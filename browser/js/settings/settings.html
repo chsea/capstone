@@ -1,4 +1,4 @@
-<h1 class="text-center top text-success"><strong>{{user.username}}'s Profile Page</strong></h1>
+<h1 class="text-center top text-success"><strong>{{user.username | uppercase}}'s Profile Page</strong></h1>
 <hr>
 <div class="container">
     <div class="row">
@@ -8,7 +8,7 @@
   		<div class="col-sm-2"><!--left col-->
                          
 	      <div class="panel panel-default">
-	        <div class="panel-heading">{{user.username}}'s Stats <i class="fa fa-link fa-1x"></i></div>
+	        <div class="panel-heading">{{user.username | uppercase}}'s Stats <i class="fa fa-link fa-1x"></i></div>
 	        <div class="panel-body">
 	        <ul class="list-group">
 	        <li class="list-group-item text-right"><span class="pull-left"><strong>Experience</strong></span>{{user.experience}}</li>
