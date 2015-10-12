@@ -30,10 +30,16 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
 
   //turns
   Socket.on('startTurn', card => {
-    console.log(`start turn - ${card.name}`);
-    player.message = "Your turn!";
-    player.startTurn(card);
+    if (!card) {
+      player.message = "Fatigue. You've run out of cards";
+    } 
+    else {
+      console.log(`start turn - ${card.name}`);
+      player.message = "Your turn!";
+      player.startTurn(card);
+    }
   });
+
   Socket.on('wait', () => {
     player.message = "Opponent's turn!";
     player.opponentTurn();
@@ -101,11 +107,15 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   Socket.on('win', () => {
     player.message("You win!");
     $rootScope.$digest();
+    // the line below is still untested. Could potentially cause problems
+    socket.getSocket().removeAllListeners();
     setTimeout(() => $state.go('home'), 3000);
   });
   Socket.on('lose', () => {
-    player.setMessage("You lose!");
+    player.message("You lose!");
     $rootScope.$digest();
+    // the line below is still untested. Could potentially cause problems
+    socket.getSocket().removeAllListeners();
     setTimeout(() => $state.go('home'), 3000);
   });
 
