@@ -108,14 +108,14 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
     player.message("You win!");
     $rootScope.$digest();
     // the line below is still untested. Could potentially cause problems
-    socket.getSocket().removeAllListeners();
+    socket.removeAllListeners();
     setTimeout(() => $state.go('home'), 3000);
   });
   Socket.on('lose', () => {
-    player.message("You lose!");
+    player.message = "You lose!";
     $rootScope.$digest();
     // the line below is still untested. Could potentially cause problems
-    socket.getSocket().removeAllListeners();
+    socket.removeAllListeners();
     setTimeout(() => $state.go('home'), 3000);
   });
 

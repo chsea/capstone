@@ -33,7 +33,7 @@
 </div>
 
 <div ng-hide="craft || !user" class="text-center top col-md-9">
-  <h3><span class="text-success"><strong>{{user.username}}'s Cards</strong></span>
+  <h3><span class="text-success"><strong>{{user.username | uppercase}}'S CARDS</strong></span>
     <span popover-placement="bottom" popover="Trade cards for stardust" popover-trigger="mouseenter">
       <img src="/images/manapotion.png" width="25" height="25" ng-click="showCraftForm()"/>
     </span>

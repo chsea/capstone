@@ -34,6 +34,7 @@ app.config($stateProvider => {
   };
 
   $scope.leave = () => {
+    console.log("trying to leave");
     Socket.emit('leave');
   };
 });
