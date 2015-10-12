@@ -27,7 +27,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
     player.hand = hand;
     player.turn = turn;
     $rootScope.$digest();
-    // Socket.emit('initialHandSet');
+    Socket.emit('initialHandSet');
   });
 
   //turns
