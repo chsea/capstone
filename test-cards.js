@@ -3,7 +3,7 @@ var minions = [
     name: "Marketing Intern",
     cost: 1,
     ap: 1,
-    hp: 1,
+    hp: 6,
     logic: {
       // charge: true
       // divineShield: true
@@ -13,7 +13,7 @@ var minions = [
     name: "Junior Back-End Engineer",
     cost: 1, //2,
     ap: 1,
-    hp: 2,
+    hp: 6,
     logic: {
       // charge: true
       // divineShield: true
@@ -34,7 +34,18 @@ var minions = [
     ap: 2,
     hp: 1,
     logic: {
-      // charge: true
+      battlecry: {
+        target: {
+          targets: ['playerMinions'],
+          select: 'all',
+        },
+        spells: {
+          heal: {
+            amount: 2
+          }
+        }
+      },
+      charge: true
     }
   },
   {
@@ -54,15 +65,20 @@ var minions = [
     hp: 5,
     rarity: 1,
     logic: {
-      // charge: true,
-      // taunt: true,
-      // enrage: {
-      //   propertyChange: {
-      //     target: 'self',
-      //     property: 'ap',
-      //     amount: 3
-      //   }
-      // }
+      charge: true,
+      taunt: true,
+      enrage: {
+        target: {
+          targets: ['playerMinions'],
+          select: 'all'
+        },
+        spells: {
+          propertyChange: {
+            property: 'ap',
+            amount: 3
+          }
+        }
+      }
     }
   }
 ];

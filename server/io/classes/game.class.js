@@ -50,6 +50,7 @@ class Game {
   }
 
   cast(logic) {
+    console.log(logic);
     if (logic.target.select === 'selectable') {
       this.decidingSpell = logic.spells;
       this.currentPlayer.emit('selectTarget');

@@ -28,12 +28,16 @@ class Minion extends Card {
     this.canAttack = false;
     this.attackable = true;
 
-    for (let spell in this.logic) {
-      if (logic[spell].target === 'thisMinion') logic[spell].target = this.id;
+    let logic = this.logic;
+    // console.log('log', logic);
+    // console.log('l', logic.prototype);
+    for (var x in logic) {
+      if(logic.hasOwnProperty( x ) ) console.log('x', x);
     }
   }
 
   summoned(game) {
+    console.log('hi');
     if (this.logic.battlecry) game.cast(this.logic.battlecry);
   }
   startTurn(game) {
