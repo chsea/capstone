@@ -23,17 +23,11 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   $scope.toggleCreateDeck = false;
   
   $scope.selectDeck = function() {
-    $scope.currentdeck = _.find($scope.user.decks, {_id: $scope.selectedDeck});
-      if ($scope.selectedDeck === undefined) {
-        $scope.currentdeck = $scope.user.decks[0];
-        $scope.selectedDeck = $scope.user.decks[0];
-      }
     $scope.cardsInDeck = displayDeck();
-    $scope.deckName = $scope.currentdeck.name;
     $scope.showCards = true;
     $scope.barData.labels = ["1", "2", "3", "4", "5", "6","7+"];
     $scope.barData.datasets = [{
-            label: $scope.deckName,
+            label: $scope.selectedDeck.name,
             fillColor: "rgba(220,220,220,0.5)",
             strokeColor: "rgba(220,220,220,0.8)",
             highlightFill: "rgba(220,220,220,0.75)",
@@ -46,10 +40,9 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   function displayDeck() {
-    console.log($scope.currentdeck);
-    if ($scope.currentdeck === undefined) return;
+    if ($scope.selectedDeck === undefined) return;
     var cardsInDeckObj = {};
-    $scope.currentdeck.cards.forEach(function(card){
+    $scope.selectedDeck.cards.forEach(function(card){
       if (cardsInDeckObj.hasOwnProperty(card.name)){
         cardsInDeckObj[card.name] += 1;
       } else {
@@ -60,9 +53,9 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   }
   
   $scope.deckcost = function() {
-    if ($scope.currentdeck === undefined) return;
+    if ($scope.selectedDeck === undefined) return;
     $scope.cost = [0,0,0,0,0,0,0];
-    $scope.currentdeck.cards.forEach(function(card) {
+    $scope.selectedDeck.cards.forEach(function(card) {
       if (card.cost <= 6) {
         $scope.cost[card.cost-1]++;
       }
@@ -73,36 +66,24 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
     return $scope.cost;
   };
 
-  // $scope.sortCardsByCost = function(manacost){
-  //   $scope.sortedCards = [];
-  //   if (manacost)
-  //   var sortedCard = user.cards.filter(function(card) {
-  //     return card.cost === manacost;
-  //   });
-  // }
-
-
-
   $scope.removeFromDeck = function(cardname) {
-    if ($scope.total < 1 || $scope.currentdeck === undefined) return;
+    if ($scope.total < 1 || $scope.selectedDeck === undefined) return;
     var indx = -1;
-    $scope.currentdeck.cards.forEach(function(currentcard, index) {
+    $scope.selectedDeck.cards.forEach(function(currentcard, index) {
       if (currentcard.name === cardname) {
         indx = index;
       }
     });
-    $scope.currentdeck.cards.splice(indx, 1);
+    $scope.selectedDeck.cards.splice(indx, 1);
     updateDeck();
-    clientsChart.update();
-
   };
 
   $scope.removeDeck = function() {
-    if ($scope.currentdeck === undefined) {
+    if ($scope.selectedDeck === undefined) {
       $scope.usermessage = "please select a deck first";
     }
     else {
-      DeckFactory.destroy($scope.currentdeck._id)
+      DeckFactory.destroy($scope.selectedDeck._id)
       .then(function(deletedDeck){
         var indx = -1;
         $scope.user.decks.forEach(function(thisdeck, index){
@@ -135,23 +116,22 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   $scope.addToDeck = function(card){
-    if ($scope.currentdeck === undefined){
+    if ($scope.selectedDeck === undefined){
       $scope.usermessage = "please select a deck first";
     }
-    else if ($scope.currentdeck.cards.length >= 30){
+    else if ($scope.selectedDeck.cards.length >= 30){
       $scope.usermessage = "you cannot add cards because your deck is full";
     }
     else if (duplicateChecker(card)) {
-      $scope.usermessage = "cannot have more than 2 duplicates in the currentdeck";
+      $scope.usermessage = "cannot have more than 2 duplicates in the selectedDeck";
     }
     else if (card.rarity === 3 && legendaryChecker(card)) {
       $scope.usermessage = "cannot have more than one legenary card in the same deck";
     }
     else {
       $scope.usermessage = "";
-      $scope.currentdeck.cards.push(card);
+      $scope.selectedDeck.cards.push(card);
       updateDeck();
-      $scope.deckcost();
     }
   };
 
@@ -175,10 +155,11 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   };
 
   function updateDeck(){
-    DeckFactory.update($scope.currentdeck._id, $scope.currentdeck)
+    DeckFactory.update($scope.selectedDeck._id, $scope.selectedDeck)
       .then(function(updatedDeck){
         $scope.cardsInDeck = displayDeck();
-        $scope.currentdeck = updatedDeck;
+        $scope.selectedDeck = updatedDeck;
+        $scope.selectDeck();
       })
       .then(null, function(err){
         console.log("Error occured ", err);
@@ -188,7 +169,6 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   function updateUser(){
     UserFactory.update($scope.user._id, $scope.user)
       .then(function(updatedUser){
-        console.log("updated user ", updatedUser);
         user = updatedUser;
         $scope.user = updatedUser;
       })
@@ -200,7 +180,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   function duplicateChecker(card) {
     // prohibits user from adding more than 2 duplicate cards to the same deck
     var count = 0;
-    $scope.currentdeck.cards.forEach(function(currentcard){
+    $scope.selectedDeck.cards.forEach(function(currentcard){
       if (currentcard._id === card._id) count++;
     });
     if (count >= 2) return true;
@@ -210,7 +190,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   function legendaryChecker(card) {
     // prohibits users from adding more than one of the same legendary card
     var count = 0;
-    $scope.currentdeck.cards.forEach(function(currentcard){
+    $scope.selectedDeck.cards.forEach(function(currentcard){
       if (currentcard._id === card._id) count++;
     });
     return count >= 1 ? true : false;

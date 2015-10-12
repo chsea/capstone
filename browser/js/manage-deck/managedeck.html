@@ -1,10 +1,11 @@
 <div ng-show="user.decks.length" class="text-center top">
   <h1><strong class="text-success">My Collections</strong><br><small>Choose a deck to manage</small</h1>
-  <select ng-model="selectedDeck">
+<!--   <select ng-model="selectedDeck">
     <option style="color:black;" ng-repeat= "deck in user.decks" value="{{deck._id}}">{{deck.name}}
     </option>
+  </select> -->
+  <select ng-model="selectedDeck" ng-options="deck.name for deck in user.decks" ng-change="selectDeck()">
   </select>
-  <img src="/images/basiccheck.png" width="35" height="35"  ng-click="selectDeck()"/>
   <br><br>
 </div>
 
@@ -58,7 +59,7 @@
     <div ng-repeat= "deck in user.decks">{{deck.name}}
       </div>
       <div ng-show="showCards">
-        <h4><strong>{{currentdeck.name}}</strong>
+        <h4><strong>{{selectDeck.name}}</strong>
             <span popover-placement="bottom" popover="Click to remove selected deck" popover-trigger="mouseenter">
               <img class="text-align right" src="/images/trash.png" width="20" height="20" ng-click="removeDeck()"/>
             </span>
@@ -71,7 +72,7 @@
       <span ng-show="cardsInDeck">
         <canvas id="clients" width="225" height="300"></canvas>
         <div ng-show="showCards">
-          CARDS: {{currentdeck.cards.length}}/30 <br>
+          CARDS: {{selectedDeck.cards.length}}/30 <br>
         </div>
       </span>
     </div>
