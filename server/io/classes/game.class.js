@@ -49,7 +49,7 @@ class Game {
   }
 
   cast(logic) {
-    if (logic.target.select === 'selectable') {
+    if (logic && logic.target && logic.target.select === 'selectable') {
       this.decidingSpell = logic.spells;
       this.currentPlayer.emit('selectTarget');
       return;
@@ -57,33 +57,35 @@ class Game {
 
     let selectableTargets = [],
         targets = [];
-    logic.target.targets.forEach(target => {
-      switch (target) {
-        case 'self':
-          selectableTargets.push({player: this.currentPlayer, opponent: this.waitingPlayer});
-          break;
-        case 'opponent':
-          selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer});
-          break;
-        case 'playerMinions':
-          this.currentPlayer.summonedMinions.forEach(minion => selectableTargets.push({player: this.currentPlayer, opponent: this.waitingPlayer, minion: minion}));
-          break;
-        case 'opponentMinions':
-          this.waitingPlayer.summonedMinions.forEach(minion => selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer, minion: minion}));
-          break;
-        default:
-          let minion = _.find(this.currentPlayer.summonedMinions, m => m.id === target);
-          if (minion) {
-            selectableTargets.push({player: this.currentPlayer, opponent: this.waitingPlayer, minion: minion});
-          } else {
-            minion = _.find(this.waitingPlayer.summonedMinions, m => m.id === target);
-            selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer, minion: minion});
-          }
-      }
-    });
+    if (logic.target && logic.target.targets){
+      logic.target.targets.forEach(target => {
+        switch (target) {
+          case 'self':
+            selectableTargets.push({player: this.currentPlayer, opponent: this.waitingPlayer});
+            break;
+          case 'opponent':
+            selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer});
+            break;
+          case 'playerMinions':
+            this.currentPlayer.summonedMinions.forEach(minion => selectableTargets.push({player: this.currentPlayer, opponent: this.waitingPlayer, minion: minion}));
+            break;
+          case 'opponentMinions':
+            this.waitingPlayer.summonedMinions.forEach(minion => selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer, minion: minion}));
+            break;
+          default:
+            let minion = _.find(this.currentPlayer.summonedMinions, m => m.id === target);
+            if (minion) {
+              selectableTargets.push({player: this.currentPlayer, opponent: this.waitingPlayer, minion: minion});
+            } else {
+              minion = _.find(this.waitingPlayer.summonedMinions, m => m.id === target);
+              selectableTargets.push({player: this.waitingPlayer, opponent: this.currentPlayer, minion: minion});
+            }
+        }
+      });
+    }
 
-    if (logic.target.select === 'all') targets = selectableTargets;
-    else if (logic.target.select === 'random') {
+    if (logic && logic.target && logic.target.select === 'all') targets = selectableTargets;
+    else if (logic.target && logic.target.select === 'random') {
       while (targets.length < logic.target.qty) {
         let i = Math.floor(Math.random() * selectableTargets.length);
         targets.push(selectableTargets[i]);
@@ -96,8 +98,19 @@ class Game {
   }
 
   summon(id) {
-    let summoned = _.remove(this.currentPlayer.hand, handCard => handCard.id === id)[0];
-    if (summoned.type === 'minion') {
+    // let summonedArr = _.remove(this.currentPlayer.hand, handCard => handCard.id === id);
+
+
+    var summonedArr = _.remove(this.currentPlayer.hand, function(handCard) {
+     return handCard.id === id;
+    });
+
+    var summoned = summonedArr[0];
+
+
+
+
+    if (summoned && summoned.type === 'minion') {
       this.currentPlayer.summon(summoned);
       this.waitingPlayer.emit('opponentSummoned', summoned);
     } else {
