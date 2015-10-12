@@ -103,9 +103,9 @@ class Game {
     if (summoned && summoned.type === 'minion') {
       this.currentPlayer.summon(summoned, this);
       this.waitingPlayer.emit('opponentSummoned', summoned);
-    } else {
+    } else if (summoned) {
       this.cast(summoned.logic);
-    }
+    } 
   }
 
   attack(attackerId, attackeeId) {
