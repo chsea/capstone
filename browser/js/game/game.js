@@ -4,22 +4,24 @@ app.config($stateProvider => {
     templateUrl: 'js/game/game.html',
     controller: 'GameController',
   });
-}).controller('GameController', ($scope, $state, $compile, Socket) => {
-  $scope.player = Game($scope).player;
-  $scope.opponent = Game($scope).opponent;
-  let rejectedCards = [];
-
+}).controller('GameController', ($scope, $state, $compile, Socket, Game) => {
+  let players = Game($scope);
+  $scope.player = players.player;
+  $scope.opponent = players.opponent;
   Socket.emit('playerReady');
+
+  let rejectedCards = [];
   $scope.reject = idx => {
     $scope.player.decide(idx, rejectedCards);
   };
 
   $scope.summon = (card, e) => {
-    $scope.player.summon(card);
+    $scope.player.summon(card.id);
   };
 
-  $scope.attack = data => {
-    $scope.player.attack(data);
+  $scope.select = data => {
+    if (data.selector) $scope.player.attack({attacker: data.selector, attackee: data.selectee});
+    else $scope.player.selected(data.selectee);
   };
 
   $scope.endTurn = () => {

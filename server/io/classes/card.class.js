@@ -28,11 +28,10 @@ class Minion extends Card {
     this.canAttack = false;
     this.attackable = true;
 
-    let logic = this.logic;
-    // console.log('log', logic);
-    // console.log('l', logic.prototype);
+    let logic = this.logic.toJSON();
+    console.log('log', logic);
     for (var x in logic) {
-      if(logic.hasOwnProperty( x ) ) console.log('x', x);
+      if(logic.hasOwnProperty(logic)) console.log('x', x);
     }
   }
 

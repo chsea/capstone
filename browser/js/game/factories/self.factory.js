@@ -2,9 +2,11 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   let player = new Player();
 
   Socket.on('gameStart', players => {
+    console.log('game started');
+    console.log(players);
     player.name = players.player;
     $rootScope.$digest();
-    // Socket.emit('initialDraw');
+    Socket.emit('initialDraw');
   });
 
   //initial draw
@@ -32,7 +34,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope) => {
   Socket.on('startTurn', card => {
     if (!card) {
       player.message = "Fatigue. You've run out of cards";
-    } 
+    }
     else {
       console.log(`start turn - ${card.name}`);
       player.message = "Your turn!";

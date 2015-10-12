@@ -34,6 +34,7 @@ class Player {
     this.decidingCards = [this.deck.pop(), this.deck.pop(), this.deck.pop()];
     if (!this.socket.turn) this.decidingCards.push(this.deck.pop());
     this.deciding = true;
+    console.log(this.decidingCards);
     this.emit('initialCards', this.decidingCards);
   }
   setInitialHand(rejectedCards) {
