@@ -71,3 +71,31 @@ logic: {
 }
 
 So far, I've only tested battlecry, but I've written the code for deathRattle, enrage, and eachTurn. There is an issue with targeting the minion casting the spell that I have to ask Joe about.
+
+Effects possessed on the user:
+CHARGE: 
+  Can attack on 1st turn
+BATTLECRY:
+  Spell on Summon
+TAUNT:
+  Opponent can only attack this minion
+DIVINE SHIELD:
+  Minion wont take damage for one turn being attacked (expires after being attacked one time)
+DEATHRATTLE:
+  When a minion dies, the minion casts a spell
+WINDFURY:
+  Can attack twice per turn
+*ENREAGE: (Implementation in progress)
+  Spell is emited to a lesser degree when minion doesn't have full health points
+
+SPELLS:
+  HEAL
+  DAMAGE
+  DRAW
+  * SUMMON (not fully implemented yet)
+  CHANGE PROPERTY
+  
+
+
+
+
