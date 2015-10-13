@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="main text-center top">
-      <h3>Please <span ng-click="togglelogin = !togglelogin">Login,</span> or <a ng-click="togglelogin = !togglelogin">Sign Up</a></h3>
+      <h3>Please <span ng-click="togglelogin = !togglelogin">Login,</span> or <a ng-click="togglelogin = !togglelogin" class="text-success">Sign Up</a></h3>
 
         <div ng-hide="togglelogin">
               <div class="row">
                 <div class="col-md-6" id="signup-form">
-                    <oauth-button class="btn btn-lg btn-primary btn-block" provider-name="Facebook" onClick="window.location='/auth/facebook';">Facebook</oauth-button>
+                    <oauth-button class="btn btn-lg btn-info btn-block" provider-name="Facebook" onClick="window.location='/auth/facebook';">Facebook</oauth-button>
                 </div>
                 <div class="col-md-6 buffer oauth">
                     <oauth-button class="btn btn-lg btn-info btn-block" provider-name="Google" onClick="window.location='/auth/google';">Google</oauth-button>
@@ -48,7 +48,7 @@
         <div ng-show="togglelogin">
           <div class="row">
             <div class="col-md-6" id="signup-form">
-                <oauth-button class="btn btn-lg btn-primary btn-block" provider-name="Facebook" onClick="window.location='/auth/facebook';">Facebook</oauth-button>
+                <oauth-button class="btn btn-lg btn-info btn-block" provider-name="Facebook" onClick="window.location='/auth/facebook';">Facebook</oauth-button>
             </div>
             <div class="col-md-6 buffer oauth">
                 <oauth-button class="btn btn-lg btn-info btn-block" provider-name="Google" onClick="window.location='/auth/google';">Google</oauth-button>
@@ -68,7 +68,7 @@
               <label for="inputPassword" style="font-size: 20px;">Password</label>
               <input type="password" class="form-control" ng-model="login.password" id="login-password">
             </div>
-            <button type="submit" class="btn btn btn-primary">
+            <button type="submit" class="btn btn btn-success">
               Login
             </button>
           </form>
