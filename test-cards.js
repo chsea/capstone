@@ -29,7 +29,7 @@ var minions = [
     }
   },
   {
-    name: "Junior Front-End Engineer",
+    name: "Junior Front-End Engineer - battlecry heal",
     cost: 1, //2,
     ap: 2,
     hp: 1,
@@ -49,7 +49,7 @@ var minions = [
     }
   },
   {
-    name: "Senior Front-End Engineer",
+    name: "Senior Front-End Engineer - charge windfury",
     cost: 1, //4,
     ap: 6,
     hp: 3,
@@ -59,7 +59,7 @@ var minions = [
     }
   },
   {
-    name: "Scrum Master",
+    name: "Scrum Master - enrage",
     cost: 1, //5,
     ap: 5,
     hp: 5,
@@ -69,7 +69,7 @@ var minions = [
       taunt: true,
       enrage: {
         target: {
-          targets: ['playerMinions'],
+          targets: ['thisMinion'],
           select: 'all'
         },
         spells: {
