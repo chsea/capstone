@@ -1,10 +1,13 @@
 <div ng-show="user.decks.length" class="text-center top">
-  <h1><strong class="text-success">My Collections</strong><br><small>Choose a deck to manage</small</h1>
-<!--   <select ng-model="selectedDeck">
-    <option style="color:black;" ng-repeat= "deck in user.decks" value="{{deck._id}}">{{deck.name}}
-    </option>
-  </select> -->
-  <select ng-model="selectedDeck" ng-options="deck.name for deck in user.decks" ng-change="selectDeck()">
+  <h1><strong class="text-success">My Collections</strong><br><small>Choose a deck to manage</small></h1>
+  <select ng-model="selectedDeck" ng-options="deck.name for deck in user.decks" ng-change="selectDeck()" style="background: #4e5d6c;
+   width: 268px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;">
   </select>
   <br><br>
 </div>

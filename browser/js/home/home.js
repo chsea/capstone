@@ -35,9 +35,6 @@ app.controller('LandingController', function($scope, user, UserFactory,CardFacto
       });
       user.cards = user.cards.concat(cardIds);
       return UserFactory.update(user , {cards: user.cards, packs: user.packs   , isAdmin:false});
-
-    }).then(function(user){
-
     });
   };
 
