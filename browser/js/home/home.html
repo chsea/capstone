@@ -23,14 +23,30 @@
 </div>
  -->
 <!-- <img src="/images/robotCard.jpg" style="width:100px; height:150px;"> -->
+
+<button ng-click="toggleModal()">Open Modal</button>
+<modal-dialog show="modalShown" width='900px' height='40%'><br><br>
+  <span ng-repeat="usercard in lastFiveCards">
+    <flippy
+    class="fancy"
+    ng-click="flip()"
+    ng-mouseenter="flip()"
+    ng-mouseleave="flip()"
+    flip-duration="800"
+    timing-function="ease-in-out">
+        <flippy-front>
+          <cardback></cardback>
+        </flippy-front>
+        <flippy-back>
+          <card card="usercard" style="width:170px; height:270px;"></card>
+        </flippy-back>
+    </flippy><tb><tb>
+  </span>
+</modal-dialogue>
+
+    
+
 <br><br>
-<div class="modal content">
-  <div class="modal body">
-    <span ng-repeat="hiddencard in [1,2,3,4,5]">
-      <cardback></cardback>
-    </span>
-  </div>
-</div>
 
 <div class="text-center top col-lg-3">
   <div ng-show="user.packs > 0" ng-click="openPack()" style="cursor:pointer"><br>
