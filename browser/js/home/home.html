@@ -22,9 +22,7 @@
   <chat></chat>
 </div>
  -->
-<!-- <img src="/images/robotCard.jpg" style="width:100px; height:150px;"> -->
 
-<button ng-click="toggleModal()">Open Modal</button>
 <modal-dialog show="modalShown" width='900px' height='40%'><br><br>
   <span ng-repeat="usercard in lastFiveCards">
     <flippy
@@ -50,7 +48,7 @@
 
 <div class="text-center top col-lg-3">
   <div ng-show="user.packs > 0" ng-click="openPack()" style="cursor:pointer"><br>
-    Open your packs <strong>HERE</strong>
+    Open your packs <a ng-click="toggleModal()"><strong>HERE</strong></a>
   </div>
   <div ng-show="showPack">
     <span style="cursor:pointer;" ng-click="showPack = !showPack">toggle show/hide pack
