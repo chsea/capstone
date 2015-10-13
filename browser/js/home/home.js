@@ -11,12 +11,11 @@ app.config(function ($stateProvider) {
     });
 });
 
+
 app.controller('HomeController', function($scope, user, UserFactory,CardFactory) {
 
   $scope.showPack = false;
   $scope.showCards = [];
-
-  console.log(user);
 
   $scope.openPack = function(){
     console.log('clicked openpack');
@@ -39,6 +38,15 @@ app.controller('HomeController', function($scope, user, UserFactory,CardFactory)
 //     });
 // >>>>>>> manageDeckState
   };
+
+  $scope.lastFiveCards = user.cards.slice(-5);
+  $scope.modalShown = false;
+  $scope.toggleModal = function() {
+    console.log("modal clicked");
+    $scope.modalShown = !$scope.modalShown;
+  };
+
+
 
   $scope.user = user;
   $scope.options = [{
