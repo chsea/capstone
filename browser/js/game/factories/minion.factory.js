@@ -31,7 +31,7 @@ app.factory('Minion', (Socket, $rootScope) => {
       else this.attackable = true;
     }
     checkCanAttack(prevLogic) {
-      if (!prevLogic.charge && this.logic.charge && this.firstTurn) this.canAttack = true;
+      if (!prevLogic.charge && this.logic.charge && this.turns === 1) this.canAttack = true;
 
       if (!prevLogic.windfury && this.logic.windfury && this.hasAttacked) this.canAttack = true;
     }

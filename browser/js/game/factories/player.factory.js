@@ -44,6 +44,7 @@ app.factory('Player', (Minion, Socket, CardFactory, $rootScope) => {
     summoned(name) {
       let card = _.find(CardFactory.getAll(), c => c.name === name);
       card.id = card._id;
+      if (card.type === "Spell") return;
       let minion = new Minion(card);
       this.summonedMinions.push(minion);
       this.checkTaunt();

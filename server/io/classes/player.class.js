@@ -79,10 +79,10 @@ class Player {
     if (summoned.type === 'minion') {
       this.summonedMinions.push(summoned);
       this.emit('summoned', summoned.name);
-      this.opponent.emit('opponentSummoned', summoned.name);
       // summoned.summoned();
     } else this.cast(summoned.logic, this);
     this.mana -= summoned.cost;
+    this.opponent.emit('opponentSummoned', summoned.name);
   }
 
   cast(logic) {

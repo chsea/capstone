@@ -48,6 +48,7 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
     console.log(`Opponent ${property} changed`);
     opponent.propertyChanged(property);
     opponent.checkTaunt();
+    $rootScope.$digest();
   });
 
   Socket.on('opponentDrew', length => {
