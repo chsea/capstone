@@ -8,17 +8,17 @@ class Game {
     this.state = 'initialCards';
     this.currentPlayer = null;
     this.waitingPlayer = null;
-    this.idx = 30;
+    this.idx = this.p1.deck.length + this.p2.deck.length;
 
     this.p1.emit('gameStart', {player: p1.name, opponent: p2.name});
     this.p2.emit('gameStart', {player: p2.name, opponent: p1.name});
     //testing only
-    // this.setFirstPlayer();
-    // this.waitingPlayer.draw(4);
-    // this.currentPlayer.draw(3);
-    // this.p1.emit('setInitialHand', this.p1.hand, this.p1.socket.turn);
-    // this.p2.emit('setInitialHand', this.p2.hand, this.p2.socket.turn);
-    // this.startPlaying();
+    this.setFirstPlayer();
+    this.waitingPlayer.draw(4);
+    this.currentPlayer.draw(3);
+    this.p1.emit('setInitialHand', this.p1.hand, this.p1.socket.turn);
+    this.p2.emit('setInitialHand', this.p2.hand, this.p2.socket.turn);
+    this.startPlaying();
   }
 
   setFirstPlayer() {
@@ -94,14 +94,42 @@ class Game {
     }
 
     for (let spell in logic.spells) {
-      Spell[spell](targets, logic.spells[spell].amount, logic.spells[spell].property);
+      let currentSpell = logic.spells[spell];
+      let condition = currentSpell.condition;
+      let conditionMet = true;
+      if (condition) {
+        let player;
+        if (condition.target === 'self') player = this.currentPlayer;
+        else player = this.waitingPlayer;
+
+        switch (condition.comparison) {
+          case 'includes':
+            if (players[condition.property].some(card => {
+              for (let property in condition.amount) {
+                if (card[property] === condition.amount[property]) return true;
+                else return true;
+              }
+            })) conditionMet = true;
+            else conditionMet = false;
+            break;
+          case 'greaterThan':
+            if (players[condition.property].length >= condition.amount) conditionMet = true;
+            else conditionMet = false;
+            break;
+          case 'lessThan':
+            if (players[condition.property].length <= condition.amount) conditionMet = true;
+            else conditionMet = false;
+            break;
+        }
+      }
+      if (conditionMet) Spell[spell](this, targets, logic.spells[spell].amount, logic.spells[spell].property);
     }
   }
 
   summon(id) {
     let summoned = _.remove(this.currentPlayer.hand, handCard => handCard.id === id)[0];
     if (summoned && summoned.type === 'minion') {
-      this.currentPlayer.summon(summoned, this);
+      this.currentPlayer.summon(summoned);
       this.waitingPlayer.emit('opponentSummoned', summoned);
     } else if (summoned) {
       this.cast(summoned.logic);

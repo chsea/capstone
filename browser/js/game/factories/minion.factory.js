@@ -13,7 +13,6 @@ app.factory('Minion', (Socket, $rootScope) => {
       this.turns = 1;
 
       if (this.logic.charge) this.canAttack = true;
-      if (this.logic.battlecry) return;
     }
 
     startTurn() {
@@ -23,7 +22,6 @@ app.factory('Minion', (Socket, $rootScope) => {
       if (this.logic.everyTurn) return;
     }
     endTurn() {
-      if (this.logic.endTurn) return;
     }
 
     checkTaunt(taunt) {

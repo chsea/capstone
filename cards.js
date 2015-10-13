@@ -135,7 +135,7 @@ var spells = [
         }
       }
     },
-    description: 'Acquaint an employee with your startup, increasing their attack 3 .',
+    description: 'Acquaint an employee with your startup, increasing their attack 3.',
     rarity: 1,
     cost: 2,
     portait: 'awesome',
@@ -152,7 +152,7 @@ var spells = [
       spells: {
         changeProperty: {
           property: 'attackable',
-          amount: 'invulnerable'
+          amount: false
         }
       }
 

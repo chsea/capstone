@@ -1,6 +1,7 @@
 const _ = require('lodash');
+const Minion = require('./card.class').Minion;
 
-const heal = (targets, amount) => {
+const heal = (game, targets, amount) => {
   targets.forEach(target => {
     let patient = target.minion ? target.minion : target.player;
     let id = target.minion ? target.minion.id : null;
@@ -10,7 +11,7 @@ const heal = (targets, amount) => {
   });
 };
 
-const damage = (targets, amount) => {
+const damage = (game, targets, amount) => {
   targets.forEach(target => {
     let attackee = target.minion ? target.minion : target.player;
     let id = target.minion ? target.minion.id : null;
@@ -29,7 +30,7 @@ const damage = (targets, amount) => {
   });
 };
 
-const draw = (targets, amount) => {
+const draw = (game, targets, amount) => {
   targets.forEach(target => {
     let cards = target.player.draw(amount);
     target.player.emit('drew', cards);
@@ -37,7 +38,7 @@ const draw = (targets, amount) => {
   });
 };
 
-const changeProperty = (targets, amount, property) => {
+const changeProperty = (game, targets, amount, property) => {
   targets.forEach(target => {
     let t = target.minion ? target.minion : target.player;
     let id = target.minion ? target.minion.id : null;
@@ -47,9 +48,31 @@ const changeProperty = (targets, amount, property) => {
   });
 };
 
+const summon = (game, targets, amount) => {
+  targets.forEach(target => {
+    let minion;
+    switch (amount.type) {
+      case 'new':
+        minion = new Minion(amount.minion, game.idx++);
+        break;
+      case 'hand':
+        minion = _.remove(target.player.hand, handCard => handCard.id === amount.id)[0];
+        break;
+      case 'deck':
+        minion = _.remove(target.player.deck, deckCard => deckCard.id === amount.id)[0];
+        break;
+    }
+
+    minion.cost = 0;
+    target.player.summon(minion);
+    target.opponent.emit('opponentSummoned', minion);
+  });
+};
+
 module.exports = {
   heal: heal,
   damage: damage,
   draw: draw,
-  changeProperty: changeProperty
+  changeProperty: changeProperty,
+  summon: summon
 };
