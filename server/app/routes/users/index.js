@@ -5,6 +5,7 @@ var User = mongoose.model('User');
 var deepPopulate = require('mongoose-deep-populate')(mongoose);
 module.exports = router;
 var Card = mongoose.model('Card');
+var _ = require('lodash')
 
 
 var missingItemHandler = function(error, cb) {
@@ -48,14 +49,11 @@ router.put('/:userId', function(req, res, next) {
     })
     .then(null, next);
 });
-router.put('/:userId/packs', function(req,res,next){
-  console.log('getting hit')
-  Card.packCards().then(packCards => {
-    return req.user.openPack(packCards)
-  }).then(cards => {
-    res.status(204).send(cards)
-  }).then(null,next)
-
+router.put('/:userId/packs', function(req, res, next) {
+  if(req.user.packs < 1) return;
+  return req.foundUser.openPack().then(user => {
+    res.json(user)
+  }).then(null, next);
 
 });
 
