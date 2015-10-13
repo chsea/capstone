@@ -13,8 +13,6 @@ app.config(function ($stateProvider) {
 
 app.controller('HomeController', function($scope, user, UserFactory,CardFactory) {
 
-
-
   $scope.showPack = false;
   $scope.showCards = [];
 
@@ -25,8 +23,21 @@ app.controller('HomeController', function($scope, user, UserFactory,CardFactory)
     if (user.packs < 1 ) return;
     user.packs -= 1;
 
-    UserFactory.update(user, {packs: user.packs} , {suffix:'/packs'})
-
+    UserFactory.update(user, {packs: user.packs} , {suffix:'/packs'})    
+//     CardFactory.findAll().then(cards => {
+//       let chosenCards = _.sample(cards,5);
+//       $scope.showCards = chosenCards;
+//       $scope.showPack = true;
+//       return chosenCards;
+//     }).then(theCards => {
+//       var cardIds = [];
+//       theCards.forEach(card => {
+//         cardIds.push(card._id);
+//       });
+//       user.cards = user.cards.concat(cardIds);
+//       return UserFactory.update(user , {cards: user.cards, packs: user.packs   , isAdmin:false});
+//     });
+// >>>>>>> manageDeckState
   };
 
   $scope.user = user;
