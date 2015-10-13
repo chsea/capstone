@@ -15,29 +15,27 @@ app.config(function ($stateProvider) {
 app.controller('HomeController', function($scope, user, UserFactory,CardFactory) {
 
 
-
-  $scope.showPack = false;
+  $scope.user = user;
   $scope.showCards = [];
+  $scope.lastFiveCards = null;
 
   $scope.openPack = function(){
-    console.log('clicked openpack');
     if (user.packs < 1 ) return;
     user.packs -= 1;
 
-    UserFactory.update(user, {packs: user.packs} , {suffix:'/packs'}).then(function(updatedUser){
-      console.log(updatedUser)
-      user.cards = updatedUser.cards
-    })
+    UserFactory.update(user, {packs: user.packs} , {suffix:'/packs'})
+    .then(function(updatedUser){
+      user.cards = updatedUser.cards;
+      $scope.toggleModal();
+    });
   };
 
-  $scope.lastFiveCards = user.cards.slice(-5);
   $scope.modalShown = false;
   $scope.toggleModal = function() {
-    console.log("modal clicked");
+    $scope.lastFiveCards = user.cards.slice(-5);
+    console.log($scope.lastFiveCards);
     $scope.modalShown = !$scope.modalShown;
   };
-
-
 
   $scope.user = user;
   $scope.options = [{

@@ -42,16 +42,23 @@
       <img src="/images/manapotion.png" width="25" height="25" ng-click="showCraftForm()"/>
     </span>
   </h3>
-    <input placeholder="Search" ng-model="searchText">
+    <input placeholder="Search" ng-model="searchText"><br><br>
       <div style="overflow: scroll; height: 350px;">
       <card card="usercard" ng-click="addToDeck(usercard)" ng-repeat="usercard in user.cards | orderBy:'-cost' | filter:searchText"></card>
     </div>
 </div>
 
-<!-- <div ng-show="craft" class="text-center top col-md-10" style="overflow: scroll; width: 1000px; height: 350px;">
-  <h3>{{user.username}}'s Cards</h3>
-      <card card="usercard" ng-click="disenchant(usercard)" ng-repeat="usercard in user.cards | orderBy:'-cost'"></card>
-</div> -->
+<div ng-show="craft || !user" class="text-center top col-md-9"><br><br>
+  <h3><span class="text-success"><strong>{{user.username | uppercase}}'S CARDS</strong></span>
+    <span popover-placement="bottom" popover="Trade cards for stardust" popover-trigger="mouseenter">
+      <img src="/images/manapotion.png" width="25" height="25" ng-click="showCraftForm()"/>
+    </span>
+  </h3>
+    <input placeholder="Search" ng-model="searchText">
+      <div style="overflow: scroll; height: 350px;">
+      <card card="usercard" ng-click="disenchant(usercard)" ng-repeat="usercard in user.cards | orderBy:'-cost' | filter:searchText"></card>
+    </div>
+</div>
 
 <div class="container pull-right col-xs-2 panel panel-default">
   <h2><strong class="panel-heading">My Decks</strong>
