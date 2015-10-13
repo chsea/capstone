@@ -1,4 +1,4 @@
-app.factory('Player', (Minion, Socket, $rootScope) => {
+app.factory('Player', (Minion, Socket, CardFactory, $rootScope) => {
   class Player {
     constructor() {
       this.name = '';
@@ -41,7 +41,9 @@ app.factory('Player', (Minion, Socket, $rootScope) => {
       else this.attackable = true;
     }
 
-    summoned(card) {
+    summoned(name) {
+      let card = _.find(CardFactory.getAll(), c => c.name === name);
+      card.id = card._id;
       let minion = new Minion(card);
       this.summonedMinions.push(minion);
       this.checkTaunt();

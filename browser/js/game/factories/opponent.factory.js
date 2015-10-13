@@ -22,7 +22,7 @@ app.factory('Opponent', (Player, Socket, $rootScope) => {
 
   //summoning
   Socket.on('opponentSummoned', card => {
-    console.log(`Opponent summoned ${card.name}`);
+    console.log(`Opponent summoned ${card}`);
     opponent.hand.pop();
     opponent.summoned(card);
   });

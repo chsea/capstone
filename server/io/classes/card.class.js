@@ -34,29 +34,28 @@ class Minion extends Card {
     }
   }
 
-  summoned(game) {
-    console.log('hi');
-    if (this.logic.battlecry) game.cast(this.logic.battlecry);
+  summoned() {
+    // if (this.logic.battlecry) this.player.cast(this.logic.battlecry);
   }
-  startTurn(game) {
-    if (this.logic.eachTurn) game.cast(this.logic.eachTurn);
+  startTurn() {
+    // if (this.logic.eachTurn) this.player.cast(this.logic.eachTurn);
   }
 
-  attacked(attackee, game) {
+  attacked(attackee) {
     if (attackee.id) {
       if (this.logic.divineShield && attackee.ap) this.logic.divineShield = false;
       else this.hp -= attackee.ap;
     }
     if (this.hp > 0 && this.hp < this.initialHp && this.logic.enrage) {
-      game.cast(this.logic.enrage);
+      // this.player.cast(this.logic.enrage);
       this.enraged = true;
     }
     if (this.hp <= 0) {
       this.hp = 0;
-      this.death(game);
+      this.death();
     }
   }
-  wasAttacked(amount, game) {
+  wasAttacked(amount) {
     if (this.logic.divineShield) this.logic.divineShield = false;
     else this.hp -= amount;
     this.hp = this.hp < 0 ? 0 : this.hp;
@@ -76,8 +75,8 @@ class Minion extends Card {
     }
   }
 
-  death(game) {
-    if (this.logic.deathRattle) game.cast(this.logic.deathRattle);
+  death() {
+    // if (this.logic.deathRattle) this.player.cast(this.logic.deathRattle, this.player);
   }
 }
 

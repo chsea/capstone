@@ -79,7 +79,7 @@ module.exports = (io, socket, createdGames) => {
     // if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
     // if (card.type === 'spell') return;
     console.log(`${p()} summoning ${card}`);
-    games[i()].summon(card);
+    games[i()].currentPlayer.summon(card);
   });
 
   socket.on('cast', target => {
