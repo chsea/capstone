@@ -12,7 +12,6 @@ var cards = require('./test-cards');
 var chance = require('chance')(123);
 var _ = require('lodash');
 
-
 var tempData = {};
 
 function seedMinions() {

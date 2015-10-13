@@ -2,7 +2,7 @@ app.config(function ($stateProvider) {
   $stateProvider.state('home', {
       url: '/',
       templateUrl: 'js/home/home.html',
-      controller: 'LandingController',
+      controller: 'HomeController',
       resolve: {
 				user: function(AuthService) {
 					return AuthService.getLoggedInUser();
@@ -11,7 +11,9 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('LandingController', function($scope, user, UserFactory,CardFactory) {
+app.controller('HomeController', function($scope, user, UserFactory,CardFactory) {
+
+
 
   $scope.showPack = false;
   $scope.showCards = [];
@@ -22,30 +24,16 @@ app.controller('LandingController', function($scope, user, UserFactory,CardFacto
     console.log('clicked openpack');
     if (user.packs < 1 ) return;
     user.packs -= 1;
-    
-    CardFactory.findAll().then(cards => {
-      let chosenCards = _.sample(cards,5);
-      $scope.showCards = chosenCards;
-      $scope.showPack = true;
-      return chosenCards;
-    }).then(theCards => {
-      var cardIds = [];
-      theCards.forEach(card => {
-        cardIds.push(card._id);
-      });
-      user.cards = user.cards.concat(cardIds);
-      return UserFactory.update(user , {cards: user.cards, packs: user.packs   , isAdmin:false});
 
-    }).then(function(user){
+    UserFactory.update(user, {packs: user.packs} , {suffix:'/packs'})
 
-    });
   };
 
   $scope.user = user;
   $scope.options = [{
     name: 'Play Now',
     sref: 'play'
-  }, 
+  },
   {
     name: 'My Collections',
     sref: 'manageDeck'
