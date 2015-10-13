@@ -98,7 +98,7 @@ module.exports = (io, socket) => {
         targets: [target],
         select: 'all'
       },
-      spells: games[i()].decidingSpell
+      spells: games[i()].currentPlayer.decidingSpell
     };
     games[i()].currentPlayer.cast(logic);
   });
