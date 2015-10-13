@@ -3,6 +3,9 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 var extend = require('mongoose-schema-extend');
 var Schema = mongoose.Schema;
+var _ = require('lodash')
+
+
 
 var cardSchema = new Schema({
   name: {
@@ -52,10 +55,22 @@ var minionSchema = cardSchema.extend({
     deathRattle: {},
     eachTurn: {},
     enrage: {},
-    taunt: {type: Boolean, default: false},
-    windfury: {type: Boolean, default: false},
-    charge: {type: Boolean, default: false},
-    divineShield: {type: Boolean, default: false}
+    taunt: {
+      type: Boolean,
+      default: false
+    },
+    windfury: {
+      type: Boolean,
+      default: false
+    },
+    charge: {
+      type: Boolean,
+      default: false
+    },
+    divineShield: {
+      type: Boolean,
+      default: false
+    }
   },
   ap: {
     type: Number,
@@ -66,10 +81,42 @@ var minionSchema = cardSchema.extend({
 
 var spellSchema = cardSchema.extend({
   logic: {
-    // type:[ObjectId],
-    // ref:'Effect'
+    target: {
+
+    },
+    spells: {
+
+    }
   }
+
+
 });
+
+cardSchema.statics.packCards = function() {
+  let rarityWeighedCards = [];
+  return this.find().exec().then(cards => {
+    cards.forEach(card => {
+      if (card.rarity === 0 || card.rarity === 1) {
+        _.times(4, function() {
+          rarityWeighedCards.push(card);
+        });
+      } else if (card.rarity === 2) {
+        _.times(2, function() {
+          rarityWeighedCards.push(card);
+        });
+
+      } else {
+        rarityWeighedCards.push(card);
+      }
+    })
+  }).then(function() {
+    let packCards = _.sample(rarityWeighedCards, 5);
+    // self.cards += _.sample(rarityWeighedCards, 5);
+    return packCards;
+  });
+}
+
+
 
 
 cardSchema.virtual('rarity.name').get(function() {
