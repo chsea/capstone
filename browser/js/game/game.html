@@ -6,7 +6,10 @@
       <player player="opponent" ng-drop="player.selecting || opponent.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: null}, $event)"></player>
     </div>
     <div class="hand">
-      <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card="card"></blank-card>
+<!--       <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card="card"></blank-card> -->
+    <cardback class="opponent-card hand-card small" ng-repeat="card in opponent.hand" ><tb></cardback>
+
+
     </div>
     <div class="extra">
       <div>{{ opponent.mana }}</div>
