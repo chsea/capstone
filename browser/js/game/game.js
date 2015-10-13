@@ -20,6 +20,7 @@ app.config($stateProvider => {
   };
 
   $scope.select = data => {
+    console.log('data', data);
     if (data.selector) $scope.player.attack({attacker: data.selector, attackee: data.selectee});
     else $scope.player.selected(data.selectee);
   };
@@ -29,6 +30,7 @@ app.config($stateProvider => {
   };
 
   $scope.leave = () => {
+    console.log("trying to leave");
     Socket.emit('leave');
   };
 });

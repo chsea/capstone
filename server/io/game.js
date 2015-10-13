@@ -25,9 +25,8 @@ module.exports = (io, socket, createdGames) => {
     let decks = [CardModel.find({_id: {$in: game.p1.deck}}).exec(), CardModel.find({_id: {$in: game.p2.deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
       console.log(resolvedDecks);
-      let id = 0;
       let decks = resolvedDecks.map(deck => {
-        return deck.map(card => card.type === 'Minion' ? new Minion(card, id++) : new Spell(card, id++));
+        return deck.map(card => card.type === 'Minion' ? new Minion(card, card._id.toString()) : new Spell(card, card._id.toString()));
       });
 
       let player1 = new Player(game.p1.name, decks[0], game.p1.socket);
@@ -75,11 +74,11 @@ module.exports = (io, socket, createdGames) => {
     games[i()].startPlaying();
   });
 
-  socket.on('summon', card => {
+  socket.on('summon', id => {
     // if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
     // if (card.type === 'spell') return;
-    console.log(`${p()} summoning ${card}`);
-    games[i()].currentPlayer.summon(card);
+    console.log(`${p()} summoning ${id}`);
+    games[i()].currentPlayer.summon(id);
   });
 
   socket.on('cast', target => {
@@ -91,11 +90,11 @@ module.exports = (io, socket, createdGames) => {
       },
       spells: games[i()].decidingSpell
     };
-    games[i()].cast(logic);
+    games[i()].currentPlayer.cast(logic);
   });
 
   socket.on('attack', (attackerId, attackeeId) => {
-    games[i()].attack(attackerId, attackeeId);
+    games[i()].currentPlayer.attack(attackerId, attackeeId);
   });
 
   socket.on('endTurn', () => {
