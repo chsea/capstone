@@ -3,10 +3,9 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
 
   Socket.on('gameStart', players => {
     console.log('game started');
-    console.log(players);
     player.name = players.player;
     $rootScope.$digest();
-    Socket.emit('initialDraw');
+    // Socket.emit('initialDraw');
   });
 
   //initial draw
@@ -23,6 +22,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
     $rootScope.$digest();
   });
   Socket.on('setInitialHand', (hand, turn) => {
+    console.log('hand');
     $('#initial').remove();
     player.hand = hand;
     player.turn = turn;
@@ -32,14 +32,9 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
 
   //turns
   Socket.on('startTurn', card => {
-    if (!card) {
-      player.message = "Fatigue. You've run out of cards";
-    }
-    else {
-      console.log(`start turn - ${card.name}`);
-      player.message = "Your turn!";
-      player.startTurn(card);
-    }
+    console.log(`start turn - ${card.name}`);
+    player.message = "Your turn!";
+    player.startTurn(card);
   });
 
   Socket.on('wait', () => {

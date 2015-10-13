@@ -22,5 +22,4 @@ app.config($stateProvider => {
   Socket.on('gameReady', i => {
     $state.go('game', {id: i});
   });
-
 });

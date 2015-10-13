@@ -71,11 +71,11 @@ class Player {
     this.emit('wait');
   }
 
-  summon(minion, game) {
+  summon(minion) {
     this.summonedMinions.push(minion);
     this.mana -= minion.cost;
     this.emit('summoned', minion);
-    minion.summoned(game);
+    minion.summoned();
   }
 
   wasAttacked(amount) {
