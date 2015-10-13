@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var Spell = require('./spell.helper.js');
 
 class Player {
   constructor(name, deck, socket) {
@@ -77,11 +78,11 @@ class Player {
     // summoned.player = this;
     if (summoned.type === 'minion') {
       this.summonedMinions.push(summoned);
+      this.emit('summoned', summoned.name);
+      this.opponent.emit('opponentSummoned', summoned.name);
       // summoned.summoned();
     } else this.cast(summoned.logic, this);
     this.mana -= summoned.cost;
-    this.emit('summoned', summoned.name);
-    this.opponent.emit('opponentSummoned', summoned.name);
   }
 
   cast(logic) {
@@ -103,10 +104,10 @@ class Player {
             selectableTargets.push({player: this.opponent});
             break;
           case 'playerMinions':
-            player.summonedMinions.forEach(minion => selectableTargets.push({player: this, minion: minion}));
+            this.summonedMinions.forEach(minion => selectableTargets.push({player: this, minion: minion}));
             break;
           case 'opponentMinions':
-            player.opponent.summonedMinions.forEach(minion => selectableTargets.push({player: this.opponent, minion: minion}));
+            this.opponent.summonedMinions.forEach(minion => selectableTargets.push({player: this.opponent, minion: minion}));
             break;
           default:
             let minion = _.find(this.summonedMinions, m => m.id === target);
