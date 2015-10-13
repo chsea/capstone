@@ -50,15 +50,17 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
   player.summon = id => {
     let card = _.remove(player.hand, card => card.id === id)[0];
     player.mana -= card.cost;
+    console.log(id);
     Socket.emit('summon', id);
   };
-  Socket.on('summoned', card => {
-    console.log(`summoned ${card.name}`);
-    player.summoned(card);
+  Socket.on('summoned', name => {
+    console.log(`summoned ${name}`);
+    player.summoned(name);
   });
 
   //attacking
   player.attack = data => {
+    console.log('p', data);
     let attackee = data.attackee ? data.attackee.id : null;
     Socket.emit('attack', data.attacker.id, attackee);
   };

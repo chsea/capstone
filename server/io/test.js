@@ -30,9 +30,8 @@ module.exports = (io, socket) => {
     //end testing
 
     Promise.all(decks).then(resolvedDecks => {
-      let id = 0;
       let decks = resolvedDecks.map(deck => {
-        return deck.map(card => card.type === 'Minion' ? new Minion(card, id++) : new Spell(card, id++));
+        return deck.map(card => card.type === 'Minion' ? new Minion(card, card._id.toString()) : new Spell(card, card._id.toString()));
       });
 
       //testing
@@ -85,14 +84,11 @@ module.exports = (io, socket) => {
     games[i()].startPlaying();
   });
 
-  socket.on('summon', card => {
+  socket.on('summon', id => {
     // if (games[i()].currentPlayer !== player() || player().mana < card.cost || !player().hand.some(handCard => handCard.id === card.id)) return;
     // if (card.type === 'spell') return;
-    console.log(`${p()} summoning ${card}`);
-    var thisgame = games[i()];
-    if (thisgame) {
-      thisgame.summon(card);
-    }
+    console.log(`${p()} summoning ${id}`);
+    games[i()].currentPlayer.summon(id);
   });
 
   socket.on('cast', target => {
@@ -104,11 +100,11 @@ module.exports = (io, socket) => {
       },
       spells: games[i()].decidingSpell
     };
-    games[i()].cast(logic);
+    games[i()].currentPlayer.cast(logic);
   });
 
   socket.on('attack', (attackerId, attackeeId) => {
-    games[i()].attack(attackerId, attackeeId);
+    games[i()].currentPlayer.attack(attackerId, attackeeId);
   });
 
   socket.on('endTurn', () => {
