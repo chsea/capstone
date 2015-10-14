@@ -1,4 +1,30 @@
 card, blank-card {
+  position: relative;
+  width: 220px;
+  height: 300px;
+  .shadows, .background, .labels {
+    position: absolute;
+    top: 0;
+    content: '';
+    height: 300px;
+  };
+  .shadows {
+    background: url('./images/shadows.gif');
+    left: 0;
+    width: 220px;
+  }
+  .background {
+    background-color: #00A388;
+    left: 10px;
+    width: 200px;
+    box-shadow: 0 0 0.5em #999;
+    border-radius: 15px;
+  }
+  .labels {
+    background: url('./images/labels.png');
+    left: 0;
+    width: 220px;
+  }
   @include noselect();
   cursor: pointer;
   &.small{
@@ -10,39 +36,44 @@ card, blank-card {
       font-size: 10px;
     }
   }
-  box-shadow: 0 0 1em #999;
-  font: 15px Monaco;
-  border-radius: 15px;
-  margin: 0 10px;
   display: none;
-  background-color: #00A388;
+  // box-shadow: 0 0 1em #999;
+  font: 15px Monaco;
+  // border-radius: 15px;
+  margin: 0 10px;
+  // background-color: #00A388;
   color: white;
-  width: 200px;
-  height: 300px;
   text-align: center;
-  .cost, .ap-hp {
-    p {
-      @include vertical-align();
-    }
-    position: relative;
-    clear: both;
-    width: 35%;
-    height: 12%;
-    margin: 0 auto;
-    background-color: #BEEB9F;
-    padding:5px;
-    color: #00A388;
+  // .cost, .ap-hp {
+  //   p {
+  //     @include vertical-align();
+  //   }
+  //   position: relative;
+  //   clear: both;
+  //   width: 35%;
+  //   height: 12%;
+  //   margin: 0 auto;
+  //   background-color: #BEEB9F;
+  //   padding:5px;
+  //   color: #00A388;
+  // }
+  .cost {
+    position: absolute;
+    left: 10px;
+    top: 35px;
   }
-  .text {
-    .content {
-      @include vertical-align();
-    }
-    height: 76%;
-    padding: 5%;
-    .name {
-      font-size: 20px;
-      text-transform: uppercase;
-    }
+  .ap-hp {
+    position: absolute;
+    width: 10px;
+    left: 200px;
+    top: 35px;
+  }
+  .name {
+    position: absolute;
+    top: 185px;
+    left: 3px;
+    font-size: 12px;
+    text-transform: uppercase;
   }
   &.selected {
     border: 1px solid #BEEB9F;

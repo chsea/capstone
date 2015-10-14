@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const Minion = require('./card.class').Minion;
 
-const heal = (game, targets, amount) => {
+const heal = (targets, amount) => {
   targets.forEach(target => {
     let patient = target.minion ? target.minion : target.player;
     let id = target.minion ? target.minion.id : null;
@@ -11,7 +11,7 @@ const heal = (game, targets, amount) => {
   });
 };
 
-const damage = (game, targets, amount) => {
+const damage = (targets, amount) => {
   targets.forEach(target => {
     let attackee = target.minion ? target.minion : target.player;
     let id = target.minion ? target.minion.id : null;
@@ -30,7 +30,7 @@ const damage = (game, targets, amount) => {
   });
 };
 
-const draw = (game, targets, amount) => {
+const draw = (targets, amount) => {
   targets.forEach(target => {
     let cards = target.player.draw(amount);
     target.player.emit('drew', cards);
@@ -38,7 +38,7 @@ const draw = (game, targets, amount) => {
   });
 };
 
-const changeProperty = (game, targets, amount, property) => {
+const changeProperty = (targets, amount, property) => {
   targets.forEach(target => {
     let t = target.minion ? target.minion : target.player;
     let id = target.minion ? target.minion.id : null;
@@ -48,12 +48,12 @@ const changeProperty = (game, targets, amount, property) => {
   });
 };
 
-const summon = (game, targets, amount) => {
+const summon = (targets, amount) => {
   targets.forEach(target => {
     let minion;
     switch (amount.type) {
       case 'new':
-        minion = new Minion(amount.minion, game.idx++);
+        minion = new Minion(amount.minion, dx++);
         break;
       case 'hand':
         minion = _.remove(target.player.hand, handCard => handCard.id === amount.id)[0];

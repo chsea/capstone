@@ -1,8 +1,11 @@
 <span popover="rarity: {{card.rarity}}, stardust: {{card.stardustCost}}" style="background-image: url(/images/cardhidden.jpeg);">
-<div class="cost"><p>{{ card.cost }}</p></div>
-<div class="text">
-  <div class="content"><div class="name">-{{ card.name }}-</div>
-  <div class="description">{{ card.description }}</div></div>
-</div>
-<div class="ap-hp"><p>{{ card.ap }} | {{ card.hp }}</p></div>
+  <div class="shadows"></div>
+  <div class="background"></div>
+  <div class="labels"></div>
+  <div class="content">
+    <div class="cost"><p>{{ card.cost }}</p></div>
+    <div class="name">{{ card.name }}</div>
+    <div class="description">{{ card.description }}</div>
+    <div class="ap-hp"><p>{{ card.ap }} {{ card.hp }}</p></div>
+  </div>
 </span>

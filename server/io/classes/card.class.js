@@ -35,7 +35,8 @@ class Minion extends Card {
   }
 
   summoned() {
-    // if (this.logic.battlecry) this.player.cast(this.logic.battlecry);
+    console.log(this.player);
+    if (this.logic.battlecry) this.player.cast(this.logic.battlecry);
   }
   startTurn() {
     // if (this.logic.eachTurn) this.player.cast(this.logic.eachTurn);
@@ -47,7 +48,7 @@ class Minion extends Card {
       else this.hp -= attackee.ap;
     }
     if (this.hp > 0 && this.hp < this.initialHp && this.logic.enrage) {
-      // this.player.cast(this.logic.enrage);
+      this.player.cast(this.logic.enrage);
       this.enraged = true;
     }
     if (this.hp <= 0) {
@@ -76,7 +77,7 @@ class Minion extends Card {
   }
 
   death() {
-    // if (this.logic.deathRattle) this.player.cast(this.logic.deathRattle, this.player);
+    if (this.logic.deathRattle) this.player.cast(this.logic.deathRattle, this.player);
   }
 }
 
