@@ -2,21 +2,18 @@
 <p>Game!</p>
 <div id="gameboard">
   <div id="opponent">
-    <div class="player-info">
+    <div class="player-info" popover="attack user to reduce health" popover-trigger="mouseenter" popover-placement="right">
       <player player="opponent" ng-drop="player.selecting || opponent.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: null}, $event)"></player>
     </div>
     <div class="hand">
       <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card="card"></blank-card>
-    <!-- <blankcard class="opponent-card hand-card small" ng-repeat="card in opponent.hand" ></blankcard> -->
-
-
     </div>
     <div class="extra">
-      <div><h4>Mana: {{ opponent.mana }}</h4></div>
     </div>
+      <h4>Mana: {{ opponent.mana }}</h4>
   </div>
 
-  <h3><strong class="pull-left">{{ player.message }}</strong></h3>
+  <strong class="pull-left">{{ player.message }}</strong>
   <div id="table" ng-drop="player.turn">
     <div id="opponent-summoned">
       <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="player.selecting || minion.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
