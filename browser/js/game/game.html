@@ -13,6 +13,7 @@
     </div>
     <div class="extra">
       <div>{{ opponent.mana }}</div>
+      <div>{{ opponent.deck.length }}</div> 
     </div>
   </div>
   <div id="table" ng-drop="player.turn">
@@ -32,8 +33,9 @@
       <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)"></card>
     </div>
     <div class="extra">
-      <div>{{ player.mana }}</div>
+      <div>Mana: {{ player.mana }}</div>
       <div>{{ player.message }}</div>
+      <div>Deck length: {{ player.deck.length }}</div>      
       <button ng-click="endTurn()" ng-show="player.turn">End Turn</button>
       <button ng-click='leave()'>Leave game</button>
     </div>

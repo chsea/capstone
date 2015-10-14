@@ -39,6 +39,7 @@ class Player {
     this.emit('initialCards', this.decidingCards);
   }
   setInitialHand(rejectedCards) {
+    console.log("deck: ", this.deck);
     rejectedCards.forEach(i => this.deck.push(this.decidingCards.splice(i, 1)[0]));
     this.shuffle();
     this.hand = this.decidingCards;
@@ -165,13 +166,14 @@ class Player {
   }
 
   attack(attackerId, attackeeId) {
+    console.log('attacker', attackerId, 'attackee', attackerId);
     let attacker = _.find(this.summonedMinions, minion => minion.id === attackerId);
     // if (!attacker.canAttack) return;
     let attackee;
     if (attackeeId) attackee = _.find(this.opponent.summonedMinions, minion => minion.id === attackeeId);
     else attackee = this.opponent;
-    // console.log(`attacker`, attacker);
-    // console.log(`attackee`, attackee);
+    console.log(`attacker`, attacker);
+    console.log(`attackee`, attackee);
     console.log(`${attacker.name} attacking ${attackee.name}`);
 
     attacker.attacked(attackee, this);
@@ -182,7 +184,10 @@ class Player {
 
     this.opponent.emit('wasAttacked', {id: attackerId, hp: attacker.hp}, {id: attackeeId, hp: attackee.hp});
     if (!attackee.hp) {
-      if (attackerId) _.remove(this.opponent.summonedMinions, minion => minion.id = attackee.id);
+      if (attackeeId) {
+        _.remove(this.opponent.summonedMinions, minion => minion.id === attackee.id);
+        console.log(this.opponent.summonedMinions);
+      }
       else {
         this.emit('win');
         this.opponent.emit('lose');
