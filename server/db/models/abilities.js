@@ -1,15 +1,30 @@
 var mongoose = require('mongoose')
 
-var schema = new Mongoose.schema( {
-    names: {
-      'Taunt': 'Loyal',
-      'Windfury':'Agile',
-      'Deathrattle': 'Sevearence',
-      'Charge': 'Initiative',
-      'Battlecry': 'Inspiration'
-    }
+var schema = new mongoose.Schema({
+
+  taunt: {
+    type: String
+
+  },
+  charge: {
+    type: String
+
+  },
+  battlecry: {
+    type: String
+
+  },
+  windfury: {
+    type: String
+
+  },
+  deathrattle: {
+    type: String
+
+  }
+
 
 })
 
 
-mongoose.model('Abilities', schema);
+mongoose.model('Ability', schema);

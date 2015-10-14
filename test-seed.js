@@ -11,6 +11,9 @@ var Game = Promise.promisifyAll(mongoose.model('Game'));
 var cards = require('./test-cards');
 var chance = require('chance')(123);
 var _ = require('lodash');
+var Ability = Promise.promisifyAll(mongoose.model('Ability'))
+
+
 
 var tempData = {};
 
@@ -23,6 +26,18 @@ function seedSpells() {
   var spells = cards.spells;
   return Spell.createAsync(spells);
 }
+
+var abilityNames ={taunt: 'loyal', windfury: 'agile' ,charge: 'initiative' ,deathrattle:'severeance',battlecry: 'inspiration'}
+
+
+
+function seedAbilities(abilities){
+
+  return Ability.create(abilities)
+
+}
+
+
 
 function seedUsers() {
 
@@ -97,7 +112,7 @@ connectToDb.then(function() {
   ];
 
   Promise.all(remove).then(function() {
-    return Promise.all([seedMinions(), seedSpells(), seedUsers()]);
+    return Promise.all([seedMinions(), seedSpells(), seedUsers(), seedAbilities(abilityNames)]);
   }).then(function(seeds) {
     tempData.cards = seeds[0].concat(seeds[1]);
     tempData.users = seeds[2];
