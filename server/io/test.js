@@ -126,7 +126,6 @@ module.exports = (io, socket) => {
     socket.game = undefined;
     socket.p1 = undefined;
     socket.removeAllListeners();
-    console.log("made it past removeAllListeners");
   });
 
   socket.on('disconnect', () => {

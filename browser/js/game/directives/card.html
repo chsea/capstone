@@ -1,11 +1,18 @@
-<span popover="rarity: {{card.rarity}}, stardust: {{card.stardustCost}}" style="background-image: url(/images/cardhidden.jpeg);">
+<span popover="Abilities: " style="background-image: url('/images/cardhidden.jpeg');”"></span>
   <div class="shadows"></div>
   <div class="background"></div>
   <div class="labels"></div>
   <div class="content">
     <div class="cost"><p>{{ card.cost }}</p></div>
-    <div class="name">{{ card.name }}</div>
-    <div class="description">{{ card.description }}</div>
     <div class="ap-hp"><p>{{ card.ap }} {{ card.hp }}</p></div>
+    <div class="name">{{ card.name }}</div>
+    <div class="description">{{ card.description }}
+      <span ng-if="card.logic.taunt">Taunt</span>
+      <span ng-if="card.logic.divineShield">DivineShield</span>
+      <span ng-if="card.logic.charge">Charge</span>
+      <span ng-if="card.logic.battlecry">Battlecry</span>
+      <span ng-if="card.logic.windfury">Windfury</span>
+      <span ng-if="card.logic.deathrattle">Deathrattle</span>
+    </div>
   </div>
 </span>

@@ -66,19 +66,19 @@ var minions = [
     rarity: 1,
     logic: {
       charge: true,
-      taunt: true,
-      enrage: {
-        target: {
-          targets: ['thisMinion'],
-          select: 'all'
-        },
-        spells: {
-          propertyChange: {
-            property: 'ap',
-            amount: 3
-          }
-        }
-      }
+      // taunt: true,
+      // enrage: {
+      //   target: {
+      //     targets: ['playerMinions'],
+      //     select: 'all'
+      //   },
+      //   spells: {
+      //     propertyChange: {
+      //       property: 'ap',
+      //       amount: 3
+      //     }
+      //   }
+      // }
     }
   }
 ];
