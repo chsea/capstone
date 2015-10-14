@@ -6,6 +6,8 @@ router.use('/games', require('./games'));
 router.use('/cards', require('./cards'));
 router.use('/users', require('./users'));
 router.use('/decks', require('./decks'));
+router.use('/abilities', require('./abilities'));
+
 
 
 
