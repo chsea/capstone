@@ -12,6 +12,7 @@ app.factory('Player', (Minion, Socket, CardFactory, $rootScope) => {
 
     drew(cards) {
       cards.forEach(card => {
+        console.log(`drew - ${card.name}`);
         this.hand.push(card);
         $rootScope.$digest();
       });
@@ -92,6 +93,7 @@ app.factory('Player', (Minion, Socket, CardFactory, $rootScope) => {
     }
 
     fatigue() {
+      console.log('fatigued');
       this.hp--;
       $rootScope.$digest();
     }

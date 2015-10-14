@@ -32,7 +32,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
 
   //turns
   Socket.on('startTurn', card => {
-    console.log(`start turn - ${card.name}`);
+    console.log('start turn');
     player.message = "Your turn!";
     player.startTurn(card);
   });
