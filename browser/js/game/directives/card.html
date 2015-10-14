@@ -1,18 +1,28 @@
 <span popover="Abilities: " style="background-image: url('/images/cardhidden.jpeg');”"></span>
-  <div class="shadows"></div>
-  <div class="background"></div>
-  <div class="labels"></div>
-  <div class="content">
-    <div class="cost"><p>{{ card.cost }}</p></div>
-    <div class="ap-hp"><p>{{ card.ap }} {{ card.hp }}</p></div>
-    <div class="name">{{ card.name }}</div>
-    <div class="description">{{ card.description }}
-      <span ng-if="card.logic.taunt">Taunt</span>
-      <span ng-if="card.logic.divineShield">DivineShield</span>
-      <span ng-if="card.logic.charge">Charge</span>
-      <span ng-if="card.logic.battlecry">Battlecry</span>
-      <span ng-if="card.logic.windfury">Windfury</span>
-      <span ng-if="card.logic.deathrattle">Deathrattle</span>
-    </div>
+  <div class="absolute shadow cost-shadow"></div>
+  <div class="absolute shadow ap-hp-shadow"></div>
+  <div class="absolute shadow name-shadow"></div>
+  <div class="absolute background"></div>
+  <div class="absolute cost-bg label">
+    <div class="absolute cost-box">{{ card.cost }}</div>
+    <div class="absolute cost-triangle"></div>
+  </div>
+  <div class="absolute ap-hp-bg label">
+    <div class="absolute ap-hp-box">{{ card.ap }} {{ card.hp }}</div>
+    <div class="absolute ap-hp-triangle"></div>
+  </div>
+  <div class="absolute name-bg label">
+    <div class="absolute name-box"></div>
+    <div class="absolute name-triangle"></div>
+    <div class="absolute name-text">{{ card.name }}</div>
+  </div>
+  <div class="absolute description-box">
+    {{ card.description }}
+    <span ng-if="card.logic.taunt">Taunt</span>
+    <span ng-if="card.logic.divineShield">DivineShield</span>
+    <span ng-if="card.logic.charge">Charge</span>
+    <span ng-if="card.logic.battlecry">Battlecry</span>
+    <span ng-if="card.logic.windfury">Windfury</span>
+    <span ng-if="card.logic.deathrattle">Deathrattle</span>
   </div>
 </span>
