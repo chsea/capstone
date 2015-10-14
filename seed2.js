@@ -24,6 +24,7 @@ var Minion = Promise.promisifyAll(mongoose.model('Minion'));
 var Spell = Promise.promisifyAll(mongoose.model('Spell'));
 var Card = Promise.promisifyAll(mongoose.model('Card'));
 var Deck = Promise.promisifyAll(mongoose.model('Deck'));
+
 var Damage = Promise.promisifyAll(mongoose.model('Damage'));
 var Heal = Promise.promisifyAll(mongoose.model('Heal'));
 var Alter = Promise.promisifyAll(mongoose.model('Alter'));
@@ -38,7 +39,7 @@ var companies = ["Abacus", "AirHelp", "AirPair", "Algolia", "Ambition", "AptDeco
 var spellNames = ["Astral Communion", "Bite", "Claw", "Dark Wispers", "Force of Nature", "Healing Touch", "Innervate", "Living Roots", "Mark of the Wild", "Poison Seeds", "Recycle"];
 var category = ["transportation", "education", "communication", "sharing economy"];
 var spells = require('./cards.js').spells;
-var minions = require('./cards.js').minions;
+var minions = require('./test-cards.js').minions;
 var alter = require('./cards.js').alter;
 var damage = require('./cards.js').damage;
 var heal = require('./cards.js').heal;

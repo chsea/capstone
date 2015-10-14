@@ -25,9 +25,11 @@ function seedSpells() {
 }
 
 function seedUsers() {
+
   function randPhoto() {
     var n = chance.natural({min: 0, max: 96});
     return 'http://api.randomuser.me/portraits/med/women/' + n + '.jpg';
+
   }
 
   var users = [
