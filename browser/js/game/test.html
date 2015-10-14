@@ -9,13 +9,15 @@
       <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card="card"></blank-card>
     </div>
     <div class="extra">
-      <div>{{ opponent.mana }}</div>
+      <strong>Mana: {{ opponent.mana }}</strong>
     </div>
   </div>
   <div id="table" ng-drop="player.turn">
     <div id="opponent-summoned">
       <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="player.selecting || minion.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
     </div>
+    <h3><strong class="pull-left">{{ player.message }}</strong></h3>
+
     <div id="summoned">
       <minion ng-repeat="minion in player.summonedMinions" minion="minion" ng-drop="player.selecting" ng-drag-data="minion" ng-drag="minion.canAttack && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
     </div>
@@ -29,10 +31,9 @@
       <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)"></card>
     </div>
     <div class="extra">
-      <div>{{ player.mana }}</div>
-      <div>{{ player.message }}</div>
-      <button ng-click="endTurn()" ng-show="player.turn">End Turn</button>
-      <button ng-click='leave()'>Leave game</button>
+      <h3><strong>Mana: {{ player.mana }}</strong></h3>
+      <button class="btn-success" ng-click="endTurn()" ng-show="player.turn">End Turn</button>
+      <button class="btn-success" ng-click='leave()'>Leave game</button>
     </div>
   </div>
 </div>
