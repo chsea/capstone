@@ -34,7 +34,7 @@ var minions = [
     }
   },
   {
-    name: "Junior Front-End Engineer - battlecry heal",
+    name: "Junior Front-End Engineer",
     cost: 1, //2,
     ap: 2,
     hp: 1,
@@ -55,7 +55,7 @@ var minions = [
     }
   },
   {
-    name: "Senior Front-End Engineer - charge windfury",
+    name: "Senior Front-End Engineer",
     cost: 1, //4,
     ap: 6,
     hp: 3,
@@ -67,7 +67,7 @@ var minions = [
     }
   },
   {
-    name: "Scrum Master - enrage",
+    name: "Scrum Master",
     cost: 1, //5,
     ap: 5,
     hp: 5,
@@ -280,6 +280,7 @@ var spells = [
   {
     name: "Remove all opponent minions properties",
     cost: 1,
+    portraits: '',
     logic: {
       target: {
         targets: ["opponentMinions"],
@@ -296,8 +297,9 @@ var spells = [
     }
   },
   {
-    name: "give all charge",
+    name: "Determined",
     cost: 1,
+    portrait: '',
     logic: {
       target: {
         targets: ["playerMinions"],
@@ -315,8 +317,9 @@ var spells = [
     }
   },
   {
-    name: "Add 3 ap to selectable",
+    name: "In The Zone",
     cost: 1,
+    portrait: '',
     logic: {
       target: {
         targets: ["playerMinions"],
