@@ -296,7 +296,25 @@ var minions = [{
 }, {
   name: 'Nimit Maaru',
   logic: {
-    battlecry: []
+    battlecry: {
+      condition: {
+        target: ['self'],
+        amount: {
+          property: 'summonedMinions',
+          include: {
+            name: 'David Yang'
+          }
+        },
+        conditionMatch:{
+          spells: {
+            summon:{
+              name: 'Fullstack Graduate'
+            }
+          }
+
+        }
+      }
+    }
   },
   description: 'A Legendary Co-Founder. Inspiration: Summon a Fullstack Graduate; 3 if Daid is present',
   rarity: 3,
@@ -530,7 +548,23 @@ var minions = [{
   portait: 'awesome',
   category: 'super',
   stardustCost: 15
-}];
+},{
+  name: 'Data Scientist',
+  logic: {},
+  description: 'A master of data. gains 1/1 for every other unit ',
+  rarity: 1,
+  hp: 4,
+  ap: 4,
+  cost: 5,
+  portait: 'awesome',
+  category: 'super',
+  stardustCost: 15
+}
+
+
+
+
+];
 
 
 
