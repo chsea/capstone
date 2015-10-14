@@ -39,7 +39,8 @@ var companies = ["Abacus", "AirHelp", "AirPair", "Algolia", "Ambition", "AptDeco
 var spellNames = ["Astral Communion", "Bite", "Claw", "Dark Wispers", "Force of Nature", "Healing Touch", "Innervate", "Living Roots", "Mark of the Wild", "Poison Seeds", "Recycle"];
 var category = ["transportation", "education", "communication", "sharing economy"];
 var spells = require('./cards.js').spells;
-var minions = require('./test-cards.js').minions;
+var minions = require('./cards.js').minions;
+// It might need to be var minions = require('./test-cards.js').minions;
 var alter = require('./cards.js').alter;
 var damage = require('./cards.js').damage;
 var heal = require('./cards.js').heal;
@@ -166,10 +167,6 @@ function seedMinions() {
   //   obj.ap = Math.floor(Math.random() * 10);
   //   minions.push(obj);
   // }
-
-
-  var abilities = ['eachTurn', 'battlecry', 'deathRattle', 'enrage'];
-
 
   // minions.forEach(function(minion) {
 

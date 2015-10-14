@@ -11,9 +11,6 @@ var Game = Promise.promisifyAll(mongoose.model('Game'));
 var cards = require('./test-cards');
 var chance = require('chance')(123);
 var _ = require('lodash');
-var Ability = Promise.promisifyAll(mongoose.model('Ability'))
-
-
 
 var tempData = {};
 
@@ -27,24 +24,11 @@ function seedSpells() {
   return Spell.createAsync(spells);
 }
 
-var abilityNames ={taunt: 'loyal', windfury: 'agile' ,charge: 'initiative' ,deathrattle:'severeance',battlecry: 'inspiration'}
-
-
-
-function seedAbilities(abilities){
-
-  return Ability.create(abilities)
-
-}
-
-
-
 function seedUsers() {
 
   function randPhoto() {
     var n = chance.natural({min: 0, max: 96});
     return 'http://api.randomuser.me/portraits/med/women/' + n + '.jpg';
-
   }
 
   var users = [
@@ -112,7 +96,7 @@ connectToDb.then(function() {
   ];
 
   Promise.all(remove).then(function() {
-    return Promise.all([seedMinions(), seedSpells(), seedUsers(), seedAbilities(abilityNames)]);
+    return Promise.all([seedMinions(), seedSpells(), seedUsers()]);
   }).then(function(seeds) {
     tempData.cards = seeds[0].concat(seeds[1]);
     tempData.users = seeds[2];
