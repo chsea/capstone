@@ -1,29 +1,109 @@
 card, blank-card {
   position: relative;
-  width: 220px;
+  width: 200px;
   height: 300px;
-  .shadows, .background, .labels {
+  .absolute {
     position: absolute;
-    top: 0;
     content: '';
-    height: 300px;
-  };
-  .shadows {
-    background: url('./images/shadows.gif');
-    left: 0;
-    width: 220px;
+  }
+  .shadow {
+    width: 5%;
+    height: 3.3333%;
+  }
+  .cost-shadow {
+    background: url('./images/cost-shadow.gif');
+    top: 5%;
+    left: 0
+  }
+  .ap-hp-shadow {
+    background: url('./images/ap-hp-shadow.gif');
+    top: 5%;
+    right: 0
+  }
+  .name-shadow {
+    background: url('./images/name-shadow.gif');
+    top: 50%;
+    left: 0
   }
   .background {
     background-color: #00A388;
-    left: 10px;
-    width: 200px;
+    left: 5%;
+    height: 100%;
+    width: 90%;
     box-shadow: 0 0 0.5em #999;
     border-radius: 15px;
   }
-  .labels {
-    background: url('./images/labels.png');
+  .cost-bg {
+    width: 15%;
+    height: 16.6666667%;
     left: 0;
-    width: 220px;
+    top: 8.3333%;
+  }
+  .cost-box {
+    background-color: #ed494c;
+    width: 100%;
+    height: 60%;
+    left: 0;
+    top: 0;
+  }
+  .cost-triangle {
+    background: url('./images/cost-triangle.gif');
+    width: 100%;
+    height: 40%;
+    left: 0;
+    top: 60%;
+  }
+  .ap-hp-bg {
+    right: 0;
+    top: 8.3333%;
+    width: 15%;
+    height: 26.6666667%;
+  }
+  .ap-hp-box {
+    background-color: #ed494c;
+    width: 100%;
+    height: 75%;
+    right: 0;
+    top: 0;
+  }
+  .ap-hp-triangle {
+    background: url('./images/ap-hp-triangle.gif');
+    width: 100%;
+    height: 25%;
+    right: 0;
+    top: 75%;
+  }
+  .name-bg {
+    width: 100%;
+    height: 8.3333333%;
+    left: 0;
+    top: 160px;
+  }
+  .name-box {
+    background-color: #1695a3;
+    width: 87.5%;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
+  .name-triangle {
+    background: url('./images/name-triangle.gif');
+    width: 12.5%;
+    height: 100%;
+    right: 0;
+    top: 0;
+  }
+  .name-text {
+    left: 3%;
+    top: 30%;
+  }
+  .description-box {
+    background: url('./images/grid.png');
+    // background-color: red;
+    width: 82.5%;
+    height: 33%;
+    top: 61.66666667%;
+    left: 5%;
   }
   @include noselect();
   cursor: pointer;
@@ -37,46 +117,14 @@ card, blank-card {
     }
   }
   display: none;
-  // box-shadow: 0 0 1em #999;
   font: 15px Monaco;
-  // border-radius: 15px;
-  margin: 0 10px;
-  // background-color: #00A388;
   color: white;
   text-align: center;
-  // .cost, .ap-hp {
-  //   p {
-  //     @include vertical-align();
-  //   }
-  //   position: relative;
-  //   clear: both;
-  //   width: 35%;
-  //   height: 12%;
-  //   margin: 0 auto;
-  //   background-color: #BEEB9F;
-  //   padding:5px;
-  //   color: #00A388;
-  // }
-  .cost {
-    position: absolute;
-    left: 10px;
-    top: 35px;
-  }
-  .ap-hp {
-    position: absolute;
-    width: 10px;
-    left: 200px;
-    top: 35px;
-  }
-  .name {
-    position: absolute;
-    top: 185px;
-    left: 3px;
-    font-size: 12px;
-    text-transform: uppercase;
-  }
   &.selected {
     border: 1px solid #BEEB9F;
+  }
+  &.manage-deck {
+    margin: 10px;
   }
 }
 
