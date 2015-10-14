@@ -76,11 +76,11 @@ class Player {
   summon(id) {
     let summoned = _.remove(this.hand, handCard => handCard.id === id)[0];
     console.log('summoned', summoned.name);
-    // summoned.player = this;
+    summoned.player = this;
     if (summoned.type === 'minion') {
       this.summonedMinions.push(summoned);
       this.emit('summoned', summoned.name);
-      // summoned.summoned();
+      summoned.summoned();
     } else this.cast(summoned.logic, this);
     this.mana -= summoned.cost;
     this.opponent.emit('opponentSummoned', summoned.name);
@@ -161,7 +161,7 @@ class Player {
             break;
         }
       }
-      if (conditionMet) Spell[spell](this, targets, logic.spells[spell].amount, logic.spells[spell].property);
+      if (conditionMet) Spell[spell](targets, logic.spells[spell].amount, logic.spells[spell].property);
     }
   }
 
