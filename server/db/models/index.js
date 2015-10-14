@@ -6,4 +6,3 @@ require('./game');
 require('./card');
 require('./deck');
 require('./effects');
-require('./abilities');
