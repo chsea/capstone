@@ -12,6 +12,8 @@ app.config($stateProvider => {
   $scope.opponent = players.opponent;
   Socket.emit('playerReady');
 
+  $scope.testcount = 1;
+
   let rejectedCards = [];
   $scope.reject = idx => {
     $scope.player.decide(idx, rejectedCards);
@@ -20,6 +22,11 @@ app.config($stateProvider => {
   $scope.summon = (card, e) => {
     $scope.player.summon(card.id);
   };
+
+  $scope.displayCard = function(card) {
+    console.log("display card function successful ", card);
+  };
+
 
   $scope.select = data => {
     console.log('data', data);
