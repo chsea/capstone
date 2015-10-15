@@ -1,5 +1,5 @@
 <span ng-show="user && homestate()" class="ng-binding">  Welcome, {{user.username}}!</span>
 <button ng-show="user && !gamestate()" class="btn btn-default pull-right" ng-click="logout()">Logout</button>
 <button ng-show="!homestate() && !gamestate()" ui-sref="home" class="btn btn-default pull-right">Home</button>
-<button ng-show="!user" ui-sref="login" class="btn btn-default pull-right">Login</button>
+<button ng-show="!user && !homestate()" ui-sref="login" class="btn btn-default pull-right">Login</button>
 
