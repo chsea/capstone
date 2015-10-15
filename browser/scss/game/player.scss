@@ -9,4 +9,7 @@ player {
     @include vertical-align();
     text-transform: uppercase;
   }
+  .name {
+    background-color: #eb4b50;
+  }
 }
