@@ -4,7 +4,7 @@ card, blank-card {
   height: 300px;
   .absolute {
     position: absolute;
-    background-size: contain;
+    background-size: cover;
     content: '';
   }
   .shadow {
@@ -12,16 +12,16 @@ card, blank-card {
     height: 3.33333333333333333%;
   }
   .background {
-    background-image: url('./images/cards/junior-back-end-engineer.jpg');
     background-size: cover;
     left: 5%;
     height: 100%;
     width: 90%;
     box-shadow: 0 0 0.5em #999;
     border-radius: 15px;
+    overflow: hidden;
   }
   .cost-shadow {
-    background-image: url('./images/cost-shadow.gif');
+    background-image: url('./images/cost-shadow.png');
     top: 5%;
     left: 0
   }
@@ -40,14 +40,14 @@ card, blank-card {
     padding-top: 70%;
   }
   .cost-triangle {
-    background-image: url('./images/cost-triangle.gif');
+    background-image: url('./images/cost-triangle.png');
     width: 100%;
     height: 40%;
     left: 0;
     top: 60%;
   }
   .ap-hp-shadow {
-    background-image: url('./images/ap-hp-shadow.gif');
+    background-image: url('./images/ap-hp-shadow.png');
     top: 5%;
     right: 0
   }
@@ -66,7 +66,7 @@ card, blank-card {
     padding-top: 70%;
   }
   .ap-hp-triangle {
-    background-image: url('./images/ap-hp-triangle.gif');
+    background-image: url('./images/ap-hp-triangle.png');
     width: 100%;
     height: 25%;
     right: 0;
@@ -115,7 +115,8 @@ card, blank-card {
     text-align: left;
     font-size: 0.7em;
     .description-text {
-      padding: 5px;
+      margin: 10px;
+      // padding: 5px;
     }
   }
   @include noselect();

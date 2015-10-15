@@ -7,6 +7,7 @@ class Card {
     this.description = card.description;
     this.id = id;
     this.logic = card.logic;
+    this.portrait = card.portrait;
   }
 }
 

@@ -22,7 +22,7 @@ var cardSchema = new Schema({
   },
   portrait: {
     type: String,
-    default: "http://thecatapi.com/api/images/get?format=src&type=gif"
+    default: "junior-back-end-engineer.jpg"
   },
   rarity: {
     type: Number,
@@ -91,9 +91,9 @@ var spellSchema = cardSchema.extend({
 });
 
 cardSchema.statics.packCards = function() {
-  let rarityWeighedCards = [];
-  return this.find().exec().then(cards => {
-    cards.forEach(card => {
+  var rarityWeighedCards = [];
+  return this.find().exec().then(function(cards) {
+    cards.forEach(function (card) {
       if (card.rarity === 0 || card.rarity === 1) {
         _.times(4, function() {
           rarityWeighedCards.push(card);
@@ -106,13 +106,13 @@ cardSchema.statics.packCards = function() {
       } else {
         rarityWeighedCards.push(card);
       }
-    })
+    });
   }).then(function() {
-    let packCards = _.sample(rarityWeighedCards, 5);
+    var packCards = _.sample(rarityWeighedCards, 5);
     // self.cards += _.sample(rarityWeighedCards, 5);
     return packCards;
   });
-}
+};
 
 
 cardSchema.virtual('rarity.name').get(function() {
@@ -120,7 +120,7 @@ cardSchema.virtual('rarity.name').get(function() {
   return names[this.rarity];
 });
 
-module.exports = mongoose.model('Card', cardSchema)
+module.exports = mongoose.model('Card', cardSchema);
 mongoose.model('Card', cardSchema);
 mongoose.model('Minion', minionSchema);
 mongoose.model('Spell', spellSchema);

@@ -8,14 +8,14 @@ var minions = [
       // charge: true
       // divineShield: true
     },
-    portrait: 'https://radioeye.files.wordpress.com/2013/02/lindsay.jpg',
+    // portrait: 'https://radioeye.files.wordpress.com/2013/02/lindsay.jpg',
   },
 
   {
     name: "Junior Back-End Engineer",
     cost: 1, //2,
     ap: 1,
-    portrait: 'http://www.fullstackacademy.com/img/team/BN.jpg',
+    portrait: 'junior-back-end-engineer.jpg',
     hp: 6,
     logic: {
 
@@ -28,7 +28,7 @@ var minions = [
     cost: 1, //4,
     ap: 3,
     hp: 6,
-    portrait: 'http://www.fullstackacademy.com/img/team/griffin_t.jpg',
+    // portrait: 'http://www.fullstackacademy.com/img/team/griffin_t.jpg',
     logic: {
       // taunt: true
     }
@@ -38,7 +38,7 @@ var minions = [
     cost: 1, //2,
     ap: 2,
     hp: 1,
-    portrait: 'http://www.fullstackacademy.com/img/team/Apurv.jpg',
+    portrait: 'junior-front-end-engineer.jpg',
     logic: {
       battlecry: {
         target: {
@@ -59,8 +59,7 @@ var minions = [
     cost: 1, //4,
     ap: 6,
     hp: 3,
-    portrait: 'http://www.fullstackacademy.com/img/team/zeke_nierenberg.jpg',
-
+    // portrait: 'http://www.fullstackacademy.com/img/team/zeke_nierenberg.jpg',
     logic: {
       charge: true,
       windfury: true
@@ -72,7 +71,7 @@ var minions = [
     ap: 5,
     hp: 5,
     rarity: 1,
-    portrait: 'http://www.fullstackacademy.com/img/team/Mark.jpg',
+    // portrait: 'http://www.fullstackacademy.com/img/team/Mark.jpg',
     logic: {
       charge: true,
       // taunt: true,
@@ -299,7 +298,7 @@ var spells = [
   {
     name: "Determined",
     cost: 1,
-    portrait: '',
+    // portrait: '',
     logic: {
       target: {
         targets: ["playerMinions"],
@@ -319,7 +318,7 @@ var spells = [
   {
     name: "In The Zone",
     cost: 1,
-    portrait: '',
+    // portrait: '',
     logic: {
       target: {
         targets: ["playerMinions"],

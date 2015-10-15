@@ -4,17 +4,18 @@ app.config($stateProvider => {
     templateUrl: 'js/game/test.html',
     controller: 'TestController',
     resolve: {
-      user: AuthService => AuthService.getLoggedInUser()
+      player: AuthService => AuthService.getLoggedInUser()
     }
   });
-}).controller('TestController', ($scope, $state, $compile, Socket, user, Game) => {
+}).controller('TestController', ($scope, $state, $compile, Socket, player, Game) => {
   let players = Game($scope);
   $scope.player = players.player;
+  // $scope.player.portrait = player.portrait;
   $scope.opponent = players.opponent;
   let rejectedCards = [];
 
-  let deck = user.decks[0].cards.map(card => card._id);
-  Socket.emit('playerReady', user.username, deck);
+  let deck = player.decks[0].cards.map(card => card._id);
+  Socket.emit('playerReady', player.username, deck);
 
   $scope.reject = idx => {
     $scope.player.decide(idx, rejectedCards);

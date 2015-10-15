@@ -10,6 +10,8 @@ body {
   font-size: 12px;
   background-image: url('./images/blurred-background.jpg');
   background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 @mixin clearfix {
