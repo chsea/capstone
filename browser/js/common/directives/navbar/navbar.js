@@ -16,6 +16,15 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                 });
             };
 
+
+            scope.homestate = function() {
+                return $rootScope.currentstate === "home" ? true : false;
+            };
+
+            scope.gamestate = function() {
+                return $rootScope.currentstate === "game" ? true: false;
+            };
+
             var setUser = function () {
                 AuthService.getLoggedInUser().then(function (user) {
                     scope.user = user;
