@@ -37,8 +37,6 @@
       <player player="player" ng-drop="player.selecting" ng-drop-success="select({selector: $data, selectee: 'self'})" popover="you have {{player.hp}} health points" popover-trigger="mouseenter" popover-placement="right"></player>
     </div>
     
-    <div ng-mouseenter="enlarge=true" ng-mouseleave="enlarge=false">Show Card</div>
-
     <div class="hand">
       <div ng-repeat="card in player.hand" ng-mouseenter="enlargeCard(card)" ng-mouseleave="enlargeCard()">
         <card class="hand-card small" card="card" value="card"
