@@ -78,9 +78,7 @@ module.exports = (io, socket) => {
     }
   });
   socket.on('initialHandSet', () => {
-    console.log('yes');
     if (games[i()].state != 'setInitialHand') return;
-    console.log('go');
     games[i()].startPlaying();
   });
 

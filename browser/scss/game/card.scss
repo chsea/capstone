@@ -9,7 +9,7 @@ card, blank-card {
   }
   .shadow {
     width: 5%;
-    height: 3.3333%;
+    height: 3.33333333333333333%;
   }
   .cost-shadow {
     background-image: url('./images/cost-shadow.gif');
@@ -46,6 +46,7 @@ card, blank-card {
     height: 60%;
     left: 0;
     top: 0;
+    padding-top: 70%;
   }
   .cost-triangle {
     background-image: url('./images/cost-triangle.gif');
@@ -66,6 +67,7 @@ card, blank-card {
     height: 75%;
     right: 0;
     top: 0;
+    padding-top: 70%;
   }
   .ap-hp-triangle {
     background-image: url('./images/ap-hp-triangle.gif');
@@ -100,11 +102,15 @@ card, blank-card {
   }
   .description-box {
     background-image: url('./images/grid.png');
-    // background-color: red;
+    background-size: auto;
     width: 82.5%;
     height: 33%;
     top: 58.333333333%;
     left: 5%;
+    border-radius: 0 0 10px 0;
+    text-align: left;
+    padding: 10%;
+    font-size: 0.7em;
   }
   @include noselect();
   cursor: pointer;
@@ -132,6 +138,7 @@ card, blank-card {
   }
 }
 
-blank-card .text {
-  height: 100%;
+blank-card {
+  background-image: url('./images/robotCard.jpg');
+  background-size: cover;
 }
