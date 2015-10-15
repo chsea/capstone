@@ -51,6 +51,5 @@ app.run(function ($rootScope, AuthService, $state) {
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
         $rootScope.currentstate = toState.name;
-        console.log("current state ", $rootScope.currentstate);
     });
 });
