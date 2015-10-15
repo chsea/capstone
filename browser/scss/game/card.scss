@@ -23,11 +23,12 @@ card, blank-card {
   }
   .name-shadow {
     background-image: url('./images/name-shadow.gif');
-    top: 46.666666667%;
+    top: 61%;
     left: 0
   }
   .background {
-    background-color: #00A388;
+    background-image: url('./images/cards/junior-back-end-engineer.jpg');
+    background-size: cover;
     left: 5%;
     height: 100%;
     width: 90%;
@@ -78,9 +79,9 @@ card, blank-card {
   }
   .name-bg {
     width: 100%;
-    height: 8.3333333%;
+    height: 8.3%;
     left: 0;
-    top: 50%;
+    top: 64.33333333333%;
   }
   .name-box {
     background-color: #1695a3;
@@ -104,8 +105,8 @@ card, blank-card {
     background-image: url('./images/grid.png');
     background-size: auto;
     width: 82.5%;
-    height: 33%;
-    top: 58.333333333%;
+    height: 20%;
+    top: 72.633333%;
     left: 5%;
     border-radius: 0 0 10px 0;
     text-align: left;

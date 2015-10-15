@@ -1,13 +1,13 @@
 <span popover="Abilities: " style="background-image: url('/images/cardhidden.jpeg');”"></span>
   <div class="absolute shadow cost-shadow"></div>
-  <div class="absolute shadow ap-hp-shadow" ng-show="card.type === minion"></div>
+  <div class="absolute shadow ap-hp-shadow" ng-show="card.type === 'Minion'"></div>
   <div class="absolute shadow name-shadow"></div>
   <div class="absolute background"></div>
   <div class="absolute cost-bg label">
     <div class="absolute cost-box">{{ card.cost }}</div>
     <div class="absolute cost-triangle"></div>
   </div>
-  <div class="absolute ap-hp-bg label" ng-show="card.type === minion">
+  <div class="absolute ap-hp-bg label" ng-show="card.type === 'Minion'">
     <div class="absolute ap-hp-box"><p>{{ card.ap }}</p>
       <p>{{ card.hp }}</p></div>
     <div class="absolute ap-hp-triangle"></div>
