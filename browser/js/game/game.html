@@ -26,7 +26,7 @@
       <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="player.selecting || minion.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
     </div>
     <div id="summoned">
-      <minion ng-repeat="minion in player.summonedMinions" minion="minion" ng-drop="player.selecting" ng-drag-data="minion" ng-drag="minion.canAttack && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
+      <minion ng-repeat="minion in player.summonedMinions" minion="minion" ng-click="logMinion()" ng-drop="player.selecting" ng-drag-data="minion" ng-drag="minion.canAttack && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
     </div>
   </div>
 
@@ -39,7 +39,7 @@
     <div ng-mouseenter="enlarge=true" ng-mouseleave="enlarge=false">Show Card</div>
 
     <div class="hand">
-      <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)" ng-click="testcount = testcount + 1">
+      <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)">
       </card>
     </div>
     <div class="extra">

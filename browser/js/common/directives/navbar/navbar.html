@@ -1,7 +1,5 @@
-<!-- <div style="max-width: 100px; height: 10px;"><a class="pull-left"><fullstack-logo></fullstack-logo></a></div> -->
-<span ng-show="user" class="ng-binding">  Welcome, {{user.username}}!</span>
-<span ng-show="user.packs > 0">You have {{user.packs}} packs waiting to be opened</span>
-<button ng-show="user" class="btn btn-default pull-right" ng-click="logout()">Logout</button>
-<button ui-sref="home" class="btn btn-default pull-right">Home</button>
+<span ng-show="user && homestate()" class="ng-binding">  Welcome, {{user.username}}!</span>
+<button ng-show="user && !gamestate()" class="btn btn-default pull-right" ng-click="logout()">Logout</button>
+<button ng-show="!homestate() && !gamestate()" ui-sref="home" class="btn btn-default pull-right">Home</button>
 <button ng-show="!user" ui-sref="login" class="btn btn-default pull-right">Login</button>
 
