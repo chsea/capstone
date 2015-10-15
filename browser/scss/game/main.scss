@@ -5,6 +5,8 @@
   height: 600px;
   padding: 0;
   margin: 0 auto;
+  clip-path: polygon(0 0, 100% 0, 0 95%, 100% 80%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 94%, 80% 94%, 77% 100%, 24% 100%, 21% 94%, 15% 94%, 10% 98%, 7% 98%, 5% 94%, 0 94%);
   #table {
     content: "";
     height: 400px;
