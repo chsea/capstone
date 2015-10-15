@@ -1,10 +1,10 @@
 player {
   width: 100px;
   height: 100px;
-  background-color: gray;
   display: block;
   margin-left: 10px;
   text-align: center;
+  border-radius: 70%;
   .content {
     @include vertical-align();
     text-transform: uppercase;

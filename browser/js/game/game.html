@@ -1,7 +1,9 @@
 <section>
-<p>Game!</p>
 <div id="gameboard">
   <div id="opponent">
+    <h3 style="position:absolute; text-align: left;">{{opponent.name | uppercase}}<br>
+      <small style="color: #777;" popover="your opponent has {{opponent.mana}} mana and {{opponent.hp}} health points" popover-trigger="mouseenter" popover-placement="right">HP: {{opponent.hp}}<br>Mana: {{opponent.mana}}</small>
+    </h3>
     <div class="player-info" popover="attack user to reduce health" popover-trigger="mouseenter" popover-placement="right">
       <player player="opponent" ng-drop="player.selecting || opponent.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: null}, $event)"></player>
     </div>
@@ -9,11 +11,15 @@
       <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card="card"></blank-card>
     </div>
     <div class="extra">
+      <div align="right" class="pull-right" style="position: absolute;"><card></card></div>
+      </div>
     </div>
-      <h4>Mana: {{ opponent.mana }}</h4>
-  </div>
 
-  <strong class="pull-left">{{ player.message }}</strong>
+    <div>
+      <h3 style="text-align: left"><strong class="pull-right" style="position:absolute; float: left">{{player.message}}</strong>
+      </h3>
+    </div>
+
   <div id="table" ng-drop="player.turn">
     <div id="opponent-summoned">
       <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="player.selecting || minion.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
@@ -25,14 +31,18 @@
 
   <div id="player">
     <div class="player-info">
-      <selector ng-drag="player.selecting" ng-drag-data=""></selector>
-      <player player="player" ng-drop="player.selecting" ng-drop-success="select({selector: $data, selectee: 'self'})"></player>
+      <selector ng-drag="player.selecting" ng-drag-data="" popover="drag to cast spell" popover-trigger="mouseenter" popover-placement="above"></selector>
+      <player player="player" ng-drop="player.selecting" ng-drop-success="select({selector: $data, selectee: 'self'})" popover="you have {{player.hp}} health points" popover-trigger="mouseenter" popover-placement="right"></player>
     </div>
+    
+    <div ng-mouseenter="enlarge=true" ng-mouseleave="enlarge=false">Show Card</div>
+
     <div class="hand">
-      <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)"></card>
+      <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)" ng-mouseenter="enlarge=true"></card>
     </div>
     <div class="extra">
-      <div><h3><strong>Mana: {{ player.mana }}</strong></h3></div>
+      <div><h3><strong popover="you have {{player.mana}} mana" popover-trigger="mouseenter" popover-placement="above">
+        <small >{{player.mana}} MANA</small></h3></div>
       <button class="btn-success" ng-click="endTurn()" ng-show="player.turn">End Turn</button>
       <button class="btn-success" ng-click='leave()'>Leave game</button>
     </div>
