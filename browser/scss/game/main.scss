@@ -1,13 +1,16 @@
 #gameboard {
   color: black;
-  background: url('/images/summer.png');
+  background: url('/images/restaurant.png');
+  // background-size: cover;
   width: 1200px;
-  height: 600px;
+  height: 625px;
   padding: 0;
   margin: 0 auto;
+  clip-path: polygon(0 2%, 5% 2%, 6% 0, 14% 0, 15% 2%, 100% 0%, 100% 94%, 80% 94%, 77% 100%, 23% 100%, 20% 94%, 15% 94%, 14% 96%, 6% 96%, 5% 94%, 0 94%);
+  -webkit-clip-path: polygon(0 9.5%, 5% 9.5%, 10% 0, 10% 0, 15% 9.5%, 100% 9.5%, 100% 94%, 80% 94%, 77% 100%, 23% 100%, 20% 94%, 15% 94%, 14% 96%, 6% 96%, 5% 94%, 0 94%);
   #table {
     content: "";
-    height: 400px;
+    height: 350px;
   };
   #summoned, #opponent-summoned {
     display: flex;
@@ -30,34 +33,47 @@
   #player, #opponent {
     display: flex;
     justify-content: center;
-    height: 100px
   }
   #player {
+    height: 165px;
     align-items: flex-start;
     .hand {
       padding-top: 25px;
     }
   }
   #opponent {
+    height: 110px;
     align-items: flex-end;
     .hand {
       padding-bottom: 25px;
     }
   }
   .player-info {
-    display: flex;
     justify-content: flex-end;
-    width: 200px;
+    width: 240px;
+    .name {
+      width: 120px;
+      margin-left: 60px;
+      background-color: #ed494c;
+      height: 35px;
+      -webkit-clip-path: polygon(0 50%, 10% 0, 90% 0, 100% 50%, 100% 100%, 0 100%);
+      text-align: center;
+    }
+    player {
+      margin-top: 5px;
+      width: 120px;
+      margin-left: 60px;
+    }
   }
   .hand {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    width: 800px;
+    width: 720px;
     text-align: center;
   }
   .extra {
-    width: 200px;
+    width: 240px;
   }
   overflow: hidden;
 }

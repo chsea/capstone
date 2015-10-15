@@ -3,7 +3,7 @@ app.factory('Opponent', (Player, Socket, UserFactory, $rootScope) => {
 
   //initial draw
   Socket.on('gameStart', players => {
-    opponent.name = players[0].name;
+    opponent.name = players.opponent;
     $rootScope.$digest();
     // PlayerFactory.findAll({name: players.opponent}).then(players => {
     //   opponent.portrait = players[0].portrait;
