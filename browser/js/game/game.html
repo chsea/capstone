@@ -16,7 +16,8 @@
     </div>
 
     <div>
-      <h3 style="text-align: left"><strong class="pull-right" style="position:absolute; float: left">{{player.message}}</strong>
+      <h3 style="text-align: left">
+        <strong class="pull-right" style="position:absolute; float: left">{{player.message}}</p></strong>
       </h3>
     </div>
 
@@ -38,7 +39,8 @@
     <div ng-mouseenter="enlarge=true" ng-mouseleave="enlarge=false">Show Card</div>
 
     <div class="hand">
-      <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)" ng-mouseenter="enlarge=true"></card>
+      <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)" ng-click="testcount = testcount + 1">
+      </card>
     </div>
     <div class="extra">
       <div><h3><strong popover="you have {{player.mana}} mana" popover-trigger="mouseenter" popover-placement="above">
