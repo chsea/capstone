@@ -11,7 +11,8 @@
       <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card="card"></blank-card>
     </div>
     <div class="extra">
-      <div ng-show="enlarge" align="right" class="pull-right" style="position: absolute;"><card></card></div>
+      <div ng-show="enlarge" align="right" class="pull-right" style="position: absolute;">
+        <card card="enlarge"></card></div>
       </div>
     </div>
 
@@ -39,8 +40,11 @@
     <div ng-mouseenter="enlarge=true" ng-mouseleave="enlarge=false">Show Card</div>
 
     <div class="hand">
-      <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)">
+      <div ng-repeat="card in player.hand" ng-mouseenter="enlargeCard(card)" ng-mouseleave="enlargeCard()">
+        <card class="hand-card small" card="card" value="card"
+        ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)">
       </card>
+    </div>
     </div>
     <div class="extra">
       <div><h3><strong popover="you have {{player.mana}} mana" popover-trigger="mouseenter" popover-placement="above">

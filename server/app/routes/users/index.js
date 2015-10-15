@@ -51,6 +51,7 @@ router.put('/:userId', function(req, res, next) {
 });
 router.put('/:userId/packs', function(req, res, next) {
   if(req.user.packs < 1) return;
+  console.log(req.foundUser)
   return req.foundUser.openPack().then(user => {
     res.json(user)
   }).then(null, next);
