@@ -9,30 +9,21 @@ card, blank-card {
   }
   .shadow {
     width: 5%;
-    height: 3.3333%;
-  }
-  .cost-shadow {
-    background-image: url('./images/cost-shadow.gif');
-    top: 5%;
-    left: 0
-  }
-  .ap-hp-shadow {
-    background-image: url('./images/ap-hp-shadow.gif');
-    top: 5%;
-    right: 0
-  }
-  .name-shadow {
-    background-image: url('./images/name-shadow.gif');
-    top: 46.666666667%;
-    left: 0
+    height: 3.33333333333333333%;
   }
   .background {
-    background-color: #00A388;
+    background-image: url('./images/cards/junior-back-end-engineer.jpg');
+    background-size: cover;
     left: 5%;
     height: 100%;
     width: 90%;
     box-shadow: 0 0 0.5em #999;
     border-radius: 15px;
+  }
+  .cost-shadow {
+    background-image: url('./images/cost-shadow.gif');
+    top: 5%;
+    left: 0
   }
   .cost-bg {
     width: 15%;
@@ -46,6 +37,7 @@ card, blank-card {
     height: 60%;
     left: 0;
     top: 0;
+    padding-top: 70%;
   }
   .cost-triangle {
     background-image: url('./images/cost-triangle.gif');
@@ -53,6 +45,11 @@ card, blank-card {
     height: 40%;
     left: 0;
     top: 60%;
+  }
+  .ap-hp-shadow {
+    background-image: url('./images/ap-hp-shadow.gif');
+    top: 5%;
+    right: 0
   }
   .ap-hp-bg {
     right: 0;
@@ -66,6 +63,7 @@ card, blank-card {
     height: 75%;
     right: 0;
     top: 0;
+    padding-top: 70%;
   }
   .ap-hp-triangle {
     background-image: url('./images/ap-hp-triangle.gif');
@@ -74,11 +72,16 @@ card, blank-card {
     right: 0;
     top: 75%;
   }
+  .name-shadow {
+    background-image: url('./images/name-shadow.gif');
+    bottom: 13.3%;
+    left: 0
+  }
   .name-bg {
     width: 100%;
-    height: 8.3333333%;
+    height: 8.3%;
     left: 0;
-    top: 160px;
+    bottom: 5%;
     overflow: hidden;
   }
   .name-box {
@@ -96,16 +99,24 @@ card, blank-card {
     top: 0;
   }
   .name-text {
+    font-size: 1em;
+    text-transform: uppercase;
     left: 3%;
     top: 30%;
   }
   .description-box {
+    position: absolute;
     background-image: url('./images/grid.png');
-    // background-color: red;
     width: 82.5%;
-    height: 33%;
-    top: 58.333333333%;
+    // max-height: 20%;
+    bottom: 13.3%;
     left: 5%;
+    border-radius: 0 10px 0 0;
+    text-align: left;
+    font-size: 0.7em;
+    .description-text {
+      padding: 5px;
+    }
   }
   @include noselect();
   cursor: pointer;
@@ -133,6 +144,7 @@ card, blank-card {
   }
 }
 
-blank-card .text {
-  height: 100%;
+blank-card {
+  background-image: url('./images/robotCard.jpg');
+  background-size: cover;
 }
