@@ -6,8 +6,7 @@ app.config($stateProvider => {
   });
 }).controller('GameController', ($scope, $state, $compile, Socket, Game) => {
   let players = Game($scope);
-  $scope.enlarge = false;
-  $scope.enlargedCard = undefined;
+  $scope.enlarge = undefined;
   $scope.player = players.player;
   $scope.opponent = players.opponent;
   Socket.emit('playerReady');
@@ -27,9 +26,14 @@ app.config($stateProvider => {
   $scope.summon = (card, e) => {
     $scope.player.summon(card.id);
   };
-
+  
   $scope.displayCard = function(card) {
     console.log("display card function successful ", card);
+  };
+
+  $scope.enlargeCard = function(card) {
+    console.log(card);
+    $scope.enlarge = card;
   };
 
 
