@@ -6,6 +6,8 @@ app.config($stateProvider => {
   });
 }).controller('GameController', ($scope, $state, $compile, Socket, Game) => {
   let players = Game($scope);
+  $scope.enlarge = false;
+  $scope.enlargedCard = undefined;
   $scope.player = players.player;
   $scope.opponent = players.opponent;
   Socket.emit('playerReady');
