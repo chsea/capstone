@@ -1,10 +1,13 @@
-app.factory('Opponent', (Player, Socket, $rootScope) => {
+app.factory('Opponent', (Player, Socket, UserFactory, $rootScope) => {
   let opponent = new Player();
 
   //initial draw
   Socket.on('gameStart', players => {
-    opponent.name = players.opponent;
+    opponent.name = players[0].name;
     $rootScope.$digest();
+    // PlayerFactory.findAll({name: players.opponent}).then(players => {
+    //   opponent.portrait = players[0].portrait;
+    // });
   });
   Socket.on('setInitialHand', (hand, turn) => {
     opponent.hand = [{}, {}, {}];

@@ -37,7 +37,7 @@ function seedUsers() {
       email: "sea@hi.com",
       password: "bye",
       photo: randPhoto(),
-      cards: [],
+      cards: _.pluck(tempData.cards, '_id'),
       decks: [],
       stardust: 132
     },
@@ -46,7 +46,7 @@ function seedUsers() {
       email: "sky@hi.com",
       password: "bye",
       photo: randPhoto(),
-      cards: [],
+      cards: _.pluck(tempData.cards, '_id'),
       decks: [],
       stardust: 102
     }
@@ -96,10 +96,12 @@ connectToDb.then(function() {
   ];
 
   Promise.all(remove).then(function() {
-    return Promise.all([seedMinions(), seedSpells(), seedUsers()]);
-  }).then(function(seeds) {
-    tempData.cards = seeds[0].concat(seeds[1]);
-    tempData.users = seeds[2];
+    return Promise.all([seedMinions(), seedSpells()]);
+  }).then(function(cards) {
+    tempData.cards = cards[0].concat(cards[1]);
+    return seedUsers();
+  }).then(function(users) {
+    tempData.users = users;
     return seedGames();
   }).then(function(games) {
     tempData.games = games;

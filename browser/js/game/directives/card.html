@@ -1,8 +1,14 @@
 <span popover="Abilities: " style="background-image: url('/images/cardhidden.jpeg');”"></span>
-  <div class="absolute shadow cost-shadow"></div>
+  <div class="absolute shadow cost-shadow">
+    <!-- <svg height="100%" width="100%" viewBox="0 0 10 10" preserveAspectRatio="none">
+        <polygon points="0,10 10,0 10,10" style="fill: red"/>
+    </svg> -->
+  </div>
   <div class="absolute shadow ap-hp-shadow" ng-show="card.type === 'Minion'"></div>
   <div class="absolute shadow name-shadow"></div>
-  <div class="absolute background"></div>
+  <div class="absolute background">
+    <img ng-src="./images/cards/{{card.portrait}}">
+  </div>
   <div class="absolute cost-bg label">
     <div class="absolute cost-box">{{ card.cost }}</div>
     <div class="absolute cost-triangle"></div>
@@ -13,7 +19,7 @@
     <div class="absolute ap-hp-triangle"></div>
   </div>
   <div class="description-box">
-    <div class="description-text"
+    <div class="description-text">
       {{ card.description }}
       <span ng-if="card.logic.taunt">Taunt</span>
       <span ng-if="card.logic.divineShield">DivineShield</span>
