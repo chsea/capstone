@@ -11,21 +11,6 @@ card, blank-card {
     width: 5%;
     height: 3.33333333333333333%;
   }
-  .cost-shadow {
-    background-image: url('./images/cost-shadow.gif');
-    top: 5%;
-    left: 0
-  }
-  .ap-hp-shadow {
-    background-image: url('./images/ap-hp-shadow.gif');
-    top: 5%;
-    right: 0
-  }
-  .name-shadow {
-    background-image: url('./images/name-shadow.gif');
-    top: 61%;
-    left: 0
-  }
   .background {
     background-image: url('./images/cards/junior-back-end-engineer.jpg');
     background-size: cover;
@@ -34,6 +19,11 @@ card, blank-card {
     width: 90%;
     box-shadow: 0 0 0.5em #999;
     border-radius: 15px;
+  }
+  .cost-shadow {
+    background-image: url('./images/cost-shadow.gif');
+    top: 5%;
+    left: 0
   }
   .cost-bg {
     width: 15%;
@@ -56,6 +46,11 @@ card, blank-card {
     left: 0;
     top: 60%;
   }
+  .ap-hp-shadow {
+    background-image: url('./images/ap-hp-shadow.gif');
+    top: 5%;
+    right: 0
+  }
   .ap-hp-bg {
     right: 0;
     top: 8.3333%;
@@ -77,11 +72,17 @@ card, blank-card {
     right: 0;
     top: 75%;
   }
+  .name-shadow {
+    background-image: url('./images/name-shadow.gif');
+    bottom: 13.3%;
+    left: 0
+  }
   .name-bg {
     width: 100%;
     height: 8.3%;
     left: 0;
-    top: 64.33333333333%;
+    bottom: 5%;
+    overflow: hidden;
   }
   .name-box {
     background-color: #1695a3;
@@ -98,20 +99,24 @@ card, blank-card {
     top: 0;
   }
   .name-text {
+    font-size: 1em;
+    text-transform: uppercase;
     left: 3%;
     top: 30%;
   }
   .description-box {
+    position: absolute;
     background-image: url('./images/grid.png');
-    background-size: auto;
     width: 82.5%;
-    height: 20%;
-    top: 72.633333%;
+    // max-height: 20%;
+    bottom: 13.3%;
     left: 5%;
-    border-radius: 0 0 10px 0;
+    border-radius: 0 10px 0 0;
     text-align: left;
-    padding: 10%;
     font-size: 0.7em;
+    .description-text {
+      padding: 5px;
+    }
   }
   @include noselect();
   cursor: pointer;
