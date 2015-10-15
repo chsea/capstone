@@ -7,8 +7,6 @@ router.use('/cards', require('./cards'));
 router.use('/users', require('./users'));
 router.use('/decks', require('./decks'));
 
-
-
 // Make sure this is after all of
 // the registered routes!
 router.use(function (req, res) {

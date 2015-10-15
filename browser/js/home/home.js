@@ -14,7 +14,6 @@ app.config(function ($stateProvider) {
 
 app.controller('HomeController', function($scope, user, UserFactory,CardFactory) {
 
-
   $scope.user = user;
   $scope.showCards = [];
   $scope.lastFiveCards = null;

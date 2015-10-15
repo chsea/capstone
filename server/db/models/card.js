@@ -5,8 +5,6 @@ var extend = require('mongoose-schema-extend');
 var Schema = mongoose.Schema;
 var _ = require('lodash')
 
-
-
 var cardSchema = new Schema({
   name: {
     type: String,
@@ -115,8 +113,6 @@ cardSchema.statics.packCards = function() {
     return packCards;
   });
 }
-
-
 
 
 cardSchema.virtual('rarity.name').get(function() {

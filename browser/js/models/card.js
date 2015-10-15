@@ -3,5 +3,5 @@ app.factory('CardFactory', function(DS) {
     name: 'cards',
   });
 }).run(function(CardFactory) {
-  CardFactory.findAll()
+  CardFactory.findAll();
 });

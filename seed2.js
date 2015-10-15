@@ -24,6 +24,7 @@ var Minion = Promise.promisifyAll(mongoose.model('Minion'));
 var Spell = Promise.promisifyAll(mongoose.model('Spell'));
 var Card = Promise.promisifyAll(mongoose.model('Card'));
 var Deck = Promise.promisifyAll(mongoose.model('Deck'));
+
 var Damage = Promise.promisifyAll(mongoose.model('Damage'));
 var Heal = Promise.promisifyAll(mongoose.model('Heal'));
 var Alter = Promise.promisifyAll(mongoose.model('Alter'));
@@ -39,6 +40,7 @@ var spellNames = ["Astral Communion", "Bite", "Claw", "Dark Wispers", "Force of 
 var category = ["transportation", "education", "communication", "sharing economy"];
 var spells = require('./cards.js').spells;
 var minions = require('./cards.js').minions;
+// It might need to be var minions = require('./test-cards.js').minions;
 var alter = require('./cards.js').alter;
 var damage = require('./cards.js').damage;
 var heal = require('./cards.js').heal;
@@ -165,10 +167,6 @@ function seedMinions() {
   //   obj.ap = Math.floor(Math.random() * 10);
   //   minions.push(obj);
   // }
-
-
-  var abilities = ['eachTurn', 'battlecry', 'deathRattle', 'enrage'];
-
 
   // minions.forEach(function(minion) {
 
