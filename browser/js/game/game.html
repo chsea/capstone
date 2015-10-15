@@ -33,7 +33,7 @@
 
   <div id="player">
     <div class="player-info">
-      <selector ng-drag="player.selecting" ng-drag-data="" popover="drag to cast spell" popover-trigger="mouseenter" popover-placement="above"></selector>
+      <selector ng-drag="player.selecting" ng-drag-data="" popover="drag to cast spell" popover-trigger="mouseenter" popover-placement="right"></selector>
       <player player="player" ng-drop="player.selecting" ng-drop-success="select({selector: $data, selectee: 'self'})" popover="you have {{player.hp}} health points" popover-trigger="mouseenter" popover-placement="right"></player>
     </div>
     
