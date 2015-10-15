@@ -35,7 +35,8 @@ app.run(function ($rootScope, AuthService, $state) {
         // Cancel navigating to new state.
         event.preventDefault();
 
-        AuthService.getLoggedInUser().then(function (user) {
+        AuthService.getLoggedInUser()
+        .then(function (user) {
             // If a user is retrieved, then renavigate to the destination
             // (the second time, AuthService.isAuthenticated() will work)
             // otherwise, if no user is logged in, go to "login" state.
@@ -48,4 +49,8 @@ app.run(function ($rootScope, AuthService, $state) {
 
     });
 
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
+        $rootScope.currentstate = toState.name;
+        console.log("current state ", $rootScope.currentstate);
+    });
 });
