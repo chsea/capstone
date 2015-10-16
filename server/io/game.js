@@ -26,7 +26,7 @@ module.exports = (io, socket, createdGames) => {
     Promise.all(decks).then(resolvedDecks => {
       console.log(resolvedDecks);
       let decks = resolvedDecks.map(deck => {
-        return deck.map(card => card.type === 'Minion' ? new Minion(card, card._id.toString()) : new Spell(card, card._id.toString()));
+        return deck.map(card => card.type === 'minion' ? new Minion(card, card._id.toString()) : new Spell(card, card._id.toString()));
       });
 
       let player1 = new Player(game.p1.name, decks[0], game.p1.socket);

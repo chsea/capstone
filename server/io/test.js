@@ -31,7 +31,7 @@ module.exports = (io, socket) => {
 
     Promise.all(decks).then(resolvedDecks => {
       let decks = resolvedDecks.map(deck => {
-        return deck.map(card => card.type === 'Minion' ? new Minion(card, card._id.toString()) : new Spell(card, card._id.toString()));
+        return deck.map(card => card.type === 'minion' ? new Minion(card, card._id.toString()) : new Spell(card, card._id.toString()));
       });
 
       //testing
