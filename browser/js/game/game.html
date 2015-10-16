@@ -24,10 +24,15 @@
 
   <div id="table" ng-drop="player.turn">
     <div id="opponent-summoned">
-      <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="player.selecting || minion.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
+      <div ng-repeat="minion in opponent.summonedMinions" ng-mouseenter="enlargeCard(minion)" ng-mouseleave="enlargeCard()">
+        <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="player.selecting || minion.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
+      </div>
     </div>
     <div id="summoned">
-      <minion ng-repeat="minion in player.summonedMinions" minion="minion" ng-click="logMinion()" ng-drop="player.selecting" ng-drag-data="minion" ng-drag="minion.canAttack && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
+      <div ng-repeat="minion in player.summonedMinions" ng-mouseenter="enlargeCard(minion)" ng-mouseleave="enlargeCard()">
+        <minion minion="minion" value="minion" ng-drop="player.selecting" ng-drag-data="minion" 
+        ng-drag="minion.canAttack && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
+      </div>
     </div>
   </div>
 
