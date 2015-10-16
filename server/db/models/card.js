@@ -122,5 +122,5 @@ cardSchema.virtual('rarity.name').get(function() {
 
 module.exports = mongoose.model('Card', cardSchema);
 mongoose.model('Card', cardSchema);
-mongoose.model('Minion', minionSchema);
-mongoose.model('Spell', spellSchema);
+mongoose.model('minion', minionSchema);
+mongoose.model('spell', spellSchema);

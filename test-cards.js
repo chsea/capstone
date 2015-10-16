@@ -3,34 +3,28 @@ var minions = [
     name: "Marketing Intern",
     cost: 1,
     ap: 1,
-    hp: 6,
-    logic: {
-      // charge: true
-      // divineShield: true
-    },
-    // portrait: 'https://radioeye.files.wordpress.com/2013/02/lindsay.jpg',
+    hp: 1,
+    portrait: 'market-intern.jpg',
   },
 
   {
-    name: "Junior Back-End Engineer",
+    name: "Driven Engineer",
+    portrait: 'driven-engineer.jpg',
     cost: 1, //2,
-    ap: 1,
-    portrait: 'junior-back-end-engineer.jpg',
-    hp: 6,
+    ap: 2,
+    hp: 3,
     logic: {
-
-      // charge: true
-      // divineShield: true
+      charge: true
     }
   },
   {
-    name: "Senior Back-End Engineer",
+    name: "Loyal Employee",
     cost: 1, //4,
     ap: 3,
     hp: 6,
-    // portrait: 'http://www.fullstackacademy.com/img/team/griffin_t.jpg',
+    portrait: 'loyal-employee.jpg',
     logic: {
-      // taunt: true
+      taunt: true
     }
   },
   {
@@ -71,22 +65,22 @@ var minions = [
     ap: 5,
     hp: 5,
     rarity: 1,
-    // portrait: 'http://www.fullstackacademy.com/img/team/Mark.jpg',
+    portrait: 'scrum-master.jpg',
     logic: {
-      charge: true,
-      // taunt: true,
-      // enrage: {
-      //   target: {
-      //     targets: ['playerMinions'],
-      //     select: 'all'
-      //   },
-      //   spells: {
-      //     propertyChange: {
-      //       property: 'ap',
-      //       amount: 3
-      //     }
-      //   }
-      // }
+      windfury: true,
+    }
+  },
+  {
+    name: "David Yang",
+    cost: 5,
+    ap: 10,
+    hp: 10,
+    rarity: 3,
+    portrait: "david-yang.jpg",
+    logic: {
+      taunt: true,
+      divineShield: true,
+      windfury: true
     }
   }
 ];
