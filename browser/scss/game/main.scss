@@ -1,3 +1,21 @@
+.name {
+  z-index: 5;
+  position: relative;
+  margin: 0 auto;
+  -webkit-clip-path: polygon(0 50%, 10% 0%, 90% 0, 100% 50%, 90% 100%, 10% 100%);
+  &.opponent-name {
+    top: 40px;
+    left: -480px;
+  }
+  &.player-name {
+    top: -77px;
+    left: -480px;
+  }
+  width: 120px;
+  background-color: #ed494c;
+  height: 30px;
+  text-align: center;
+}
 #gameboard {
   color: black;
   background: url('/images/restaurant.png');
@@ -5,12 +23,12 @@
   width: 1200px;
   height: 625px;
   padding: 0;
-  margin: 0 auto;
-  clip-path: polygon(0 2%, 5% 2%, 6% 0, 14% 0, 15% 2%, 100% 0%, 100% 94%, 80% 94%, 77% 100%, 23% 100%, 20% 94%, 15% 94%, 14% 96%, 6% 96%, 5% 94%, 0 94%);
-  -webkit-clip-path: polygon(0 9.5%, 5% 9.5%, 10% 0, 10% 0, 15% 9.5%, 100% 9.5%, 100% 94%, 80% 94%, 77% 100%, 23% 100%, 20% 94%, 15% 94%, 14% 96%, 6% 96%, 5% 94%, 0 94%);
+  margin: 25px auto;
+  clip-path: polygon(0 0, 100% 0%, 100% 94%, 80% 94%, 77% 100%, 23% 100%, 20% 94%, 0 94%);
+  -webkit-clip-path: polygon(0 0, 100% 0%, 100% 94%, 80% 94%, 77% 100%, 23% 100%, 20% 94%, 0 94%);
   #table {
     content: "";
-    height: 350px;
+    height: 373px;
   };
   #summoned, #opponent-summoned {
     display: flex;
@@ -35,34 +53,27 @@
     justify-content: center;
   }
   #player {
-    height: 165px;
+    height: 146px;
     align-items: flex-start;
-    .hand {
-      padding-top: 25px;
+    .extra {
+      text-align: center;
+    }
+    .buttons {
+      margin-top: 82px;
     }
   }
   #opponent {
-    height: 110px;
+    height: 106px;
     align-items: flex-end;
-    .hand {
-      padding-bottom: 25px;
+    player {
+      margin-top: 15px;
     }
   }
   .player-info {
     justify-content: flex-end;
     width: 240px;
-    .name {
-      width: 120px;
-      margin-left: 60px;
-      background-color: #ed494c;
-      height: 35px;
-      -webkit-clip-path: polygon(0 50%, 10% 0, 90% 0, 100% 50%, 100% 100%, 0 100%);
-      text-align: center;
-    }
     player {
-      margin-top: 5px;
-      width: 120px;
-      margin-left: 60px;
+      margin-left: 73px;
     }
   }
   .hand {

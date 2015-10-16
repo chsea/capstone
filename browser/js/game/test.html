@@ -4,6 +4,7 @@
     background: url('./images/stardust.png')
   }
 </style>
+<div class="opponent-name name">{{ opponent.name }}</div>
 <div id="gameboard">
   <div id="opponent">
     <div class="player-info">
@@ -13,7 +14,6 @@
       <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card="card"></blank-card>
     </div>
     <div class="extra">
-      <strong>Mana: {{ opponent.mana }}</strong>
     </div>
   </div>
   <div id="table" ng-drop="player.turn">
@@ -30,16 +30,17 @@
     <div class="player-info">
       <!-- <selector ng-drag="player.selecting" ng-drag-data=""></selector> -->
       <player player="player" ng-drop="player.selecting" ng-drop-success="select({selector: $data, selectee: 'self'})"></player>
-      <div class="name">{{ player.name }}</div>
     </div>
     <div class="hand">
       <card ng-repeat="card in player.hand" class="hand-card small" card="card" ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)"></card>
     </div>
     <div class="extra">
-      <h3><strong>Mana: {{ player.mana }}</strong></h3>
-      <button class="btn-success" ng-click="endTurn()" ng-show="player.turn">End Turn</button>
-      <button class="btn-success" ng-click='leave()'>Leave game</button>
+      <div class="buttons">
+        <button class="btn-success" ng-click="endTurn()" ng-show="player.turn">End Turn</button>
+        <button class="btn-success" ng-click='leave()'>Leave game</button>
+      </div>
     </div>
   </div>
 </div>
+<div class="player-name name">{{ player.name }}</div>
 </section>
