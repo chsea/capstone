@@ -9,7 +9,8 @@ app.config($stateProvider => {
   });
 }).controller('PlaySelectDeckController', ($scope, $state, $stateParams, $http, Socket, user) => {
   $scope.decks = user.decks;
-
+  $scope.selectedDeck = $scope.decks[0];
+  
   $scope.start = () => {
     let deck = _.pluck($scope.selectedDeck.cards, '_id');
     Socket.emit('join', user.username, deck);
