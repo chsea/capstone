@@ -13,10 +13,6 @@ app.config($stateProvider => {
 
   $scope.testcount = 1;
 
-  $scope.logMinion = function(minion) {
-    console.log("trying to log minion on click");
-  };
-
 
   let rejectedCards = [];
   $scope.reject = idx => {
