@@ -86,13 +86,14 @@ schema.method('experienceToLevel', function() {
 
 schema.methods.openPack = function() {
   this.packs -= 1;
+  var self = this;
   return Card.packCards()
-    .then((cards) => {
-      this.cards = this.cards.concat(cards);
-      return this.save();
-    }).then((user) => {
-      return user;
-    });
+  .then(function(cards) {
+    self.cards = self.cards.concat(cards);
+    return self.save();
+  }).then(function(user) {
+    return user;
+  });
 };
 
 
