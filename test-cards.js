@@ -92,194 +92,11 @@ var minions = [
 ];
 
 var spells = [
-  // {
-  //   name: "Self-Heal",
-  //   cost: 1,
-  //   logic: {
-  //     heal: {
-  //       target: {
-  //         targets: ["self"],
-  //         select: "all"
-  //       },
-  //       amount: 1
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Opponent Heal",
-  //   cost: 1,
-  //   logic: {
-  //     heal: {
-  //       target: {
-  //         targets: ["opponent"],
-  //         select: "all"
-  //       },
-  //       amount: 10
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Opponent Minion Heal",
-  //   cost: 1,
-  //   logic: {
-  //     heal: {
-  //       target: {
-  //         targets: ["opponentMinions"],
-  //         select: "all"
-  //       },
-  //       amount: 1
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Player Minion Heal",
-  //   cost: 1,
-  //   logic: {
-  //     heal: {
-  //       target: {
-  //         targets: ["playerMinions"],
-  //         select: "all"
-  //       },
-  //       amount: 1
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Player + Minion Heal",
-  //   cost: 1,
-  //   logic: {
-  //     heal: {
-  //       target: {
-  //         targets: ["self", "playerMinions"],
-  //         select: "all"
-  //       },
-  //       amount: 10
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Random Player + Minion Heal",
-  //   cost: 1,
-  //   logic: {
-  //     heal: {
-  //       target: {
-  //         targets: ["self", "playerMinions"],
-  //         select: "random",
-  //         qty: 4
-  //       },
-  //       amount: 1
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Self-Damage",
-  //   cost: 1,
-  //   logic: {
-  //     damage: {
-  //       target: {
-  //         targets: ["self"],
-  //         select: "all"
-  //       },
-  //       amount: 1
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Opponent Damage",
-  //   cost: 1,
-  //   logic: {
-  //     damage: {
-  //       target: {
-  //         targets: ["opponent"],
-  //         select: "all"
-  //       },
-  //       amount: 1
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Opponent Minion Damage",
-  //   cost: 1,
-  //   logic: {
-  //     damage: {
-  //       target: {
-  //         targets: ["opponentMinions"],
-  //         select: "all"
-  //       },
-  //       amount: 1
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Player Minion Damage",
-  //   cost: 1,
-  //   logic: {
-  //     damage: {
-  //       target: {
-  //         targets: ["playerMinions"],
-  //         select: "all"
-  //       },
-  //       amount: 1
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Player + Minion Damage",
-  //   cost: 1,
-  //   logic: {
-  //     damage: {
-  //       target: {
-  //         targets: ["self", "playerMinions"],
-  //         select: "all"
-  //       },
-  //       amount: 1
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Random Player + Minion Damage",
-  //   cost: 1,
-  //   logic: {
-  //     damage: {
-  //       target: {
-  //         targets: ["self", "playerMinions"],
-  //         select: "random",
-  //         qty: 4
-  //       },
-  //       amount: 1
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Self-Draw",
-  //   cost: 1,
-  //   logic: {
-  //     draw: {
-  //       target: {
-  //         targets: ["self"],
-  //         select: "all"
-  //       },
-  //       amount: 3
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Opponent Draw",
-  //   cost: 1,
-  //   logic: {
-  //     draw: {
-  //       target: {
-  //         targets: ["opponent"],
-  //         select: "all"
-  //       },
-  //       amount: 1
-  //     }
-  //   }
-  // }
   {
-    name: "Remove all opponent minions properties",
+    name: "Burn Out",
     cost: 1,
-    portraits: '',
+    // portraits: '',
+    description: 'Remove all special properties from an employee',
     logic: {
       target: {
         targets: ["opponentMinions"],
@@ -299,6 +116,7 @@ var spells = [
     name: "Determined",
     cost: 1,
     // portrait: '',
+    description: 'Give an employ charge.',
     logic: {
       target: {
         targets: ["playerMinions"],
@@ -319,16 +137,64 @@ var spells = [
     name: "In The Zone",
     cost: 1,
     // portrait: '',
+    description: "Increase one of your employee's attack by 3.",
     logic: {
       target: {
         targets: ["playerMinions"],
-        select: "selectable",
-        qty: 1
+        select: "selectable"
       },
       spells: {
         changeProperty: {
           amount: 3,
           property: 'ap'
+        }
+      }
+    }
+  },
+  {
+    name: "Demote",
+    cost: 1,
+    description: "Change an employee's health to 1.",
+    logic: {
+      target: {
+        targets: ["selectable"],
+      },
+      spells: {
+        changeProperty: {
+          property: 'hp',
+          amount: 1
+        }
+      }
+    }
+  },
+  {
+    name: "Market Crash",
+    cost: 1,
+    description: "Deal 3 damage to all minions",
+    logic: {
+      target: {
+        targets: ["playerMinions", "opponentMinions"],
+        select: "all"
+      },
+      spells: {
+        damage: {
+          amount: 3
+        }
+      }
+    }
+  },
+  {
+    name: "return test.pass",
+    cost: 1,
+    description: "Deal 30 damage to your opponent.",
+    logic: {
+      target: {
+        targets: ["opponent"],
+        select: "all"
+      },
+      spells: {
+        damage: {
+          amount: 30
         }
       }
     }
