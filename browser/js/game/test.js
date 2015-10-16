@@ -8,6 +8,15 @@ app.config($stateProvider => {
     }
   });
 }).controller('TestController', ($scope, $state, $compile, Socket, player, Game) => {
+  $scope.displayCard = function(card) {
+    console.log("display card function successful ", card);
+  };
+
+  $scope.enlargeCard = function(card) {
+    console.log(card);
+    $scope.enlarge = card;
+  };
+  
   let players = Game($scope);
   $scope.player = players.player;
   // $scope.player.portrait = player.portrait;
