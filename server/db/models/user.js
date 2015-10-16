@@ -86,15 +86,14 @@ schema.method('experienceToLevel', function() {
 
 schema.methods.openPack = function() {
   this.packs -= 1;
-  return Card.packCards().then((cards) => {
-    this.cards = this.cards.concat(cards);
-    return this.save();
-  }).then((user)=> {
-    return user;
-  });
+  return Card.packCards()
+    .then((cards) => {
+      this.cards = this.cards.concat(cards);
+      return this.save();
+    }).then((user) => {
+      return user;
+    });
 };
-
-
 
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

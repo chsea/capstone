@@ -1,15 +1,23 @@
 player {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 94px;
   display: block;
-  margin-left: 10px;
-  text-align: center;
-  border-radius: 70%;
-  .content {
-    @include vertical-align();
-    text-transform: uppercase;
+  // overflow: hidden;
+  .stats {
+    position: relative;
+    top: -67px;
+    left: 98px;
   }
-  .name {
-    background-color: #eb4b50;
+  .stats {
+    img {
+      height: 20px;
+      width: auto;
+    }
+    .mana {
+      margin-left: 3px;
+      .mana-img {
+        margin-right: 5px;
+      }
+    }
   }
 }

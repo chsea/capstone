@@ -81,11 +81,14 @@ gulp.task('testBrowserJS', function (done) {
     }, done);
 });
 
-gulp.task('buildCSS', function () {
+gulp.task('buildCSS', function (done) {
+    var sassComponent = sass();
+    sassComponent.on('error', function (e) {
+        console.error(e);
+        done(e);
+    });
     return gulp.src('./browser/scss/main.scss')
-        .pipe(sass({
-            errLogToConsole: true
-        }))
+        .pipe(sassComponent)
         .pipe(rename('style.css'))
         .pipe(gulp.dest('./public'));
 });
