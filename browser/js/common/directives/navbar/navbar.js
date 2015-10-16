@@ -22,7 +22,11 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             };
 
             scope.gamestate = function() {
-                return $rootScope.currentstate === "game" ? true: false;
+                return $rootScope.currentstate === "game" ? true : false;
+            };
+
+            scope.loginstate = function() {
+                return $rootScope.currentstate === "login" ? true : false;
             };
 
             var setUser = function () {
