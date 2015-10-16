@@ -1,5 +1,60 @@
 var minions = [
   {
+    name: 'Driven Engineer',
+    logic: {
+      charge: true
+    },
+    description: 'Always looking to implement the next great feature. Initiative',
+    rarity: 0,
+    hp: 3,
+    ap: 2,
+    cost: 2,
+    portait: 'awesome',
+    category: 'super',
+    stardustCost: 13
+  }, {
+    name: 'Agile-obsessed Engineer',
+    logic: {
+      windfury: true
+    },
+    description: 'An Engineer who\'s dedication to Agile is palpable. Agile ',
+    rarity: 0,
+    hp: 2,
+    ap: 1,
+    cost: 1,
+    portait: 'awesome',
+    category: 'super',
+    stardustCost: 13
+  }, {
+    name: 'Loyal Employee',
+    logic: {
+      taunt: true
+    },
+    description: 'An employee that stands by you through thick and thin. Loyal ',
+    rarity: 0,
+    hp: 3,
+    ap: 1,
+    cost: 1,
+    portait: 'awesome',
+    category: 'super',
+    stardustCost: 13
+  }, {
+    name: 'SteadFast employee',
+    logic: {
+      divineShield: true
+    },
+    description: 'Has been through quite a lot in his day. Steadfast',
+    rarity: 0,
+    hp: 3,
+    ap: 1,
+    cost: 1,
+    portait: 'awesome',
+    category: 'super',
+    stardustCost: 13
+  },
+
+
+  {
     name: "Marketing Intern",
     cost: 1,
     ap: 1,
@@ -22,8 +77,7 @@ var minions = [
       // charge: true
       // divineShield: true
     }
-  },
-  {
+  }, {
     name: "Senior Back-End Engineer",
     cost: 1, //4,
     ap: 3,
@@ -32,8 +86,7 @@ var minions = [
     logic: {
       // taunt: true
     }
-  },
-  {
+  }, {
     name: "Junior Front-End Engineer",
     cost: 1, //2,
     ap: 2,
@@ -53,8 +106,7 @@ var minions = [
       },
       charge: true
     }
-  },
-  {
+  }, {
     name: "Senior Front-End Engineer",
     cost: 1, //4,
     ap: 6,
@@ -64,8 +116,7 @@ var minions = [
       charge: true,
       windfury: true
     }
-  },
-  {
+  }, {
     name: "Scrum Master",
     cost: 1, //5,
     ap: 5,
@@ -88,8 +139,7 @@ var minions = [
       //   }
       // }
     }
-  }
-];
+  }];
 
 var spells = [
   // {
@@ -294,8 +344,7 @@ var spells = [
         }
       }
     }
-  },
-  {
+  }, {
     name: "Determined",
     cost: 1,
     // portrait: '',
@@ -314,8 +363,7 @@ var spells = [
         }
       }
     }
-  },
-  {
+  }, {
     name: "In The Zone",
     cost: 1,
     // portrait: '',
