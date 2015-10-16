@@ -11,6 +11,7 @@ app.factory('Minion', (Socket, $rootScope) => {
       this.canAttack = false;
       this.attackable = true;
       this.turns = 1;
+      this.portrait = minion.portrait;
 
       if (this.logic.charge) this.canAttack = true;
     }

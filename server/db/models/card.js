@@ -22,7 +22,7 @@ var cardSchema = new Schema({
   },
   portrait: {
     type: String,
-    default: "junior-back-end-engineer.jpg"
+    default: "marketing-intern.jpg"
   },
   rarity: {
     type: Number,

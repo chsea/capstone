@@ -4,7 +4,7 @@ var minions = [
     cost: 1,
     ap: 1,
     hp: 1,
-    portrait: 'market-intern.jpg',
+    portrait: 'marketing-intern.jpg',
   },
 
   {
@@ -28,35 +28,13 @@ var minions = [
     }
   },
   {
-    name: "Junior Front-End Engineer",
-    cost: 1, //2,
-    ap: 2,
-    hp: 1,
-    portrait: 'junior-front-end-engineer.jpg',
-    logic: {
-      battlecry: {
-        target: {
-          targets: ['playerMinions'],
-          select: 'all',
-        },
-        spells: {
-          heal: {
-            amount: 2
-          }
-        }
-      },
-      charge: true
-    }
-  },
-  {
-    name: "Senior Front-End Engineer",
+    name: "Steadfast Engineer",
     cost: 1, //4,
     ap: 6,
     hp: 3,
-    // portrait: 'http://www.fullstackacademy.com/img/team/zeke_nierenberg.jpg',
+    portrait: 'steadfast-engineer.jpg',
     logic: {
-      charge: true,
-      windfury: true
+      divineShield: true
     }
   },
   {
@@ -82,6 +60,90 @@ var minions = [
       divineShield: true,
       windfury: true
     }
+  },
+  {
+    name: "QA Specialist",
+    cost: 1,
+    ap: 1,
+    hp: 1,
+    portrait: "qa-specialist.jpg",
+    logic: {
+      battlecry: {
+        target: {
+          targets: ["self"],
+          select: "all"
+        },
+        spells: {
+          draw: {
+            amount: 2
+          }
+        }
+      }
+    }
+  },
+  {
+    name: "Hackathon Junkie",
+    cost: 1,
+    ap: 1,
+    hp: 1,
+    portrait: "hackathon-junkie.jpg",
+    logic: {
+      enrage: {
+        target: {
+          targets: ["thisMinion"],
+          select: "all"
+        },
+        spells: {
+          changeProperty: {
+            property: 'logic',
+            amount: {
+              property: "windfury",
+              amount: true
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    name: "Overworked Coder",
+    cost: 1,
+    ap: 1,
+    hp: 1,
+    portrait: "overworked-coder.jpg",
+    logic: {
+      deathRattle: {
+        target: {
+          targets: ["opponentMinions"],
+          select: "all"
+        },
+        spells: {
+          damage: {
+            amount: 2
+          }
+        }
+      }
+    }
+  },
+  {
+    name: "Database Administrator",
+    cost: 1,
+    ap: 1,
+    hp: 1,
+    portrait: "database-administrator.jpg",
+    logic: {
+      everyTurn: {
+        target: {
+          targets: ["self"],
+          select: "all"
+        },
+        spells: {
+          heal: {
+            amount: 2
+          }
+        }
+      }
+    }
   }
 ];
 
@@ -89,7 +151,7 @@ var spells = [
   {
     name: "Burn Out",
     cost: 1,
-    // portraits: '',
+    portrait: 'burn-out.jpg',
     description: 'Remove all special properties from an employee',
     logic: {
       target: {
@@ -109,7 +171,7 @@ var spells = [
   {
     name: "Determined",
     cost: 1,
-    // portrait: '',
+    portrait: 'determined.jpg',
     description: 'Give an employ charge.',
     logic: {
       target: {
@@ -130,7 +192,7 @@ var spells = [
   {
     name: "In The Zone",
     cost: 1,
-    // portrait: '',
+    portrait: 'in-the-zone.jpg',
     description: "Increase one of your employee's attack by 3.",
     logic: {
       target: {
@@ -148,6 +210,7 @@ var spells = [
   {
     name: "Demote",
     cost: 1,
+    portrait: 'demote.jpg',
     description: "Change an employee's health to 1.",
     logic: {
       target: {
@@ -164,6 +227,7 @@ var spells = [
   {
     name: "Market Crash",
     cost: 1,
+    portrait: 'market-crash.jpg',
     description: "Deal 3 damage to all minions",
     logic: {
       target: {
@@ -180,6 +244,7 @@ var spells = [
   {
     name: "return test.pass",
     cost: 1,
+    portrait: 'test-pass.jpg',
     description: "Deal 30 damage to your opponent.",
     logic: {
       target: {
