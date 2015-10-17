@@ -10,13 +10,15 @@ app.config($stateProvider => {
 });
 
 app.controller('PlayController', ($scope, $state, user) => {
+  $scope.games = user.games;
+  $scope.selectedGame = user.games[0];
   $scope.isLoggedIn = true;
+
   if (!user) {
     $scope.isLoggedIn = false;
   }
-  $scope.games = user.games;
   $scope.select = () => {
     $scope.gameSelected = true;
-    $state.go('play.selectDeck', {name: $scope.selectedGame});
+    $state.go('play.selectDeck', {name: $scope.selectedGame.name});
   };
 });
