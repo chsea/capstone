@@ -11,10 +11,12 @@
       <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card="card"></blank-card>
     </div>
     <div class="extra">
-      <div ng-show="enlarge" align="right" class="pull-right" style="position: absolute;">
-        <card card="enlarge"></card>
-        <p>{{enlargedDescription}}</p>
-      </div>
+      <span style="position: absolute;">
+        <div ng-show="enlarge" align="right" class="pull-right" style="position: absolute;">
+          <card card="enlarge"></card>
+          <span class="description-box"><p class="absolute-name binding">{{enlargedDescription}}</p></span>
+        </div>
+      </span>
     </div>
   </div>
 
@@ -22,7 +24,6 @@
       <h3 style="text-align: left">
         <strong class="pull-right" style="position:absolute; float: left">{{player.message}}</p></strong>
       </h3>
-      <button>Key</button>
     </div>
 
   <div id="table" ng-drop="player.turn">
@@ -38,7 +39,7 @@
       </div>
     </div>
   </div>
-
+f
   <div id="player">
     <div class="player-info">
       <selector ng-drag="player.selecting" ng-drag-data="" popover="drag to cast spell" popover-trigger="mouseenter" popover-placement="right"></selector>
