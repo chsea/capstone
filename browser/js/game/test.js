@@ -8,19 +8,22 @@ app.config($stateProvider => {
     }
   });
 }).controller('TestController', ($scope, $state, $compile, Socket, player, Game) => {
+  $scope.m = () => {
+    $scope.x = !$scope.x;
+  };
   $scope.displayCard = function(card) {
     console.log("display card function successful ", card);
   };
 
   $scope.enlargeCard = function(card) {
-    console.log(card);
     $scope.enlarge = card;
   };
-  
+
   let players = Game($scope);
   $scope.player = players.player;
   // $scope.player.portrait = player.portrait;
   $scope.opponent = players.opponent;
+  console.log('message', $scope.player.message);
   let rejectedCards = [];
 
   let deck = player.decks[0].cards.map(card => card._id);

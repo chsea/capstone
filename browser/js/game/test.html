@@ -20,10 +20,10 @@
     </div>
   </div>
   <div id="table" ng-drop="player.turn">
+    <div class="message" ng-class="{'fade-in': player.message}" ng-click="m()">{{ player.message }}</div>
     <div id="opponent-summoned">
       <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="player.selecting || minion.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
     </div>
-    <h3><strong class="pull-left">{{ player.message }}</strong></h3>
     <selector ng-show="player.selecting" ng-drag="player.selecting" ng-drag-data=""></selector>
     <div id="summoned">
       <minion ng-repeat="minion in player.summonedMinions" minion="minion" ng-drop="player.selecting" ng-drag-data="minion" ng-drag="minion.canAttack && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
@@ -31,7 +31,6 @@
   </div>
   <div id="player">
     <div class="player-info">
-
       <player player="player" ng-drop="player.selecting" ng-drop-success="select({selector: $data, selectee: 'self'})" popover="you have {{player.hp}} health points" popover-trigger="mouseenter" popover-placement="right"></player>
     </div>
     <div class="hand">
