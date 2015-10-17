@@ -152,7 +152,7 @@ var spells = [
     name: "Burn Out",
     cost: 1,
     portrait: 'burn-out.jpg',
-    description: 'Remove all special properties from an employee',
+    description: 'removes all special properties from an employee',
     logic: {
       target: {
         targets: ["opponentMinions"],
@@ -172,7 +172,7 @@ var spells = [
     name: "Determined",
     cost: 1,
     portrait: 'determined.jpg',
-    description: 'Give an employ charge.',
+    description: 'gives an employee charge',
     logic: {
       target: {
         targets: ["playerMinions"],
@@ -193,7 +193,7 @@ var spells = [
     name: "In The Zone",
     cost: 1,
     portrait: 'in-the-zone.jpg',
-    description: "Increase one of your employee's attack by 3.",
+    description: "increases one employee's attack by 3",
     logic: {
       target: {
         targets: ["playerMinions"],
@@ -211,7 +211,7 @@ var spells = [
     name: "Demote",
     cost: 1,
     portrait: 'demote.jpg',
-    description: "Change an employee's health to 1.",
+    description: "changes an employee's health to 1.",
     logic: {
       target: {
         targets: ["selectable"],
@@ -228,7 +228,7 @@ var spells = [
     name: "Market Crash",
     cost: 1,
     portrait: 'market-crash.jpg',
-    description: "Deal 3 damage to all minions",
+    description: "deals 3 damage to all minions",
     logic: {
       target: {
         targets: ["playerMinions", "opponentMinions"],
@@ -245,7 +245,7 @@ var spells = [
     name: "return test.pass",
     cost: 1,
     portrait: 'test-pass.jpg',
-    description: "Deal 30 damage to your opponent.",
+    description: "deals 30 damage to your opponent",
     logic: {
       target: {
         targets: ["opponent"],
