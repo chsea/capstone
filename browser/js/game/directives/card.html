@@ -6,7 +6,7 @@
     <img ng-src="./images/cards/{{card.portrait}}">
   </div>
   <div class="absolute cost-bg label">
-    <div class="absolute cost-box" ng-class="{'minion': card.type === 'minion', spell: card.type === 'spell'}">{{ card.cost }}</div>
+    <div class="absolute cost-box" ng-class="{'minion': card.type === 'minion', spell: card.type === 'spell'}"><img src="./images/coins.png"><div class="text">{{ card.cost }}</div></div>
     <div class="absolute cost-triangle" ng-class="{'minion': card.type === 'minion', spell: card.type === 'spell'}"></div>
   </div>
   <div class="absolute ap-hp-bg label" ng-show="card.type === 'minion'">

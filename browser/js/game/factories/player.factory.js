@@ -28,7 +28,6 @@ app.factory('Player', (Minion, Socket, CardFactory, $rootScope) => {
     }
     opponentTurn() {
       this.checkTaunt();
-      $rootScope.$digest();
     }
     endTurn () {
       this.turn = false;

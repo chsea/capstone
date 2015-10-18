@@ -1,3 +1,11 @@
+.message {
+  transition: opacity 1s;
+  opacity: 0;
+}
+.fade-in {
+  // transition: 1s linear all;
+  opacity: 1;
+}
 .name {
   z-index: 5;
   position: relative;
@@ -30,11 +38,17 @@
     content: "";
     height: 373px;
   };
+  .message {
+    @include vertical-align();
+    text-align: center;
+    font-size: 20pt;
+  }
+
   #summoned, #opponent-summoned {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    height: 183px;
   };
   #initial {
     display: flex;
@@ -59,7 +73,14 @@
       text-align: center;
     }
     .buttons {
-      margin-top: 82px;
+      // margin-top: 82px;
+      list-style: none;
+      li ~ li {
+        margin-top: 5px;
+      }
+      button {
+        width: 100px;
+      }
     }
   }
   #opponent {
@@ -85,6 +106,20 @@
   }
   .extra {
     width: 240px;
+  }
+  selector {
+    @include vertical-align;
+    display: block;
+    width: 50px;
+    text-align: center;
+    margin: 10px auto;
+  }
+  .hint {
+    position: absolute;
+    left: 550px;
+    top: 300px;
+    width: 200px;
+    text-align: center;
   }
   overflow: hidden;
 }

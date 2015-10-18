@@ -1,12 +1,18 @@
-app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
+app.factory('Self', (Player, Minion, Socket, $rootScope, $state, $timeout) => {
   let player = new Player();
 
   Socket.on('gameStart', players => {
     console.log('game started');
     player.name = players.player;
     $rootScope.$digest();
-    Socket.emit('initialDraw');
+    // Socket.emit('initialDraw');
   });
+
+  player.setMessage = message => {
+    player.message = message;
+    $rootScope.$digest();
+    $timeout(() => player.message = null, 3000);
+  };
 
   //initial draw
   player.decide = (idx, rejectedCards) => {
@@ -22,7 +28,6 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
     $rootScope.$digest();
   });
   Socket.on('setInitialHand', (hand, turn) => {
-    console.log('hand');
     $('#initial').remove();
     player.hand = hand;
     player.turn = turn;
@@ -33,13 +38,13 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
   //turns
   Socket.on('startTurn', card => {
     console.log('start turn');
-    player.message = "Your turn!";
     player.startTurn(card);
+    player.setMessage("Your turn!");
   });
 
   Socket.on('wait', () => {
-    player.message = "Opponent's turn!";
     player.opponentTurn();
+    player.setMessage("Opponent's turn!");
   });
   player.emitEndTurn = () => {
     player.endTurn();
@@ -50,7 +55,6 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
   player.summon = id => {
     let card = _.remove(player.hand, card => card.id === id)[0];
     player.mana -= card.cost;
-    console.log(id);
     Socket.emit('summon', id);
   };
   Socket.on('summoned', name => {
@@ -60,7 +64,6 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
 
   //attacking
   player.attack = data => {
-    console.log('p', data);
     let attackee = data.attackee ? data.attackee.id : null;
     Socket.emit('attack', data.attacker.id, attackee);
   };
@@ -76,8 +79,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
   //spells
   Socket.on('selectTarget', () => {
     player.selecting = true;
-    player.message = "Select a target!";
-    $rootScope.$digest();
+    player.setMessage("Select a target!");
   });
   player.selected = selectee => {
     if (!selectee) selectee = 'opponent';
@@ -105,15 +107,13 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state) => {
 
   //ending
   Socket.on('win', () => {
-    player.message = "You win!";
-    $rootScope.$digest();
+    player.setMessage("You win!");
     // the line below is still untested. Could potentially cause problems
     Socket.removeAllListeners();
     setTimeout(() => $state.go('home'), 3000);
   });
   Socket.on('lose', () => {
-    player.message = "You lose!";
-    $rootScope.$digest();
+    player.setMessage("You lose!");
     // the line below is still untested. Could potentially cause problems
     Socket.removeAllListeners();
     setTimeout(() => $state.go('home'), 3000);
