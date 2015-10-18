@@ -172,7 +172,7 @@ var spells = [
     name: "Determined",
     cost: 1,
     portrait: 'determined.jpg',
-    description: 'gives an employee charge',
+    description: 'Give all your employees charge.',
     logic: {
       target: {
         targets: ["playerMinions"],
@@ -214,7 +214,8 @@ var spells = [
     description: "changes an employee's health to 1.",
     logic: {
       target: {
-        targets: ["selectable"],
+        targets: ["playerMinions, opponentMinions"],
+        select: "selectable"
       },
       spells: {
         changeProperty: {
