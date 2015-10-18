@@ -8,12 +8,13 @@
       <player player="opponent" ng-drop="player.selecting || opponent.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: null}, $event)"></player>
     </div>
     <div class="hand">
-      <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card="card"></blank-card>
+      <blank-card class="opponent-card hand-card small" ng-repeat="card in opponent.hand" card="card">
+      </blank-card>
     </div>
     <div class="extra">
       <div ng-show="enlarge" align="right" class="pull-right" style="position: absolute;">
         <card card="enlarge"></card>
-        <p>{{enlargedDescription}}</p>
+        <p style="text-align: left; color: #fff">{{enlargedDescription}}</p>
       </div>
     </div>
   </div>
@@ -22,17 +23,17 @@
       <h3 style="text-align: left">
         <strong class="pull-right" style="position:absolute; float: left">{{player.message}}</p></strong>
       </h3>
-      <button>Key</button>
     </div>
 
   <div id="table" ng-drop="player.turn">
     <div id="opponent-summoned">
-      <div ng-repeat="minion in opponent.summonedMinions" ng-mouseenter="enlargeCard(minion); describeAbilities(minion)" ng-mouseleave="enlargeCard(); describeAbilities();">
+      <div ng-repeat="minion in opponent.summonedMinions" ng-mouseenter="enlargeCard(minion); describeAbilities(minion);" ng-mouseleave="enlargeCard(); describeAbilities();">
         <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="player.selecting || minion.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
       </div>
     </div>
     <div id="summoned">
-      <div ng-repeat="minion in player.summonedMinions" ng-mouseenter="enlargeCard(minion); describeAbilities(minion)" ng-mouseleave="enlargeCard(); describeAbilities();">
+      <div ng-repeat="minion in player.summonedMinions" ng-mouseenter="enlargeCard(minion); 
+      describeAbilities(minion)" ng-mouseleave="enlargeCard(); describeAbilities()">
         <minion minion="minion" value="minion" ng-drop="player.selecting" ng-drag-data="minion" 
         ng-drag="minion.canAttack && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
       </div>
@@ -46,7 +47,8 @@
     </div>
     
     <div class="hand">
-      <div ng-repeat="card in player.hand" ng-mouseenter="enlargeCard(card); describeAbilities(card)" ng-mouseleave="enlargeCard(); describeAbilities()">
+      <div ng-repeat="card in player.hand" ng-mouseenter="enlargeCard(card); describeAbilities(card)" 
+      ng-mouseleave="enlargeCard(); describeAbilities();">
         <card class="hand-card small" card="card" value="card"
         ng-drag-data="card" ng-drag="player.turn && card.cost <= player.mana" ng-drag-success="summon($data, $event)">
       </card>
