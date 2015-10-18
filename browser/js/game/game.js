@@ -54,7 +54,7 @@ app.config($stateProvider => {
       $scope.enlargedDescription = "this minion has no special powers";
     } else if (card.description){
       $scope.enlargedDescription = card.name + " " + card.description;
-    } else { 
+    } else {
       var abilityList = [];
       var powerList = [];
 
@@ -95,6 +95,7 @@ app.config($stateProvider => {
           powerList.push(str);
         }
       }
+
       var description = "";
       if (abilityList.length === 1){
         description = card.name + " has " + abilityList[0] + ". ";
@@ -103,7 +104,7 @@ app.config($stateProvider => {
         description = card.name + " has " + abilityList.join(", ") + ". ";
       }
       if (powerList.length){
-        description += powerList.join(". ");
+        description += powerList.join(". ") + ".";
       }
 
       if (abilityList.length || powerList.length){
@@ -111,7 +112,7 @@ app.config($stateProvider => {
       } else {
         $scope.enlargedDescription = "This minion has no special powers.";
       }
-    };
+    }
   };
 
 
