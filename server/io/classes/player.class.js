@@ -41,7 +41,7 @@ class Player {
   setInitialHand(rejectedCards) {
     console.log("deck: ", this.deck);
     rejectedCards.forEach(i => this.deck.push(this.decidingCards.splice(i, 1)[0]));
-    this.shuffle();
+    // this.shuffle();
     this.hand = this.decidingCards;
     this.deciding = false;
     this.decidingCards = [];
