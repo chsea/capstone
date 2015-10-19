@@ -17,7 +17,7 @@ const damage = (targets, amount) => {
     let id = target.minion ? target.minion.id : null;
     attackee.wasAttacked(amount);
     target.player.emit('damaged', {id: id, hp: attackee.hp});
-    target.player.opponent.emit('opponentDamageed', {id: null, hp: target.player.hp});
+    target.player.opponent.emit('opponentDamaged', {id: id, hp: attackee.hp});
 
     if (!attackee.hp) {
       if (attackee.id) {
