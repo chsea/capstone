@@ -108,6 +108,7 @@
     width: 240px;
   }
   selector {
+    z-index: 100;
     @include vertical-align;
     display: block;
     width: 50px;

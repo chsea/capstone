@@ -85,6 +85,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state, $timeout) => {
     if (!selectee) selectee = 'opponent';
     else if (selectee.id) selectee = selectee.id;
     Socket.emit('cast', selectee);
+    player.selecting = false;
   };
   Socket.on('healed', patient => {
     console.log('Healed!');
