@@ -25,13 +25,15 @@ class Game {
   }
 
   setFirstPlayer() {
-    if (Math.random() > 0.5) {
-      this.currentPlayer = this.p1;
-      this.waitingPlayer = this.p2;
-    } else {
-      this.currentPlayer = this.p2;
-      this.waitingPlayer = this.p1;
-    }
+    this.currentPlayer = this.p1;
+    this.waitingPlayer = this.p2;
+    // if (Math.random() > 0.5) {
+    //   this.currentPlayer = this.p1;
+    //   this.waitingPlayer = this.p2;
+    // } else {
+    //   this.currentPlayer = this.p2;
+    //   this.waitingPlayer = this.p1;
+    // }
     this.currentPlayer.socket.turn = true;
   }
   startPlaying() {

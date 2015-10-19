@@ -35,7 +35,9 @@ var cardSchema = new Schema({
   stardustCost: {
     type: Number,
     min: 0
-  }
+  },
+  p1Index: Number,
+  p2Index: Number
 
 }, {
   collection: 'cards',

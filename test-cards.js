@@ -5,13 +5,17 @@ var minions = [
     ap: 1,
     hp: 1,
     portrait: 'marketing-intern.jpg',
+    p1Index: 1,
+    p2Index: 1
   },
   {
     name: "Fullstack Developer",
     portrait: 'fullstack-developer.jpg',
     cost: 1, //2,
     ap: 2,
-    hp: 3
+    hp: 3,
+    p1Index: 2,
+    p2Index: 20
   },
   {
     name: "Rain-Maker",
@@ -21,7 +25,9 @@ var minions = [
     hp: 3,
     logic: {
       charge: true
-    }
+    },
+    p1Index: 3,
+    p2Index: 20
   },
   {
     name: "Product Owner",
@@ -31,7 +37,9 @@ var minions = [
     portrait: 'product-owner.jpg',
     logic: {
       taunt: true
-    }
+    },
+    p2Index: 5,
+    p1Index: 20
   },
   {
     name: "Solutions Architect",
@@ -41,7 +49,9 @@ var minions = [
     portrait: 'solutions-architect.jpg',
     logic: {
       divineShield: true
-    }
+    },
+    p1Index: 20,
+    p2Index: 20
   },
   {
     name: "Scrum Master",
@@ -52,13 +62,14 @@ var minions = [
     portrait: 'scrum-master.jpg',
     logic: {
       windfury: true,
-    }
+    },
+    p1Index: 2
   },
   {
     name: "Nimit Maru",
     cost: 1,
-    ap: 10,
-    hp: 10,
+    ap: 9,
+    hp: 9,
     rarity: 3,
     portrait: "nimit-maru.jpg",
     description: "Inspiration: deal 10 damage to your opponent.",
@@ -77,20 +88,24 @@ var minions = [
           }
         }
       }
-    }
+    },
+    p1Index: 7,
+    p2Index: 7
   },
   {
     name: "David Yang",
     cost: 5,
-    ap: 10,
-    hp: 10,
+    ap: 9,
+    hp: 9,
     rarity: 3,
     portrait: "david-yang.jpg",
     logic: {
       taunt: true,
       divineShield: true,
       windfury: true
-    }
+    },
+    p2Index: 6,
+    p1Index: 20
   },
   {
     name: "QA Specialist",
@@ -111,7 +126,9 @@ var minions = [
           }
         }
       }
-    }
+    },
+    p1Index: 6,
+    p2Index: 20
   },
   {
     name: "Distributed Systems Analyst",
@@ -136,7 +153,9 @@ var minions = [
           }
         }
       }
-    }
+    },
+    p1Index: 5,
+    p2Index: 20
   },
   {
     name: "Information Security Lead",
@@ -157,7 +176,9 @@ var minions = [
           }
         }
       }
-    }
+    },
+    p1Index: 4,
+    p2Index: 20
   },
   // {
   //   name: "Database Administrator",
@@ -185,7 +206,9 @@ var minions = [
     cost: 1,
     ap: 1,
     hp: 1,
-    portrait: "ui-designer.jpg"
+    portrait: "ui-designer.jpg",
+    p1Index: 8,
+    p2Index: 2
   }
 ];
 
@@ -229,7 +252,9 @@ var spells = [
           property: 'logic'
         }
       }
-    }
+    },
+    p2Index: 3,
+    p1Index: 20
   },
   // {
   //   name: "In The Zone",
@@ -269,7 +294,7 @@ var spells = [
   // },
   {
     name: "Build-Breaker",
-    cost: 1,
+    cost: 3,
     portrait: 'build-breaker.jpg',
     description: "Deal 3 damage to all summoned employees.",
     logic: {
@@ -282,7 +307,9 @@ var spells = [
           amount: 3
         }
       }
-    }
+    },
+    p2Index: 4,
+    p1Index: 20
   },
   {
     name: "return test.pass",
@@ -299,7 +326,9 @@ var spells = [
           amount: 30
         }
       }
-    }
+    },
+    p1Index: 9,
+    p2Index: 20
   }
 ];
 
