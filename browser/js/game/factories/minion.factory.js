@@ -39,7 +39,7 @@ app.factory('Minion', (Socket, $rootScope) => {
     }
 
     death() {
-      if (this.logic.deathRattle) return;
+      this.dying = true;
     }
     attacked(hp) {
       if (this.logic.windfury && this.canAttack) {
@@ -51,6 +51,7 @@ app.factory('Minion', (Socket, $rootScope) => {
       this.hp = hp;
     }
     wasAttacked(hp) {
+      this.beingAttacked = true;
       if (this.logic.divineShield) this.logic.divineShield = false;
       else this.hp = hp;
     }

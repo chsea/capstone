@@ -64,8 +64,10 @@ app.factory('Player', (Minion, Socket, CardFactory, $rootScope) => {
       $rootScope.$digest();
     }
     wasAttacked(attackee) {
-      if (!attackee.id) this.hp = attackee.hp;
-      else {
+      if (!attackee.id) {
+        this.hp = attackee.hp;
+        this.beingAttacked = true;
+      } else {
         let minion = _.find(this.summonedMinions, m => m.id === attackee.id);
         minion.wasAttacked(attackee.hp);
         if (!attackee.hp) this.minionDeath(minion);
