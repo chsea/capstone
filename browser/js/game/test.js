@@ -133,7 +133,7 @@ app.config($stateProvider => {
   };
 
   $scope.leave = () => {
-    console.log("trying to leave");
+    console.log("leaving game");
     Socket.emit('leave');
   };
 });
