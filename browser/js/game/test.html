@@ -27,12 +27,12 @@
     <selector ng-show="player.selecting" ng-drag="player.selecting" ng-drag-data=""></selector>
     <div id="opponent-summoned">
       <div ng-repeat="minion in opponent.summonedMinions" ng-mouseenter="enlargeCard(minion); describeAbilities(minion);" ng-mouseleave="enlargeCard(); describeAbilities();">
-        <minion ng-repeat="minion in opponent.summonedMinions" minion="minion" ng-drop="player.selecting || minion.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
+        <minion minion="minion" ng-drop="player.selecting || minion.attackable && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
       </div>
     </div>
     <div id="summoned">
       <div ng-repeat="minion in player.summonedMinions" ng-mouseenter="enlargeCard(minion); describeAbilities(minion)" ng-mouseleave="enlargeCard(); describeAbilities()">
-        <minion ng-repeat="minion in player.summonedMinions" minion="minion" ng-drop="player.selecting" ng-drag-data="minion" ng-drag="minion.canAttack && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
+        <minion minion="minion" ng-drop="player.selecting" ng-drag-data="minion" ng-drag="minion.canAttack && player.turn" ng-drop-success="select({selector: $data, selectee: minion})"></minion>
       </div>
     </div>
   </div>
