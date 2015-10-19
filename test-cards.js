@@ -56,7 +56,7 @@ var minions = [
   },
   {
     name: "Nimit Maru",
-    cost: 5,
+    cost: 1,
     ap: 10,
     hp: 10,
     rarity: 3,
@@ -71,8 +71,10 @@ var minions = [
           targets: ['opponent'],
           select: 'all'
         },
-        damage: {
-          amount: 10
+        spells: {
+          damage: {
+            amount: 10
+          }
         }
       }
     }
@@ -115,7 +117,7 @@ var minions = [
     name: "Distributed Systems Analyst",
     cost: 1,
     ap: 1,
-    hp: 1,
+    hp: 10,
     portrait: "distributed-systems.jpg",
     description: "Promotion: gain agile.",
     logic: {
@@ -157,27 +159,27 @@ var minions = [
       }
     }
   },
-  {
-    name: "Database Administrator",
-    cost: 1,
-    ap: 1,
-    hp: 1,
-    portrait: "database-administrator.jpg",
-    description: "Heal yourself for 2 every turn.",
-    logic: {
-      everyTurn: {
-        target: {
-          targets: ["self"],
-          select: "all"
-        },
-        spells: {
-          heal: {
-            amount: 2
-          }
-        }
-      }
-    }
-  },
+  // {
+  //   name: "Database Administrator",
+  //   cost: 1,
+  //   ap: 1,
+  //   hp: 1,
+  //   portrait: "database-administrator.jpg",
+  //   description: "Heal yourself for 2 every turn.",
+  //   logic: {
+  //     everyTurn: {
+  //       target: {
+  //         targets: ["self"],
+  //         select: "all"
+  //       },
+  //       spells: {
+  //         heal: {
+  //           amount: 2
+  //         }
+  //       }
+  //     }
+  //   }
+  // },
   {
     name: "UI Designer",
     cost: 1,
@@ -188,26 +190,26 @@ var minions = [
 ];
 
 var spells = [
-  {
-    name: "Bottle Neck",
-    cost: 1,
-    portrait: 'bottle-neck.jpg',
-    description: 'Remove all special properties from your opponent\'s employees.',
-    logic: {
-      target: {
-        targets: ["opponentMinions"],
-        select: "all"
-      },
-      spells: {
-        changeProperty: {
-          amount: {
-            all: true
-          },
-          property: 'logic'
-        }
-      }
-    }
-  },
+  // {
+  //   name: "Bottle Neck",
+  //   cost: 1,
+  //   portrait: 'bottle-neck.jpg',
+  //   description: 'Remove all special properties from your opponent\'s employees.',
+  //   logic: {
+  //     target: {
+  //       targets: ["opponentMinions"],
+  //       select: "all"
+  //     },
+  //     spells: {
+  //       changeProperty: {
+  //         amount: {
+  //           all: true
+  //         },
+  //         property: 'logic'
+  //       }
+  //     }
+  //   }
+  // },
   {
     name: "Branching",
     cost: 1,
@@ -229,42 +231,42 @@ var spells = [
       }
     }
   },
-  {
-    name: "In The Zone",
-    cost: 1,
-    portrait: 'in-the-zone.jpg',
-    description: "Increases a random employee's attack by 3.",
-    logic: {
-      target: {
-        targets: ["playerMinions"],
-        select: "random"
-      },
-      spells: {
-        changeProperty: {
-          amount: 3,
-          property: 'ap'
-        }
-      }
-    }
-  },
-  {
-    name: "Technical-Debt",
-    cost: 1,
-    portrait: 'technical-debt.jpg',
-    description: "Changes an employee's health to 1.",
-    logic: {
-      target: {
-        targets: ["playerMinions, opponentMinions"],
-        select: "selectable"
-      },
-      spells: {
-        changeProperty: {
-          property: 'hp',
-          amount: 1
-        }
-      }
-    }
-  },
+  // {
+  //   name: "In The Zone",
+  //   cost: 1,
+  //   portrait: 'in-the-zone.jpg',
+  //   description: "Increases a random employee's attack by 3.",
+  //   logic: {
+  //     target: {
+  //       targets: ["playerMinions"],
+  //       select: "random"
+  //     },
+  //     spells: {
+  //       changeProperty: {
+  //         amount: 3,
+  //         property: 'ap'
+  //       }
+  //     }
+  //   }
+  // },
+  // {
+  //   name: "Technical-Debt",
+  //   cost: 1,
+  //   portrait: 'technical-debt.jpg',
+  //   description: "Changes an employee's health to 1.",
+  //   logic: {
+  //     target: {
+  //       targets: ["playerMinions, opponentMinions"],
+  //       select: "selectable"
+  //     },
+  //     spells: {
+  //       changeProperty: {
+  //         property: 'hp',
+  //         amount: 1
+  //       }
+  //     }
+  //   }
+  // },
   {
     name: "Build-Breaker",
     cost: 1,
