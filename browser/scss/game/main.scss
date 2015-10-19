@@ -44,8 +44,9 @@
     height: 373px;
   };
   .message {
+    z-index: 10;
     @include vertical-align();
-    text-align: center;
+    text-align: left;
     font-size: 20pt;
   }
 

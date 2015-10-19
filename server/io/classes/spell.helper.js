@@ -39,6 +39,7 @@ const draw = (targets, amount) => {
 };
 
 const changeProperty = (targets, amount, property) => {
+  console.log(targets);
   targets.forEach(target => {
     let t = target.minion ? target.minion : target.player;
     let id = target.minion ? target.minion.id : null;

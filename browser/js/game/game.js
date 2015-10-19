@@ -6,10 +6,30 @@ app.config($stateProvider => {
   });
 }).controller('GameController', ($scope, $state, $compile, Socket, Game) => {
   let players = Game($scope);
+  $scope.player = players.player;
+  // $scope.player.portrait = player.portrait;
+  $scope.opponent = players.opponent;
+  $scope.hint = {
+    status: 'Show'
+  };
+  $scope.toggleHint = () => {
+    if ($scope.hint.message) {
+      $scope.hint.message = null;
+      $scope.hint.status = 'Show';
+      return;
+    }
+    $scope.hint.status = 'Hide';
+    if ($scope.player.selecting) {
+      $scope.hint.message = `Please drag the selector <span><img src="/images/power.png"></span> to your intended target.`;
+    } else if ($scope.player.turn) {
+      $scope.hint.message = `It's your turn!`;
+    } else {
+      $scope.hint.message = `It's ${$scope.opponent.name}'s' turn! Please wait while  ${$scope.opponent.name} is dedicing.`;
+    }
+  };
+
   $scope.enlarge = undefined;
   $scope.enlargedDescription = undefined;
-  $scope.player = players.player;
-  $scope.opponent = players.opponent;
   Socket.emit('playerReady');
 
   var chargeInfo = "allows a minion to attack on the same turn as when it was summoned";
@@ -41,7 +61,7 @@ app.config($stateProvider => {
   $scope.leave = () => {
     Socket.emit('leave');
   };
- 
+
   $scope.enlargeCard = (card) => {
     $scope.enlarge = card;
   };
