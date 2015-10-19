@@ -192,7 +192,7 @@ var spells = [
     name: "Bottle Neck",
     cost: 1,
     portrait: 'bottle-neck.jpg',
-    description: 'Remove all special properties from an employee',
+    description: 'Remove all special properties from your opponent\'s employees.',
     logic: {
       target: {
         targets: ["opponentMinions"],

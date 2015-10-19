@@ -81,9 +81,9 @@ class Player {
       this.summonedMinions.push(summoned);
       this.emit('summoned', summoned.name);
       summoned.summoned();
+      this.opponent.emit('opponentSummoned', summoned.name);
     } else this.cast(summoned.logic, this);
     this.mana -= summoned.cost;
-    this.opponent.emit('opponentSummoned', summoned.name);
   }
 
   cast(logic) {
