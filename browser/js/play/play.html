@@ -8,17 +8,15 @@
 		  <h1>{{ selectedGame.name }}</h1>
 		</section>
 		<section ng-hide="gameSelected">
-		  <!-- <select ng-model="selectedGame">
-		    <option ng-repeat="game in games" value="{{ game.name }}">{{ game.name }}</option>
-		  </select> -->
-	    <select ng-model="selectedGame" ng-options="game.name for game in games">
+		  <select ng-model="selectedGame" ng-options="game.name for game in games" style="background: #4e5d6c;
+		   width: 200px; padding: 5px; font-size: 20px; line-height: 1; border: 0; border-radius: 0; height: 34px;">
 		  </select>
 		  <br><br>
 		  <button ng-click="select()" class="btn btn-success btn-lg" >Play {{ selectedGame.name }}!</button>
 		</section>
 		<ui-view />
   </div>
-
+  
 </section>
 
 
