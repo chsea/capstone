@@ -13,7 +13,7 @@ var minions = [
     portrait: 'fullstack-developer.jpg',
     cost: 1, //2,
     ap: 2,
-    hp: 3,
+    hp: 2,
     p1Index: 2,
     p2Index: 20
   },
@@ -43,8 +43,8 @@ var minions = [
   },
   {
     name: "Solutions Architect",
-    cost: 1, //4,
-    ap: 6,
+    cost: 2, //4,
+    ap: 2,
     hp: 3,
     portrait: 'solutions-architect.jpg',
     logic: {
@@ -56,7 +56,7 @@ var minions = [
   {
     name: "Scrum Master",
     cost: 3, //5,
-    ap: 5,
+    ap: 3,
     hp: 5,
     rarity: 1,
     portrait: 'scrum-master.jpg',
@@ -131,10 +131,10 @@ var minions = [
     p2Index: 20
   },
   {
-    name: "Distributed Systems Analyst",
+    name: "Distributed Sys. Analyst",
     cost: 3,
-    ap: 5,
-    hp: 10,
+    ap: 4,
+    hp: 6,
     portrait: "distributed-systems.jpg",
     description: "Promotion: gain agile.",
     logic: {
@@ -158,8 +158,8 @@ var minions = [
     p2Index: 4,
   },
   {
-    name: "Information Security Lead",
-    cost: 10,
+    name: "Info. Security Lead",
+    cost: 4,
     ap: 3,
     hp: 2,
     portrait: "information-security.jpg",
@@ -180,27 +180,29 @@ var minions = [
     p1Index: 8,
     p2Index: 20
   },
-  // {
-  //   name: "Database Administrator",
-  //   cost: 1,
-  //   ap: 1,
-  //   hp: 1,
-  //   portrait: "database-administrator.jpg",
-  //   description: "Heal yourself for 2 every turn.",
-  //   logic: {
-  //     everyTurn: {
-  //       target: {
-  //         targets: ["self"],
-  //         select: "all"
-  //       },
-  //       spells: {
-  //         heal: {
-  //           amount: 2
-  //         }
-  //       }
-  //     }
-  //   }
-  // },
+  {
+    name: "Database Administrator",
+    cost: 7,
+    ap: 5,
+    hp: 6,
+    portrait: "database-administrator.jpg",
+    description: "Heal yourself for 2 every turn.",
+    logic: {
+      everyTurn: {
+        target: {
+          targets: ["self"],
+          select: "all"
+        },
+        spells: {
+          heal: {
+            amount: 2
+          }
+        }
+      }
+    },
+    p1Index: 20,
+    p2Index: 20
+  },
   {
     name: "UI Designer",
     cost: 1,
@@ -213,31 +215,33 @@ var minions = [
 ];
 
 var spells = [
-  // {
-  //   name: "Bottle Neck",
-  //   cost: 1,
-  //   portrait: 'bottle-neck.jpg',
-  //   description: 'Remove all special properties from your opponent\'s employees.',
-  //   logic: {
-  //     target: {
-  //       targets: ["opponentMinions"],
-  //       select: "all"
-  //     },
-  //     spells: {
-  //       changeProperty: {
-  //         amount: {
-  //           all: true
-  //         },
-  //         property: 'logic'
-  //       }
-  //     }
-  //   }
-  // },
+  {
+    name: "Bottle Neck",
+    cost: 4,
+    portrait: 'bottle-neck.jpg',
+    description: 'Remove all special properties from your opponent\'s employees.',
+    logic: {
+      target: {
+        targets: ["opponentMinions"],
+        select: "all"
+      },
+      spells: {
+        changeProperty: {
+          amount: {
+            all: true
+          },
+          property: 'logic'
+        }
+      }
+    },
+    p2Index: 20,
+    p1Index: 20
+  },
   {
     name: "Branching",
     cost: 1,
     portrait: 'branching.jpg',
-    description: 'Give one of your employees charge.',
+    description: 'Give one of your employees initiative.',
     logic: {
       target: {
         targets: ["playerMinions"],
@@ -256,45 +260,49 @@ var spells = [
     p2Index: 3,
     p1Index: 20
   },
-  // {
-  //   name: "In The Zone",
-  //   cost: 1,
-  //   portrait: 'in-the-zone.jpg',
-  //   description: "Increases a random employee's attack by 3.",
-  //   logic: {
-  //     target: {
-  //       targets: ["playerMinions"],
-  //       select: "random"
-  //     },
-  //     spells: {
-  //       changeProperty: {
-  //         amount: 3,
-  //         property: 'ap'
-  //       }
-  //     }
-  //   }
-  // },
-  // {
-  //   name: "Technical-Debt",
-  //   cost: 1,
-  //   portrait: 'technical-debt.jpg',
-  //   description: "Changes an employee's health to 1.",
-  //   logic: {
-  //     target: {
-  //       targets: ["playerMinions, opponentMinions"],
-  //       select: "selectable"
-  //     },
-  //     spells: {
-  //       changeProperty: {
-  //         property: 'hp',
-  //         amount: 1
-  //       }
-  //     }
-  //   }
-  // },
+  {
+    name: "In The Zone",
+    cost: 5,
+    portrait: 'in-the-zone.jpg',
+    description: "Increases a random employee's attack by 3.",
+    logic: {
+      target: {
+        targets: ["playerMinions"],
+        select: "random"
+      },
+      spells: {
+        changeProperty: {
+          amount: 3,
+          property: 'ap'
+        }
+      }
+    },
+    p2Index: 20,
+    p1Index: 20
+  },
+  {
+    name: "Technical-Debt",
+    cost: 7,
+    portrait: 'technical-debt.jpg',
+    description: "Changes an employee's health to 1.",
+    logic: {
+      target: {
+        targets: ["playerMinions, opponentMinions"],
+        select: "selectable"
+      },
+      spells: {
+        changeProperty: {
+          property: 'hp',
+          amount: 1
+        }
+      }
+    },
+    p2Index: 20,
+    p1Index: 20
+  },
   {
     name: "Build-Breaker",
-    cost: 3,
+    cost: 6,
     portrait: 'build-breaker.jpg',
     description: "Deal 3 damage to all summoned employees.",
     logic: {

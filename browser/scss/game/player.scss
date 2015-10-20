@@ -1,4 +1,5 @@
 player {
+  position: relative;
   width: 150px;
   height: 94px;
   display: block;
@@ -7,8 +8,6 @@ player {
     position: relative;
     top: -67px;
     left: 98px;
-  }
-  .stats {
     img {
       height: 20px;
       width: auto;
@@ -18,6 +17,15 @@ player {
       .mana-img {
         margin-right: 5px;
       }
+    }
+  }
+  .sword {
+    position: absolute;
+    top: 37px;
+    left: -10px;
+    img {
+      width: 94px;
+      height: auto;
     }
   }
 }
