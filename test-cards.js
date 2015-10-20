@@ -20,7 +20,7 @@ var minions = [
   {
     name: "Rain-Maker",
     portrait: 'rain-maker.jpg',
-    cost: 1, //2,
+    cost: 2, //2,
     ap: 2,
     hp: 3,
     logic: {
@@ -31,7 +31,7 @@ var minions = [
   },
   {
     name: "Product Owner",
-    cost: 1, //4,
+    cost: 3, //4,
     ap: 3,
     hp: 6,
     portrait: 'product-owner.jpg',
@@ -39,7 +39,7 @@ var minions = [
       taunt: true
     },
     p2Index: 5,
-    p1Index: 20
+    p1Index: 5
   },
   {
     name: "Solutions Architect",
@@ -50,12 +50,12 @@ var minions = [
     logic: {
       divineShield: true
     },
-    p1Index: 20,
+    p1Index: 7,
     p2Index: 20
   },
   {
     name: "Scrum Master",
-    cost: 1, //5,
+    cost: 3, //5,
     ap: 5,
     hp: 5,
     rarity: 1,
@@ -67,7 +67,7 @@ var minions = [
   },
   {
     name: "Nimit Maru",
-    cost: 1,
+    cost: 4,
     ap: 9,
     hp: 9,
     rarity: 3,
@@ -94,7 +94,7 @@ var minions = [
   },
   {
     name: "David Yang",
-    cost: 5,
+    cost: 4,
     ap: 9,
     hp: 9,
     rarity: 3,
@@ -132,8 +132,8 @@ var minions = [
   },
   {
     name: "Distributed Systems Analyst",
-    cost: 1,
-    ap: 1,
+    cost: 3,
+    ap: 5,
     hp: 10,
     portrait: "distributed-systems.jpg",
     description: "Promotion: gain agile.",
@@ -155,13 +155,13 @@ var minions = [
       }
     },
     p1Index: 5,
-    p2Index: 20
+    p2Index: 4,
   },
   {
     name: "Information Security Lead",
-    cost: 1,
-    ap: 1,
-    hp: 1,
+    cost: 10,
+    ap: 3,
+    hp: 2,
     portrait: "information-security.jpg",
     description: "Severence: deal 2 damage to all opponent employess.",
     logic: {
@@ -172,12 +172,12 @@ var minions = [
         },
         spells: {
           damage: {
-            amount: 2
+            amount: 3
           }
         }
       }
     },
-    p1Index: 4,
+    p1Index: 8,
     p2Index: 20
   },
   // {
@@ -207,7 +207,7 @@ var minions = [
     ap: 1,
     hp: 1,
     portrait: "ui-designer.jpg",
-    p1Index: 8,
+    p1Index: 4,
     p2Index: 2
   }
 ];
