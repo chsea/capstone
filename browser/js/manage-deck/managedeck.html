@@ -37,26 +37,26 @@
 </div>
 
 <div ng-hide="craft || !user" class="text-center top col-md-9">
-  <h3><span class="text-success"><strong>{{user.username | uppercase}}'S CARDS</strong></span>
+  <h3><span class="text-success"><strong>{{user.username}}'s cards</strong></span>
     <span popover-placement="bottom" popover="Trade cards for stardust" popover-trigger="mouseenter">
       <img src="/images/manapotion.png" width="25" height="25" ng-click="showCraftForm()"/>
     </span>
   </h3>
     <input placeholder="Search" ng-model="searchText"><br><br>
-      <div class="flex" style="overflow: scroll; height: 350px;">
+      <div class="flex" style="overflow: scroll; height: 640px;">
       <card class="manage-deck" card="usercard" ng-click="addToDeck(usercard)" ng-repeat="usercard in user.cards | orderBy:'-cost' | filter:searchText"></card>
     </div>
 </div>
 
-<div ng-show="craft || !user" class="text-center top col-md-9"><br><br>
-  <h3><span class="text-success"><strong>{{user.username | uppercase}}'S CARDS</strong></span>
+<div ng-show="craft || !user" class="text-center top col-md-9">
+  <h3><span class="text-success"><strong>{{user.username}}'s cards</strong></span>
     <span popover-placement="bottom" popover="Trade cards for stardust" popover-trigger="mouseenter">
       <img src="/images/manapotion.png" width="25" height="25" ng-click="showCraftForm()"/>
     </span>
   </h3>
     <input placeholder="Search" ng-model="searchText">
-      <div class="flex" style="overflow: scroll; height: 350px;">
-      <card card="usercard" ng-click="disenchant(usercard)" ng-repeat="usercard in user.cards | orderBy:'-cost' | filter:searchText"></card>
+      <div class="flex" style="overflow: scroll; height: 640px;">
+      <card card="usercard" ng-click="disenchant(usercard)" ng-repeat="usercard in user.cards | orderBy:'-cost' | filter:searchText">  </card>
     </div>
 </div>
 
