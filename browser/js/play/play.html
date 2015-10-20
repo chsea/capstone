@@ -1,9 +1,9 @@
 <section id="home">
   <fullstack-logo></fullstack-logo>
-  <h1 class="text-success"><strong>Windfury</strong><br>
-  	<small ng-hide="gameSelected">Select a game to play</small></h1>
+  <h1 class="text-success"><strong>Windfury</strong>
+  	<small ng-hide="gameSelected"><br>Select a game to play</small></h1>
   
-  <div ng-hide="user" class="text-center top">
+  <span class="text-center top">
 		<section ng-show="gameSelected">
 		  <h1>{{ selectedGame.name }}</h1>
 		</section>
@@ -15,8 +15,8 @@
 		  <button ng-click="select()" class="btn btn-success btn-lg" >Play {{ selectedGame.name }}!</button>
 		</section>
 		<ui-view />
-  </div>
-  
+  </span>
+
 </section>
 
 
