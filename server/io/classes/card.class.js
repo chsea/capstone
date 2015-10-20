@@ -60,7 +60,14 @@ class Minion extends Card {
   wasAttacked(amount) {
     if (this.logic.divineShield) this.logic.divineShield = false;
     else this.hp -= amount;
-    this.hp = this.hp < 0 ? 0 : this.hp;
+    if (this.hp > 0 && this.hp < this.initialHp && this.logic.enrage) {
+      this.player.cast(this.logic.enrage);
+      this.enraged = true;
+    }
+    if (this.hp <= 0) {
+      this.hp = 0;
+      this.death();
+    }
   }
 
   heal(amount) {
@@ -78,6 +85,7 @@ class Minion extends Card {
   }
 
   death() {
+    console.log('death', this.name);
     if (this.logic.deathRattle) this.player.cast(this.logic.deathRattle, this.player);
   }
 }

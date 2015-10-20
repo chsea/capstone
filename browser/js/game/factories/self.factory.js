@@ -94,6 +94,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state, $timeout) => {
   //different animations for spell dmg vs minion attacking?
   Socket.on('damaged', attackee => {
     console.log('Was damaged!');
+    console.log(attackee);
     player.wasAttacked(attackee);
   });
   Socket.on('drew', cards => {
