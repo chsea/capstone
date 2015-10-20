@@ -23,7 +23,7 @@
   <div id="table" ng-drop="player.turn">
     <div class="message" ng-class="{'fade-in': player.message}" ng-click="m()">{{ player.message }}
     </div>
-    <div ng-if="hint.message" class="hint">{{ hint.message }}</div>
+    <div class="hint">{{ hint.message }}</div>
     <selector ng-show="player.selecting" ng-drag="player.selecting" ng-drag-data=""></selector>
     <div id="opponent-summoned">
       <div ng-repeat="minion in opponent.summonedMinions" ng-mouseenter="enlargeCard(minion); describeAbilities(minion);" ng-mouseleave="enlargeCard(); describeAbilities();">

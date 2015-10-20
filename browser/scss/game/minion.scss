@@ -1,21 +1,18 @@
 minion {
   @include noselect();
+  border-radius: 50px/65px;
+  overflow: hidden;
   cursor: pointer;
   font: 10px Monaco;
   text-transform: uppercase;
   display: inline-block;
-  border-radius: 50px/65px;
   margin: 10px;
   width: 100px;
   height: 130px;
-  overflow: hidden;
   text-align: center;
   color: white;
   .content {
     img {
-      position: relative;
-      top: 0;
-      left: 0;
       width: 100px;
       height: auto;
     };
