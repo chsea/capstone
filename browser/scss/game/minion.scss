@@ -1,5 +1,6 @@
 minion {
   @include noselect();
+  position: relative;
   border-radius: 50px/65px;
   overflow: hidden;
   cursor: pointer;
@@ -13,12 +14,15 @@ minion {
   color: white;
   .content {
     img {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100px;
       height: auto;
     };
     .text {
       position: relative;
-      top: -100px;
+      top: 100px;
       background-image: url('./images/grid.png');
     }
   }

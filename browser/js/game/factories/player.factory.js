@@ -1,4 +1,4 @@
-app.factory('Player', (Minion, Socket, CardFactory, $rootScope) => {
+app.factory('Player', (Minion, Socket, CardFactory, $rootScope, $timeout) => {
   class Player {
     constructor() {
       this.name = '';
@@ -53,8 +53,11 @@ app.factory('Player', (Minion, Socket, CardFactory, $rootScope) => {
 
     minionDeath(minion) {
       minion.death();
-      _.remove(this.summonedMinions, m => m.id === minion.id);
-      if (minion.logic.taunt) this.checkTaunt();
+      $timeout(() => {
+        minion.dying = false;
+        _.remove(this.summonedMinions, m => m.id === minion.id);
+        if (minion.logic.taunt) this.checkTaunt();
+      }, 500);
     }
 
     attacked(attacker) {
