@@ -69,13 +69,17 @@ app.factory('Player', (Minion, Socket, CardFactory, $rootScope, $timeout) => {
     wasAttacked(attackee) {
       if (!attackee.id) {
         this.hp = attackee.hp;
-        this.beingAttacked = true;
+        this.underAttack = true;
+        $rootScope.$digest();
       } else {
         let minion = _.find(this.summonedMinions, m => m.id === attackee.id);
         minion.wasAttacked(attackee.hp);
+        $timeout(() => {
+          minion.underAttack = false;
+          $rootScope.$digest();
+        }, 500);
         if (!attackee.hp) this.minionDeath(minion);
       }
-      $rootScope.$digest();
     }
 
     healed(patient) {
