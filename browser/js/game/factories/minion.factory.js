@@ -50,11 +50,13 @@ app.factory('Minion', (Socket, $rootScope, $timeout) => {
 
       this.hasAttacked = true;
       this.hp = hp;
+      $rootScope.$digest();
     }
     wasAttacked(hp) {
-      this.beingAttacked = true;
       if (this.logic.divineShield) this.logic.divineShield = false;
       else this.hp = hp;
+      if (this.hp > 0) this.underAttack = true;
+      $rootScope.$digest();
     }
 
     healed(hp) {
