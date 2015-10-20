@@ -1,4 +1,4 @@
-app.factory('Minion', (Socket, $rootScope) => {
+app.factory('Minion', (Socket, $rootScope, $timeout) => {
   class Minion {
     constructor(minion) {
       this.name = minion.name;
@@ -40,6 +40,7 @@ app.factory('Minion', (Socket, $rootScope) => {
 
     death() {
       this.dying = true;
+      $rootScope.$digest();
     }
     attacked(hp) {
       if (this.logic.windfury && this.canAttack) {

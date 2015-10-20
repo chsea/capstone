@@ -1,7 +1,8 @@
 <div class="content">
   <div class="image"><img ng-src="./images/cards/{{minion.portrait}}"></div>
+  <div class="explosion" ng-show="minion.dying"><img src="/images/explosion.gif"></div>
   <div class="text">
-    <div class="minion-name">{{ minion.name }}</div>
+    <!-- <div class="minion-name">{{ minion.name }}</div> -->
     <div class="hp-ap">{{ minion.ap }} | {{ minion.hp }}</div>
   </div>
 </div>
