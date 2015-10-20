@@ -1,15 +1,15 @@
 minion {
   @include noselect();
   position: relative;
+  border-radius: 50px/65px;
+  overflow: hidden;
   cursor: pointer;
   font: 10px Monaco;
   text-transform: uppercase;
   display: inline-block;
-  border-radius: 50px/65px;
   margin: 10px;
   width: 100px;
   height: 130px;
-  overflow: hidden;
   text-align: center;
   color: white;
   .content {

@@ -96,17 +96,17 @@ app.config($stateProvider => {
   };
   $scope.toggleHint = () => {
     if ($scope.hint.message) {
-      $scope.hint.message = null;
-      $scope.hint.status = 'Show';
+      $scope.hint.message = undefined;
+      $scope.hint.status = 'Show Hint';
       return;
     }
-    $scope.hint.status = 'Hide';
+    $scope.hint.status = 'Hide Hint';
     if ($scope.player.selecting) {
       $scope.hint.message = `Please drag the selector <span><img src="/images/power.png"></span> to your intended target.`;
     } else if ($scope.player.turn) {
-      $scope.hint.message = `It's your turn!`;
+      $scope.hint.message = "It's your turn!";
     } else {
-      $scope.hint.message = `It's ${$scope.opponent.name}'s' turn! Please wait while  ${$scope.opponent.name} is dedicing.`;
+      $scope.hint.message = "It's " + ${$scope.opponent.name} + "s' turn! Please wait while " + ${$scope.opponent.name} + " is dedicing.";
     }
   };
   let rejectedCards = [];
