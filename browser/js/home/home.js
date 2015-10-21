@@ -45,6 +45,10 @@ app.controller('HomeController', function($scope, user, UserFactory,CardFactory)
     name: 'My Collections',
     sref: 'manageDeck'
   },
+  {
+    name: 'About Us',
+    sref: 'about'
+  },
   // {
   //   name: 'Join Game',
   //   sref: 'joinGame'
