@@ -96,7 +96,7 @@ app.config($stateProvider => {
         if (card.logic[spell]) description.push(`${spellName} - ${spells[`${spell}Info`]}`);
       }
     }
-    $scope.enlargedDescription = description.join('<br>');
+    $scope.enlargedDescription = description.join('  ');
     //   var abilityList = [];
     //   var powerList = [];
     //

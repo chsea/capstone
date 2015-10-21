@@ -134,7 +134,7 @@ var minions = [
     name: "Distributed Sys. Analyst",
     cost: 3,
     ap: 4,
-    hp: 6,
+    hp: 4,
     portrait: "distributed-systems.jpg",
     description: "Promotion: gain agile.",
     logic: {
