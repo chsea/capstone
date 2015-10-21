@@ -49,9 +49,10 @@
         <li><button class="btn-success" ng-click="toggleHint()">{{ hint.status }} Hint</button></li>
         <li><button class="btn-success" ng-click="endTurn()" ng-show="player.turn">End Turn</button></li>
         <li><button class="btn-success" ng-click='leave()'>Leave game</button></li>
-      </div>
+      </ul>
     </div>
   </div>
+  <div id="win" ng-show="win"></div>
 </div>
 <div class="player-name name">{{ player.name }}</div>
 </section>

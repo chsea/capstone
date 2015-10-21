@@ -35,8 +35,8 @@ module.exports = (io, socket, createdGames) => {
 
       let player1 = new Player(game.p1.name, decks[0], game.p1.socket);
       let player2 = new Player(game.p2.name, decks[1], game.p2.socket);
-      // player1.shuffle();
-      // player2.shuffle();
+      player1.shuffle();
+      player2.shuffle();
       games[i()] = new Game(player1, player2);
     });
   });

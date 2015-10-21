@@ -61,13 +61,20 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    top: -600px;
+    top: -625px;
     background-color: rgba(0, 0, 0, 0.8);
     width: 1200px;
-    height: 600px;
+    height: 625px;
     margin: 0 auto;
   };
-
+  #win {
+    position: relative;
+    top: -625px;
+    width: 1200px;
+    height: 625px;
+    background: url('/images/fireworks.gif');
+    content: "";
+  }
   #player, #opponent {
     display: flex;
     justify-content: center;

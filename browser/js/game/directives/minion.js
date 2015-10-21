@@ -6,7 +6,9 @@ app.directive('minion', () => {
     },
     templateUrl: '/js/game/directives/minion.html',
     link: (scope, el) => {
-      $(el).show('slow');
+      angular.element(document).ready(function() {
+        $(el).show('slow');
+      });
     }
   };
 });

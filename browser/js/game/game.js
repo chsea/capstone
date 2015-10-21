@@ -7,8 +7,9 @@ app.config($stateProvider => {
 }).controller('GameController', ($scope, $state, $compile, Socket, Game) => {
   let players = Game($scope);
   $scope.player = players.player;
-  // $scope.player.portrait = player.portrait;
+  $scope.player.portrait = "monkey.png";
   $scope.opponent = players.opponent;
+  $scope.opponent.portrait = "tiger.png";
   $scope.hint = {
     status: 'Show'
   };
@@ -31,14 +32,6 @@ app.config($stateProvider => {
   $scope.enlarge = undefined;
   $scope.enlargedDescription = undefined;
   Socket.emit('playerReady');
-
-  var chargeInfo = "allows a minion to attack on the same turn as when it was summoned";
-  var tauntInfo = "protects its allies by forcing the opponent to kill minions with taunt before directing attacks at the other player or minions";
-  var divineShieldInfo = "doesn't take damage for one turn after being attacked. Expires after being attacked for the first time";
-  var deathRattleInfo = "casts a spell when it dies";
-  var battlecryInfo = "casts a spell when its summoned";
-  var windfuryInfo = "can attack twice per term";
-  var enrageInfo = "emits attacks to a lesser degree when not at full strength";
 
   let rejectedCards = [];
   $scope.reject = idx => {
@@ -66,73 +59,102 @@ app.config($stateProvider => {
     $scope.enlarge = card;
   };
 
+  Socket.on('win', () => $scope.win = true);
+
+  const spells = {
+    chargeInfo: "allows an employee to attack on the same turn it was summoned.",
+    tauntInfo: "protects its allies by forcing ployers to kill employees with taunt before they can attack the other player or the other player's employees.",
+    divineShieldInfo: "doesn't take damage for its first attack but expires afterwards.",
+    deathRattleInfo: "casts a spell upon death.",
+    battlecryInfo: "casts a spell when summoned.",
+    windfuryInfo: "can attack twice per turn.",
+    enrageInfo: "gains special abilities when this employee's health is below 100%."
+  };
   $scope.describeAbilities = (card) => {
     // takes a card or minion, returns a description of the cards ability
-    if (!card){
-      $scope.enlargedDescription = undefined;
-    } else if (!card.logic) {
-      $scope.enlargedDescription = "this minion has no special powers";
-    } else if (card.description){
-      $scope.enlargedDescription = card.name + " " + card.description;
-    } else {
-      var abilityList = [];
-      var powerList = [];
+    if (!card) return $scope.enlargedDescription = '';
 
-      for (var ability in card.logic){
-        if (card.logic[ability] === true){
-          abilityList.push(ability);
-        }
+    let description = [];
+    if (card.description) description.push(card.description);
+    for (let spell in card.logic) {
+      let spellName;
+      switch (spell) {
+        case 'charge':
+          spellName = 'Initiative';
+          break;
+        case 'taunt':
+          spellName = 'Loyal';
+          break;
+        case 'divineShield':
+          spellName = 'Steadfast';
+          break;
+        case 'windfury':
+          spellName = 'Agile';
+          break;
       }
-
-      for (var power in card.logic) {
-        if (typeof(card.logic[power]) === "object") {
-          var str = card.name + " has " + power + ". It ";
-          switch (power) {
-            case "charge":
-              str += chargeInfo;
-              break;
-            case "taunt":
-              str += tauntInfo;
-              break;
-            case "divineShield":
-              str += divineShieldInfo;
-              break;
-            case "deathRattle":
-              str += deathRattleInfo;
-              break;
-            case "windfury":
-              str += windfuryInfo;
-              break;
-            case "enrage":
-              str += enrageInfo;
-              break;
-            case "battlecry":
-              str += battlecryInfo;
-              break;
-            default:
-              break;
-          }
-          powerList.push(str);
-        }
-      }
-
-      var description = "";
-      if (abilityList.length === 1){
-        description = card.name + " has " + abilityList[0] + ". ";
-      }
-      if (abilityList.length > 1){
-        description = card.name + " has " + abilityList.join(", ") + ". ";
-      }
-      if (powerList.length){
-        description += powerList.join(". ") + ".";
-      }
-
-      if (abilityList.length || powerList.length){
-        $scope.enlargedDescription = description;
-      } else {
-        $scope.enlargedDescription = "This minion has no special powers.";
+      if (spell === 'charge' || spell === 'taunt' || spell === 'divineShield' || spell === 'windfury') {
+        if (card.logic[spell]) description.push(`${spellName} - ${spells[`${spell}Info`]}`);
       }
     }
+    $scope.enlargedDescription = description.join('  ');
+    //   var abilityList = [];
+    //   var powerList = [];
+    //
+    //   for (var ability in card.logic){
+    //     if (card.logic[ability] === true){
+    //       abilityList.push(ability);
+    //     }
+    //   }
+    //
+    //   for (var power in card.logic) {
+    //     if (typeof(card.logic[power]) === "object") {
+    //       var str = card.name + " has " + power + ". It ";
+    //       switch (power) {
+    //         case "charge":
+    //           str += chargeInfo;
+    //           break;
+    //         case "taunt":
+    //           str += tauntInfo;
+    //           break;
+    //         case "divineShield":
+    //           str += divineShieldInfo;
+    //           break;
+    //         case "deathRattle":
+    //           str += deathRattleInfo;
+    //           break;
+    //         case "windfury":
+    //           str += windfuryInfo;
+    //           break;
+    //         case "enrage":
+    //           str += enrageInfo;
+    //           break;
+    //         case "battlecry":
+    //           str += battlecryInfo;
+    //           break;
+    //         default:
+    //           break;
+    //       }
+    //       powerList.push(str);
+    //     }
+    //   }
+    //
+    //   var description = "";
+    //   if (abilityList.length === 1){
+    //     description = card.name + " has " + abilityList[0] + ". ";
+    //   }
+    //   if (abilityList.length > 1){
+    //     description = card.name + " has " + abilityList.join(", ") + ". ";
+    //   }
+    //   if (powerList.length){
+    //     description += powerList.join(". ") + ".";
+    //   }
+    //
+    //   if (abilityList.length || powerList.length){
+    //     $scope.enlargedDescription = description;
+    //   } else {
+    //     $scope.enlargedDescription = "This minion has no special powers.";
+    //   }
+    // }
   };
 
 

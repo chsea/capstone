@@ -18,10 +18,11 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
   $scope.createDeck = false;
   $scope.cardsInDeck = {};
   $scope.user = user;
+  $scope.user.cards = _.sortBy(user.cards, card => card.cost);
   $scope.craft = false;
   $scope.usermessage = "";
   $scope.toggleCreateDeck = false;
-  
+
   $scope.selectDeck = function() {
     $scope.cardsInDeck = displayDeck();
     $scope.showCards = true;
@@ -51,7 +52,7 @@ app.controller('manageDeckController', function($scope, user, $http, $state, Dec
     });
     return cardsInDeckObj;
   }
-  
+
   $scope.deckcost = function() {
     if ($scope.selectedDeck === undefined) return;
     $scope.cost = [0,0,0,0,0,0,0];
