@@ -5,4 +5,3 @@ require('./user');
 require('./game');
 require('./card');
 require('./deck');
-require('./effects');
