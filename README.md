@@ -1,7 +1,3 @@
-# capstone
-
-## Use node seed2.js to seed cards, node seed.js to seed random cards.
-
 ##Spell.logic
 Please use the following logic format for spell cards:
 
@@ -70,10 +66,8 @@ logic: {
   }
 }
 
-So far, I've only tested battlecry, but I've written the code for deathRattle, enrage, and eachTurn. There is an issue with targeting the minion casting the spell that I have to ask Joe about.
-
 Effects possessed on the user:
-CHARGE: 
+CHARGE:
   Can attack on 1st turn
 BATTLECRY:
   Spell on Summon
@@ -85,14 +79,3 @@ DEATHRATTLE:
   When a minion dies, the minion casts a spell
 WINDFURY:
   Can attack twice per turn
-*ENREAGE: (Implementation in progress)
-  Spell is emited to a lesser degree when minion doesn't have full health points
-
-SPELLS:
-  HEAL
-  DAMAGE
-  DRAW
-  * SUMMON (not fully implemented yet)
-  CHANGE PROPERTY
-  
-
