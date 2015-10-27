@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt', 'js-data', 'ngDraggable']);
+window.app = angular.module('Windfury', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt', 'js-data', 'ngDraggable']);
 
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)

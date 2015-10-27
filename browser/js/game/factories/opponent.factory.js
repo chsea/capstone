@@ -1,5 +1,6 @@
 app.factory('Opponent', (Player, Socket, UserFactory, $rootScope) => {
   let opponent = new Player();
+  opponent.portrait = 'tiger.png';
 
   //initial draw
   Socket.on('gameStart', players => {
@@ -16,18 +17,15 @@ app.factory('Opponent', (Player, Socket, UserFactory, $rootScope) => {
   });
 
   //opponent turn
-  Socket.on('startTurn', () => {
-    opponent.opponentTurn();
-  });
-  Socket.on('wait', () => {
-    opponent.startTurn({});
-  });
+  Socket.on('startTurn', () => opponent.opponentTurn());
+  Socket.on('opponentFatigue', () => opponent.hp--);
+  Socket.on('wait', () => opponent.startTurn({}));
 
   //summoning
-  Socket.on('opponentSummoned', card => {
-    console.log(`Opponent summoned ${card}`);
+  Socket.on('opponentSummoned', (minion, id) => {
+    console.log(`Opponent summoned ${minion}`);
     opponent.hand.pop();
-    opponent.summoned(card);
+    opponent.summoned(minion, id);
   });
 
   //attacking

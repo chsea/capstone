@@ -4,70 +4,59 @@ var minions = [
     cost: 1,
     ap: 1,
     hp: 1,
-    portrait: 'marketing-intern.jpg',
-    p1Index: 1,
-    p2Index: 1
+    portrait: 'marketing-intern.jpg'
   },
   {
     name: "Fullstack Developer",
     portrait: 'fullstack-developer.jpg',
-    cost: 1, //2,
+    cost: 2,
     ap: 2,
     hp: 2,
-    p1Index: 2,
-    p2Index: 20
   },
   {
     name: "Rain-Maker",
     portrait: 'rain-maker.jpg',
-    cost: 2, //2,
+    cost: 3,
     ap: 2,
     hp: 3,
     logic: {
       charge: true
-    },
-    p1Index: 3,
-    p2Index: 20
+    }
   },
   {
     name: "Product Owner",
-    cost: 3, //4,
+    cost: 5,
     ap: 3,
     hp: 6,
     portrait: 'product-owner.jpg',
     logic: {
       taunt: true
     },
-    p2Index: 5,
-    p1Index: 5
   },
   {
     name: "Solutions Architect",
-    cost: 2, //4,
+    cost: 4,
     ap: 2,
     hp: 3,
     portrait: 'solutions-architect.jpg',
     logic: {
       divineShield: true
-    },
-    p1Index: 7,
-    p2Index: 20
+    }
   },
   {
     name: "Scrum Master",
-    cost: 3, //5,
+    cost: 5,
     ap: 3,
     hp: 5,
     rarity: 1,
     portrait: 'scrum-master.jpg',
     logic: {
       windfury: true,
-    },
-    p1Index: 2
+    }
   },
   {
     name: "Nimit Maru",
-    cost: 4,
+    cost: 9,
     ap: 9,
     hp: 9,
     rarity: 3,
@@ -88,13 +77,11 @@ var minions = [
           }
         }
       }
-    },
-    p1Index: 7,
-    p2Index: 7
+    }
   },
   {
     name: "David Yang",
-    cost: 4,
+    cost: 9,
     ap: 9,
     hp: 9,
     rarity: 3,
@@ -103,13 +90,11 @@ var minions = [
       taunt: true,
       divineShield: true,
       windfury: true
-    },
-    p2Index: 6,
-    p1Index: 20
+    }
   },
   {
     name: "QA Specialist",
-    cost: 1,
+    cost: 2,
     ap: 1,
     hp: 1,
     portrait: "qa-specialist.jpg",
@@ -126,13 +111,11 @@ var minions = [
           }
         }
       }
-    },
-    p1Index: 6,
-    p2Index: 20
+    }
   },
   {
     name: "Distributed Sys. Analyst",
-    cost: 3,
+    cost: 4,
     ap: 4,
     hp: 4,
     portrait: "distributed-systems.jpg",
@@ -153,17 +136,15 @@ var minions = [
           }
         }
       }
-    },
-    p1Index: 5,
-    p2Index: 4,
+    }
   },
   {
     name: "Info. Security Lead",
-    cost: 4,
+    cost: 3,
     ap: 3,
     hp: 2,
     portrait: "information-security.jpg",
-    description: "Severence: deal 2 damage to all opponent employess.",
+    description: "Severance: deal 2 damage to all opponent employees.",
     logic: {
       deathRattle: {
         target: {
@@ -176,19 +157,17 @@ var minions = [
           }
         }
       }
-    },
-    p1Index: 8,
-    p2Index: 20
+    }
   },
   {
     name: "Database Administrator",
-    cost: 7,
+    cost: 6,
     ap: 5,
     hp: 6,
     portrait: "database-administrator.jpg",
     description: "Heal yourself for 2 every turn.",
     logic: {
-      everyTurn: {
+      eachTurn: {
         target: {
           targets: ["self"],
           select: "all"
@@ -199,25 +178,21 @@ var minions = [
           }
         }
       }
-    },
-    p1Index: 20,
-    p2Index: 20
+    }
   },
   {
     name: "UI Designer",
     cost: 1,
     ap: 1,
     hp: 1,
-    portrait: "ui-designer.jpg",
-    p1Index: 4,
-    p2Index: 2
+    portrait: "ui-designer.jpg"
   }
 ];
 
 var spells = [
   {
     name: "Bottle Neck",
-    cost: 4,
+    cost: 2,
     portrait: 'bottle-neck.jpg',
     description: 'Remove all special properties from your opponent\'s employees.',
     logic: {
@@ -233,9 +208,7 @@ var spells = [
           property: 'logic'
         }
       }
-    },
-    p2Index: 20,
-    p1Index: 20
+    }
   },
   {
     name: "Branching",
@@ -256,33 +229,32 @@ var spells = [
           property: 'logic'
         }
       }
-    },
-    p2Index: 3,
-    p1Index: 20
+    }
   },
   {
     name: "In The Zone",
-    cost: 5,
+    cost: 2,
     portrait: 'in-the-zone.jpg',
     description: "Increases a random employee's attack by 3.",
     logic: {
       target: {
         targets: ["playerMinions"],
-        select: "random"
+        select: "random",
+        qty: 1
       },
       spells: {
         changeProperty: {
-          amount: 3,
+          amount: {
+            amount: 3
+          },
           property: 'ap'
         }
       }
-    },
-    p2Index: 20,
-    p1Index: 20
+    }
   },
   {
     name: "Technical-Debt",
-    cost: 7,
+    cost: 2,
     portrait: 'technical-debt.jpg',
     description: "Changes an employee's health to 1.",
     logic: {
@@ -293,16 +265,17 @@ var spells = [
       spells: {
         changeProperty: {
           property: 'hp',
-          amount: 1
+          amount: {
+            amount: 1,
+            equal: true
+          }
         }
       }
-    },
-    p2Index: 20,
-    p1Index: 20
+    }
   },
   {
     name: "Build-Breaker",
-    cost: 6,
+    cost: 3,
     portrait: 'build-breaker.jpg',
     description: "Deal 3 damage to all summoned employees.",
     logic: {
@@ -315,28 +288,7 @@ var spells = [
           amount: 3
         }
       }
-    },
-    p2Index: 4,
-    p1Index: 20
-  },
-  {
-    name: "return test.pass",
-    cost: 1,
-    portrait: 'test-pass.jpg',
-    description: "Deal 30 damage to your opponent",
-    logic: {
-      target: {
-        targets: ["opponent"],
-        select: "all"
-      },
-      spells: {
-        damage: {
-          amount: 30
-        }
-      }
-    },
-    p1Index: 9,
-    p2Index: 20
+    }
   }
 ];
 

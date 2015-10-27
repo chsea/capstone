@@ -1,10 +1,15 @@
-# capstone
+##Windfury!
+Live at windfury.co!
 
-## Use node seed2.js to seed cards, node seed.js to seed random cards.
+Windfury is a trading card game that involves turn-based battles between two adversaries. Each game represents a battle between players, who utilize spells and minions depicted on playing cards to defeat their opponent.
 
-##Spell.logic
-Please use the following logic format for spell cards:
+##Cards
+There are two types of cards: spell cards and minion cards. Besides just attack power and health, each minion card can also have special properties that cast spells. Spell logic is abstracted and specified on each card which the server can then interpret.
 
+###Spell.logic
+Spell cards have the following format:
+
+```js
 logic: {
   target: {
     targets: ["self", "opponent", "playerMinions", "opponentMinions"],
@@ -36,26 +41,23 @@ logic: {
         property: 'charge',
         amount: true
       }  
-    },
-    changeProperty: {
-      property: 'ap',
-      amount: 3
     }
   }  
 }
+```
 
-Each key in 'spells' corresponds to a particular spell. Only the four above are built right now. Let's discuss if we want something more complicated.
-changeProperty's amount key also take additional logic of which property to change. If you want to change a card's logic (i.e. give a minion charge), just write set amount to true like above, false if you want to take it away. Additionally, if you want to remove all the properties, just set property to 'all'.
+Each key in 'spells' corresponds to a particular spell.
+
+changeProperty's amount key also take additional logic of which property to change. If you want to change a card's logic (i.e. give a minion charge), just write set amount to true like above, false if you want to take it away. Additionally, if you want to remove all the properties, just set property to 'all'. On the other hand, if you want to change a non-logic property, use amount.amount to set the amount to add to the property (use negative numbers to subtract) or set amount.equal to true if you want the property to equal amount.amount.
 
 target.targets takes an array of values from the four options above.
 
-target.select takes a string from the three options above. "all" will apply the spell to all the targets you've selected. "random" all requires an additional target.targets.qty property to denote how many random targets from the targets array to apply the spell to. "selectable" lets you drag the light blue square in the corner to the target you want to select. However, if you try to increase a player's ap, it'll error. :(
+target.select takes a string from the three options above. "all" will apply the spell to all the targets you've selected. "random" all requires an additional target.targets.qty property to denote how many random targets from the targets array to apply the spell to. "selectable" lets you drag the blue selector to the target you want to select.
 
-I have test-seed.js and test-cards.js setup with a very simple pre-built deck. Open two sessions and go to /test test out the game! :) (Also, I've not testes extensively so I'm sure there's quite a few bugs so let me know if you guys find some!)
+###Minion logic
+Minion cards have a similar format for logic except a trigger mechanism is specified:
 
-##Card logic
-Cards have a similar format for logic except you'd say:
-
+```js
 logic: {
   battlecry: {
     target: {
@@ -69,30 +71,22 @@ logic: {
     }
   }
 }
+```
 
-So far, I've only tested battlecry, but I've written the code for deathRattle, enrage, and eachTurn. There is an issue with targeting the minion casting the spell that I have to ask Joe about.
-
-Effects possessed on the user:
-CHARGE: 
+Minion cards can have the following special properties:
+charge*:
   Can attack on 1st turn
-BATTLECRY:
-  Spell on Summon
-TAUNT:
+battlecry:
+  Casts on summon
+taunt*:
   Opponent can only attack this minion
-DIVINE SHIELD:
-  Minion wont take damage for one turn being attacked (expires after being attacked one time)
-DEATHRATTLE:
-  When a minion dies, the minion casts a spell
-WINDFURY:
+divineShield*:
+  Minion won't take damage for one turn being attacked (expires after being attacked one time)
+deathRattle:
+  Casts on death
+windfury*:
   Can attack twice per turn
-*ENREAGE: (Implementation in progress)
-  Spell is emited to a lesser degree when minion doesn't have full health points
-
-SPELLS:
-  HEAL
-  DAMAGE
-  DRAW
-  * SUMMON (not fully implemented yet)
-  CHANGE PROPERTY
-  
-
+everyTurn:
+  Casts at the beginning of every turn
+enrage:
+  Casts when minion is at less than full health

@@ -4,12 +4,11 @@ app.config($stateProvider => {
     templateUrl: 'js/game/game.html',
     controller: 'GameController',
   });
-}).controller('GameController', ($scope, $state, $compile, Socket, Game) => {
+}).controller('GameController', ($scope, $state, Socket, Game) => {
   let players = Game($scope);
   $scope.player = players.player;
-  $scope.player.portrait = "monkey.png";
   $scope.opponent = players.opponent;
-  $scope.opponent.portrait = "tiger.png";
+
   $scope.hint = {
     status: 'Show'
   };
@@ -31,6 +30,7 @@ app.config($stateProvider => {
 
   $scope.enlarge = undefined;
   $scope.enlargedDescription = undefined;
+
   Socket.emit('playerReady');
 
   let rejectedCards = [];
@@ -38,22 +38,16 @@ app.config($stateProvider => {
     $scope.player.decide(idx, rejectedCards);
   };
 
-  $scope.summon = (card, e) => {
-    $scope.player.summon(card.id);
-  };
+  $scope.summon = (card, e) => $scope.player.summon(card.id);
 
   $scope.select = data => {
     if (data.selector) $scope.player.attack({attacker: data.selector, attackee: data.selectee});
     else $scope.player.selected(data.selectee);
   };
 
-  $scope.endTurn = () => {
-    $scope.player.emitEndTurn();
-  };
+  $scope.endTurn = () => $scope.player.emitEndTurn();
 
-  $scope.leave = () => {
-    Socket.emit('leave');
-  };
+  $scope.leave = () => Socket.emit('leave');
 
   $scope.enlargeCard = (card) => {
     $scope.enlarge = card;
@@ -97,65 +91,5 @@ app.config($stateProvider => {
       }
     }
     $scope.enlargedDescription = description.join('  ');
-    //   var abilityList = [];
-    //   var powerList = [];
-    //
-    //   for (var ability in card.logic){
-    //     if (card.logic[ability] === true){
-    //       abilityList.push(ability);
-    //     }
-    //   }
-    //
-    //   for (var power in card.logic) {
-    //     if (typeof(card.logic[power]) === "object") {
-    //       var str = card.name + " has " + power + ". It ";
-    //       switch (power) {
-    //         case "charge":
-    //           str += chargeInfo;
-    //           break;
-    //         case "taunt":
-    //           str += tauntInfo;
-    //           break;
-    //         case "divineShield":
-    //           str += divineShieldInfo;
-    //           break;
-    //         case "deathRattle":
-    //           str += deathRattleInfo;
-    //           break;
-    //         case "windfury":
-    //           str += windfuryInfo;
-    //           break;
-    //         case "enrage":
-    //           str += enrageInfo;
-    //           break;
-    //         case "battlecry":
-    //           str += battlecryInfo;
-    //           break;
-    //         default:
-    //           break;
-    //       }
-    //       powerList.push(str);
-    //     }
-    //   }
-    //
-    //   var description = "";
-    //   if (abilityList.length === 1){
-    //     description = card.name + " has " + abilityList[0] + ". ";
-    //   }
-    //   if (abilityList.length > 1){
-    //     description = card.name + " has " + abilityList.join(", ") + ". ";
-    //   }
-    //   if (powerList.length){
-    //     description += powerList.join(". ") + ".";
-    //   }
-    //
-    //   if (abilityList.length || powerList.length){
-    //     $scope.enlargedDescription = description;
-    //   } else {
-    //     $scope.enlargedDescription = "This minion has no special powers.";
-    //   }
-    // }
   };
-
-
 });

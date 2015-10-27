@@ -18,5 +18,6 @@ app.factory('Game', (Self, Opponent, Socket, $rootScope, $compile) => {
 
     return game;
   };
+  
   return game;
 });
