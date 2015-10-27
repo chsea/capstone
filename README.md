@@ -1,5 +1,5 @@
 ##Windfury!
-Live at windfury.co!
+Live at [windfury.co](http://windfury.co)!
 
 Windfury is a trading card game that involves turn-based battles between two adversaries. Each game represents a battle between players, who utilize spells and minions depicted on playing cards to defeat their opponent.
 
@@ -74,19 +74,21 @@ logic: {
 ```
 
 Minion cards can have the following special properties:
-charge*:
-  Can attack on 1st turn
-battlecry:
-  Casts on summon
-taunt*:
-  Opponent can only attack this minion
-divineShield*:
-  Minion won't take damage for one turn being attacked (expires after being attacked one time)
-deathRattle:
-  Casts on death
-windfury*:
-  Can attack twice per turn
-everyTurn:
-  Casts at the beginning of every turn
-enrage:
-  Casts when minion is at less than full health
+* charge*:
+  * Can attack on 1st turn
+* battlecry:
+  * Casts on summon
+* taunt*:
+  * Opponent can only attack this minion
+* divineShield*:
+  * Minion won't take damage for one turn being attacked (expires after being attacked one time)
+* deathRattle:
+  * Casts on death
+* windfury*:
+  * Can attack twice per turn
+* everyTurn:
+  * Casts at the beginning of every turn
+* enrage:
+  * Casts when minion is at less than full health
+
+(Properties marked with an * are boolean values only.)
