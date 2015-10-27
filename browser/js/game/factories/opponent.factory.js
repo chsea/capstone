@@ -17,12 +17,9 @@ app.factory('Opponent', (Player, Socket, UserFactory, $rootScope) => {
   });
 
   //opponent turn
-  Socket.on('startTurn', () => {
-    opponent.opponentTurn();
-  });
-  Socket.on('wait', () => {
-    opponent.startTurn({});
-  });
+  Socket.on('startTurn', () => opponent.opponentTurn());
+  Socket.on('opponentFatigue', () => opponent.hp--);
+  Socket.on('wait', () => opponent.startTurn({}));
 
   //summoning
   Socket.on('opponentSummoned', (minion, id) => {

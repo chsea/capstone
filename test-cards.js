@@ -9,14 +9,14 @@ var minions = [
   {
     name: "Fullstack Developer",
     portrait: 'fullstack-developer.jpg',
-    cost: 1, //2,
+    cost: 2,
     ap: 2,
     hp: 2,
   },
   {
     name: "Rain-Maker",
     portrait: 'rain-maker.jpg',
-    cost: 1, //2,
+    cost: 3,
     ap: 2,
     hp: 3,
     logic: {
@@ -25,7 +25,7 @@ var minions = [
   },
   {
     name: "Product Owner",
-    cost: 1, //4,
+    cost: 5,
     ap: 3,
     hp: 6,
     portrait: 'product-owner.jpg',
@@ -35,7 +35,7 @@ var minions = [
   },
   {
     name: "Solutions Architect",
-    cost: 1, //4,
+    cost: 4,
     ap: 2,
     hp: 3,
     portrait: 'solutions-architect.jpg',
@@ -45,7 +45,7 @@ var minions = [
   },
   {
     name: "Scrum Master",
-    cost: 1, //5,
+    cost: 5,
     ap: 3,
     hp: 5,
     rarity: 1,
@@ -56,7 +56,7 @@ var minions = [
   },
   {
     name: "Nimit Maru",
-    cost: 1,
+    cost: 9,
     ap: 9,
     hp: 9,
     rarity: 3,
@@ -81,7 +81,7 @@ var minions = [
   },
   {
     name: "David Yang",
-    cost: 1,
+    cost: 9,
     ap: 9,
     hp: 9,
     rarity: 3,
@@ -94,7 +94,7 @@ var minions = [
   },
   {
     name: "QA Specialist",
-    cost: 1,
+    cost: 2,
     ap: 1,
     hp: 1,
     portrait: "qa-specialist.jpg",
@@ -115,7 +115,7 @@ var minions = [
   },
   {
     name: "Distributed Sys. Analyst",
-    cost: 1,
+    cost: 4,
     ap: 4,
     hp: 4,
     portrait: "distributed-systems.jpg",
@@ -140,11 +140,11 @@ var minions = [
   },
   {
     name: "Info. Security Lead",
-    cost: 1,
+    cost: 3,
     ap: 3,
     hp: 2,
     portrait: "information-security.jpg",
-    description: "Severence: deal 2 damage to all opponent employees.",
+    description: "Severance: deal 2 damage to all opponent employees.",
     logic: {
       deathRattle: {
         target: {
@@ -161,13 +161,13 @@ var minions = [
   },
   {
     name: "Database Administrator",
-    cost: 1,
+    cost: 6,
     ap: 5,
     hp: 6,
     portrait: "database-administrator.jpg",
     description: "Heal yourself for 2 every turn.",
     logic: {
-      everyTurn: {
+      eachTurn: {
         target: {
           targets: ["self"],
           select: "all"
@@ -192,7 +192,7 @@ var minions = [
 var spells = [
   {
     name: "Bottle Neck",
-    cost: 1,
+    cost: 2,
     portrait: 'bottle-neck.jpg',
     description: 'Remove all special properties from your opponent\'s employees.',
     logic: {
@@ -233,17 +233,20 @@ var spells = [
   },
   {
     name: "In The Zone",
-    cost: 1,
+    cost: 2,
     portrait: 'in-the-zone.jpg',
     description: "Increases a random employee's attack by 3.",
     logic: {
       target: {
         targets: ["playerMinions"],
-        select: "random"
+        select: "random",
+        qty: 1
       },
       spells: {
         changeProperty: {
-          amount: 3,
+          amount: {
+            amount: 3
+          },
           property: 'ap'
         }
       }
@@ -251,7 +254,7 @@ var spells = [
   },
   {
     name: "Technical-Debt",
-    cost: 1,
+    cost: 2,
     portrait: 'technical-debt.jpg',
     description: "Changes an employee's health to 1.",
     logic: {
@@ -262,14 +265,17 @@ var spells = [
       spells: {
         changeProperty: {
           property: 'hp',
-          amount: 1
+          amount: {
+            amount: 1,
+            equal: true
+          }
         }
       }
     }
   },
   {
     name: "Build-Breaker",
-    cost: 1,
+    cost: 3,
     portrait: 'build-breaker.jpg',
     description: "Deal 3 damage to all summoned employees.",
     logic: {
@@ -280,23 +286,6 @@ var spells = [
       spells: {
         damage: {
           amount: 3
-        }
-      }
-    }
-  },
-  {
-    name: "return test.pass",
-    cost: 1,
-    portrait: 'test-pass.jpg',
-    description: "Deal 30 damage to your opponent",
-    logic: {
-      target: {
-        targets: ["opponent"],
-        select: "all"
-      },
-      spells: {
-        damage: {
-          amount: 30
         }
       }
     }

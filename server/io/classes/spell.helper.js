@@ -12,24 +12,21 @@ const heal = (targets, amount) => {
 };
 
 const damage = (targets, amount) => {
-  console.log('t', targets);
   targets.forEach(target => {
-    console.log('target', target);
     let attackee = target.minion ? target.minion : target.player;
-    let id = target.minion ? target.minion.id : null;
-    attackee.wasAttacked(amount);
-    console.log('id', id);
-    target.player.emit('damaged', {id: id, hp: attackee.hp});
-    target.player.opponent.emit('opponentDamaged', {id: id, hp: attackee.hp});
+      let id = target.minion ? target.minion.id : null;
+      attackee.wasAttacked(amount);
+      target.player.emit('damaged', {id: id, hp: attackee.hp});
+      target.player.opponent.emit('opponentDamaged', {id: id, hp: attackee.hp});
 
-    if (!attackee.hp) {
-      if (attackee.id) {
-        _.remove(target.player.summonedMinions, minion => minion.id = attackee.id);
-      } else {
-        target.player.emit('lose');
-        target.player.opponent.emit('win');
+      if (!attackee.hp) {
+        if (attackee.id) {
+          _.remove(target.player.summonedMinions, minion => minion.id === attackee.id);
+        } else {
+          target.player.emit('lose');
+          target.player.opponent.emit('win');
+        }
       }
-    }
   });
 };
 

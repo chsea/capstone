@@ -20,7 +20,7 @@ class Minion {
     if (this.logic.battlecry) this.player.cast(this.logic.battlecry);
   }
   startTurn() {
-    // if (this.logic.eachTurn) this.player.cast(this.logic.eachTurn);
+    if (this.logic.eachTurn) this.player.cast(this.logic.eachTurn);
   }
 
   attacked(attackee) {
@@ -60,7 +60,8 @@ class Minion {
       if (amount.all) this.logic = {};
       else this.logic[amount.property] = amount.amount;
     } else {
-      this[property] += amount;
+      if (amount.equal) this[property] = amount.amount;
+      else this[property] += amount.amount;
     }
   }
 

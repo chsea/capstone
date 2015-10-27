@@ -42,7 +42,6 @@ app.factory('Player', (Minion, Socket, CardFactory, $rootScope, $timeout) => {
     }
 
     summoned(name, id) {
-      console.log(id);
       let card = _.find(CardFactory.getAll(), c => c.name === name);
       card.id = id;
       if (card.type === "Spell") return;

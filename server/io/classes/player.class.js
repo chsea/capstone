@@ -63,6 +63,7 @@ class Player {
     // });
     let card = this.deck.length ? this.draw()[0] : null;
     this.emit('startTurn', card);
+    if (!card) this.opponent.emit('opponentFatigue');
     this.summonedMinions.forEach(minion => minion.startTurn());
   }
   wait() {
@@ -75,7 +76,8 @@ class Player {
     console.log('summoned', summoned.name);
 
     if (summoned.type === 'minion') {
-      let minion = new Minion(summoned, this.summonedMinions.length + 1, this);
+      let idx = this.summonedMinions.length + this.opponent.summonedMinions.length + 1;
+      let minion = new Minion(summoned, idx, this);
       this.summonedMinions.push(minion);
       this.emit('summoned', minion.name, minion.id);
       this.opponent.emit('opponentSummoned', minion.name, minion.id);
@@ -85,6 +87,7 @@ class Player {
   }
 
   cast(logic) {
+    console.log(logic);
     if (logic.target.select === 'selectable') {
       this.decidingSpell = logic.spells;
       this.emit('selectTarget');
@@ -114,7 +117,7 @@ class Player {
               selectableTargets.push({player: this, minion: minion});
             } else {
               minion = _.find(this.opponent.summonedMinions, m => m.id === target);
-              selectableTargets.push({player: this.oppnent, minion: minion});
+              selectableTargets.push({player: this.opponent, minion: minion});
             }
         }
       });

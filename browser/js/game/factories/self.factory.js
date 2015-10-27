@@ -104,7 +104,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state, $timeout) => {
     player.drew(cards);
   });
   Socket.on('propertyChanged', property => {
-    console.log(`${property} changed`);
+    console.log(`${property.id}'s ${property.property} changed`);
     player.propertyChanged(property);
     $rootScope.$digest();
   });
