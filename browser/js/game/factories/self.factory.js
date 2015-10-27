@@ -1,11 +1,12 @@
 app.factory('Self', (Player, Minion, Socket, $rootScope, $state, $timeout) => {
   let player = new Player();
+  player.portrait = 'monkey.png';
 
   Socket.on('gameStart', players => {
     console.log('game started');
     player.name = players.player;
     $rootScope.$digest();
-    Socket.emit('initialDraw');
+    // Socket.emit('initialDraw');
   });
 
   player.setMessage = message => {
@@ -57,13 +58,14 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state, $timeout) => {
     player.mana -= card.cost;
     Socket.emit('summon', id);
   };
-  Socket.on('summoned', name => {
+  Socket.on('summoned', (name, id) => {
     console.log(`summoned ${name}`);
-    player.summoned(name);
+    player.summoned(name, id);
   });
 
   //attacking
   player.attack = data => {
+    console.log(data);
     let attackee = data.attackee ? data.attackee.id : null;
     Socket.emit('attack', data.attacker.id, attackee);
   };

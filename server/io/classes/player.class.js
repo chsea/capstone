@@ -1,5 +1,6 @@
 var _ = require('lodash');
-var Spell = require('./spell.helper.js');
+var Minion = require('./minion.class');
+var Spell = require('./spell.helper');
 
 class Player {
   constructor(name, deck, socket) {
@@ -8,7 +9,7 @@ class Player {
     this.socket.turn = false;
     this.hp = 30;
     this.deck = deck;
-    this.discard = [];
+    // this.discard = [];
     this.hand = [];
     this.summonedMinions = [];
     this.mana = 0;
@@ -35,11 +36,9 @@ class Player {
     this.decidingCards = [this.deck.pop(), this.deck.pop(), this.deck.pop()];
     if (!this.socket.turn) this.decidingCards.push(this.deck.pop());
     this.deciding = true;
-    console.log(this.decidingCards);
     this.emit('initialCards', this.decidingCards);
   }
   setInitialHand(rejectedCards) {
-    console.log("deck: ", this.deck);
     rejectedCards.forEach(i => this.deck.push(this.decidingCards.splice(i, 1)[0]));
     this.shuffle();
     this.hand = this.decidingCards;
@@ -62,9 +61,7 @@ class Player {
     // this.summonedMinions.forEach(minion => {
     //   if (!minion.canAttack) minion.canAttack = true;
     // });
-    let card;
-    if (this.deck.length) card = this.draw()[0];
-    else card = null;
+    let card = this.deck.length ? this.draw()[0] : null;
     this.emit('startTurn', card);
     this.summonedMinions.forEach(minion => minion.startTurn());
   }
@@ -74,14 +71,15 @@ class Player {
   }
 
   summon(id) {
-    let summoned = _.remove(this.hand, handCard => handCard.id === id)[0];
+    let summoned = _.remove(this.hand, card => card.id === id)[0];
     console.log('summoned', summoned.name);
-    summoned.player = this;
+
     if (summoned.type === 'minion') {
-      this.summonedMinions.push(summoned);
-      this.emit('summoned', summoned.name);
-      summoned.summoned();
-      this.opponent.emit('opponentSummoned', summoned.name);
+      let minion = new Minion(summoned, this.summonedMinions.length + 1, this);
+      this.summonedMinions.push(minion);
+      this.emit('summoned', minion.name, minion.id);
+      this.opponent.emit('opponentSummoned', minion.name, minion.id);
+      minion.summoned();
     } else this.cast(summoned.logic, this);
     this.mana -= summoned.cost;
   }
@@ -166,14 +164,11 @@ class Player {
   }
 
   attack(attackerId, attackeeId) {
-    console.log('attacker', attackerId, 'attackee', attackerId);
     let attacker = _.find(this.summonedMinions, minion => minion.id === attackerId);
     // if (!attacker.canAttack) return;
     let attackee;
     if (attackeeId) attackee = _.find(this.opponent.summonedMinions, minion => minion.id === attackeeId);
     else attackee = this.opponent;
-    console.log(`attacker`, attacker);
-    console.log(`attackee`, attackee);
     console.log(`${attacker.name} attacking ${attackee.name}`);
 
     attacker.attacked(attackee, this);
@@ -186,7 +181,6 @@ class Player {
     if (!attackee.hp) {
       if (attackeeId) {
         _.remove(this.opponent.summonedMinions, minion => minion.id === attackee.id);
-        console.log(this.opponent.summonedMinions);
       }
       else {
         this.emit('win');

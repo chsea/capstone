@@ -41,9 +41,10 @@ app.factory('Player', (Minion, Socket, CardFactory, $rootScope, $timeout) => {
       else this.attackable = true;
     }
 
-    summoned(name) {
+    summoned(name, id) {
+      console.log(id);
       let card = _.find(CardFactory.getAll(), c => c.name === name);
-      card.id = card._id;
+      card.id = id;
       if (card.type === "Spell") return;
       let minion = new Minion(card);
       this.summonedMinions.push(minion);
@@ -67,15 +68,7 @@ app.factory('Player', (Minion, Socket, CardFactory, $rootScope, $timeout) => {
       $rootScope.$digest();
     }
     wasAttacked(attackee) {
-      if (!attackee.id) {
-        this.hp = attackee.hp;
-        this.underAttack = true;
-        $rootScope.$digest();
-        $timeout(() => {
-          this.underAttack = false;
-          $rootScope.$digest();
-        }, 500);
-      } else {
+      if (attackee.id) {
         let minion = _.find(this.summonedMinions, m => m.id === attackee.id);
         minion.wasAttacked(attackee.hp);
         $timeout(() => {
@@ -83,6 +76,14 @@ app.factory('Player', (Minion, Socket, CardFactory, $rootScope, $timeout) => {
           $rootScope.$digest();
         }, 500);
         if (!attackee.hp) this.minionDeath(minion);
+      } else {
+        this.hp = attackee.hp;
+        this.underAttack = true;
+        $rootScope.$digest();
+        $timeout(() => {
+          this.underAttack = false;
+          $rootScope.$digest();
+        }, 500);
       }
     }
 

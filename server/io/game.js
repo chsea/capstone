@@ -2,8 +2,6 @@ const CardModel = require('mongoose').model('Card');
 const _ = require('lodash');
 const Promise = require('bluebird');
 const Card = require('./classes/card.class');
-const Minion = Card.Minion;
-const Spell = Card.Spell;
 const Player = require('./classes/player.class');
 const Game = require('./classes/game.class');
 
@@ -24,13 +22,9 @@ module.exports = (io, socket, createdGames) => {
     let game = createdGames[i()];
     let decks = [CardModel.find({_id: {$in: game.p1.deck}}).exec(), CardModel.find({_id: {$in: game.p2.deck}}).exec()];
     Promise.all(decks).then(resolvedDecks => {
-      console.log('1', resolvedDecks);
-      let p1Deck = _.sortBy(resolvedDecks[0], card => card.p1Index);
-      let p2Deck = _.sortBy(resolvedDecks[0], card => card.p2Index);
-      resolvedDecks = [p1Deck.reverse(), p2Deck.reverse()];
-      console.log('2', resolvedDecks);
+      let idx = 0;
       let decks = resolvedDecks.map(deck => {
-        return deck.map(card => card.type === 'minion' ? new Minion(card, card._id.toString()) : new Spell(card, card._id.toString()));
+        return deck.map(card => new Card(card, idx++));
       });
 
       let player1 = new Player(game.p1.name, decks[0], game.p1.socket);

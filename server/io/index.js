@@ -33,10 +33,10 @@ module.exports = function (server) {
     //   io.emit('gameJoined', availableUsers, availableGames);
     // });
     require('./join')(io, socket, games);
-    require('./game')(io, socket, games);
+    // require('./game')(io, socket, games);
 
     // Testing:
-    // require('./test')(io, socket);
+    require('./test')(io, socket);
   });
 
   return io;

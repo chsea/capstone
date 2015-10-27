@@ -7,133 +7,93 @@ app.config($stateProvider => {
       player: AuthService => AuthService.getLoggedInUser()
     }
   });
-}).controller('TestController', ($scope, $state, $compile, Socket, player, Game) => {
-  $scope.enlargeCard = function(card) {
-    $scope.enlarge = card;
-  };
-  var chargeInfo = "Allows an employee to attack on the same turn as when they were summoned.";
-  var tauntInfo = "When an employee with taunt is summoned, the opponent player can only attack the taunting employees.";
-  var divineShieldInfo = "Prevents damage for one turn after being attacked. Expires after being attacked for the first time";
-  var deathRattleInfo = "Casts a spell when it dies";
-  var battlecryInfo = "casts a spell when its summoned";
-  var windfuryInfo = "can attack twice per term";
-  var enrageInfo = "emits attacks to a lesser degree when not at full strength";
-  $scope.describeAbilities = (card) => {
-    // takes a card or minion, returns a description of the cards ability
-    if (!card){
-      $scope.enlargedDescription = undefined;
-    } else if (!card.logic) {
-      $scope.enlargedDescription = "this minion has no special powers";
-    } else if (card.description){
-      $scope.enlargedDescription = card.name + " " + card.description;
-    } else {
-      var abilityList = [];
-      var powerList = [];
-
-      for (var ability in card.logic){
-        if (card.logic[ability] === true){
-          abilityList.push(ability);
-        }
-      }
-
-      for (var power in card.logic) {
-        if (typeof(card.logic[power]) === "object") {
-          var str = card.name + " has " + power + ". It ";
-          switch (power) {
-            case "charge":
-              str += chargeInfo;
-              break;
-            case "taunt":
-              str += tauntInfo;
-              break;
-            case "divineShield":
-              str += divineShieldInfo;
-              break;
-            case "deathRattle":
-              str += deathRattleInfo;
-              break;
-            case "windfury":
-              str += windfuryInfo;
-              break;
-            case "enrage":
-              str += enrageInfo;
-              break;
-            case "battlecry":
-              str += battlecryInfo;
-              break;
-            default:
-              break;
-          }
-          powerList.push(str);
-        }
-      }
-
-      var description = "";
-      if (abilityList.length === 1){
-        description = card.name + " has " + abilityList[0] + ". ";
-      }
-      if (abilityList.length > 1){
-        description = card.name + " has " + abilityList.join(", ") + ". ";
-      }
-      if (powerList.length){
-        description += powerList.join(". ") + ".";
-      }
-
-      if (abilityList.length || powerList.length){
-        $scope.enlargedDescription = description;
-      } else {
-        $scope.enlargedDescription = "This minion has no special powers.";
-      }
-    }
-  };
-
+}).controller('TestController', ($scope, $state, Socket, player, Game) => {
   let players = Game($scope);
   $scope.player = players.player;
-  // $scope.player.portrait = player.portrait;
   $scope.opponent = players.opponent;
+
   $scope.hint = {
     status: 'Show'
   };
   $scope.toggleHint = () => {
     if ($scope.hint.message) {
-      $scope.hint.message = undefined;
-      $scope.hint.status = 'Show Hint';
+      $scope.hint.message = null;
+      $scope.hint.status = 'Show';
       return;
     }
-    $scope.hint.status = 'Hide Hint';
+    $scope.hint.status = 'Hide';
     if ($scope.player.selecting) {
       $scope.hint.message = `Please drag the selector <span><img src="/images/power.png"></span> to your intended target.`;
     } else if ($scope.player.turn) {
-      $scope.hint.message = "It's your turn!";
+      $scope.hint.message = `It's your turn!`;
     } else {
-      $scope.hint.message = `It's ${$scope.opponent.name}s' turn! Please wait while ${$scope.opponent.name} is dedicing.`;
+      $scope.hint.message = `It's ${$scope.opponent.name}'s' turn! Please wait while  ${$scope.opponent.name} is dedicing.`;
     }
   };
-  let rejectedCards = [];
+
+  $scope.enlarge = undefined;
+  $scope.enlargedDescription = undefined;
 
   let deck = player.decks[0].cards.map(card => card._id);
   Socket.emit('playerReady', player.username, deck);
 
+  let rejectedCards = [];
   $scope.reject = idx => {
     $scope.player.decide(idx, rejectedCards);
   };
 
-  $scope.summon = (card, e) => {
-    $scope.player.summon(card.id);
-  };
+  $scope.summon = (card, e) => $scope.player.summon(card.id);
 
   $scope.select = data => {
-    console.log('data', data);
     if (data.selector) $scope.player.attack({attacker: data.selector, attackee: data.selectee});
     else $scope.player.selected(data.selectee);
   };
 
-  $scope.endTurn = () => {
-    $scope.player.emitEndTurn();
+  $scope.endTurn = () => $scope.player.emitEndTurn();
+
+  $scope.leave = () => Socket.emit('leave');
+
+  $scope.enlargeCard = (card) => {
+    $scope.enlarge = card;
   };
 
-  $scope.leave = () => {
-    console.log("leaving game");
-    Socket.emit('leave');
+  Socket.on('win', () => $scope.win = true);
+
+  const spells = {
+    chargeInfo: "allows an employee to attack on the same turn it was summoned.",
+    tauntInfo: "protects its allies by forcing ployers to kill employees with taunt before they can attack the other player or the other player's employees.",
+    divineShieldInfo: "doesn't take damage for its first attack but expires afterwards.",
+    deathRattleInfo: "casts a spell upon death.",
+    battlecryInfo: "casts a spell when summoned.",
+    windfuryInfo: "can attack twice per turn.",
+    enrageInfo: "gains special abilities when this employee's health is below 100%."
+  };
+  $scope.describeAbilities = (card) => {
+    // takes a card or minion, returns a description of the cards ability
+    if (!card) return $scope.enlargedDescription = '';
+
+    let description = [];
+    if (card.description) description.push(card.description);
+    for (let spell in card.logic) {
+      let spellName;
+      switch (spell) {
+        case 'charge':
+          spellName = 'Initiative';
+          break;
+        case 'taunt':
+          spellName = 'Loyal';
+          break;
+        case 'divineShield':
+          spellName = 'Steadfast';
+          break;
+        case 'windfury':
+          spellName = 'Agile';
+          break;
+      }
+      if (spell === 'charge' || spell === 'taunt' || spell === 'divineShield' || spell === 'windfury') {
+        if (card.logic[spell]) description.push(`${spellName} - ${spells[`${spell}Info`]}`);
+      }
+    }
+    $scope.enlargedDescription = description.join('  ');
   };
 });
