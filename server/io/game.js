@@ -24,7 +24,7 @@ module.exports = (io, socket, createdGames) => {
     Promise.all(decks).then(resolvedDecks => {
       let idx = 0;
       let decks = resolvedDecks.map(deck => {
-        return deck.map(card => new Card(card, idx++));
+        return deck.map(card => new Card(card.toObject(), idx++));
       });
 
       let player1 = new Player(game.p1.name, decks[0], game.p1.socket);
