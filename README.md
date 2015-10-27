@@ -1,5 +1,5 @@
 ##Windfury!
-Live at windfury.co!
+Live at [windfury.co](http://windfury.co)!
 
 Windfury is a trading card game that involves turn-based battles between two adversaries. Each game represents a battle between players, who utilize spells and minions depicted on playing cards to defeat their opponent.
 
