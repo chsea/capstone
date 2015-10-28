@@ -31,6 +31,10 @@ app.config($stateProvider => {
     }
   };
 
+  $scope.showDescription = (card) => {
+    return !card.description && _.every(card.logic, spell => !spell);
+  };
+
   $scope.enlarge = undefined;
   $scope.enlargedDescription = undefined;
 
@@ -68,9 +72,9 @@ app.config($stateProvider => {
     windfuryInfo: "can attack twice per turn.",
     enrageInfo: "gains special abilities when this employee's health is below 100%."
   };
-  $scope.describeAbilities = (card) => {
+  $scope.describeAbilities = card => {
     // takes a card or minion, returns a description of the cards ability
-    if (!card) return $scope.enlargedDescription = '';
+    if (!card) return $scope.enlargedDescription = null;
 
     let description = [];
     if (card.description) description.push(card.description);

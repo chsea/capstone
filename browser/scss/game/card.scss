@@ -176,15 +176,27 @@ card, blank-card {
   cursor: pointer;
   &.small{
     margin: 0 10px;
+    width: 100px;
+    height: 150px;
     font-size: 8px;
     .background {
       border-radius: 6px;
     }
-    width: 100px;
-    height: 150px;
-    .text .content .name {
-      font-size: 10px;
-    }
+    // width: 100px;
+    // height: 150px;
+    // .text .content .name {
+    //   font-size: 10px;
+    // }
+  }
+  &.enlarge {
+    position: relative;
+    top: -70px;
+    width: 150px;
+    height: 225px;
+    font-size: 12px;
+    .background {
+      border-radius: 8px;
+    };
   }
   display: none;
   font: 15px Monaco;
