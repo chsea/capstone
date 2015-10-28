@@ -7,7 +7,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state, $timeout) => {
     player.name = players.player;
     $rootScope.$digest();
     // Comment out for testing
-    // Socket.emit('initialDraw');
+    Socket.emit('initialDraw');
   });
 
   player.setMessage = message => {
