@@ -54,8 +54,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 183px;
+    height: 186px;
+    position: absolute;
+    width: 1200px;
   };
+  #summoned {
+    top: 345px;
+  }
+  #opponent-summoned {
+    top: 155px;
+  }
   #initial {
     display: flex;
     justify-content: center;

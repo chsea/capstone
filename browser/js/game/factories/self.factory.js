@@ -6,6 +6,7 @@ app.factory('Self', (Player, Minion, Socket, $rootScope, $state, $timeout) => {
     console.log('game started');
     player.name = players.player;
     $rootScope.$digest();
+    // Comment out for testing
     Socket.emit('initialDraw');
   });
 
